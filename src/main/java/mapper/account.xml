@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.account">
+	<insert id="insertAccount" parameterType="account">
+		insert account (id, name, balance, type, grade) values(#{id}, #{name}, #{balance}, #{type}, #{grade})
+	</insert>
+	
+	<select id="selectAccount" parameterType="String" resultType="account">
+		select * from account where id=#{id}
+	</select>
+	
+	<update id="updateBalance" parameterType="Map">
+		update account set balance=#{balance} where id=#{id}
+	</update>
+	
+	<select id="selectAccountList" resultType="account">
+		select * from account
+	</select>
+</mapper>

@@ -1,0 +1,19 @@
+package vo;
+
+public class SellerVO {
+    // user 테이블 정보
+    private String userId;
+    private String userName;
+    private String phone;
+    private String birthDate;
+    private String email;
+    private boolean isSeller;
+    private boolean deleted;
+
+    // sellerDetail 테이블 정보
+    private String storeName;
+    private String businessNum;
+    private boolean isAlarm;
+
+    // 필요하다면 Getter/Setter, toString 등 추가
+}
