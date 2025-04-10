@@ -17,5 +17,6 @@ public class SellerVO {
     private String businessNum;
     private boolean isAlarm;
 
+    String str="머지 테스트";
     // 필요하다면 Getter/Setter, toString 등 추가
 }
