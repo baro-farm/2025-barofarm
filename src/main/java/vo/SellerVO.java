@@ -17,5 +17,6 @@ public class SellerVO {
     private String businessNum;
     private boolean isAlarm;
 
+    private String test="merge";
     // 필요하다면 Getter/Setter, toString 등 추가
 }
