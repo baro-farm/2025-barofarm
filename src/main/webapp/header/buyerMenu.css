@@ -1,0 +1,113 @@
+@font-face {            
+    font-family: 'SUIT-Regular';            
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');            
+    font-weight: normal;            
+    font-style: normal;        
+}    
+body {
+    font-family:SUIT-Regular, sans-serif;       
+    margin: 0;
+    padding: 0;
+}
+
+/* 사이드바 */
+.sidebar {
+    width: 240px;
+    padding: 15px;
+    position: absolute;
+    left: 0;
+    top: 50px;
+}
+
+/* 회원 정보 박스 */
+.user-info {
+    padding: 20px;
+    margin-bottom: 40px;
+    background: #FBF6EE;
+    font-size: 14px;
+    height: 110px;
+    position: relative;
+}
+.user-info p {
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+}
+.user-info span {
+    margin: 5px 0;
+    font-weight: bold;            
+}
+.user-info hr {
+    border: none;
+    border-top: 1px solid black;
+    margin: 5px 0;
+}
+.user-buttons {
+    margin-top: 6px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+.user-buttons button {
+    padding: 5px 8px;
+    border: none;
+    background: #6CAF50;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 3px;
+}
+.user-buttons button:hover {
+    background: #569642;
+}
+
+/* 마이메뉴 */
+.menu-title {
+    font-weight: bold;
+    padding: 8px 8px;
+    border-bottom: 2px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+.menu-list {
+    list-style: none;
+    padding: 0 8px;
+    margin-top: 8px;
+}
+
+.menu-list li {
+    padding: 8px 0;
+}
+
+.menu-list li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    display: block;
+}
+
+.menu-list li a:hover {
+    text-decoration: underline;
+    text-decoration-color:#FFB534;
+    text-decoration-thickness: 3px; /* 밑줄 두께 */
+    text-underline-offset: 5px; /* 글자와 밑줄 사이 간격 */
+}
+.menu-list li a.active {
+    text-decoration: underline;
+    text-decoration-color:#FFB534;
+    text-decoration-thickness: 3px; /* 밑줄 두께 */
+    text-underline-offset: 5px; /* 글자와 밑줄 사이 간격 */
+}
+/* 리뷰 하위 메뉴 항상 보이도록 설정 */
+.submenu {
+    list-style: none;
+    padding-left: 15px; 
+}
+
+.submenu li {
+    padding: 3px 0;
+    font-size: 14px;
+
+}
