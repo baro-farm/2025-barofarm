@@ -1,7 +1,17 @@
+@charset "utf-8";
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
+
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 html,
 body,
@@ -107,6 +117,7 @@ section {
 }
 body {
   line-height: 1;
+  font-family: 'SUIT-Regular';
 }
 ol,
 ul {
@@ -127,34 +138,4 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-/* @import url('https://fastly.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css'); */
-@font-face {
-  font-family: 'HakgyoansimWoojuR';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2')
-    format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'IM_Hyemin-Bold';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Bold.woff2')
-    format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
-@font-face {
-  font-family: 'SUIT-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
-    format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-body {
-  /* font-family: Arial, sans-serif; */
-  /* font-family: 'HakgyoansimWoojuR'; */
-  /* font-family: 'IM_Hyemin-Bold'; */
-  font-family: 'SUIT-Regular';
-}
