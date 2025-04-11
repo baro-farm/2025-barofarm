@@ -1,0 +1,123 @@
+
+@font-face {            
+  font-family: 'SUIT-Regular';            
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');            
+  font-weight: normal;            
+  font-style: normal;        
+}       
+
+body {
+  font-family:SUIT-Regular, sans-serif;       
+  margin: 0;
+  padding: 20px;
+  background-color: #fff;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+h2 {
+  color: #65B741;
+}
+
+.form-big {
+  display: flex;
+  justify-content: space-between;
+}
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  width: 50%;
+  padding-right: 10px;
+}
+.form-content {
+  margin-bottom: 15px;
+  display: flex;
+}
+
+label {
+  /* display: block; */
+  /* margin-bottom: 5px; */
+  font-weight: bold;
+  width: 130px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input_div input {
+  border-radius: 4px;
+  border: 1px solid #c2c2c2;
+  width: 240px;
+  padding: 6px 10px;
+}
+
+textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.button-group {
+  margin-top: 20px;
+  float: right;
+}
+
+.btn {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-submit {
+  background-color: #65B741;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-submit:hover {
+  background-color: #579d39;
+}
+
+.btn-cancel {
+  background-color: #FFB534;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #e6a42f;
+}
+
+.form-row {
+  display: flex;
+  margin-bottom: 10px;
+  padding-right: 10px;
+  align-items: center;
+}
+
+.form-row .half {
+  flex: 1;
+}
+
+.form-row .half input {
+  width: 90%;
+}
+
+.upload-btn {
+  background-color: #b9eaa3;
+  border: none;
+  padding: 6px 12px;
+  margin-right: 25px;
+  margin-left: -20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
