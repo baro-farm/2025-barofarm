@@ -17,7 +17,7 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(Integer userNum, String userid, String pwd, String userName, String phone, LocalDate birthDate, String email,
+	public User(Long userNum, String userid, String pwd, String userName, String phone, LocalDate birthDate, String email,
 			Boolean isSeller) {
 		super();
 		this.userNum = userNum;
@@ -30,10 +30,10 @@ public class User {
 		this.isSeller = isSeller;
 	}
 	
-	public Integer getUserNum() {
+	public Long getUserNum() {
 		return userNum;
 	}
-	public void setUserNum(Integer userNum) {
+	public void setUserNum(Long userNum) {
 		this.userNum = userNum;
 	}
 	public String getUserid() {
