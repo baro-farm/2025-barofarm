@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-    <title>관리자|공지사항</title>
+    <title>관리자 | 공지사항</title>
     <link rel="stylesheet" href="${contextPath}/header/reset.css">
     <link rel="stylesheet" href="${contextPath}/admin/noticeList.css" />
     <link
@@ -18,9 +18,7 @@
       rel="stylesheet"
       integrity="sha384-jFvlDSY24z+oXMByOoX2Z1gM+M5NMd0uG7sDa4skv2mHXPuS0/RYXwPGLK0+Mgdc"
       crossorigin="anonymous"
-    />
-
-    
+    /> 
 </head>
 <body>
 	<jsp:include page="/header/adminHeader.jsp" />
@@ -32,18 +30,20 @@
       </div>
     </header>
     <div id="content">
-      <div class="notice-header">
+    <div id="wrapper">
+      <div class="notice_header">
         <span id="title">공지사항</span>
         <button id="new_notice">공지 작성</button>
       </div>
-      <table id="notice_table" class="table" width="100%">
+      <table id="notice_table" class="table display nowrap">
         <thead>
           <tr>
-            <th>작성자</th>
+            <th>번호</th>
             <th>제목</th>
             <th>내용</th>
             <th>작성일자</th>
             <th>수정일자</th>
+            <th>고정</th>
             <th>수정</th>
             <th>삭제</th>
           </tr>
@@ -52,8 +52,8 @@
           <c:forEach var="notice" items="${requestScope.noticeList}" varStatus="status">
           	<tr>
           		<td>${notice.noticeNum}</td>
-          		<td>${notice.title}</td>
-          		<td>${notice.content}</td>
+          		<td><div class="ellipsis">${notice.title}</div></td>
+          		<td><div class="ellipsis">${notice.content}</div></td>
           		<td>${notice.createdAt}</td>
           		<td>${notice.updatedAt}</td>
           		<td>${notice.fixed}</td>
@@ -63,6 +63,7 @@
          </c:forEach>
         </tbody>
       </table>
+    </div>
     </div>
     <script
       src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"
