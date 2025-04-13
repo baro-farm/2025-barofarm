@@ -33,7 +33,7 @@
     <div id="wrapper">
       <div class="notice_header">
         <span id="title">공지사항</span>
-        <button id="new_notice">공지 작성</button>
+        <button id="new_notice" onclick="location.href='${contextPath}/insertNotice'">공지 작성</button>
       </div>
       <table id="notice_table" class="table display nowrap">
         <thead>
