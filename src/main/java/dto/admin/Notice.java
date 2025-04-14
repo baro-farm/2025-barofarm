@@ -79,6 +79,16 @@ public class Notice {
 		this.fixed = fixed;
 	}
 
+	public Notice(Integer noticeNum, Integer userNum, String title, String content, Date updatedAt, Integer fixed) {
+		super();
+		this.noticeNum = noticeNum;
+		this.userNum = userNum;
+		this.title = title;
+		this.content = content;
+		this.updatedAt = updatedAt;
+		this.fixed = fixed;
+	}
+
 	public String getPreviewContent() {
 		String plain = content.replaceAll("<[^>]*>", ""); // HTML 태그 제거
 		return plain.length() > 100 ? plain.substring(0, 100) : plain;

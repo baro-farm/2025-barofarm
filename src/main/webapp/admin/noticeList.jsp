@@ -54,7 +54,7 @@
           		<td>${notice.createdAt}</td>
           		<td>${notice.updatedAt}</td>
           		<td>${notice.fixed}</td>
-	            <td><button class="updateBtn" value="${notice.noticeNum}">수정</button></td>
+	            <td><button class="updateBtn" value="${notice.noticeNum}" onclick="location.href='updateNotice?noticeNum=${notice.noticeNum}'">수정</button></td>
 	            <td><button class="deleteBtn" value="${notice.noticeNum}" data-num="${notice.noticeNum}">삭제</button></td>
           	</tr>
          </c:forEach>

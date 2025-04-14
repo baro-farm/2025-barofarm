@@ -16,4 +16,7 @@
 	<delete id="deleteNotice" parameterType="Integer">
 		delete from notice where noticeNum=#{noticeNum}
 	</delete>
+	<update id="updateNotice" parameterType="notice">
+		update notice set userNum=#{userNum}, title=#{title}, content=#{content}, fixed=#{fixed} where noticeNum=#{noticeNum}
+	</update>
 </mapper>

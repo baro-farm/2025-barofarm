@@ -30,4 +30,10 @@ public class NoticeDAOImpl implements NoticeDAO {
 		sqlSession.delete("mapper.notice.deleteNotice", noticeNum);
 		sqlSession.commit();
 	}
+	
+	@Override
+	public void updateNotice(Notice notice) throws Exception {
+		sqlSession.update("mapper.notice.updateNotice", notice);
+		sqlSession.commit();		
+	}
 }

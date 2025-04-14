@@ -9,4 +9,5 @@ public interface NoticeService {
 	void writeNotice(Notice notice) throws Exception;
 	void deleteNotice(Integer noticeNum) throws Exception;
 	Notice selectNotice(Integer noticeNum) throws Exception;
+	void updateNotice(Notice notice) throws Exception;
 }
