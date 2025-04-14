@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%@ page import="dto.admin.Notice" %>
 
@@ -53,7 +54,7 @@
           	<tr>
           		<td>${notice.noticeNum}</td>
           		<td><div class="ellipsis">${notice.title}</div></td>
-          		<td><div class="ellipsis">${notice.content}</div></td>
+				<td><div class="ellipsis">${notice.previewContent}</div></td>
           		<td>${notice.createdAt}</td>
           		<td>${notice.updatedAt}</td>
           		<td>${notice.fixed}</td>
