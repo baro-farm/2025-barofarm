@@ -1,20 +1,27 @@
 
-@font-face {            
-  font-family: 'SUIT-Regular';            
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');            
-  font-weight: normal;            
-  font-style: normal;        
-}       
 
-body {
-  font-family:SUIT-Regular, sans-serif;       
-  margin: 0;
-  padding: 20px;
-  background-color: #fff;
+.title_head {
+    border-bottom: 2px solid black;
+    margin-bottom: 20px;
+}
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #69c048;
+}
+.title_head p {
+    color: #4d4d4d;
+    font-size: 16px;
 }
 .container {
   max-width: 800px;
   margin: 0 auto;
+    /* margin: 0; */
+    /* padding: 0; */
+    /* border: 0; */
+    /* font-size: 100%; */
+    font: unsest;
+    vertical-align: baseline;
 }
 h2 {
   color: #65B741;
