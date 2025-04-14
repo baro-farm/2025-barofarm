@@ -1,74 +1,67 @@
-@font-face {
-    font-family: 'SUIT-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-body{
-    font-family:SUIT-Regular, sans-serif;
+@charset "utf-8";
+
+.mainHeader{
     width: 1280px;
     margin: 0 auto;
 }
-header{
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: space-between; /* 왼쪽(로고)과 오른쪽(메뉴+검색창)으로 정렬 */
-    width: 100%;
+
+.userMenuUl, .navMenuUl{
+  display: flex;
 }
 
+.userli a {
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+
+.headerli a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 15px;
+}
 /* 로그인가입 */
-.user-menu{
+.userMenu{
     margin: 0;
     height: 30px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 15px; /* 아이템 간격 */
-    padding-top: 5px;
-
-}
-.userBtn{
-    display: flex;
-    font-size: 14px;
+    padding: 0 40px;
 }
 .userli {
     margin-left: 10px;
 }
+/* 로고설정 */
 .logo{
     width: 150px;
-    margin: 0 0 0 100px;
-}
-a{
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    font-size: 16px;
-}
-.userBtn:hover, .headerBtn:hover{
-    border-bottom: 2px solid #FFB534;
-}
-li {
-    list-style: none;
-    display: inline-block;
-}
-div{
-    display: inline-block;
 }
 
 /* 헤더메뉴 */
-.nav-menu {
-        flex-direction: column;
-        align-items: center;
-        margin-top: 100px;
+.headerMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  box-sizing: border-box;
 }
-.headerli{
-    margin: 0 30px;
+.headerli {
+    margin: 105px 30px 0 30px;
     padding: 5px 8px 0 8px;            
+}
+.headerli:hover {
+    border-bottom: 2px solid #FFB534;
 }
 
 /* 검색바 */
-.search-box {
+.searchBox {
     display: flex;
     align-items: center;
     border: 1px solid #ddd;
@@ -78,21 +71,17 @@ div{
     height: 20px;
     margin-top: 105px;
 }
-.search-box input {
+.searchBox input {
     border: none;
     outline: none;
     padding: 5px;
     width: 140px;
 }
-.search-box button {
+.searchBox button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 18px;
-}
-/* 아이콘 */
-.bi-bell{
-    font-size: 20px;
 }
 .bi-search{
     font-size: 15px;
