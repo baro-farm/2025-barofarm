@@ -92,7 +92,7 @@ thead > tr > th {
 }
 
 .ellipsis {
-  max-width: 200px; /* 적당히 조절 가능 */
+  max-width: 300px; /* 적당히 조절 가능 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

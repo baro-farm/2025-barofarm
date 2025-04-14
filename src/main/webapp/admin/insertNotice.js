@@ -4,6 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     height: '500px',
     initialEditType: 'markdown',
     previewStyle: 'vertical',
+    hooks: {
+      addImageBlobHook: async (blob, callback) => {
+        const formData = new FormData();
+        formData.append('uploadFile', blob);
+
+		try {
+	        const res = await fetch('/barofarm/imageUpload', {
+	          method: 'POST',
+	          body: formData,
+	        });
+	
+	        const result = await res.json();
+	        callback(result.url, '이미지'); // 이미지가 에디터에 삽입됨
+			} catch (e) {
+				console.log('이미지 업로드 실패: ', e);
+			}
+     	},
+      },
   });
 
   const cancelBtn = document.getElementById('cancelBtn');
@@ -23,10 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const contentInput = document.getElementById('notice_content');
       contentInput.value = htmlContent;
       console.log(contentInput.value);
-      
-      
+
       setTimeout(() => {
-      this.submit(); // 여기서 진짜 submit 실행
-    }, 0);
+        this.submit(); // 여기서 진짜 submit 실행
+      }, 0);
     });
 });

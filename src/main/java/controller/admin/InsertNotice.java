@@ -49,6 +49,8 @@ public class InsertNotice extends HttpServlet {
 		String fixedParam = request.getParameter("fixed");
 		Integer fixed = fixedParam != null && fixedParam.equals("on") ? 1 : 0;
 
+		
+		// user 임시값
 		Notice notice = new Notice(1, title, content, fixed);
 		NoticeService service = new NoticeServiceImpl();
 		try {
