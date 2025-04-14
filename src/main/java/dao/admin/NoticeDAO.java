@@ -9,4 +9,5 @@ public interface NoticeDAO {
 	void insertNotice(Notice notice) throws Exception;
 	Notice selectNotice(Integer noticeNum) throws Exception;
 	void deleteNotice(Integer noticeNum) throws Exception;
+	void updateNotice(Notice notice) throws Exception;
 }

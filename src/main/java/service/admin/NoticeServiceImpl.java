@@ -32,4 +32,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public Notice selectNotice(Integer noticeNum) throws Exception {
 		return noticeDao.selectNotice(noticeNum);
 	}
+	
+	@Override
+	public void updateNotice(Notice notice) throws Exception {
+		noticeDao.updateNotice(notice);
+	}
 }
