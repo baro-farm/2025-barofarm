@@ -17,5 +17,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Notice> allNotice() throws Exception {
 		return noticeDao.selectNoticeList();
 	}
-
+ 
+	@Override
+	public void writeNotice(Notice notice) throws Exception {
+		noticeDao.insertNotice(notice);
+	}
 }

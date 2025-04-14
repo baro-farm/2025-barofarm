@@ -6,4 +6,8 @@
 	<select id="selectNoticeList" resultType="notice">
 		select * from notice
 	</select>
+	<insert id="insertNotice" parameterType="notice">
+		insert into notice (userNum, title, content, fixed) 
+		values (#{userNum}, #{title}, #{content}, #{fixed})
+	</insert>
 </mapper>

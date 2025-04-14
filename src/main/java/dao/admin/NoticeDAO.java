@@ -6,4 +6,5 @@ import dto.admin.Notice;
 
 public interface NoticeDAO {
 	List <Notice> selectNoticeList() throws Exception;
+	void insertNotice(Notice notice) throws Exception;
 }
