@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.kockFarm">
+	<insert id="insertKockFarm" parameterType="kockFarm" useGeneratedKeys="true" keyProperty="kockNum">
+		insert into kockFarm (userNum, cateNum, title, quantity, price, shipDate, content, imgUrl) values(#{userNum}, #{cateNum}, #{title}, #{quantity}, #{price},#{shipDate},#{content},#{imgUrl})
+	</insert>
+	<select id="selectKockFarm" parameterType="Long" resultType="KockFarm">
+		SELECT k.*, u.userName, c.name 
+		FROM kockfarm k 
+		JOIN user u ON k.userNum=u.userNum
+		JOIN category c on k.cateNum=c.cateNum
+		where k.kockNum=#{kockNum} 
+	</select>
+	<update id="updateKockFarm" parameterType="kockFarm">
+		update kockFarm set title=#{title}, quantity=#{quantity}, price=#{price}, shipDate=#{shipDate}, content=#{content}, imgUrl=#{imgUrl},
+		updatedAt= CURRENT_TIMESTAMP
+		where kockNum=#{kockNum}
+		
+	</update>
+	<delete id="deleteKockFarm" parameterType="Long">
+		delete from kockFarm where kockNum=#{kockNum}
+	</delete>
+	<select id="getKockFarmList" resultType="kockFarm">
+		SELECT k.*, u.userName, c.name 
+		FROM kockfarm k 
+		JOIN user u ON k.userNum=u.userNum
+		JOIN category c on k.cateNum=c.cateNum
+		ORDER BY k.createdAt DESC;
+	</select>
+</mapper>

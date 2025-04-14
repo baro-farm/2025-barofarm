@@ -1,6 +1,9 @@
-package controller.seller;
+package controller.buyer;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import dto.buyer.KockFarm;
+import service.buyer.KockFarmService;
+import service.buyer.KockFarmServiceImpl;
 
 /**
  * Servlet implementation class InsertKockFarm
@@ -44,15 +51,29 @@ public class InsertKockFarm extends HttpServlet {
 		MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8",
 				new DefaultFileRenamePolicy());
 		
-		String userNum = multi.getParameter("userNum");
-		String cateNum = multi.getParameter("cateNum");
+		Long userNum = Long.parseLong(multi.getParameter("userNum"));
+		Long cateNum = Long.parseLong(multi.getParameter("cateNum"));
 		String title = multi.getParameter("title");
-		String quantity = multi.getParameter("quantity");
-		String price = multi.getParameter("price");
-		String shipDate = multi.getParameter("shipDate");
-		String content = multi.getParameter("content");
-		String imgUrl = multi.getParameter("ifile");
+		Integer quantity = Integer.parseInt(multi.getParameter("quantity"));
+		Integer price = Integer.parseInt(multi.getParameter("price"));
 		
+		DateTimeFormatter  fommatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate shipDate = LocalDate.parse(multi.getParameter("shipDate"),fommatter);
+		
+		String content = multi.getParameter("content");
+		String imgUrl = multi.getFilesystemName("ifile");
+				
+		KockFarm kockfarm = new KockFarm(userNum, cateNum, title, quantity, price, shipDate, content, imgUrl);
+		KockFarmService service = new KockFarmServiceImpl();
+		try {
+			service.insertKockFarm(kockfarm);
+			request.setAttribute("kockfarm", kockfarm);
+			response.sendRedirect(request.getContextPath()+"/detailKockFarm?kockNum="+kockfarm.getKockNum());
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("err", "게시글 작성시오류가 발생했습니다.");
+			request.getRequestDispatcher("error.jsp").forward(request, response);
+		}
 		
 	}
 
