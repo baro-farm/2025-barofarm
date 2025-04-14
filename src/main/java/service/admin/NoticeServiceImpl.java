@@ -22,4 +22,14 @@ public class NoticeServiceImpl implements NoticeService {
 	public void writeNotice(Notice notice) throws Exception {
 		noticeDao.insertNotice(notice);
 	}
+	
+	@Override
+	public void deleteNotice(Integer noticeNum) throws Exception {
+		noticeDao.deleteNotice(noticeNum);
+	}
+	
+	@Override
+	public Notice selectNotice(Integer noticeNum) throws Exception {
+		return noticeDao.selectNotice(noticeNum);
+	}
 }

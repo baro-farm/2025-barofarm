@@ -58,19 +58,24 @@
           		<td>${notice.createdAt}</td>
           		<td>${notice.updatedAt}</td>
           		<td>${notice.fixed}</td>
-	            <td><button class="updateBtn">수정</button></td>
-	            <td><button class="deleteBtn">삭제</button></td>
+	            <td><button class="updateBtn" value="${notice.noticeNum}">수정</button></td>
+	            <td><button class="deleteBtn" value="${notice.noticeNum}" data-num="${notice.noticeNum}">삭제</button></td>
           	</tr>
          </c:forEach>
         </tbody>
       </table>
     </div>
     </div>
-    <script
-      src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"
-      integrity="sha384-FcKnveOKVsyQDhaxWTmHPNxY0wtv3QwEmOUwRZ5g+QqTQvSKKmnkT0NiFcDCCIvg"
-      crossorigin="anonymous"
-    ></script>
+    <div id="deleteModal" class="modal">
+      <div class="modal_content">
+        <p id="modal_title">이 글을 삭제하시겠습니까?</p>
+        <div id="selected_title"></div>
+        <div id="selected_content"></div>
+        <button id="confirmDelete">삭제</button>
+        <button id="cancelDelete">취소</button>
+      </div>
+    </div>
+    <script src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"></script>
 	<script src="${contextPath}/admin/noticeList.js"></script>
 </body>
 </html>

@@ -6,8 +6,14 @@
 	<select id="selectNoticeList" resultType="notice">
 		select * from notice
 	</select>
+	<select id="selectNotice" parameterType="Integer" resultType="notice">
+		select * from notice where noticeNum=#{noticeNum}
+	</select>
 	<insert id="insertNotice" parameterType="notice">
 		insert into notice (userNum, title, content, fixed) 
 		values (#{userNum}, #{title}, #{content}, #{fixed})
 	</insert>
+	<delete id="deleteNotice" parameterType="Integer">
+		delete from notice where noticeNum=#{noticeNum}
+	</delete>
 </mapper>
