@@ -16,8 +16,18 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 
 	@Override
+	public Notice selectNotice(Integer noticeNum) throws Exception {
+		return sqlSession.selectOne("mapper.notice.selectNotice", noticeNum);
+	}
+	
+	@Override
 	public void insertNotice(Notice notice) throws Exception {
 		sqlSession.insert("mapper.notice.insertNotice", notice);
+		sqlSession.commit();
+	}
+	
+	public void deleteNotice(Integer noticeNum) throws Exception {
+		sqlSession.delete("mapper.notice.deleteNotice", noticeNum);
 		sqlSession.commit();
 	}
 }

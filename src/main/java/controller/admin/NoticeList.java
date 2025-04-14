@@ -32,9 +32,6 @@ public class NoticeList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		NoticeService service = new NoticeServiceImpl();
 		try {
-			System.out.println(service.allNotice());
-//			System.out.println("");
-			
 			request.setAttribute("noticeList", service.allNotice());
 			request.getRequestDispatcher("/admin/noticeList.jsp").forward(request, response);
 		} catch (Exception e) {
