@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: SUIT-Regular, sans-serif;
+}
+
+body {
+    margin: 20px;
+}
+
+.addressContainer {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.addressHeader {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+}
+
+.addressTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.addressTable th, .addressTable td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.addressTable th {
+    font-weight: bold;
+    background-color: #f8f8f8;
+}
+
+.addressTable .bold {
+    font-weight: bold;
+}
+
+.addressTable .defaultAddress {
+    color: gray;
+    font-size: 12px;
+}
+
+.btnGreen {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btnRed {
+    background-color: #D72638;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+.btnGreen:hover {
+    background-color: #45a049;
+}
+
+.btnRed:hover {
+    background-color: #C62233;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination span {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 3px;
+}
+
+.pagination .active {
+    background-color: green;
+    color: white;
+    border: none;
+}
+
+.addAddress {
+    text-align: right;
+}
