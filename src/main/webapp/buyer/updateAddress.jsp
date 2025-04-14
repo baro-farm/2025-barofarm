@@ -55,7 +55,7 @@
 			<input type="hidden" name="addrNum" value="${address.addrNum}" />
 		
         <div class="btn-group">
-            <button type="submit" class="btn btn-save">등록</button>
+            <button type="submit" class="btn btn-save">수정</button>
             <button type="button" class="btn btn-cancel">취소</button>
         </div>
     </form>
