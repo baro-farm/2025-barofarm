@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="dto.buyer.User" %>
 <%	
-	User userInfo = (User)request.getAttribute("user");
+	User user = (User)request.getAttribute("user");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
     <form action="">
         <div class="formGroup">
             <label>아이디</label>
-            <input type="text" value="${userInfo.userID}" disabled  }>
+            <input type="text" value="${user.userID}" disabled  }>
         </div>
 
         <div class="formGroup">
@@ -36,12 +36,12 @@
 
         <div class="formGroup">
             <label>이름</label>
-            <input type="text"value="${userInfo.userName}">
+            <input type="text"value="${user.userName}">
         </div>
 
         <div class="formGroup">
             <label>전화번호</label>
-            <input type="text" value="${userInfo.phone}">
+            <input type="text" value="${user.phone}">
         </div>
 
         <div class="formGroup">
