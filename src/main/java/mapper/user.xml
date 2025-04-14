@@ -25,7 +25,7 @@
 	     from user u
 	     Left join address a
 	     on u.userNum = a.userNum
-	     where u.userId = #{userId}
+	     where u.userId = #{userId} and a.isDefault=1
 	</select>
 		<select id="selectUser" parameterType="String" resultType="user" >
 		select userId, userName,phone from user where userId=#{userId} 		 
@@ -38,7 +38,7 @@
 	<update id="updateAddress" parameterType="address">
 		update address
 		set postCode = #{postCode}, addr1=#{addr1}, addr2=#{addr2}
-		where userNum=#{userNum}
+		where userNum=#{userNum} and isDefault=1
 	</update>
 	<select id="selectUserNumById" parameterType="String" resultType="Long">
 		select userNum from user where userId=#{userId}
