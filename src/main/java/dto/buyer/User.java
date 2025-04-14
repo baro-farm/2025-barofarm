@@ -130,11 +130,11 @@ public class User {
 		this.isSeller = isSeller;
 	}
 
-	public boolean getDeleted() {
+	public boolean getIsDeleted() {
 		return deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	public void setIsDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
 

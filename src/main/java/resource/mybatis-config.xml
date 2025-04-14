@@ -2,28 +2,29 @@
 <!DOCTYPE configuration
 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
-
-
+	
 <configuration>
-    <typeAliases>
-    	
+	<typeAliases>
     	<typeAlias type="dto.buyer.User" alias="user"/>
-    </typeAliases>
-
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/barofarm"/>
-                <property name="username" value="root"/>
-                <property name="password" value="emb306"/>
-            </dataSource>
-        </environment>
-    </environments>
-    <mappers>
-
-    	
+    	<typeAlias type="dto.buyer.Address" alias="address"/>
+    	<typeAlias type="vo.UserVO" alias="userVo"/>
+	</typeAliases>
+		
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="org.mariadb.jdbc.Driver"/>
+				<property name="url" value="jdbc:mariadb://localhost:3306/barofarm"/>
+				<property name="username" value="root"/>
+				<property name="password" value="7564"/>
+			</dataSource>	
+			
+		</environment>
+	</environments>
+	
+	<mappers>
     	<mapper resource="mapper/user.xml"/>
-    </mappers>
+
+	</mappers>
 </configuration>
