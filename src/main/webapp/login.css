@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'SUIT-Regular', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loginContainer {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);;
+}
+
+/* 로그인 제목 */
+.loginTitle {
+    text-align: left;
+    color: #65B741;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+/* 일반/판매자 선택 */
+.userType {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.userType label {
+    margin-right: 15px;
+}
+
+/* 입력 필드 스타일 */
+.inputField {
+    display: block;
+    width: 275px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* 로그인 옵션 (아이디 저장 & 자동 로그인) */
+.loginOptions {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.loginOptions label {
+    margin-right: 15px;
+}
+
+/* 로그인 버튼 (a 태그 스타일) */
+.loginBtn {
+    display: block;
+    width: 275px;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: #FFB534;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* 카카오 로그인 버튼 */
+.kakaoLoginBtn {
+    width: 300px;
+    display: block;
+    margin-top: 10px;
+}
+
+.kakaoLoginBtn img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* 하단 메뉴 */
+.bottomMenu {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 5px;
+    font-size: 14px;
+}
+
+.bottomMenu a {
+    text-decoration: none;
+    color: #4d4d4d;
+}
+
+.bottomMenu a:first-child {
+    margin-right: auto;
+}
+.bottomMenu a:not(:first-child) {
+    margin-left: 10px;
+}
