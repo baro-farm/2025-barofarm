@@ -3,7 +3,7 @@ $(function() {
 		$("#doubldId").click(function(e) {
 			e.preventDefault();
 			
-			const userid = $("#userid").val();
+			const userid = $("#userId").val();
 			
 			if (!userid) { // 아이디가 입력되지 않은 경우 처리
             	alert("아이디를 입력해주세요.");
@@ -15,7 +15,7 @@ $(function() {
 				type:'post',
 				async:true,
 				dataType:'text',
-				data:{userid:$("#userid").val()},
+				data:{userid:$("#userId").val()},
 				success:function(result) {
 					if(result==='true') {
 						alert("사용 중인 아이디입니다.")
