@@ -7,6 +7,7 @@
 	<typeAliases>
 		<typeAlias type="dto.buyer.KockFarm" alias="kockFarm" />	
 		<typeAlias type="dto.buyer.KockComment" alias="kockComment" />
+		<typeAlias type="dto.admin.Notice" alias="notice" />	
 	</typeAliases>
 		
 	<environments default="development">
@@ -18,11 +19,11 @@
 				<property name="username" value="root"/>
 				<property name="password" value="7564"/>
 			</dataSource>	
-			
 		</environment>
 	</environments>
 	
 	<mappers>
 		<mapper resource="mapper/kockFarm.xml" />
+		<mapper resource="mapper/admin/notice.xml" />
 	</mappers>
 </configuration>

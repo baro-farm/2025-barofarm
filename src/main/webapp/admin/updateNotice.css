@@ -1,0 +1,117 @@
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+#info {
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+#email {
+  font-size: 16px;
+  color: #ffb534;
+}
+
+#content {
+  width: calc(100vw - 220px);
+  padding-top: 80px;
+  padding-left: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#wrapper {
+	width: 1280px;
+	margin: 40px auto;
+	gap: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#title {
+	width: 1280px;
+  font-size: 32px;
+  /* align-self: flex-start; */
+}
+
+#notice_form {
+	width: 1280px;
+	
+	display: flex;
+	flex-direction: column;
+  justify-content: center;
+  align-items: center;
+	gap: 20px;
+}
+
+#notice_title {
+  width: 100%;
+  height: 28px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 4px 8px;
+  border: 1px solid #c2c2c2;
+  color: #333;
+}
+
+/* placeholder 스타일 */
+#notice_title::placeholder {
+  color: #c2c2c2;
+}
+
+#pin_notice {
+	width: 100%;
+	
+}
+
+#editor {
+  width: 100%; /* stretch 대신 width 100% */
+}
+
+#btns {
+	display: flex;
+	gap: 20px;
+}
+
+#updateBtn, #cancelBtn{
+  width: 100px;
+  height: 36px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  align-self: center;
+}
+
+#updateBtn {
+  background-color: #ffb534;	
+}
+
+#updateBtn:hover {
+  background-color: #e6a42f;
+}
+
+#cancelBtn {
+  background-color: #d72638;
+}
+
+#cancelBtn:hover {
+  background-color: #c1212f;
+}
