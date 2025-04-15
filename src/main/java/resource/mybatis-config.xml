@@ -11,6 +11,9 @@
 		<typeAlias type="dto.buyer.KockFarm" alias="kockFarm" />	
 		<typeAlias type="dto.buyer.KockComment" alias="kockComment" />
 		<typeAlias type="dto.admin.Notice" alias="notice" />	
+		<typeAlias type="dto.admin.CustomerService" alias="customerService" />	
+		<typeAlias type="dto.admin.AdminQuestion" alias="adminQuestion" />
+		<typeAlias type="dto.admin.AdminAnswer" alias="adminAnswer" />
 	</typeAliases>
 		
 	<environments default="development">
@@ -30,5 +33,6 @@
     	<mapper resource="mapper/user.xml"/>
 		<mapper resource="mapper/kockFarm.xml" />
 		<mapper resource="mapper/admin/notice.xml" />
+		<mapper resource="mapper/customerService.xml" />
 	</mappers>
 </configuration>
