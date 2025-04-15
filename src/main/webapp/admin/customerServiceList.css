@@ -1,0 +1,195 @@
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+#info {
+  padding-right: 20px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+#email {
+  font-size: 16px;
+  color: #ffb534;
+}
+
+#content {
+  width: calc(100vw - 220px);
+  max-width: 1280px;
+  margin: 40px auto;
+  padding-top: 80px;
+  padding-left: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.notice-header {
+  max-width: 1920px;
+  min-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+#title {
+  font-size: 32px;
+  align-self: flex-start;
+}
+
+#service_table {
+  width: 100%;
+  overflow-y: auto;
+  min-width: 1280px;
+}
+
+thead > tr > th {
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px; /* 너무 좁아지지 않도록 설정 */
+}
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.insertBtn {
+  width: 46px;
+  height: 26px;
+  background-color: #65b741;
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.insertBtn:hover {
+  background-color: #579d39;
+}
+
+.updateBtn {
+  width: 46px;
+  height: 26px;
+  background-color: #ffb534;
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.updateBtn:hover {
+  background-color: #e6a42f;
+}
+
+.insertBtn:disabled,
+.updateBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal {
+  display: none; /* 기본적으로 숨김 */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_content {
+  width: 520px;
+  height: 520px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-end; */
+  align-items: center;
+}
+
+.modal_content textarea {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 32px;
+}
+
+.modal_content button {
+  width: 100px;
+  height: 34px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+#insertModal button {
+  background-color: #65b741;
+}
+
+#insertModal button:hover {
+  background-color: #579d39;
+}
+
+#updateModal button {
+  background-color: #ffb534;
+}
+
+#updateModal button:hover {
+  background-color: #e6a42f;
+}
+
+.modal_wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+#confirmDelete {
+  background-color: red;
+  color: white;
+}
+
+#cancelDelete {
+  background-color: gray;
+  color: white;
+}
