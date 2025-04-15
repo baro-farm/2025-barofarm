@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.Address;
-import dto.buyer.User;
+import dto.User;
 import util.MybatisSqlSessionFactory;
 import vo.UserVO;
 

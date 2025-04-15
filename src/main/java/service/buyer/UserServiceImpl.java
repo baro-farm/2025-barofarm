@@ -6,7 +6,7 @@ import java.util.List;
 import dao.buyer.UserDAO;
 import dao.buyer.UserDAOImpl;
 import dto.buyer.Address;
-import dto.buyer.User;
+import dto.User;
 import vo.UserVO;
 
 public class UserServiceImpl implements UserService {
