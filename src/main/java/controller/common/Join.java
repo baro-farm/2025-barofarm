@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.User;
+import dto.buyer.Address;
+import service.UserService;
+import service.UserServiceImpl;
+import vo.SellerVO;
+
 /**
  * Servlet implementation class Join
  */
@@ -37,14 +43,50 @@ public class Join extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String userid = request.getParameter("userid");
+		String userid = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
 		String userName = request.getParameter("userName");
 		String phone = request.getParameter("phone");
-		String dateStr = request.getParameter("birthDate");  // 예: "2025-04-11"
-		LocalDate birthDate = LocalDate.parse(dateStr);
+		String birthStr = request.getParameter("birthDate"); //날짜변환
+		LocalDate birthDate = LocalDate.parse(birthStr);
 		String email = request.getParameter("email");
-		Boolean isSeller;
+		String isSellerStr = request.getParameter("isSeller"); // "true" 또는 "false"
+		boolean isSeller = Boolean.parseBoolean(isSellerStr);
+
+		User user = new User(userid,pwd,userName,phone,birthDate,email,isSeller);
+		
+		//판매자 정보
+		String storeName = request.getParameter("storeName");
+		String businessNum = request.getParameter("businessNum");
+		SellerVO seller = new SellerVO();
+		seller.setStoreName(storeName);
+		seller.setBusinessNum(businessNum);
+		//주소
+		String postCode = request.getParameter("postCode");
+		String addr1 = request.getParameter("addr1");
+		String addr2Str = request.getParameter("addr2");
+		String extraAddr = request.getParameter("extraAddr");
+		String addr2 = addr2Str + " " + extraAddr;
+		
+		Address address = new Address();
+		address.setNickname("기본배송지");
+		address.setName(userName);
+		address.setPhone(phone);
+		address.setPostCode(postCode);
+		address.setAddr1(addr1);
+		address.setAddr2(addr2);
+		address.setIsDefault(true);
+
+		UserService service = new UserServiceImpl();
+		
+		try {
+			service.join(user, address);
+			response.sendRedirect("join");
+		} catch(Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("join.jsp").forward(request, response);
+		}
 	}
 
 }

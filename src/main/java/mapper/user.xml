@@ -66,8 +66,8 @@
 	</delete>
 	
 	
-	<insert id="insertUser" parameterType="user">
-		insert user (userId, pwd, userName, phone, birthDate, email, isSeller)
+	<insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyProperty="userNum">
+		insert into user (userId, pwd, userName, phone, birthDate, email, isSeller)
 				values (#{userId}, #{pwd}, #{userName}, #{phone}, #{birthDate}, #{email}, #{isSeller})
 	</insert>
 	
