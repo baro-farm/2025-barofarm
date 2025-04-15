@@ -31,7 +31,37 @@
 	</select>
 	
 	<!-- 콕팜 댓글 -->
-	<insert id="insertKockComment" parameterType="kockComment">
+	<insert id="insertKockComment" parameterType="kockComment" useGeneratedKeys="true" keyProperty="kcNum">
 		INSERT INTO kockcomment VALUES(NULL,#{kockNum},#{userNum},NULL,#{content});
 	</insert>
+	<select id="kockCommentList" parameterType="Long" resultType="kockComment">
+		SELECT kc.*, u.userName, s.storeName FROM 
+		kockComment kc JOIN user u ON kc.userNum=u.userNum
+		JOIN sellerDetail s ON u.userNum=s.userNum
+		WHERE kockNum=#{kockNum}
+		ORDER BY createdAt;
+	</select>
+	<select id="selectKCommentByKcNum" parameterType="Long" resultType="kockComment">
+		SELECT kc.*, u.userName, s.storeName FROM 
+		kockComment kc JOIN user u ON kc.userNum=u.userNum
+		JOIN sellerdetail s ON u.userNum=s.userNum
+		WHERE kcNum=#{kcNum}
+	</select>
+	
+	<!-- 아기 댓글 -->
+	<insert id="insertBabyComment" parameterType="babyComment" useGeneratedKeys="true" keyProperty="reNum">
+		INSERT INTO babyComment VALUES(NULL,#{kcNum},#{userNum},#{content},NULL);
+	</insert>
+	<select id="babyCommentList" parameterType="Long" resultType="babyComment">
+		SELECT bc.*, u.userName, s.storeName FROM 
+		babyComment bc JOIN user u ON bc.userNum=u.userNum
+		LEFT JOIN sellerdetail s ON u.userNum=s.userNum
+		WHERE kcNum=#{kcNum};
+	</select>
+	<select id="selectBCommentByReNum" parameterType="Long" resultType="babyComment">
+		SELECT bc.*, u.userName, s.storeName FROM 
+		babyComment bc JOIN user u ON bc.userNum=u.userNum
+		LEFT JOIN sellerdetail s ON u.userNum=s.userNum
+		WHERE reNum=#{reNum};
+	</select>	
 </mapper>
