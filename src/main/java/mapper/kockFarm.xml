@@ -29,4 +29,9 @@
 		JOIN category c on k.cateNum=c.cateNum
 		ORDER BY k.createdAt DESC;
 	</select>
+	
+	<!-- 콕팜 댓글 -->
+	<insert id="insertKockComment" parameterType="kockComment">
+		INSERT INTO kockcomment VALUES(NULL,#{kockNum},#{userNum},NULL,#{content});
+	</insert>
 </mapper>

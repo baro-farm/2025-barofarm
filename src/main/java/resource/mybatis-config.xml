@@ -6,6 +6,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="dto.buyer.KockFarm" alias="kockFarm" />	
+		<typeAlias type="dto.buyer.KockComment" alias="kockComment" />
 	</typeAliases>
 		
 	<environments default="development">
