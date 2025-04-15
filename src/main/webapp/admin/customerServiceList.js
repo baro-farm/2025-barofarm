@@ -26,12 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const insertModal = document.getElementById('insertModal');
   const updateModal = document.getElementById('updateModal');
 
-  async function openInsertModal(row) {
-    if (!insertModal || !row) return;
+  const modals = {
+    insert: insertModal,
+    update: updateModal
+  };
 
-    const title = insertModal.querySelector('.customer_title');
-    const content = insertModal.querySelector('.customer_content');
-    const num = row.querySelector('.insertBtn').dataset.num;
+  async function getModalContent(type, row) {
+    const modal = modals[type];
+    if (!modal || !row) return;
+
+    const title = modal.querySelector('.customer_title');
+    const content = modal.querySelector('.customer_content');
+    const num = row.querySelector(`.${type}Btn`).dataset.num;
 
     try {
       const response = await fetch(`/barofarm/csDetail?questionNum=${num}`);
@@ -39,93 +45,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
       title.innerText = `제목: ${data.title}`;
       content.innerText = `내용: ${data.content}`;
-      insertModal.style.display = 'flex';
+      modal.style.display = 'flex';
+
+      return num;
     } catch (error) {
-      console.log('Insert 모달 에러:', error);
+      console.log(`${type} 모달 에러:`, error);
+      return null;
     }
+  }
 
-    const insertAnswerBtn = document.getElementById('insertAnswerBtn');
-    insertAnswerBtn.addEventListener('click', async () => {
+  async function submitAnswer(url, questionNum, answer) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ questionNum, answer })
+      });
+      return await response.json();
+    } catch (error) {
+      console.error("에러 발생", error);
+      return { success: false };
+    }
+  }
+
+  function resetButtonListener(buttonId, handler) {
+    const oldBtn = document.getElementById(buttonId);
+    const newBtn = oldBtn.cloneNode(true);
+    oldBtn.replaceWith(newBtn);
+    newBtn.addEventListener('click', handler);
+  }
+
+  async function openInsertModal(row) {
+    const num = await getModalContent("insert", row);
+
+    resetButtonListener('insertAnswerBtn', async () => {
       const answer = insertModal.querySelector('.answer_content').value;
+      const result = await submitAnswer(`/barofarm/insertCSAnswer`, num, answer);
 
-      try {
-        const response = await fetch(`/barofarm/insertCSAnswer`, {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            questionNum: num,
-            answer: answer
-          })
-        });
-
-        const result = await response.json();
-        if (result.success) {
-          alert('답변을 등록하였습니다.');
-          insertModal.style.display = 'none';
-        } else {
-          alert('답변 등록에 실패했습니다.');
-        }
-      } catch (error) {
-        console.log('에러 발생', error);
+      if (result.success) {
+        alert('답변을 등록하였습니다.');
+        insertModal.style.display = 'none';
+      } else {
+        alert('답변 등록에 실패했습니다.');
       }
     });
   }
 
   async function openUpdateModal(row) {
-    if (!updateModal || !row) return;
-
-    const title = updateModal.querySelector('.customer_title');
-    const content = updateModal.querySelector('.customer_content');
+    const num = await getModalContent("update", row);
     const textarea = updateModal.querySelector('.answer_content');
-    const num = row.querySelector('.updateBtn').dataset.num;
-
-    try {
-      const response = await fetch(`/barofarm/csDetail?questionNum=${num}`);
-      const data = await response.json();
-
-      title.innerText = `제목: ${data.title}`;
-      content.innerText = `내용: ${data.content}`;
-      updateModal.style.display = 'flex';
-    } catch (error) {
-      console.log('Insert 모달 에러:', error);
-    }
 
     try {
       const response = await fetch(`/barofarm/updateCSAnswer?questionNum=${num}`);
       const data = await response.json();
-
       textarea.value = data.content;
     } catch (error) {
       console.log(error);
     }
 
-    const updateAnswerBtn = document.getElementById('updateAnswerBtn');
-    updateAnswerBtn.addEventListener('click', async () => {
-      const answer = updateModal.querySelector('.answer_content').value;
+    resetButtonListener('updateAnswerBtn', async () => {
+      const answer = textarea.value;
+      const result = await submitAnswer(`/barofarm/updateCSAnswer`, num, answer);
 
-      try {
-        const response = await fetch(`/barofarm/updateCSAnswer`, {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            questionNum: num,
-            answer: answer
-          })
-        });
-
-        const result = await response.json();
-        if (result.success) {
-          alert('답변을 수정하였습니다.');
-          updateModal.style.display = 'none';
-        } else {
-          alert('답변 수정에 실패했습니다.');
-        }
-      } catch (error) {
-        console.log('에러 발생', error);
+      if (result.success) {
+        alert('답변을 수정하였습니다.');
+        updateModal.style.display = 'none';
+      } else {
+        alert('답변 수정에 실패했습니다.');
       }
     });
   }
@@ -138,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 버튼 클릭 이벤트 (이벤트 위임)
   document.querySelector('#service_table').addEventListener('click', (event) => {
     const target = event.target;
     const row = target.closest('tr');
@@ -150,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 모달 바깥 클릭 시 닫기
   closeModalOnOutsideClick(insertModal);
   closeModalOnOutsideClick(updateModal);
 });
