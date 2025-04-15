@@ -3,7 +3,7 @@ package dao.buyer;
 import java.util.List;
 
 import dto.buyer.Address;
-import dto.buyer.User;
+import dto.User;
 import vo.UserVO;
 
 public interface UserDAO {

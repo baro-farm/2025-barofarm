@@ -5,9 +5,10 @@
 	
 <configuration>
 	<typeAliases>
-    	<typeAlias type="dto.buyer.User" alias="user"/>
+    	<typeAlias type="dto.User" alias="user"/>
     	<typeAlias type="dto.buyer.Address" alias="address"/>
     	<typeAlias type="vo.UserVO" alias="userVo"/>
+		<typeAlias type="dto.admin.Notice" alias="notice" />	
 	</typeAliases>
 		
 	<environments default="development">
@@ -19,12 +20,11 @@
 				<property name="username" value="root"/>
 				<property name="password" value="7564"/>
 			</dataSource>	
-			
 		</environment>
 	</environments>
 	
 	<mappers>
     	<mapper resource="mapper/user.xml"/>
-
+		<mapper resource="mapper/admin/notice.xml" />
 	</mappers>
 </configuration>
