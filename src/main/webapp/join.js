@@ -1,20 +1,69 @@
-/*일반,판매자 버튼 활성화*/
+/* 아이디 중복 확인 */
+$(function() {
+		$("#doubldId").click(function(e) {
+			e.preventDefault();
+			
+			const userid = $("#userId").val();
+			
+			if (!userid) { // 아이디가 입력되지 않은 경우 처리
+            	alert("아이디를 입력해주세요.");
+            	return;
+            }
+			
+			$.ajax({
+				url:'userDoubleId',
+				type:'post',
+				async:true,
+				dataType:'text',
+				data:{userid:$("#userId").val()},
+				success:function(result) {
+					if(result==='true') {
+						alert("사용 중인 아이디입니다.")
+					} else if(result==='false'){
+						alert("사용 가능한 아이디입니다.")
+					}else {
+						alert(result);
+					}
+				},
+				error:function(err) {
+					console.log(err);
+					alert("중복 확인 요청 실패.");
+				}
+			})
+		})
+	})	
+/* 판매자 가입 시 스토어명, 사업자번호 필수 입력 */
 document.addEventListener("DOMContentLoaded", function () {
-    const buyerRadio = document.querySelector('input[value="buyer"]');
-    const sellerRadio = document.querySelector('input[value="seller"]');
+    const isSellerRadios = document.querySelectorAll('input[name="isSeller"]');
     const sellerFields = document.getElementById("sellerFields");
+    const sellerInputs = sellerFields.querySelectorAll("input");
 
-    buyerRadio.addEventListener("change", toggleSellerFields);
-    sellerRadio.addEventListener("change", toggleSellerFields);
+    // 라디오 버튼 변경 이벤트 처리
+    isSellerRadios.forEach(function (radio) {
+        radio.addEventListener("change", function () {
+            if (radio.value === "true") {
+                sellerFields.classList.add("visible");
+                sellerInputs.forEach(function (input) {
+                    input.required = true;
+                });
+            } else {
+                sellerFields.classList.remove("visible");
+                sellerInputs.forEach(function (input) {
+                    input.required = false;
+                });
+            }
+        });
+    });
 
-    function toggleSellerFields() {
-        if (sellerRadio.checked) {
-            sellerFields.classList.add("visible");
-        } else {
-            sellerFields.classList.remove("visible");
-        }
+    // 기본적으로 구매자 가입이 선택되어 있으므로 초기화
+    if (isSellerRadios[0].checked) {
+        sellerFields.classList.remove("visible");
+        sellerInputs.forEach(function (input) {
+            input.required = false;
+        });
     }
 });
+
 /*주소 입력 api*/
 function execDaumPostcode() {
         new daum.Postcode({

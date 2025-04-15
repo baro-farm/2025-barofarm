@@ -5,8 +5,8 @@
 	
 <configuration>
 	<typeAliases>
-    	<typeAlias type="dto.User" alias="user"/>
-    	<typeAlias type="dto.buyer.Address" alias="address"/>
+		 <typeAlias type="dto.buyer.Address" alias="address" />
+		 <typeAlias type="dto.User" alias="user" />
     	<typeAlias type="vo.UserVO" alias="userVo"/>
 		<typeAlias type="dto.buyer.KockFarm" alias="kockFarm" />	
 		<typeAlias type="dto.buyer.KockComment" alias="kockComment" />
@@ -26,6 +26,7 @@
 	</environments>
 	
 	<mappers>
+		<mapper resource="mapper/address.xml" />
     	<mapper resource="mapper/user.xml"/>
 		<mapper resource="mapper/kockFarm.xml" />
 		<mapper resource="mapper/admin/notice.xml" />

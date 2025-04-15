@@ -18,11 +18,24 @@ public class User {
 	LocalDateTime updatedAt;
 	String fcmToken;
 	
-	
 	public User() {
 		super();
 	}
-	
+
+	public User(String userId, String pwd, String userName, String phone, LocalDate birthDate, String email,
+			boolean isSeller) {
+		super();
+		this.userId = userId;
+		this.pwd = pwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.birthDate = birthDate;
+		this.email = email;
+		this.isSeller = isSeller;
+	}
+
+
+
 	public User(Long userNum, String userId, String pwd, String userName, String phone, LocalDate birthDate, String email,
 			Boolean isSeller) {
 		super();
