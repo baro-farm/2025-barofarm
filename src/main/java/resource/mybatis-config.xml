@@ -10,7 +10,8 @@
     	<typeAlias type="vo.UserVO" alias="userVo"/>
 		<typeAlias type="dto.buyer.KockFarm" alias="kockFarm" />	
 		<typeAlias type="dto.buyer.KockComment" alias="kockComment" />
-		<typeAlias type="dto.admin.Notice" alias="notice" />	
+		<typeAlias type="dto.admin.Notice" alias="notice" />
+		<typeAlias type="dto.buyer.BabyComment" alias="babyComment" />	
 	</typeAliases>
 		
 	<environments default="development">
