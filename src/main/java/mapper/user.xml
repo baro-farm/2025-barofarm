@@ -4,11 +4,11 @@
 	
 <mapper namespace="mapper.user">
 	<insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyProperty="userNum">
-		insert into user (userid, pwd, userName, phone, birthDate, email, isSeller)
-				values (#{userid}, #{pwd}, #{userName}, #{phone}, #{birthDate}, #{email}, #{isSeller})
+		insert into user (userId, pwd, userName, phone, birthDate, email, isSeller)
+				values (#{userId}, #{pwd}, #{userName}, #{phone}, #{birthDate}, #{email}, #{isSeller})
 	</insert>
 	
 	<select id="selectUser" parameterType="String" resultType="user">
-		select * from user where userid=#{userid}
+		select * from user where userId=#{userId}
 	</select>
 </mapper>

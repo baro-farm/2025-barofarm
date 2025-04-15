@@ -7,6 +7,7 @@
 	<typeAliases>
 		 <typeAlias type="dto.buyer.Address" alias="address" />
 		 <typeAlias type="dto.User" alias="user" />
+		<typeAlias type="dto.admin.Notice" alias="notice" />	
 	</typeAliases>
 		
 	<environments default="development">
@@ -18,12 +19,12 @@
 				<property name="username" value="root"/>
 				<property name="password" value="7564"/>
 			</dataSource>	
-			
 		</environment>
 	</environments>
 	
 	<mappers>
 		<mapper resource="mapper/user.xml" />
 		<mapper resource="mapper/address.xml" />
+		<mapper resource="mapper/admin/notice.xml" />
 	</mappers>
 </configuration>

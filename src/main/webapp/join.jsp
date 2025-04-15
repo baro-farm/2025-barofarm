@@ -27,7 +27,7 @@
 	            	<label><input type="radio" name="isSeller" value="true"> 판매자 가입</label>
 	        	</div>
 	            <div class="inputWithButton">
-	                <input type="text" class="inputField" name="userid" id="userid" placeholder="아이디" required>
+	                <input type="text" class="inputField" name="userId" id="userId" placeholder="아이디" required>
 	                <button type="button" id="doubldId" class="checkBtn">중복확인</button>
 	            </div>
 	            <input type="password" class="inputField" name="pwd" placeholder="비밀번호" required>
