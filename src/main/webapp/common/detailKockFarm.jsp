@@ -46,7 +46,7 @@
 	    </div>
 	
 	    <!-- 댓글 목록 -->
-<!-- 	    <div class="comments">
+ 	    <div class="comments">
 	        <div class="message-box seller">
 	            <div class="icon">판매자</div>
 	            <div class="text-box">
@@ -68,9 +68,13 @@
 	    </div>
 	
 	    <div class="comment-box">
-	        <input type="text" class="comment-input" placeholder="댓글을 입력해주세요.">
-	        <button class="btn-submit">등록</button>
-	    </div> -->
+	    	<form action="insertKockComment" method="post">
+	    		<input type="hidden" name="userName" value=${kock.userName } />
+    			<input type="hidden" name="kockNum" value=${kock.kockNum } />
+	        	<input type="text" class="comment-input" placeholder="댓글을 입력해주세요.">
+	        	<button type="submit" class="btn-submit">등록</button>
+	        </form>
+	    </div>
 	</div>
 </div>  
 </body>
