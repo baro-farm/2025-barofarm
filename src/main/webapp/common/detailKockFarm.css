@@ -1,0 +1,178 @@
+@font-face {            
+    font-family: 'SUIT-Regular';            
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');            
+    font-weight: normal;            
+    font-style: normal;        
+}
+.container {
+    font-family:SUIT-Regular, sans-serif;       
+    width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    color: black;
+    padding: 0;
+}
+.container {
+    padding: 20px;
+}
+.title_head {
+    border-bottom: 2px solid black;
+    margin-bottom: 20px;
+}
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #69c048;
+}
+.title_head p {
+    color: #4d4d4d;
+    font-size: 16px;
+}
+.post-info {
+    padding: 15px 0;
+    margin-bottom: 20px;
+}
+.post-info  .p-strong {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.content-box {
+    border: 1px solid #4d4d4d;
+    padding: 15px;
+    min-height: 300px;
+    margin-bottom: 35px;
+    border-radius: 8px;
+}
+.buttons {
+    display: flex;
+    float: right;    
+    margin-bottom: 20px;
+}
+.btn {
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 8px;
+    width: 100px;
+    font-weight: bold;
+}
+.btn-list { background-color: #65B741; color: white; }
+.btn-edit { background-color: #FFB534; color: white; }
+.btn-delete { background-color: #D72638; color: white; }
+.btn-list:hover { background-color: #579d39;}
+.btn-edit:hover { background-color: #e6a42f;}
+.btn-delete:hover { background-color: #c1212f;}
+
+/* 댓글 스타일 */
+.message-box {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+}
+.message-box:last-child {
+    border-bottom: none;
+}
+.re-icon {
+    margin: 0 30px 0 120px;
+    font-size: 40px;
+    color: #FFB534;
+}
+.buyer { border-left: 5px solid #FFB534; }
+.seller { border-left: 5px solid #65B741; }
+.icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    margin-right: 15px;
+    font-size: 16px;
+}
+.buyer .icon, .buyer-sec .icon{ background-color: #FFB534; }
+.seller .icon, seller-sec .icon { background-color: #65B741; }
+.text-box {
+    flex-grow: 1;
+}
+.user-info {
+    font-weight: bold;
+    font-size: 16px;
+    color: #4d4d4d;
+}
+.message {
+    font-size: 18px;
+    margin-top: 5px;
+}
+.close-btn {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 15px;
+    cursor: pointer;
+}
+.buyer .close-btn { color: #FFB534; }
+.seller .close-btn { color: #65B741; } 
+
+/* 삭제 아이콘 스타일 */
+.delete-icon {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 15px;
+}
+.buyer .delete-icon { color: #FFB534; }
+.seller .delete-icon { color: #65B741; }
+
+/* 답글 버튼 스타일 */
+.btn-reply {
+    background-color: #65B741;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.buyer .btn-reply { background-color: #FFB534; }
+.btn-reply:hover {
+    background-color: #579d39;
+}
+
+/* 댓글 입력 박스 */
+.comment-box {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+.comment-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 50px;
+}
+.btn-submit {
+    background-color: #65B741;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    height: 70px;
+    font-weight: bold;
+}
+.btn-submit:hover {
+    background-color: #579d39;
+}

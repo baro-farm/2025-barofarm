@@ -1,0 +1,92 @@
+.kock-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+tbody tr:hover {
+    background-color: #FBF6EE;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    font-size: 14px;
+    text-align: left;
+}
+
+.table th:nth-child(1),.table td:nth-child(1){
+    width: 25px;
+    padding: 0 20px;
+    text-align: center;
+}
+.table th:nth-child(2),.table td:nth-child(2){
+    padding-left: 20px;
+}
+
+.table th:nth-child(3),.table th:nth-child(4),
+.table td:nth-child(3),.table td:nth-child(4) {
+    text-align: right;
+    width: 80px;
+    padding-right: 20px;
+}
+
+/* 오버플로우 방지 */
+.table td:nth-child(3) {
+    max-width: 200px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .table td:nth-child(3) a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+/* 페이징 */
+.paging {
+    text-align: center;
+}
+
+.paging a {
+    display: inline-flex;
+    justify-content: center;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.buttons {
+    text-align: right;
+    margin-bottom: 20px;
+}
+.btn {
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 8px;
+    width: 100px;
+    font-weight: bold;
+}
+.btn-list { background-color: #65B741; color: white; }
+.btn-edit { background-color: #FFB534; color: white; }
+.btn-delete { background-color: #D72638; color: white; }
+.btn-list:hover { background-color: #579d39;}
+.btn-edit:hover { background-color: #e6a42f;}
+.btn-delete:hover { background-color: #c1212f;}
+
+table.dataTable>tbody>tr:hover {
+    background-color: #FBF6EE;
+}
+.dt-scroll-head {
+    background-color: #f4f4f4;
+}
