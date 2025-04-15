@@ -3,12 +3,77 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="mapper.user">
+
+	<resultMap id="userWithAddressResultMap" type="userVo">
+		<id property="userNum" column="userNum"/>
+	    <result property="userId" column="userId"/>
+	    <result property="userName" column="userName"/>
+	    <result property="phone" column="phone"/>
+	    <result property="email" column="email"/>
+	
+	    <collection property="addresses" ofType="address">
+	      <result property="postCode" column="postCode"/>
+	      <result property="addr1" column="addr1"/>
+	      <result property="addr2" column="addr2"/>
+	    </collection>
+	   
+	</resultMap>
+	
+	<select id="selectUserWithAddress" parameterType="String" resultMap="userWithAddressResultMap">
+		select	    
+	     u.userId, u.userName, u.phone, u.email, a.postCode, a.addr1, a.addr2
+	     from user u
+	     Left join address a
+	     on u.userNum = a.userNum
+	     where u.userId = #{userId} and a.isDefault=1
+	</select>
+		<select id="selectUser" parameterType="String" resultType="user" >
+		select userId, userName,phone from user where userId=#{userId} 		 
+	</select>
+	<update id="updateUser" parameterType="userVo">
+		update user 
+		set userName=#{userName}, phone=#{phone}, email =#{email} 
+		where userId=#{userId}
+	</update>
+	<update id="updateAddress" parameterType="address">
+		update address
+		set postCode = #{postCode}, addr1=#{addr1}, addr2=#{addr2}
+		where userNum=#{userNum} and isDefault=1
+	</update>
+	<select id="selectUserNumById" parameterType="String" resultType="Long">
+		select userNum from user where userId=#{userId}
+	</select>
+	
+	<insert id="insertAddress" parameterType="address">
+		insert into address (userNum,nickname,name,phone,postCode,addr1,addr2,isDefault)
+		values(#{userNum},#{nickname},#{name},#{phone},#{postCode},#{addr1},#{addr2},0)
+	</insert>
+	
+	<select id="selectAddressList" parameterType="Long" resultType="address">
+		select addrNum,nickname,name,phone,postCode,addr1,addr2,isDefault from address where userNum=#{userNum} 
+	</select>
+	
+	<select id="selectAddress" parameterType="Long" resultType="address">
+		select addrNum,nickname,name,phone,postCode,addr1,addr2,isDefault from address where addrNum=#{addrNum} 
+	</select>
+	<update id="updateAddressByAddrNum" parameterType="address">
+		update address
+		set nickname=#{nickname}, name=#{name},postCode = #{postCode}, addr1=#{addr1}, addr2=#{addr2},phone=#{phone}
+		where addrNum=#{addrNum}
+	</update>
+	<delete id="deleteAddress" parameterType="Long">
+		delete from address where addrNum=#{addrNum}
+	</delete>
+	
+	
 	<insert id="insertUser" parameterType="user">
-		insert user (userid, pwd, userName, phone, birthDate, email, isSeller)
-				values (#{userid}, #{pwd}, #{userName}, #{phone}, #{birthDate}, #{email}, #{isSeller})
+		insert user (userId, pwd, userName, phone, birthDate, email, isSeller)
+				values (#{userId}, #{pwd}, #{userName}, #{phone}, #{birthDate}, #{email}, #{isSeller})
 	</insert>
 	
 	<select id="selectUser" parameterType="String" resultType="user">
-		select * from user where userid=#{userid}
+		select * from user where userId=#{userId}
 	</select>
-</mapper>
+ </mapper>
+	
+
