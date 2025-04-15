@@ -1,0 +1,163 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: SUIT-Regular, sans-serif;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.searchBox input {
+    padding: 5px;
+}
+
+.searchBox button {
+    padding: 5px 10px;
+    background-color: #65B741;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.orderList {
+    border-top: 2px solid black;
+    padding-top: 10px;
+}
+
+.orderItem {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.orderTop {
+    width: 100%;
+    text-align: left;
+    margin: 15px;
+    
+}
+
+.orderCenter {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.orderLeft img {
+    width: 150px;
+    height: 150px;
+    background-color: #eee;
+    border-radius: 8px;
+}
+
+.orderLeft {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.orderRight {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.orderBottom {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.btnGreen {
+    background-color: #65B741;
+    color: white;
+}
+
+.btnRed {
+    background-color: #D72638;
+    color: white;
+}
+
+.orderStatus {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.orderCancel {
+    color: #D72638 ;
+}
+
+.orderDate{
+    color: #82807C;
+}
+.productName{
+    font-size: 20px;
+}
+.productPrice{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px; 
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: black;
+    border-radius: 8px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    background-color: #65B741;
+}
