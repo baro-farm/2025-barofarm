@@ -1,5 +1,6 @@
 package util;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.ibatis.io.Resources;
@@ -19,8 +20,8 @@ public class MybatisSqlSessionFactory {
 			// SqlSessionFactory 생성
 			sqlSessionFactory = builder.build(inputStream);
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IOException e) {
+			throw new RuntimeException("MyBatis 설정 오류", e);
 		}
  	}
 	

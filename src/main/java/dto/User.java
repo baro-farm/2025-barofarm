@@ -3,20 +3,37 @@ package dto;
 import java.time.LocalDate;
 
 public class User {
-	Long userNum;
-	String userid;
-	String pwd;
-	String userName;
-	String phone;
-	LocalDate birthDate;
-	String email;
-	Boolean isSeller;
-	Boolean deleted;
-	String fcmToken;
+	private Long userNum;
+	private String userid;
+	private String pwd;
+	private String userName;
+	private String phone;
+	private LocalDate birthDate;
+	private String email;
+	private Boolean isSeller;
+	private Boolean deleted;
+	private String fcmToken;
 	
 	public User() {
 		super();
 	}
+	
+	
+	
+	public User(String userid, String pwd, String userName, String phone, LocalDate birthDate, String email,
+			Boolean isSeller) {
+		super();
+		this.userid = userid;
+		this.pwd = pwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.birthDate = birthDate;
+		this.email = email;
+		this.isSeller = isSeller;
+	}
+
+
+
 	public User(Long userNum, String userid, String pwd, String userName, String phone, LocalDate birthDate, String email,
 			Boolean isSeller) {
 		super();
