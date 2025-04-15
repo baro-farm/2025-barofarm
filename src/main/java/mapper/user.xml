@@ -27,9 +27,6 @@
 	     on u.userNum = a.userNum
 	     where u.userId = #{userId} and a.isDefault=1
 	</select>
-		<select id="selectUser" parameterType="String" resultType="user" >
-		select userId, userName,phone from user where userId=#{userId} 		 
-	</select>
 	<update id="updateUser" parameterType="userVo">
 		update user 
 		set userName=#{userName}, phone=#{phone}, email =#{email} 
