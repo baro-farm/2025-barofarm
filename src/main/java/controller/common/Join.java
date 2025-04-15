@@ -43,7 +43,7 @@ public class Join extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String userid = request.getParameter("userid");
+		String userid = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
 		String userName = request.getParameter("userName");
 		String phone = request.getParameter("phone");

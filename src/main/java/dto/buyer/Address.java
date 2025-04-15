@@ -1,7 +1,5 @@
 package dto.buyer;
 
-import dto.User;
-
 public class Address {
 	private Long addrNum;
 	private Long userNum;
@@ -13,18 +11,8 @@ public class Address {
 	private String addr2;
 	private Boolean isDefault;
 	
-	public Boolean getIsDefault() {
-		return isDefault;
-	}
-
-	public void setIsDefault(Boolean isDefault) {
-		this.isDefault = isDefault;
-	}
-
-	public Address() {
-		super();
-	}
-
+	public Address() {}
+	
 	public Address(Long userNum, String nickname, String name, String phone, String postCode, String addr1,
 			String addr2, Boolean isDefault) {
 		super();
@@ -50,6 +38,49 @@ public class Address {
 		this.addr1 = addr1;
 		this.addr2 = addr2;
 		this.isDefault = isDefault;
+	}
+	
+	public Address(Long addrNum, Long userNum, String nickname, String name, String phone, String postCode,
+			String addr1, String addr2) {
+		super();
+		this.addrNum = addrNum;
+		this.userNum = userNum;
+		this.nickname = nickname;
+		this.name = name;
+		this.phone = phone;
+		this.postCode = postCode;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
+	}
+	
+	public Address(Long addrNum, Long userNum, String nickname, String postCode,
+			String addr1, String addr2) {
+		super();
+		this.addrNum = addrNum;
+		this.userNum = userNum;
+		this.nickname = nickname;
+		this.postCode = postCode;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
+	}
+	
+	public Address(Long addrNum,String nickname, String name, String phone, String postCode, String addr1, String addr2 ) {
+		this.addrNum = addrNum;
+		this.nickname = nickname;
+		this.name = name;
+		this.phone = phone;
+		this.postCode = postCode;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
+	}
+	
+	public Address(String nickname, String name, String phone, String postCode, String addr1, String addr2 ) {
+		this.nickname = nickname;
+		this.name = name;
+		this.phone = phone;
+		this.postCode = postCode;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
 	}
 
 	public Long getAddrNum() {
@@ -100,6 +131,18 @@ public class Address {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
-	
+	public Boolean getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [addrNum=" + addrNum + ", userNum=" + userNum + ", nickname=" + nickname + ", name=" + name
+				+ ", phone=" + phone + ", postCode=" + postCode + ", addr1=" + addr1 + ", addr2=" + addr2 + "]";
+	}
 	
 }
