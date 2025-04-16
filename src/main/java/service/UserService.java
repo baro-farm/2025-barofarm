@@ -5,6 +5,6 @@ import dto.buyer.Address;
 
 public interface UserService {
 	void join(User user,Address address) throws Exception;
-	void login(String id, String password) throws Exception;
-	boolean checkDoubleId(String id) throws Exception;
+	User login(String userId, String pwd) throws Exception;
+	boolean checkDoubleId(String userId) throws Exception;
 }
