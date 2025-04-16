@@ -1,35 +1,22 @@
-@font-face {
-    font-family: 'SUIT-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-body {
-    font-family: 'SUIT-Regular', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
 .loginContainer {
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);;
+  margin: 50px auto;
+  padding: 20px;
+  width: 297px;
+  border-radius: 8px;
+  box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);;
 }
-
 /* 로그인 제목 */
 .loginTitle {
-    text-align: left;
-    color: #65B741;
-    font-size: 30px;
-    margin-bottom: 15px;
+	color: #65B741;
+  	font-size: 30px;
+  	font-weight: bold;
+  	margin-bottom: 10px;
+  	text-align: center;
 }
 
 /* 일반/판매자 선택 */
 .userType {
+	width: 297px;
     display: flex;
     justify-content: flex-start;
     font-size: 14px;
@@ -52,6 +39,7 @@ body {
 
 /* 로그인 옵션 (아이디 저장 & 자동 로그인) */
 .loginOptions {
+	width: 297px;
     display: flex;
     justify-content: flex-start;
     font-size: 14px;
@@ -67,7 +55,7 @@ body {
     display: block;
     width: 275px;
     padding: 12px;
-    margin-top: 15px;
+    margin-top: 40px;
     background-color: #FFB534;
     color: white;
     font-size: 16px;
@@ -93,7 +81,7 @@ body {
 .bottomMenu {
     display: flex;
     justify-content: space-between;
-    margin: 10px 5px;
+    margin: 15px 5px;
     font-size: 14px;
 }
 

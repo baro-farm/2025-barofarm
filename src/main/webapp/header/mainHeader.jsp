@@ -17,16 +17,27 @@
  	<div class="mainHeader">
         <div class="userMenu">
             <ul class="userMenuUl">
-                <li class="userli"><a href="#" id="login" class="userBtn">로그인</a></li>
-                <li class="userli"><a href="#" id="join" class="userBtn">회원가입</a></li>
-                <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
-                <li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
+            	<c:choose>
+            		<c:when test="${user==null}">
+	            		<li class="userli"><a href="login" id="login" class="userBtn">로그인</a></li>
+		                <li class="userli"><a href="join" id="join" class="userBtn">회원가입</a></li>
+		                <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
+	                </c:when>
+	                <c:otherwise>
+	                	<span><b>${user.userId}</b></span>
+	                	<li class="userli"><a href="logout" id="" class="userBtn">로그아웃</a></li>
+		                <li class="userli"><a href="#" id="" class="userBtn">마이페이지</a></li>
+		                <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
+	                </c:otherwise>
+             	</c:choose>
             </ul>
         </div>
         <!-- 헤더 -->
         <header class="headerMenu">
             <div class="headerlogo">
-                <a href="#">
+                <a href="main.jsp">
                     <img src="https://i.ibb.co/zH5kPJNt/barologo1.png" alt="barologo1" border="0" class="logo">
                 </a>
             </div>
