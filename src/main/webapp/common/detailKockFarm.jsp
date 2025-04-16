@@ -5,9 +5,117 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<meta charset="UTF-8">
 	<title>콕팜 상세보기</title>
   	<link rel="stylesheet" href="${contextPath}/common/detailKockFarm.css" />
+	<script type="text/javascript">
+	/* 부모댓글 */
+	$(function () {
+	    $("#commentForm").on("submit", function (e) {
+	        e.preventDefault(); // 폼 기본 동작 막기
+	
+	        const formData = $(this).serialize();
+	
+	        $.ajax({
+	            url: '${contextPath}/insertKockComment',
+	            type: 'post',
+	            data: formData,
+	            dataType: 'json',
+	            success: function (response) {
+	                let parsed = typeof response === "string" ? JSON.parse(response) : response;
+
+	                if (parsed.success) {
+	                    const c = parsed.comment;
+	                    var storeName = c.storeName;
+	                    var userName = c.userName;
+	                    var content = c.content;
+	                    var kcNum = c.kcNum;
+	                    
+	                    // 값이 제대로 할당되었는지 확인
+	                    if (storeName && userName && content && kcNum) {
+	                    	var comment = "";
+	                    	comment += "<div class='comments' id='comment-" + kcNum + "'>";
+	                    	comment +=    "<div class='message-box seller'>";
+	                    	comment +=        "<div class='icon'>판매자</div>";
+	                    	comment +=        "<div class='text-box'>";
+	                    	comment +=            "<div class='user-info'>" + storeName + "</div>";
+	                    	comment +=            "<div class='message'>" + content + "</div>";
+	                    	comment +=        "</div>";
+	                    	comment +=        "<button class='btn-reply' data-comment-id='" + kcNum + "'>답글</button>";
+	                    	comment +=    "</div>";
+	                    	comment += "</div>";
+
+	                    	$("#commentList").append(comment);  // 댓글 리스트에 추가
+	                    	$(".comment-input").val("");  // 입력창 비우기
+	                    } else {
+	                        console.error("댓글 데이터에 필요한 값이 누락되었습니다.");
+	                    }
+	                } else {
+	                    alert("댓글 등록 실패: " + parsed.message);
+	                }
+	            }
+,
+	            error: function (err) {
+	                console.log("에러 발생:", err);
+	                alert("서버 오류로 댓글 등록에 실패했습니다.");
+	            }
+	        });
+	    });
+	});
+	
+	/* 아기 댓글 */
+$(document).on("submit", ".babyForm", function (e) {
+    e.preventDefault(); // 폼 기본 동작 막기
+
+    const formData = $(this).serialize();
+
+    $.ajax({
+        url: '${contextPath}/insertBabyComment',
+        type: 'post',
+        data: formData,
+        dataType: 'json',
+        success: function (response) {
+            let parsed = typeof response === "string" ? JSON.parse(response) : response;
+
+            if (parsed.success) {
+                const c = parsed.comment;
+                var storeName = c.storeName;
+                var userName = c.userName;
+                var content = c.content;
+                var reNum = c.reNum;
+                var kcNum = c.kcNum;
+                
+                // 값이 제대로 할당되었는지 확인
+                if (userName && content) {
+                    var comment = "";
+                    comment += "<div class='comments' id='comment-" + reNum + "'>";
+                    comment += "<div class='message-box buyer-sec reply'>";
+                    comment += "<div class='re-icon'>↪</div>";
+                    comment += "<div class='icon'>구매자</div>";
+                    comment += "<div class='text-box'>";
+                    comment += "<div class='user-info'>" + userName + "</div>";
+                    comment += "<div class='message'>" + content + "</div>";
+                    comment += "</div>";
+                    comment += "</div>";
+                    comment += "</div>";
+
+                    $("#babyList-"+kcNum).append(comment);  // 댓글 리스트에 추가
+                    $(".comment-input2").val("");  // 입력창 비우기
+                } else {
+                    console.error("댓글 데이터에 필요한 값이 누락되었습니다.");
+                }
+            } else {
+                alert("댓글 등록 실패: " + parsed.message);
+            }
+        },
+        error: function (err) {
+            console.log("에러 발생:", err);
+            alert("서버 오류로 댓글 등록에 실패했습니다.");
+        }
+    });
+});
+	</script>
 </head>
 <body>
 <div class="main">
@@ -46,36 +154,75 @@
 	    </div>
 	
 	    <!-- 댓글 목록 -->
- 	    <div class="comments">
-	        <div class="message-box seller">
-	            <div class="icon">판매자</div>
-	            <div class="text-box">
-	                <div class="user-info">작성자 | 아이디 | 등록일</div>
-	                <div class="message">네, 물론입니다~ 고객님 수락 버튼 클릭 후 결제를 진행해주세요~!</div>
-	            </div>
-	            <button class="btn-reply">답글</button>
-	        </div>
-	
-	        <div class="message-box buyer-sec reply">
-	            <div class="re-icon">↪</div>
-	            <div class="icon">구매자</div>
-	            <div class="text-box">
-	                <div class="user-info">구매자 | 아이디 | 등록일</div>
-	                <div class="message">20만원 진행하시죠! 금요일 배송 가능은 확실한가요?</div>
-	            </div>
-	            <span class="delete-icon">❌</span>
-	        </div>
+		<div id="commentList">
+       	<c:forEach var="comment" items="${commentList }" varStatus="status">
+   			<div class="comments" id="comment-${comment.kcNum}">
+		        <div class="message-box seller" >
+		            <div class="icon">판매자</div>
+		            <div class="text-box">
+		                <div class="user-info">${comment.storeName }</div>
+		                <div class="message">${comment.content }</div>
+		            </div>
+		            <button class="btn-reply" data-comment-id="${comment.kcNum}">답글</button>
+		        </div>
+				<div id="babyList-${comment.kcNum }">
+			       
+		        </div>
+		    </div>
+		</c:forEach>
 	    </div>
-	
-	    <div class="comment-box">
-	    	<form action="insertKockComment" method="post">
-	    		<input type="hidden" name="userName" value=${kock.userName } />
-    			<input type="hidden" name="kockNum" value=${kock.kockNum } />
-	        	<input type="text" class="comment-input" placeholder="댓글을 입력해주세요.">
-	        	<button type="submit" class="btn-submit">등록</button>
-	        </form>
-	    </div>
+	    <!-- 구매자의 댓글 폼 => 무조건 아기댓글 -->
+	    <div id="reply-form-template"  style="display: none;">
+	    	<div class="babyDiv">
+		    <form id="babyForm" method="post" class="reply-form comment-box">
+		        <input type="hidden" name="userNum" value="1" />
+		        <input type="hidden" name="kcNum" value="" />
+		        <input type="text" name="content" class="comment-input2" placeholder="대댓글을 입력해주세요." required="required">
+		        <button type="submit" class="btn-submit">등록</button>
+		    </form>
+		    </div>
+		</div>
+		
+    	<!-- 판매자의 첫번째 댓글 폼 => 무조건 부모댓글 -->
+	    <div>
+		    <form id="commentForm" method="post" class="reply-form comment-box">
+		        <input type="hidden" name="userNum" value="4" />
+		        <input type="hidden" name="kockNum" value="${kock.kockNum}" />
+		        <input type="hidden" name="parentCommentNum" value="" />
+		        <input type="text" name="content" class="comment-input" placeholder="댓글을 입력해주세요." required="required">
+		        <button type="submit" class="btn-submit">등록</button>
+		    </form>
+		</div>
 	</div>
-</div>  
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const replyButtons = document.querySelectorAll(".btn-reply");
+    const replyFormTemplate = document.querySelector("#reply-form-template");
+    let activeForm = null;
+
+    replyButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            const kcNum = this.dataset.commentId; // 부모 댓글의 kcNum
+            const targetDiv = document.querySelector("#comment-" + kcNum);
+
+            // 기존 폼이 있다면 제거
+            if (activeForm) {
+                activeForm.remove();
+            }
+
+            // 템플릿 복제해서 삽입
+            const newForm = replyFormTemplate.firstElementChild.cloneNode(true);
+            newForm.querySelector("input[name='kcNum']").value = kcNum;
+
+            // 여기가 중요! 폼에 class 추가
+            newForm.querySelector("form").classList.add("babyForm");
+
+            targetDiv.appendChild(newForm);
+            activeForm = newForm;
+        });
+    });
+});
+</script>  
 </body>
 </html>
