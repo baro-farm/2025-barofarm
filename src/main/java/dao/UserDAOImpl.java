@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User selectUser(String id) throws Exception {
-			return sqlSession.selectOne("mapper.user.selectUser", id);
+	public User selectUser(String userId) throws Exception {
+			return sqlSession.selectOne("mapper.user.selectUser", userId);
 	}
 }
