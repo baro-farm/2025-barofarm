@@ -32,6 +32,7 @@ $(function() {
 			})
 		})
 	})	
+	
 /* 판매자 가입 시 스토어명, 사업자번호 필수 입력 */
 document.addEventListener("DOMContentLoaded", function () {
     const isSellerRadios = document.querySelectorAll('input[name="isSeller"]');
