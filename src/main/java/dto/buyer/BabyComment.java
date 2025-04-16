@@ -1,43 +1,40 @@
 package dto.buyer;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class KockComment {
+public class BabyComment {
+	Long reNum;
 	Long kcNum;
-	Long kockNum;
 	Long userNum;
-	LocalDateTime createdAt;
 	String content;
+	LocalDateTime createdAt;
 	
 	String userName;
 	String storeName;
-	
-	private List<BabyComment> babyComments;
-	public List<BabyComment> getBabyComments() {
-		return babyComments;
+	public BabyComment() {
 	}
-	
-	public void setBabyComments(List<BabyComment> babyComments) {
-	    this.babyComments = babyComments;
-	}
-	
-	public KockComment() {
-	}
-	public KockComment(Long kcNum, Long kockNum, Long userNum, LocalDateTime createdAt, String content,
-			String userName, String storeName) {
+	public BabyComment(Long reNum, Long kcNum, Long userNum, String content, LocalDateTime createdAt, String userName,
+			String storeName) {
+		super();
+		this.reNum = reNum;
 		this.kcNum = kcNum;
-		this.kockNum = kockNum;
 		this.userNum = userNum;
-		this.createdAt = createdAt;
 		this.content = content;
+		this.createdAt = createdAt;
 		this.userName = userName;
 		this.storeName = storeName;
 	}
-	public KockComment(Long kockNum, Long userNum, String content) {
-		this.kockNum = kockNum;
+	public BabyComment(Long kcNum, Long userNum, String content) {
+		super();
+		this.kcNum = kcNum;
 		this.userNum = userNum;
 		this.content = content;
+	}
+	public Long getReNum() {
+		return reNum;
+	}
+	public void setReNum(Long reNum) {
+		this.reNum = reNum;
 	}
 	public Long getKcNum() {
 		return kcNum;
@@ -45,29 +42,23 @@ public class KockComment {
 	public void setKcNum(Long kcNum) {
 		this.kcNum = kcNum;
 	}
-	public Long getKockNum() {
-		return kockNum;
-	}
-	public void setKockNum(Long kockNum) {
-		this.kockNum = kockNum;
-	}
 	public Long getUserNum() {
 		return userNum;
 	}
 	public void setUserNum(Long userNum) {
 		this.userNum = userNum;
 	}
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 	public String getUserName() {
 		return userName;
