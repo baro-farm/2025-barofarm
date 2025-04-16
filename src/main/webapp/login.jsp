@@ -1,50 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />   
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-    <link rel="stylesheet" href="reset.css">
-     <link rel="stylesheet" href="login.css">
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link rel="stylesheet" href="${contextPath}/header/reset.css">
+	<link rel="stylesheet" href="${contextPath}/login.css">
+	
 </head>
+
 <body>
-<div>
-<%@ include file="./header/mainHeader.jsp" %>
- <div class="loginContainer">
-        <h2 class="loginTitle">로그인</h2>
-
-        <!-- 일반/판매자 선택 -->
-        <div class="userType">
-            <label><input type="radio" name="userType" value="general" checked> <span class="radioBtn">일반</span></label>
-            <label><input type="radio" name="userType" value="seller"> <span class="radioBtn">판매자</span></label>
-        </div>
-
-        <!-- 로그인 폼 -->
-        <form class="loginForm">
-            <input type="text" class="inputField" placeholder="아이디">
-            <input type="password" class="inputField" placeholder="비밀번호">
-            
-            <!-- 아이디 저장 & 자동 로그인 -->
-            <div class="loginOptions">
-                <label><input type="checkbox"> 아이디 저장</label>
-                <label><input type="checkbox"> 자동 로그인</label>
-            </div>
-            
-            <!-- 로그인 버튼 -->
-            <a href="" class="loginBtn">로그인</a>
-            <a href="" class="kakaoLoginBtn">
-                <img src="./img/kakao_login_large_wide.png" alt="카카오 로그인">
-            </a>
-        </form>
-        <hr>
-        <!-- 하단 메뉴 -->
-        <div class="bottomMenu">
-            <a href="#">회원가입</a>
-            <a href="#">아이디 찾기</a>
-            <a href="#">비밀번호 변경</a>
-        </div>
-    </div>
-    </div>
+	<div class="container">
+		<!-- 헤더 -->
+		<jsp:include page="./header/mainHeader.jsp" />
+		<!-- 컨텐츠  -->
+		<div class="loginContainer">
+			<h2 class="loginTitle">로그인</h2>
+		    <!-- 로그인 폼 -->
+		    <form action="login" method="post" class="loginForm">
+			    <!-- 일반/판매자 선택 -->
+			    <div class="userType">
+			    	<label><input type="radio" name="userType" value="general" checked> <span class="radioBtn">일반</span></label>
+			        <label><input type="radio" name="userType" value="seller"> <span class="radioBtn">판매자</span></label>
+			    </div>
+		    	<input type="text" class="inputField" name="userId" value="${userId}" placeholder="아이디">
+		        <input type="password" class="inputField" name="pwd" placeholder="비밀번호">  
+		        <!-- 아이디 저장 & 자동 로그인 -->
+		        <div class="loginOptions">
+		        	<label><input type="checkbox" name="saveId" value="on" ${not empty saveId ? "checked" : ""}> 아이디 저장</label>
+		        	<label><input type="checkbox" name="autoLogin" value="on" ${not empty autoLogin ? "checked": ""}> 자동 로그인</label>
+		        </div>
+		        <c:if test="${not empty err}">
+				    <div class="errorMsg">${err}</div>
+				</c:if>
+		        <!-- 로그인 버튼 -->
+		        <button type="submit" class="loginBtn">로그인</button>
+		        <a href="" class="kakaoLoginBtn">
+		        	<img src="${contextPath}/img/kakao_login_large_wide.png" alt="카카오 로그인">
+		        </a>
+		   	</form>
+		    <hr>
+		    <!-- 하단 메뉴 -->
+		    <div class="bottomMenu">
+		    	<a href="join">회원가입</a>
+		        <a href="#">아이디 찾기</a>
+		        <a href="#">비밀번호 변경</a>
+		    </div>
+		</div> <!-- 로그인 컨텐츠  -->
+	</div> <!-- 전체 컨테이너 -->
 </body>
 </html>
