@@ -12,5 +12,6 @@ public interface KockCommentDao {
 	
 	//아기 댓글
 	boolean insertBabyComment(BabyComment bComment) throws Exception;
+	List<BabyComment> babyCommentList(Long kcNum) throws Exception;
 	BabyComment selectBCommentByReNum(Long reNum) throws Exception;
 }
