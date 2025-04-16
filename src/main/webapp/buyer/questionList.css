@@ -1,6 +1,12 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: SUIT-Regular, sans-serif;
 }
 
 .container {
@@ -9,9 +15,10 @@ body {
 }
 
 .header {
-    font-size: 22px;
+    font-size: 30px;
+    color:#5cb85c;
     font-weight: bold;
-    
+
 }
 
 .filterSection {
@@ -32,7 +39,7 @@ select {
     cursor: pointer;
 }
 
-.post {
+.question {
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -55,23 +62,31 @@ select {
     color: white;
     font-weight: bold;
     border-radius: 5px;
+    align-self: flex-start;
 }
 
-.postContent {
+.questionContent {
     flex-grow: 1;
 }
 
-.postTitle {
+.questionTitle {
     font-size: 16px;
     font-weight: bold;
     color: black;
     margin-bottom: 5px;
 }
 
-.postInfo {
+.questionInfo {
     font-size: 12px;
     color: #888;
     margin-bottom: 5px;
+}
+
+.questionText {
+    font-size: 15px;
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .replyBtn {
@@ -95,4 +110,20 @@ select {
 .replyBox strong {
     display: block;
     margin-bottom: 5px;
+}
+
+.questionReplyDate{
+	font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+a{
+	color:black;
+	text-decoration:none;
+}
+
+a:hover{
+	color:#FFB534;
 }
