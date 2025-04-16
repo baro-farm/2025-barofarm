@@ -1,13 +1,18 @@
 package controller.common;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.buyer.KockComment;
 import dto.buyer.KockFarm;
+import service.buyer.KockCommentService;
+import service.buyer.KockCommentServiceImpl;
 import service.buyer.KockFarmService;
 import service.buyer.KockFarmServiceImpl;
 
@@ -34,10 +39,12 @@ public class DetailKockFarm extends HttpServlet {
 		Long kockNum = Long.parseLong(request.getParameter("kockNum"));
 
 		KockFarmService service = new KockFarmServiceImpl();
-		
+		KockCommentService kcService = new KockCommentServiceImpl();
 		try {
 			KockFarm kock = service.selectKockFarm(kockNum);
+			List<KockComment> commentList = kcService.kockCommentList(kockNum);
 			request.setAttribute("kock", kock);
+			request.setAttribute("commentList", commentList);
 			request.getRequestDispatcher("/common/detailKockFarm.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

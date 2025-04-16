@@ -17,6 +17,8 @@
 		<typeAlias type="dto.buyer.ProductOrder" alias="prodOrder"/>
 		<typeAlias type="dto.buyer.ProductOrderItem" alias="prodOrderItem"/>				
     	<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo"/>	</typeAliases>
+		<typeAlias type="dto.buyer.BabyComment" alias="babyComment" />	
+	</typeAliases>
 		
 	<environments default="development">
 		<environment id="development">
