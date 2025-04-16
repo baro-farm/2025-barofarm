@@ -14,6 +14,12 @@
 		<typeAlias type="dto.admin.AdminQuestion" alias="adminQuestion" />
 		<typeAlias type="dto.admin.AdminAnswer" alias="adminAnswer" />
 		<typeAlias type="dto.admin.Notice" alias="notice" />
+		<typeAlias type="dto.buyer.ProdQuestion" alias="prodQuestion"/>	
+		<typeAlias type="vo.QuestionVO" alias="questionVo"/>
+		<typeAlias type="dto.seller.ProdAnswer" alias="prodAnswer"/>
+		<typeAlias type="dto.buyer.ProductOrder" alias="prodOrder"/>
+		<typeAlias type="dto.buyer.ProductOrderItem" alias="prodOrderItem"/>				
+    	<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo"/>	</typeAliases>
 		<typeAlias type="dto.buyer.BabyComment" alias="babyComment" />	
 	</typeAliases>
 		
@@ -34,6 +40,8 @@
     	<mapper resource="mapper/user.xml"/>
 		<mapper resource="mapper/kockFarm.xml" />
 		<mapper resource="mapper/admin/notice.xml" />
+		<mapper resource="mapper/prodQuestion.xml"/>
+		<mapper resource="mapper/productOrder.xml"/>
 		<mapper resource="mapper/customerService.xml" />
 	</mappers>
 </configuration>
