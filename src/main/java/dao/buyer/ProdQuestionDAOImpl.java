@@ -20,19 +20,19 @@ public class ProdQuestionDAOImpl implements ProdQuestionDAO {
 	@Override
 	public List<QuestionVO> selectQuestionList(String userId) throws Exception {
 		Long userNum = selectUserNumById(userId);
-		return sqlSession.selectList("mapper.question.selectQuestionListWithProduct",userNum);
+		return sqlSession.selectList("mapper.prodQuestion.selectQuestionListWithProduct",userNum);
 	}
 
 	@Override
 	public Integer selectAnswerCount(Long qaNum) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.question.selectAnswerCount",qaNum);
+		return sqlSession.selectOne("mapper.prodQuestion.selectAnswerCount",qaNum);
 	}
 
 	@Override
 	public ProdAnswer selectAnswer(Long qaNum) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.question.selectAnswer",qaNum);
+		return sqlSession.selectOne("mapper.prodQuestion.selectAnswer",qaNum);
 	}
 
 
