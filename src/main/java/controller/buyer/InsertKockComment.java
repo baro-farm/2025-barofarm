@@ -46,11 +46,12 @@ public class InsertKockComment extends HttpServlet {
 		try {
 			boolean success =service.insertKockComment(kComment);// DB 삽입 로직
 			if(success) {
+
 	            // 댓글 등록 성공 시 사용자 이름도 함께 응답
 	            KockComment rKC = service.selectKCommentByKcNum(kComment.getKcNum());
 	            String storeName=rKC.getStoreName();
 	            String userName = rKC.getUserName();
-				
+
 				// JSON으로 응답
 				String json = String.format(
 					    "{" +
@@ -59,13 +60,17 @@ public class InsertKockComment extends HttpServlet {
 					            "\"kcNum\": %d," +
 					            "\"userName\": \"%s\"," +
 					            "\"content\": \"%s\"," +
-					            "\"storeName\": \"%s\"" +
+					            "\"storeName\": \"%s\"," +
+					            "\"userNum\": %d," +
+					            "\"kockNum\": %d" +
 					        "}" +
 					    "}",
 					    kComment.getKcNum(),
 					    userName,
 					    content.replace("\"", "\\\""),
-					    storeName
+					    storeName,
+					    userNum,
+					    kockNum
 					);
 	            out.print(json);	
             } else {

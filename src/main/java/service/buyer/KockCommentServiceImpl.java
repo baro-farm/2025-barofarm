@@ -18,8 +18,13 @@ public class KockCommentServiceImpl implements KockCommentService {
 		return kockCommentDao.insertKockComment(kComment);
 	}
 	@Override
-	public List<KockComment> kockCommentList(Long kockNum) throws Exception {
-		return kockCommentDao.kockCommentList(kockNum);
+	public List<KockComment> kockCommentListWithBaby(Long kockNum) throws Exception {
+		List<KockComment> commentList = kockCommentDao.kockCommentList(kockNum);
+		for (KockComment kc : commentList) {
+			List<BabyComment> babyList = kockCommentDao.babyCommentList(kc.getKcNum());
+			kc.setBabyComments(babyList);
+		}
+		return commentList;
 	}
 	@Override
 	public KockComment selectKCommentByKcNum(Long kcNum) throws Exception {

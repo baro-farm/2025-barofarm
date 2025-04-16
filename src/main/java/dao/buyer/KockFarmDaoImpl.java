@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.KockFarm;
+import dto.buyer.Matching;
 import util.MybatisSqlSessionFactory;
 
 public class KockFarmDaoImpl implements KockFarmDao {
@@ -36,5 +37,12 @@ public class KockFarmDaoImpl implements KockFarmDao {
 	@Override
 	public List<KockFarm> getKockFarmList() throws Exception {
 		return sqlSession.selectList("mapper.kockFarm.getKockFarmList");
+	}
+
+	//매칭
+	@Override
+	public void insertMatching(Matching matching) throws Exception {
+		sqlSession.insert("mapper.kockFarm.insertMatching",matching);
+		sqlSession.commit();
 	}
 }
