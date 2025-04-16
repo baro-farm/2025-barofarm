@@ -81,11 +81,25 @@ public class Join extends HttpServlet {
 		
 		try {
 			service.join(user, address);
-			response.sendRedirect("join");
+			response.sendRedirect("join"); // *추후 메인이동으로 변경 필요
 		} catch(Exception e) {
+			request.setAttribute("userId", userid);
+			request.setAttribute("pwd", pwd);
+			request.setAttribute("userName", userName);
+			request.setAttribute("phone", phone);
+			request.setAttribute("birthDate", birthStr);
+			request.setAttribute("email", email);
+			request.setAttribute("isSeller", isSellerStr);
+			request.setAttribute("storeName", storeName);
+			request.setAttribute("businessNum", businessNum);
+			request.setAttribute("postCode", postCode);
+			request.setAttribute("addr1", addr1);
+			request.setAttribute("addr2", addr2Str);
+			request.setAttribute("extraAddr", extraAddr);
+			
 			e.printStackTrace();
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("join.jsp").forward(request, response);
+			request.setAttribute("error", "회원가입에 실패했습니다.");
+			request.getRequestDispatcher("join").forward(request, response);
 		}
 	}
 
