@@ -19,8 +19,10 @@
 		<typeAlias type="dto.seller.ProdAnswer" alias="prodAnswer"/>
 		<typeAlias type="dto.buyer.ProductOrder" alias="prodOrder"/>
 		<typeAlias type="dto.buyer.ProductOrderItem" alias="prodOrderItem"/>				
-    	<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo"/>	
-		<typeAlias type="dto.buyer.BabyComment" alias="babyComment" />	
+    	<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo"/>
+		<typeAlias type="dto.buyer.BabyComment" alias="babyComment" />
+		<typeAlias type="dto.seller.SellerDetail" alias="seller" />
+		<typeAlias type="dto.admin.Store" alias="store" />
 	</typeAliases>
 		
 	<environments default="development">
@@ -43,5 +45,6 @@
 		<mapper resource="mapper/prodQuestion.xml"/>
 		<mapper resource="mapper/productOrder.xml"/>
 		<mapper resource="mapper/customerService.xml" />
+		<mapper resource="mapper/seller.xml" />
 	</mappers>
 </configuration>

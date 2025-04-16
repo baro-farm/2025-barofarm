@@ -7,4 +7,35 @@
 		insert into user (userNum, storeName, businessNum)
 				values (#{userNum}, #{storeName}, #{businessNum})
 	</insert>
+	<select id="selectStoreList" resultType="store">
+		SELECT 
+		    s.sellerNum,
+		    u.userId,
+		    u.userName,
+		    u.phone,
+		    u.birthDate,
+		    u.email,
+		    u.createdAt,
+		    u.isDeleted,
+		    s.storeName,
+		    s.businessNum,
+		    s.isAlarm,
+		    COALESCE(totalSales.totalSalesAmount, 0) AS totalSalesAmount
+		FROM 
+		    user u
+		JOIN 
+		    sellerDetail s ON u.userNum = s.userNum
+	
+		LEFT JOIN (
+		    SELECT 
+		        sellerNum,
+		        SUM(salesAmount) AS totalSalesAmount
+		    FROM (
+		        SELECT sellerNum, salesVolume * price AS salesAmount FROM product
+		        UNION ALL
+		        SELECT sellerNum, salesVolume * packagePrice AS salesAmount FROM package
+		    ) combined
+		    GROUP BY sellerNum
+		) totalSales ON s.sellerNum = totalSales.sellerNum
+	</select>
 </mapper>
