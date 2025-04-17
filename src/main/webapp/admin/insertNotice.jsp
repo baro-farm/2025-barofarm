@@ -25,19 +25,19 @@
     <div id="content">
     <div id="wrapper">
       <div id="title">공지사항 작성</div>
-      <form id="notice_form" action="insertNotice" method="POST">     
-      <input type="text" id="notice_title" name="title" placeholder="제목을 입력하세요" />
-      <div id="pin_notice">
-      	<input type="checkbox" id="fixed" name="fixed" />
-    	<label for="fixed">공지 상단 고정</label>
-      </div>
-      <div id="editor"></div>
-      <!-- 이 div에 실제 에디터 내용을 담을 숨겨진 input 추가 -->
-  		<input type="hidden" id="notice_content" name="notice_content" />
-      <div id="btns">
-    	  <button id="cancelBtn">취소하기</button>
-	      <button type="submit" id="insertBtn">작성하기</button>
-      </div>
+      <form id="notice_form" action="insertNotice" method="POST"> 
+	      <input type="text" id="notice_title" name="title" placeholder="제목을 입력하세요" />
+	      <div id="pin_notice">
+	      	<input type="checkbox" id="fixed" name="fixed" />
+	    	<label for="fixed">공지 상단 고정</label>
+	      </div>
+	      <div id="editor"></div>
+	      <!-- 이 div에 실제 에디터 내용을 담을 숨겨진 input 추가 -->
+	  		<input type="hidden" id="notice_content" name="notice_content" />
+	      <div id="btns">
+	    	  <button id="cancelBtn">취소하기</button>
+		      <button type="submit" id="insertBtn">작성하기</button>
+	      </div>
       </form>
     </div>
     </div>

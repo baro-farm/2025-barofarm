@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.User;
 import dto.admin.Notice;
 import service.admin.NoticeService;
 import service.admin.NoticeServiceImpl;
@@ -44,6 +45,16 @@ public class InsertNotice extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
+		// 로그인한 사용자 정보 세션에서 가져오기
+	    User user = (User) request.getSession().getAttribute("user");
+	    if (user == null) {
+	        // 로그인 안 돼있으면 로그인 페이지로 보내기
+	    	// 이상하긴 한데 바꿀 예정
+	        response.sendRedirect("login.jsp");
+	        return;
+	    }
+		
+	    Long userNum = user.getUserNum();
 		String title = request.getParameter("title");
 		String content = request.getParameter("notice_content");
 		String fixedParam = request.getParameter("fixed");
@@ -51,7 +62,7 @@ public class InsertNotice extends HttpServlet {
 
 		
 		// user 임시값
-		Notice notice = new Notice(1, title, content, fixed);
+		Notice notice = new Notice(userNum, title, content, fixed);
 		NoticeService service = new NoticeServiceImpl();
 		try {
 			service.writeNotice(notice);
