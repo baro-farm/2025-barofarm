@@ -3,17 +3,31 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="mapper.prodorder">
-	<select id="prodOrderList" parameterType="Long" resultType="prodOrderItem">
+	<select id="prodOrderList" parameterType="Long" resultType="prodOrderVo">
 		select
 			poi.pdOrderNum, poi.amount, poi.price,
 			p.productNum, p.sellerNum, p.productName,
 			s.sellerNum, s.storeName,
-			po.userNum, po.TotalPrice, po.orderDate, po.deleveryStatus, po.orderStatus
+			po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus, po.orderStatus
 		from productOrderItem poi
 		Join product p on poi.productNum = p.productNum
 		Join sellerdetail s on p.sellerNum = s.sellerNum
 		join productOrder po on poi.pdOrderNum = po.pdOrderNum
 		where po.userNum = #{userNum}
-		order by DESC
+		order by po.orderDate desc
 	</select>
+	
+	<select id="prodDetailOrderList" parameterType="Long" resultType="prodOrderVo">
+		select
+			poi.pdOrderNum, poi.amount, poi.price,
+			p.productNum, p.sellerNum, p.productName,
+			s.sellerNum, s.storeName,
+			po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus, po.orderStatus
+		from productOrderItem poi
+		Join product p on poi.productNum = p.productNum
+		Join sellerdetail s on p.sellerNum = s.sellerNum
+		join productOrder po on poi.pdOrderNum = po.pdOrderNum
+		where poi.pdOrderNum = #{pdOrderNum}
+	</select>
+		
 </mapper>

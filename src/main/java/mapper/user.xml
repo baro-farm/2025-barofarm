@@ -73,6 +73,11 @@
 	<update id="deleteUser" parameterType="user">
 		update user set isDeleted = 1 where userId=#{userId}
 	</update>
+
+	<select id="selectUserList" resultType="user">
+		select * from user order by userNum desc
+	</select>
+
  </mapper>
 	
 
