@@ -11,21 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.buyer.ProdOrderService;
 import service.buyer.ProdOrderServiceImpl;
-import service.buyer.ProdQuestionService;
-import service.buyer.ProdQuestionServiceImpl;
 import vo.ProdOrderVO;
 
 /**
- * Servlet implementation class ProdOrderList
+ * Servlet implementation class DetailOrderInfo
  */
-@WebServlet("/prodOrderList")
-public class ProdOrderList extends HttpServlet {
+@WebServlet("/detailOrderInfo")
+public class DetailOrderInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProdOrderList() {
+    public DetailOrderInfo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,14 +35,16 @@ public class ProdOrderList extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		ProdOrderService service = new ProdOrderServiceImpl();
 		List<ProdOrderVO> prodOrderList = null;
+		Long pdOrderNum = Long.parseLong(request.getParameter("pdOrderNum"));
+		System.out.println(pdOrderNum);
 		try {
-			prodOrderList = service.selectUserProdOrderList("hong12");
+			prodOrderList = service.selectUserProdOrderDetailList(pdOrderNum);
+			System.out.println(prodOrderList);
 			request.setAttribute("prodOrderList", prodOrderList);
-			request.getRequestDispatcher("/buyer/productOrderList.jsp").forward(request, response);
+			request.getRequestDispatcher("/buyer/detailOrderInfo.jsp").forward(request, response);
 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }
