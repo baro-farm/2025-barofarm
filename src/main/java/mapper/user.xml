@@ -61,8 +61,6 @@
 	<delete id="deleteAddress" parameterType="Long">
 		delete from address where addrNum=#{addrNum}
 	</delete>
-	
-	
 	<insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyProperty="userNum">
 		insert into user (userId, pwd, userName, phone, birthDate, email, isSeller)
 				values (#{userId}, #{pwd}, #{userName}, #{phone}, #{birthDate}, #{email}, #{isSeller})
@@ -71,6 +69,15 @@
 	<select id="selectUser" parameterType="String" resultType="user">
 		select * from user where userId=#{userId}
 	</select>
+	
+	<update id="deleteUser" parameterType="user">
+		update user set isDeleted = 1 where userId=#{userId}
+	</update>
+
+	<select id="selectUserList" resultType="user">
+		select * from user order by userNum desc
+	</select>
+
  </mapper>
 	
 
