@@ -5,11 +5,26 @@
 	
 <configuration>
 	<typeAliases>
-		<package name="dto.buyer" />
-		<package name="dto.admin" />
-		<package name="dto.seller" />
-		<package name="dto" />
-		<package name="vo" />
+		<typeAlias type="dto.buyer.Address" alias="address" />
+		<typeAlias type="dto.User" alias="user" />
+    	<typeAlias type="vo.UserVO" alias="userVo"/>
+		<typeAlias type="dto.buyer.KockFarm" alias="kockFarm" />	
+		<typeAlias type="dto.buyer.KockComment" alias="kockComment" />
+		<typeAlias type="dto.admin.CustomerService" alias="customerService" />	
+		<typeAlias type="dto.admin.AdminQuestion" alias="adminQuestion" />
+		<typeAlias type="dto.admin.AdminAnswer" alias="adminAnswer" />
+		<typeAlias type="dto.admin.Notice" alias="notice" />
+		<typeAlias type="dto.buyer.ProdQuestion" alias="prodQuestion"/>	
+		<typeAlias type="vo.QuestionVO" alias="questionVo"/>
+		<typeAlias type="dto.seller.ProdAnswer" alias="prodAnswer"/>
+		<typeAlias type="dto.buyer.ProductOrder" alias="prodOrder"/>
+		<typeAlias type="dto.buyer.ProductOrderItem" alias="prodOrderItem"/>				
+    	<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo"/>
+		<typeAlias type="dto.buyer.BabyComment" alias="babyComment" />
+		<typeAlias type="dto.buyer.Matching" alias="matching" />	
+		<typeAlias type="dto.seller.SellerDetail" alias="seller" />
+		<typeAlias type="dto.admin.Store" alias="store" />
+    	<typeAlias type="vo.PackOrderVO" alias="packOrderVo"/>
 	</typeAliases>
 		
 	<environments default="development">
