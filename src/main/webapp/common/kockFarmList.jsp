@@ -91,6 +91,7 @@
 	            <button class="btn btn-list" onclick="location.href='insertKockFarm'">글 등록</button>
 	        </div>
 	    </div>
+	    
 	</div>
 </body>
 

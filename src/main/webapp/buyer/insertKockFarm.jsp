@@ -83,6 +83,9 @@
 	        <label for="ifile" >이미지첨부</label>
 	        <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="100px" 
 					onclick="document.getElementById('ifile').click();"/> 
+	        
+   	      	<button type="button" id="preview" class="upload-btn" onclick="document.getElementById('ifile').click()">업로드</button>
+	        
 	        <input type="file" id="ifile" name="ifile" accept="image/*" style="display:none" 
 	        onchange="readURL(this);" />
 	      </div>
