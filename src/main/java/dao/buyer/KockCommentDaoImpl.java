@@ -40,4 +40,9 @@ public class KockCommentDaoImpl implements KockCommentDao {
 		return sqlSession.selectOne("mapper.kockFarm.selectBCommentByReNum",reNum);
 	}
 
+	@Override
+	public List<BabyComment> babyCommentList(Long kcNum) throws Exception {
+		return sqlSession.selectList("mapper.kockFarm.babyCommentList",kcNum);
+	}
+
 }
