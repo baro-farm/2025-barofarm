@@ -1,12 +1,14 @@
 #header {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
   height: 80px;
-  /* width: max-content; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
   border-bottom: 1px solid #f3f3f3;
+  background-color: white;
 }
 
 #info {
@@ -25,8 +27,9 @@
 
 #content {
   width: calc(100vw - 220px);
-  min-width: 1280px;
+  max-width: 1280px;
   margin: 40px auto;
+  padding-top: 80px;
   padding-left: 220px;
   display: flex;
   flex-direction: column;
@@ -34,7 +37,12 @@
   align-items: center;
 }
 
-.notice-header {
+#wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.user_header {
   max-width: 1920px;
   min-width: 1280px;
   display: flex;
@@ -48,28 +56,10 @@
   font-size: 32px;
   align-self: flex-start;
 }
-#new_notice {
-  width: 100px;
-  height: 36px;
-  font-size: 16px;
-  /* font-weight: bold; */
-  background-color: #65b741;
-  border-radius: 8px;
-  border: none;
-  color: white;
-  cursor: pointer;
-  align-self: flex-end;
-}
 
-#notie_table {
+#user_table {
   width: 100%;
   overflow-y: auto;
-}
-#new_notice:hover {
-  background-color: #579d39;
-}
-
-#notie_table {
   min-width: 1280px;
 }
 
@@ -91,28 +81,4 @@ thead > tr > th {
 
 .table th {
   background-color: #f4f4f4;
-}
-
-.updateBtn {
-  width: 46px;
-  height: 26px;
-  background-color: #ffb534;
-  border: 0;
-  border-radius: 4px;
-  color: white;
-}
-.deleteBtn {
-  width: 46px;
-  height: 26px;
-  background-color: #d72638;
-  border: 0;
-  border-radius: 4px;
-  color: white;
-}
-.updateBtn:hover {
-  background-color: #e6a42f;
-}
-
-.deleteBtn:hover {
-  background-color: #c1212f;
 }

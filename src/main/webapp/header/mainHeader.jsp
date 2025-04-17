@@ -47,7 +47,7 @@
                     <li class="headerli"><a href="#" class="headerBtn" id="best">베스트</a></li>
                     <li class="headerli"><a href="#" class="headerBtn" id="package">꾸러미</a></li>
                     <li class="headerli"><a href="#" class="headerBtn" id="kockFarm">콕팜</a></li>
-                    <li class="headerli"><a href="#" class="headerBtn" id="notice">공지사항</a></li>
+                    <li class="headerli"><a href="noticeListView" class="headerBtn" id="notice">공지사항</a></li>
                 </ul>
             </div>
             <div class="searchBox">

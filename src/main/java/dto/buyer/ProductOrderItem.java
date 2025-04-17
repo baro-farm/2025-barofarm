@@ -8,7 +8,7 @@ public class ProductOrderItem {
 	Integer price;
 	
 	public ProductOrderItem() {
-		super();
+		
 	}
 	
 	public ProductOrderItem(Long pdOrderNum, Long productNum, Integer amount, Integer price) {
