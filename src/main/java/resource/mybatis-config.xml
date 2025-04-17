@@ -19,7 +19,8 @@
 		<typeAlias type="dto.seller.ProdAnswer" alias="prodAnswer"/>
 		<typeAlias type="dto.buyer.ProductOrder" alias="prodOrder"/>
 		<typeAlias type="dto.buyer.ProductOrderItem" alias="prodOrderItem"/>				
-    	<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo"/>	</typeAliases>
+    	<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo"/>
+    	<typeAlias type="vo.PackOrderVO" alias="packOrderVo"/>
 		<typeAlias type="dto.buyer.BabyComment" alias="babyComment" />	
 	</typeAliases>
 		
@@ -42,6 +43,7 @@
 		<mapper resource="mapper/admin/notice.xml" />
 		<mapper resource="mapper/prodQuestion.xml"/>
 		<mapper resource="mapper/productOrder.xml"/>
+		<mapper resource="mapper/packageOrder.xml"/>
 		<mapper resource="mapper/customerService.xml" />
 	</mappers>
 </configuration>
