@@ -1,0 +1,182 @@
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+#info {
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+#email {
+  font-size: 16px;
+  color: #ffb534;
+}
+
+#content {
+  width: calc(100vw - 220px);
+  max-width: 1280px;
+  margin: 40px auto;
+  padding-top: 80px;
+  gap: 20px;
+  padding-left: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#title {
+  font-size: 32px;
+  align-self: flex-start;
+}
+
+#form {
+  width: 100%;
+}
+
+.input_div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+#product_category {
+  height: 32px;
+  border-radius: 4px;
+}
+
+.input_div label {
+  width: 100px;
+  text-align: end;
+}
+.input_div input {
+  border-radius: 4px;
+  border: 1px solid #c2c2c2;
+  width: 240px;
+  padding: 6px 10px;
+}
+
+#product_name {
+  width: 800px;
+}
+
+.option-section {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.option-section label {
+  width: 100px;
+  text-align: end;
+}
+
+.option-inputs {
+  display: flex;
+  gap: 12px;
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+}
+
+.option-inputs input {
+  padding: 6px 10px;
+  border: 1px solid #c2c2c2;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.option-inputs button {
+  background-color: #ffb534;
+  color: white;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#option_list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 112px;
+}
+
+#option_list li {
+  margin-bottom: 6px;
+  background-color: #f9f9f9;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#product_image {
+  margin-top: 6px;
+
+  padding: 8px;
+  border: 1px solid #c2c2c2;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#preview img {
+  width: 200px; /* 원하는 너비 */
+  height: auto; /* 비율 유지 */
+  margin-left: 112px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#editor_div {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+#product_content {
+  display: block;
+  text-align: end;
+  width: 100px;
+}
+
+#editor {
+  width: 1168px; /* stretch 대신 width 100% */
+}
+
+#insert_product {
+  width: 100px;
+  height: 34px;
+  font-size: 16px;
+  background-color: #65b741;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  /* align-content: center; */
+  align-self: center;
+  cursor: pointer;
+}
+
+#insert_product:hover {
+  background-color: #579d39;
+}
+
+#submit {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
