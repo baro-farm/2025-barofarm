@@ -19,4 +19,10 @@ public class UserDAOImpl implements UserDAO {
 	public User selectUser(String userId) throws Exception {
 			return sqlSession.selectOne("mapper.user.selectUser", userId);
 	}
+
+	@Override
+	public void deleteUser(String userId) throws Exception {
+			sqlSession.update("mapper.user.deleteUser", userId);
+			sqlSession.commit();
+	}
 }

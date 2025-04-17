@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="reset.css" />
     <style>
       footer {
-        width: 1920px;
+        width: 100%;
         height: 170px;
         background-color: #fbf6ee;
         display: flex;
         align-items: center;
-        color: #8a8a8a;
+        color: #4d4d4d;
+        margin-top:40px;
       }
       #inner {
         width: 1280px;
@@ -27,12 +28,15 @@
         flex-direction: column;
         gap: 8px;
       }
+      img {
+      	width:100px;
+      }
     </style>
   </head>
   <body>
     <footer>
       <div id="inner">
-        <img src="img/logo.png" alt="" />
+        <img src="https://i.ibb.co/zH5kPJNt/barologo1.png" alt="barologo1" />
         <div id="contents">
           <div>
             <span>공지사항</span>

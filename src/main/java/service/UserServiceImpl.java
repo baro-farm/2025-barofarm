@@ -37,9 +37,18 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User login(String userId, String pwd) throws Exception {
 		User user = userDao.selectUser(userId);
-		if(user==null) throw new Exception("아이디 오류");
+		if(user==null || user.getIsDeleted() == true) throw new Exception("아이디 오류");
 		if(!user.getPwd().equals(pwd)) throw new Exception("비밀번호 오류");
 		return user;
 	}
+
+	@Override
+	public User deleteUser(String userId) throws Exception {
+		User user = userDao.selectUser(userId);
+		userDao.deleteUser(userId);
+		return user;
+	}
+
+	
 
 }
