@@ -51,7 +51,7 @@ public class InsertNotice extends HttpServlet {
 
 		
 		// user 임시값
-		Notice notice = new Notice(1, title, content, fixed);
+		Notice notice = new Notice(17, title, content, fixed);
 		NoticeService service = new NoticeServiceImpl();
 		try {
 			service.writeNotice(notice);
