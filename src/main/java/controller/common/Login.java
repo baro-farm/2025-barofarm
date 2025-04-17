@@ -48,6 +48,12 @@ public class Login extends HttpServlet {
 	            }
 	        }
 	    }
+	    
+	    String err = (String) request.getSession().getAttribute("err");
+	    if (err != null) {
+	        request.setAttribute("err", err);
+	        request.getSession().removeAttribute("err");
+	    }
 
 	    request.setAttribute("userId", userId);
 	    request.setAttribute("saveId", saveId);
@@ -119,9 +125,9 @@ public class Login extends HttpServlet {
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "로그인에 실패했습니다.");
-			request.setAttribute("userId", userId);
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.getSession().setAttribute("err", "아이디 또는 비밀번호가 잘못되었습니다.");
+			request.getSession().setAttribute("userId", userId);
+			response.sendRedirect("login");
 		}
 	}
 

@@ -13,7 +13,7 @@ public class User {
 	LocalDate birthDate;
 	String email;
 	boolean isSeller;
-	boolean deleted;
+	boolean isDeleted;
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
 	String fcmToken;
@@ -89,7 +89,7 @@ public class User {
 		this.birthDate = birthDate;
 		this.email = email;
 		this.isSeller = isSeller;
-		this.deleted = deleted;
+		this.isDeleted = isDeleted;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.fcmToken = fcmToken;
@@ -160,11 +160,11 @@ public class User {
 	}
 
 	public boolean getIsDeleted() {
-		return deleted;
+		return isDeleted;
 	}
 
 	public void setIsDeleted(boolean deleted) {
-		this.deleted = deleted;
+		this.isDeleted = deleted;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -195,7 +195,7 @@ public class User {
 	public String toString() {
 		return "User [userNum=" + userNum + ", userId=" + userId + ", pwd=" + pwd + ", userName=" + userName
 				+ ", phone=" + phone + ", birthDate=" + birthDate + ", email=" + email + ", isSeller=" + isSeller
-				+ ", deleted=" + deleted + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", fcmToken="
+				+ ", isDeleted=" + isDeleted + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", fcmToken="
 				+ fcmToken + "]";
 	}
 

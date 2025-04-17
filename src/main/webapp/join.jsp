@@ -18,6 +18,7 @@
 		<!-- 헤더 -->
 		<jsp:include page="/header/mainHeader.jsp"/>
 		<!-- 컨텐츠  -->
+		<div class="content">
 		<div class="join">
        		<h2 class="title">회원가입</h2>
 	        <!-- 회원가입 폼 -->
@@ -74,7 +75,8 @@
 				<div class="errorMsg">${err}</div>
 			</c:if>
 	    </div>
-    </div> 
+	    </div> <!-- .content -->
+	<jsp:include page="./header/footer.jsp" />
+    </div>
 </body>
-
 </html>
