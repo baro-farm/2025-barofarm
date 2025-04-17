@@ -42,7 +42,7 @@ public class DetailKockFarm extends HttpServlet {
 		KockCommentService kcService = new KockCommentServiceImpl();
 		try {
 			KockFarm kock = service.selectKockFarm(kockNum);
-			List<KockComment> commentList = kcService.kockCommentList(kockNum);
+			List<KockComment> commentList = kcService.kockCommentListWithBaby(kockNum);
 			request.setAttribute("kock", kock);
 			request.setAttribute("commentList", commentList);
 			request.getRequestDispatcher("/common/detailKockFarm.jsp").forward(request, response);

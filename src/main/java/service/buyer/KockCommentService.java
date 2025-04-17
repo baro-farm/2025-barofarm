@@ -7,7 +7,7 @@ import dto.buyer.KockComment;
 
 public interface KockCommentService {
 	boolean insertKockComment(KockComment kComment) throws Exception;
-	List<KockComment> kockCommentList(Long kockNum) throws Exception;
+	List<KockComment> kockCommentListWithBaby(Long kockNum) throws Exception;
 	KockComment selectKCommentByKcNum(Long kcNum) throws Exception;
 	
 	//아기 댓글

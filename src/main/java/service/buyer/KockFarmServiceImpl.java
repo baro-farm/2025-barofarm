@@ -5,6 +5,7 @@ import java.util.List;
 import dao.buyer.KockFarmDao;
 import dao.buyer.KockFarmDaoImpl;
 import dto.buyer.KockFarm;
+import dto.buyer.Matching;
 
 public class KockFarmServiceImpl implements KockFarmService {
 	private KockFarmDao kockFarmDao;
@@ -41,5 +42,11 @@ public class KockFarmServiceImpl implements KockFarmService {
 	@Override
 	public List<KockFarm> getKockFarmList() throws Exception {
 		return kockFarmDao.getKockFarmList();
+	}
+
+	//매칭
+	@Override
+	public void insertMatching(Matching matching) throws Exception {
+		kockFarmDao.insertMatching(matching);
 	}
 }
