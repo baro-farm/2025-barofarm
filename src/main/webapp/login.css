@@ -1,5 +1,13 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.content{
+  flex: 1;
+}
 .loginContainer {
-  margin: 50px auto;
+  margin: 100px auto;
   padding: 20px;
   width: 297px;
   border-radius: 8px;
@@ -53,10 +61,11 @@
 /* 로그인 버튼 (a 태그 스타일) */
 .loginBtn {
     display: block;
-    width: 275px;
-    padding: 12px;
-    margin-top: 40px;
+    width: 300px;
+    padding: 10px;
+    margin-top: 20px;
     background-color: #FFB534;
+    border: none;
     color: white;
     font-size: 16px;
     font-weight: bold;
@@ -95,4 +104,9 @@
 }
 .bottomMenu a:not(:first-child) {
     margin-left: 10px;
+}
+/* 에러메세지 */
+.errorMsg {
+	font-size: 12px;
+	color: red;
 }
