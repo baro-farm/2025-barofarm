@@ -39,7 +39,7 @@
 	  
 	        <div class="form-group">
 	          <label for="writer">작성자</label>
-	          <input type="text" id="userNum" name="userNum" value="2" readonly>
+	          <input type="text" value="${userName }" readonly>
 	        </div>
 	      </div>
 	
@@ -84,8 +84,8 @@
 	        <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="100px" 
 					onclick="document.getElementById('ifile').click();"/> 
 	        
-   	      	<button type="button" id="preview" class="upload-btn" onclick="document.getElementById('ifile').click()">업로드</button>
-	        
+<!--    	      	<button type="button" id="preview" class="upload-btn" onclick="document.getElementById('ifile').click()">업로드</button>
+ -->	        
 	        <input type="file" id="ifile" name="ifile" accept="image/*" style="display:none" 
 	        onchange="readURL(this);" />
 	      </div>

@@ -40,7 +40,7 @@ public class KockMatching extends HttpServlet {
 		KockFarmService service = new KockFarmServiceImpl();
 		
 		try {
-			service.insertMatching(matching);
+			service.insertMatching(matching,kockNum);
 			response.sendRedirect(request.getContextPath()+"/kockFarmList");
 		} catch (Exception e) {
 			e.printStackTrace();
