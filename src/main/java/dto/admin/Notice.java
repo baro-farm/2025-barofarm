@@ -3,27 +3,27 @@ package dto.admin;
 import java.sql.Date;
 
 public class Notice {
-	Integer noticeNum;
-	Integer userNum;
+	Long noticeNum;
+	Long userNum;
 	String title;
 	String content;
 	Date createdAt;
 	Date updatedAt;
 	Integer fixed;
 
-	public Integer getNoticeNum() {
+	public Long getNoticeNum() {
 		return noticeNum;
 	}
 
-	public void setNoticeNum(Integer noticeNum) {
+	public void setNoticeNum(Long noticeNum) {
 		this.noticeNum = noticeNum;
 	}
 
-	public Integer getUserNum() {
+	public Long getUserNum() {
 		return userNum;
 	}
 
-	public void setUserNum(Integer userNum) {
+	public void setUserNum(Long userNum) {
 		this.userNum = userNum;
 	}
 
@@ -71,7 +71,7 @@ public class Notice {
 		super();
 	}
 
-	public Notice(Integer userNum, String title, String content, Integer fixed) {
+	public Notice(Long userNum, String title, String content, Integer fixed) {
 		super();
 		this.userNum = userNum;
 		this.title = title;
@@ -79,7 +79,7 @@ public class Notice {
 		this.fixed = fixed;
 	}
 
-	public Notice(Integer noticeNum, Integer userNum, String title, String content, Date updatedAt, Integer fixed) {
+	public Notice(Long noticeNum, Long userNum, String title, String content, Date updatedAt, Integer fixed) {
 		super();
 		this.noticeNum = noticeNum;
 		this.userNum = userNum;

@@ -79,7 +79,7 @@ public class User {
 	}
 
 	public User(Long userNum, String userId, String pwd, String userName, String phone, LocalDate birthDate, String email,
-			boolean isSeller, boolean deleted, LocalDateTime createdAt, LocalDateTime updatedAt, String fcmToken) {
+			boolean isSeller, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String fcmToken) {
 		super();
 		this.userNum = userNum;
 		this.userId = userId;
@@ -163,8 +163,9 @@ public class User {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(boolean deleted) {
-		this.isDeleted = deleted;
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+
 	}
 
 	public LocalDateTime getCreatedAt() {
