@@ -71,6 +71,10 @@
 	<select id="selectUser" parameterType="String" resultType="user">
 		select * from user where userId=#{userId}
 	</select>
+	
+	<select id="selectUserList" resultType="user">
+		select * from user order by userNum desc
+	</select>
  </mapper>
 	
 
