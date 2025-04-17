@@ -6,7 +6,7 @@ public class ProdOrderVO {
 	//product order
 	Long pdOrderNum;
 	Long userNum;
-	Integer TotalPrice;
+	Integer pdTotalPrice;
 	LocalDate orderDate;
 	String deleveryStatus;
 	String orderStatus;
@@ -40,12 +40,12 @@ public class ProdOrderVO {
 		this.userNum = userNum;
 	}
 
-	public Integer getTotalPrice() {
-		return TotalPrice;
+	public Integer getPdTotalPrice() {
+		return pdTotalPrice;
 	}
 
-	public void setTotalPrice(Integer totalPrice) {
-		TotalPrice = totalPrice;
+	public void setPdTotalPrice(Integer pdTotalPrice) {
+		this.pdTotalPrice = pdTotalPrice;
 	}
 
 	public LocalDate getOrderDate() {
@@ -127,5 +127,15 @@ public class ProdOrderVO {
 	public void setStoreName(String storeName) {
 		StoreName = storeName;
 	}
+
+	@Override
+	public String toString() {
+		return "ProdOrderVO [pdOrderNum=" + pdOrderNum + ", userNum=" + userNum + ", pdTotalPrice=" + pdTotalPrice
+				+ ", orderDate=" + orderDate + ", deleveryStatus=" + deleveryStatus + ", orderStatus=" + orderStatus
+				+ ", productNum=" + productNum + ", amount=" + amount + ", price=" + price + ", sellerNum=" + sellerNum
+				+ ", productName=" + productName + ", imgUrl=" + imgUrl + ", StoreName=" + StoreName + "]";
+	}
+	
+	
 	
 }

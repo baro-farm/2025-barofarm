@@ -6,5 +6,6 @@ import vo.ProdOrderVO;
 
 public interface ProdOrderService {
 	List<ProdOrderVO> selectUserProdOrderList(String userId) throws Exception;
-	
+	List<ProdOrderVO> selectUserProdOrderDetailList(Long pdOrderNum) throws Exception;
+
 }

@@ -28,114 +28,65 @@
 
         <div class="orderList">
 
-            <div class="orderItem">
+			<!-- 주문 내역 반복 -->
+			<c:forEach var="prodOrder" items="${prodOrderList }">
+	            <div class="orderItem">
+	                <div class="orderTop">
+	                </div>
+	            
+	                <div class="orderCenter">
+	                    <div class="orderLeft">
+	                    	<div class="orderStatus orderReady">${prodOrder.deleveryStatus } </div>
+	                    
+	                        <img src="${prodOrder.imgUrl }" alt="상품 이미지">
+	                    </div>
+	                    <div class="orderRight">
+	                        <div>
+	                            <span class="orderDate">${prodOrder.orderDate } 주문</span>
+	                        </div>
+	                        <div class="productName">${prodOrder.productName }</div>
+	                        <div class="productPrice">${prodOrder.price } 원</div>
+	                        <div class="orderDetail"><a href="${contextPath}/detailOrderInfo?pdOrderNum=${prodOrder.pdOrderNum}">상세보기></a></div>
+	
+	                    </div>
+	                </div>
+	                
+	                <div class="orderBottom">
+	                	<c:choose>
+	                		<c:when test="${prodOrder.deleveryStatus eq '준비중' }">
+			                    <button class="btn btnGreen">장바구니 담기</button>
+			                    <button class="btn btnGreen">바로 구매하기</button>  
+			                    <button class="btn btnRed">취소 신청</button>	                		
+	                		</c:when>
+	                		
+	                		<c:when test="${prodOrder.deleveryStatus eq '취소신청' }">
+			                    <button class="btn btnGreen">장바구니 담기</button>
+			                    <button class="btn btnGreen">바로 구매하기</button>  	                		
+	                		</c:when>
+	                		
+	                		<c:when test="${prodOrder.deleveryStatus eq '취소완료' }">
+			                    <button class="btn btnRed">취소 정보</button>	                		
+			                    <button class="btn btnGreen">장바구니 담기</button>
+			                    <button class="btn btnGreen">바로 구매하기</button>  	                		
+	                		</c:when>
+	                		
+	                		<c:when test="${prodOrder.deleveryStatus eq '배송완료' }">
+			                    <button class="btn btnGreen">구매 확정</button>	                		
+			                    <button class="btn btnGreen">장바구니 담기</button>
+			                    <button class="btn btnGreen">바로 구매하기</button>  			                    	                		
 
-                <div class="orderTop">
-                    <div class="orderStatus orderReady">배송 준비중</div>
-                </div>
-            
-                <div class="orderCenter">
-                    <div class="orderLeft">
-                        <img src="#" alt="상품 이미지">
-                    </div>
-                    <div class="orderRight">
-                        <div>
-                            <span class="orderDate">3.08 06:33 주문</span>
-                        </div>
-                        <div class="productName">상품 이름</div>
-                        <div class="productPrice">10,000 원</div>
-                        <div class="orderDetail"><a href="#">상세보기></a></div>
+	                		</c:when>
+	                		
+	                		<c:when test="${prodOrder.deleveryStatus eq '구매확정' }">
+			                    <button class="btn btnGreen">장바구니 담기</button>
+			                    <button class="btn btnGreen">바로 구매하기</button>  			                    	                		
+	                		</c:when>	                			                		
+	                	</c:choose>
 
-                    </div>
-                </div>
-                
-                <div class="orderBottom">
-                    <button class="btn btnGreen">배송 상세</button>
-                    <button class="btn btnRed">취소 신청</button>
-                </div>
-            
-            </div>
-
-
-
-            <div class="orderItem">
-
-                <div class="orderTop">
-                    <div class="orderStatus orderCancel">취소 완료</div>                </div>
-            
-                <div class="orderCenter">
-                    <div class="orderLeft">
-                        <img src="#" alt="상품 이미지">
-                    </div>
-                    <div class="orderRight">
-                        <div>
-                            <span class="orderDate">3.08 06:33 주문</span>
-                        </div>
-                        <div class="productName">상품 이름</div>
-                        <div class="productPrice">10,000 원</div>
-                        <div class="orderDetail"><a href="#">상세보기></a></div>
-
-                    </div>
-                </div>
-                
-                <div class="orderBottom">
-                    <button class="btn btnRed">취소 정보</button>
-                    <button class="btn">장바구니 담기</button>
-                    <button class="btn">바로 구매하기</button>
-                </div>
-            
-            </div>
-            <div class="orderItem">
-
-                <div class="orderTop">
-                    <div class="orderStatus deliveryComplete">배송 완료</div>
-                </div>
-                <div class="orderCenter">
-                    <div class="orderLeft">
-                        <img src="#" alt="상품 이미지">
-                    </div>
-                    <div class="orderRight">
-                        <div>
-                            <span class="orderDate">3.08 06:33 주문</span>
-                        </div>
-                        <div class="productName">상품 이름</div>
-                        <div class="productPrice">10,000 원</div>
-                        <div class="orderDetail"><a href="#">상세보기></a></div>
-
-                    </div>
-                </div>
-                
-                <div class="orderBottom">
-                    <button class="btn btnGreen">구매 확정</button>
-                    <button class="btn btnRed">반품 신청</button>               
-                </div>
-            
-            </div>
-            <div class="orderItem">
-
-                <div class="orderTop">
-                    <div class="orderStatus orderConfirm">구매확정</div>
-                </div>
-                <div class="orderCenter">
-                    <div class="orderLeft">
-                        <img src="#" alt="상품 이미지">
-                    </div>
-                    <div class="orderRight">
-                        <div>
-                            <span class="orderDate">3.08 06:33 주문</span>
-                        </div>
-                        <div class="productName">상품 이름</div>
-                        <div class="productPrice">10,000 원</div>
-                        <div class="orderDetail"><a href="#">상세보기></a></div>
-                    </div>
-                </div>
-                
-                <div class="orderBottom">
-                    <button class="btn">정보 보기</button>
-                    <button class="btn">장바구니 담기</button>
-                    <button class="btn">바로 구매하기</button>                </div>
-            
-            </div>
+	                </div>
+	            </div>			
+			</c:forEach>
+			
         </div>
 
         <div class="pagination">
