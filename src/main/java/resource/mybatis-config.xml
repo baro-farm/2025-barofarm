@@ -25,6 +25,8 @@
 		<typeAlias type="dto.seller.SellerDetail" alias="seller" />
 		<typeAlias type="dto.admin.Store" alias="store" />
     	<typeAlias type="vo.PackOrderVO" alias="packOrderVo"/>
+    	<typeAlias type="vo.AdminQuestionVO" alias="adminQuestionVO"/>
+    	
 	</typeAliases>
 		
 	<environments default="development">
@@ -49,5 +51,6 @@
 		<mapper resource="mapper/packageOrder.xml"/>
 		<mapper resource="mapper/customerService.xml" />
 		<mapper resource="mapper/seller.xml" />
+		<mapper resource="mapper/adminQuestion.xml"/>
 	</mappers>
 </configuration>
