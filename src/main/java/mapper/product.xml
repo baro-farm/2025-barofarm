@@ -9,7 +9,7 @@
 	</insert>
 	<update id="updateProduct" parameterType="product">
 		update product set cateNum=#{cateNum}, productName=#{productName}, content=#{content}, 
-		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status} salesVolume=#{salesVolume} where productNum=#{productNum} 
+		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status}, salesVolume=#{salesVolume} where productNum=#{productNum} 
 	</update>
 	<update id="stopProduct" parameterType="product">
 		update product set status=#{status} where productNum=#{productNum}

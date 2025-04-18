@@ -6,7 +6,6 @@ import dto.seller.Product;
 import dto.seller.ProductOption;
 
 public interface ProductDAO {
-	void insertProductWithOptions(Product product, List<ProductOption> optionList) throws Exception;
 	void insertProduct(Product product) throws Exception;
 	void updateProduct(Product product) throws Exception;
 	void stopProduct(Product product) throws Exception;

@@ -25,21 +25,39 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 	
 	document
-    .getElementById('product_form')
-    .addEventListener('submit', function (e) {
-      e.preventDefault();
+	  .getElementById('product_form')
+	  .addEventListener('submit', function (e) {
+	    e.preventDefault();
+	
+	    // 옵션 검사
+	    const list = document.getElementById('option_list');
+	    if (list.children.length < 1) {
+	      alert('옵션을 1개 이상 추가해주세요.');
+	      return;
+	    }
+	
+	    // 에디터에서 HTML 내용 가져오기
+	    const htmlContent = editor.getHTML();
+	    console.log('에디터 내용:', htmlContent); // 디버깅용
+	    const contentInput = document.getElementById('product_content');
+	    contentInput.value = htmlContent;
+	    console.log(contentInput.value);
+	
+	    // 조건 만족했으니 submit
+	    setTimeout(() => {
+	      this.submit(); // 여기서 진짜 submit 실행
+	    }, 0);
+	  });
 
-      // 에디터에서 HTML 내용 가져오기
-      const htmlContent = editor.getHTML();
-      console.log('에디터 내용:', htmlContent); // 디버깅용
-      const contentInput = document.getElementById('product_content');
-      contentInput.value = htmlContent;
-      console.log(contentInput.value);
-
-      setTimeout(() => {
-        this.submit(); // 여기서 진짜 submit 실행
-      }, 0);
-    });
+	const params = new URLSearchParams(location.search);
+	  if (params.get('success') === 'true') {
+	    alert('상품 등록이 완료되었습니다!');
+	    // 주소 깔끔하게 정리
+	    history.replaceState({}, '', location.pathname);
+	  } else if (params.get('success') === 'false') {
+	    alert('상품 등록에 실패했습니다.');
+	    history.replaceState({}, '', location.pathname);
+  }
 });
 
 console.log('test')
@@ -85,3 +103,4 @@ fileInput.addEventListener('change', (event) => {
     preview.innerHTML = '';
   }
 });
+

@@ -14,4 +14,8 @@ public class SellerDAOImpl implements SellerDAO {
 		sqlSession.commit();
 	}
 
+	@Override
+	public Long selectSellerNum(Long userNum) throws Exception {
+		return sqlSession.selectOne("mapper.seller.selectSellerNum", userNum);
+	}
 }
