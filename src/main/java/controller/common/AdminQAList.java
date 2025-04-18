@@ -7,21 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.admin.Notice;
+import service.UserService;
+import service.UserServiceImpl;
 import service.admin.NoticeService;
 import service.admin.NoticeServiceImpl;
 
 /**
- * Servlet implementation class DetailNotice
+ * Servlet implementation class AdminQAList
  */
-@WebServlet("/detailNotice")
-public class DetailNotice extends HttpServlet {
+@WebServlet("/adminQAList")
+public class AdminQAList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailNotice() {
+    public AdminQAList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +31,14 @@ public class DetailNotice extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		Integer noticeNum = Integer.parseInt(request.getParameter("noticeNum"));
-		
-		NoticeService service = new NoticeServiceImpl();
+		UserService service = new UserServiceImpl();
 		try {
-			Notice notice = service.selectNotice(noticeNum);
+			request.setAttribute("adminQAList", service.adminQList());
 			
-			request.setAttribute("notice", notice);
-			request.getRequestDispatcher("/common/detailNotice.jsp").forward(request, response);
-		}catch (Exception e) {
+			request.getRequestDispatcher("/common/AdminQAList.jsp").forward(request, response);
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "게시글 조회에 실패했습니다.");
 		}
 	}
 

@@ -76,7 +76,7 @@
 			</c:if>
 	    </div>
 	    </div> <!-- .content -->
-	<jsp:include page="./header/footer.jsp" />
+	<jsp:include page="/header/footer.jsp" />
     </div>
 </body>
 </html>

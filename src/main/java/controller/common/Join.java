@@ -81,7 +81,7 @@ public class Join extends HttpServlet {
 		
 		try {
 			service.join(user, address);
-			response.sendRedirect("join"); // *추후 메인이동으로 변경 필요
+			response.sendRedirect("main.jsp"); // *추후 메인이동으로 변경 필요
 		} catch(Exception e) {
 			request.setAttribute("userId", userid);
 			request.setAttribute("pwd", pwd);
