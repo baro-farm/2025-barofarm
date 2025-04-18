@@ -68,6 +68,7 @@
 		      <span>${opt.option} (+${opt.price}원)</span>
 		      <input type="hidden" name="option_name" value="${opt.option}" />
 		      <input type="hidden" name="option_price" value="${opt.price}" />
+		      <button type="button" class="delete-option-btn">삭제</button>
 		    </li>
   </c:forEach>
         </ul>
