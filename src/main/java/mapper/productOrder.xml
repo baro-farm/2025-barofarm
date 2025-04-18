@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="mapper.prodorder">
+<mapper namespace="mapper.prodOrder">
 	<select id="prodOrderList" parameterType="Long" resultType="prodOrderVo">
 		select
 			poi.pdOrderNum, poi.amount, poi.price,
@@ -29,5 +29,11 @@
 		join productOrder po on poi.pdOrderNum = po.pdOrderNum
 		where poi.pdOrderNum = #{pdOrderNum}
 	</select>
+	
+	<update id="updatePdDeliveryStatus" parameterType="prodOrder">
+		update productOrder
+		set deleveryStatus = #{deleveryStatus}
+		where pdOrderNum = #{pdOrderNum}
+	</update>
 		
 </mapper>

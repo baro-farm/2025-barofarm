@@ -2,17 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="mapper.packorder">
+<mapper namespace="mapper.packOrder">
 	<select id="packOrderList" parameterType="Long" resultType="packOrderVo">
 		select
 			p.packageNum, p.sellerNum, p.packageName,
 			s.sellerNum, s.storeName,
-			po.userNum, po.pkTotalPrice, po.orderedAt, po.deleveryStatus
+			po.userNum, po.pkTotalPrice, po.pkOrderNum ,po.orderedAt, po.deleveryStatus
 		from packageOrder po
 		Join package p on po.packageNum = p.packageNum
 		Join sellerdetail s on p.sellerNum = s.sellerNum
 		where po.userNum = #{userNum}
 		order by po.orderedAt desc
 	</select>
+	
+	<update id="updatePkDeliveryStatus" parameterType="packOrder">
+		update packageOrder
+		set deleveryStatus = #{deleveryStatus}
+		where pkOrderNum = #{pkOrderNum}
+	</update>
 		
 </mapper>
