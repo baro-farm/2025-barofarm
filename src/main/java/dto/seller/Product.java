@@ -53,6 +53,37 @@ public class Product {
 		this.salesVolume = salesVolume;
 	}
 
+	public Product(Long sellerNum, Integer cateNum, String productName, String content, Integer stock, Integer price,
+			String imgUrl) {
+		super();
+		this.sellerNum = sellerNum;
+		this.cateNum = cateNum;
+		this.productName = productName;
+		this.content = content;
+		this.stock = stock;
+		this.price = price;
+		this.imgUrl = imgUrl;
+	}
+
+	public Product(Long sellerNum, Integer cateNum, String productName, String content, Integer stock, Integer price,
+			String imgUrl, boolean status) {
+		super();
+		this.sellerNum = sellerNum;
+		this.cateNum = cateNum;
+		this.productName = productName;
+		this.content = content;
+		this.stock = stock;
+		this.price = price;
+		this.imgUrl = imgUrl;
+		this.status = status;
+	}
+	
+	public Product(Long productNum, boolean status) {
+		super();
+		this.productNum = productNum;
+		this.status = status;
+	}
+
 	public Long getProductNum() {
 		return productNum;
 	}
