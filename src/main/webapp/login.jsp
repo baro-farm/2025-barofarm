@@ -13,18 +13,13 @@
 <body>
 	<div class="container">
 		<!-- 헤더 -->
-		<jsp:include page="./header/mainHeader.jsp" />
+		<jsp:include page="/header/mainHeader.jsp" />
 		<!-- 컨텐츠  -->
 		<div class="content">
 		<div class="loginContainer">
 			<h2 class="loginTitle">로그인</h2>
 		    <!-- 로그인 폼 -->
 		    <form action="login" method="post" class="loginForm">
-			    <!-- 일반/판매자 선택 -->
-			    <div class="userType">
-			    	<label><input type="radio" name="userType" value="general" checked> <span class="radioBtn">일반</span></label>
-			        <label><input type="radio" name="userType" value="seller"> <span class="radioBtn">판매자</span></label>
-			    </div>
 		    	<input type="text" class="inputField" name="userId" value="${userId}" placeholder="아이디" required>
 		        <input type="password" class="inputField" name="pwd" placeholder="비밀번호" required>  
 		        <!-- 아이디 저장 & 자동 로그인 -->
@@ -50,7 +45,7 @@
 		    </div>
 		</div> <!-- 로그인 컨텐츠  -->
 		</div>
-	<jsp:include page="./header/footer.jsp" />
+	<jsp:include page="/header/footer.jsp" />
 	</div> <!-- 전체 컨테이너 -->
 </body>
 </html>

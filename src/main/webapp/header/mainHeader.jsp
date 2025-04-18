@@ -27,7 +27,14 @@
 	                <c:otherwise>
 	                	<span><b>${user.userId}</b></span>
 	                	<li class="userli"><a href="logout" id="" class="userBtn">로그아웃</a></li>
-		                <li class="userli"><a href="#" id="" class="userBtn">마이페이지</a></li>
+	                	<c:choose>
+					        <c:when test="${user.isSeller == true}">
+					          <li class="userli"><a href="sellerAdsList" class="userBtn">마이스토어</a></li>
+					        </c:when>
+					        <c:otherwise>
+					          <li class="userli"><a href="infoForm" class="userBtn">마이페이지</a></li>
+					        </c:otherwise>
+					      </c:choose>
 		                <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
 	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 	                </c:otherwise>
@@ -46,7 +53,8 @@
                     <li class="headerli"><a href="#" class="headerBtn" id="new">신제품</a></li>
                     <li class="headerli"><a href="#" class="headerBtn" id="best">베스트</a></li>
                     <li class="headerli"><a href="#" class="headerBtn" id="package">꾸러미</a></li>
-                    <li class="headerli"><a href="#" class="headerBtn" id="kockFarm">콕팜</a></li>
+                    <li class="headerli"><a href="kockFarmList" class="headerBtn" id="kockFarm">콕팜</a></li>
+                    <li class="headerli"><a href="adminQAList" class="headerBtn" id="kockFarm">문의하기</a></li>
                     <li class="headerli"><a href="noticeListView" class="headerBtn" id="notice">공지사항</a></li>
                 </ul>
             </div>

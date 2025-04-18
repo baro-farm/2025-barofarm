@@ -38,7 +38,7 @@ public class DetailNotice extends HttpServlet {
 			Notice notice = service.selectNotice(noticeNum);
 			
 			request.setAttribute("notice", notice);
-			request.getRequestDispatcher("/detailNotice.jsp").forward(request, response);
+			request.getRequestDispatcher("/common/detailNotice.jsp").forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("err", "게시글 조회에 실패했습니다.");

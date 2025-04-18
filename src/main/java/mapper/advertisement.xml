@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.advertisement">
+	<insert id="insertAds" parameterType="advertisement" useGeneratedKeys="true" keyProperty="adsNum">
+		insert into advertisement (title, content, productName, imgUrl, productUrl, userNum) values(#{title}, #{content}, #{productName}, #{imgUrl}, #{productUrl},#{userNum})
+	</insert>
+	<select id="selectAdsByUserNum" parameterType="Long" resultType="advertisement">
+		select * from advertisement where userNum=#{userNum} ORDER BY adsNum desc
+	</select>
+	<update id="updateAdsStatus" parameterType="map">
+		update advertisement set status=#{status} where adsNum=#{adsNum} 
+	</update>
+</mapper>

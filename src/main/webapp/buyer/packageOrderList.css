@@ -10,11 +10,13 @@
 }
 
 .container {
-    width: 80%;
+	width: 100%;
+    max-width: 1200px; 
     margin: 0 auto;
 }
 
 .searchBox {
+
     display: flex;
     align-items: center;
     gap: 10px;
@@ -22,6 +24,7 @@
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 8px;
+    
 }
 
 .searchBox input {
@@ -40,6 +43,12 @@
 .orderList {
     border-top: 2px solid black;
     padding-top: 10px;
+    
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+    gap: 10px;
+    width:100%;
 }
 
 .orderItem {
@@ -52,22 +61,23 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    max-width: 900px; /* ✅ 너비 제한 */
+    width:100%;
 }
 
 
 .orderCenter {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 15px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* 비율 조절됨! */  align-items: center;
+  gap: 20px;
 }
 
 .orderLeft {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* ← 왼쪽 정렬로 바꿈 */
-    padding-left: 10px;      /* 약간 여백 줘서 너무 붙지 않게 */
+    align-items: flex-start; 
+    padding-left: 10px; 
+    width:200px;  
 }
 
 
@@ -87,18 +97,17 @@
 }
 
 .orderRight {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.orderBottom {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 10px;
+.orderButtons {
+
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }
 
 .btn {
@@ -106,6 +115,7 @@
     border: none;
     cursor: pointer;
     border-radius: 8px;
+     white-space: nowrap; /* ✅ 줄바꿈 방지 */
 }
 
 .btnGreen {

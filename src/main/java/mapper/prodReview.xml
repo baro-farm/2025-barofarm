@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.prodReview">
+	<select id="selectWritableReview" parameterType="Long" resultType="prodReviewVO">
+	   SELECT 
+	        p.productName,
+	        p.imgUrl,
+	        s.storeName,
+	        po.orderedAt,
+	        poi.productNum,
+	        po.pdOrderNum,
+	        DATE_ADD(po.orderedAt, INTERVAL 30 DAY) AS deadline
+	    FROM productOrder po
+	    JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN product p ON poi.productNum = p.productNum
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	    WHERE po.userNum = #{userNum}
+	      AND po.deleveryStatus = '구매확정'
+	      AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	      AND NOT EXISTS (
+	          SELECT 1 
+	          FROM prodReview r
+	          WHERE r.userNum = po.userNum
+	            AND r.productNum = poi.productNum
+	      )	
+	</select>
+</mapper>

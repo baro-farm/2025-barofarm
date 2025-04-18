@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" /> 
 <!DOCTYPE html>
 <html>
@@ -47,12 +48,13 @@
 	                    	comment +=        "</div>";
 	                    	comment +=        "<div>";
 	                    	comment +=            "<button class='btn-reply' data-comment-id='" + kcNum + "'>답글</button>";
-	                    	comment += 			  "<button class='btn-match' data-kock-num='" +kockNum +"'data-kc-num='" +kcNum +"'data-seller-num='" +userNum+"' data-store-name='" +storeName+"'data-buyer-num=1>매칭</button>"; 	                    	
 	                    	comment +=        "</div>";
 	                    	comment +=    "</div>";
 	                    	comment +=    "<div id='babyList-" + kcNum + "'></div>";
 	                    	comment += "</div>";
 	                    	
+	                    	// ✅ 댓글 폼 사라지게 하기
+	                        $("#commentForm").hide(); // 또는 .remove();
 	                    	$("#commentList").append(comment);  // 댓글 리스트에 추가
 	                    	$(".comment-input").val("");  // 입력창 비우기
 	                    } else {
@@ -171,11 +173,13 @@ $(document).on("submit", ".babyForm", function (e) {
 	
 	    <div class="buttons">
 	        <button class="btn btn-list" onclick="location.href='kockFarmList'">글 목록</button>
+	        <c:if test="${isWriter && fn:length(commentList) == 0 }">
 	        <button class="btn btn-edit" onclick="location.href='updateKockFarm?kockNum=${kock.kockNum }'">글 수정</button>
 	        <form action="deleteKockFarm" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 	            <input type="hidden" name="kockNum" value="${kock.kockNum }">
 	        	<button class="btn btn-delete" type="submit">글 삭제</button>
 	        </form>
+	        </c:if>
 	    </div>
 	
 	    <!-- 댓글 목록 -->
@@ -189,7 +193,10 @@ $(document).on("submit", ".babyForm", function (e) {
 		                <div class="message">${comment.content }</div>
 		            </div>
 		            <div>
+		            	<c:if test="${user.userNum eq comment.userNum || isWriter  }">
 		            	<button class="btn-reply" data-comment-id="${comment.kcNum}">답글</button>
+		            	</c:if>
+		            	<c:if test="${!isMatched and isWriter }">
 		            	<button 
 						  class="btn-match" 
 						  data-kock-num="${comment.kockNum}" 
@@ -199,6 +206,7 @@ $(document).on("submit", ".babyForm", function (e) {
 						  data-buyer-num="1">
 						  매칭
 						</button>
+						</c:if>
 		            </div>		            
 		        </div>
 				<div id="babyList-${comment.kcNum }">
@@ -236,7 +244,7 @@ $(document).on("submit", ".babyForm", function (e) {
 	    <div id="reply-form-template"  style="display: none;">
 	    	<div class="babyDiv">
 		    <form id="babyForm" method="post" class="reply-form comment-box">
-		        <input type="hidden" name="userNum" value="1" />
+		        <input type="hidden" name="userNum" value="${user.userNum }" />
 		        <input type="hidden" name="kcNum" value="" />
 		        <input type="text" name="content" class="comment-input2" placeholder="대댓글을 입력해주세요." required="required">
 		        <button type="submit" class="btn-submit">등록</button>
@@ -245,15 +253,17 @@ $(document).on("submit", ".babyForm", function (e) {
 		</div>
 		
     	<!-- 판매자의 첫번째 댓글 폼 => 무조건 부모댓글 -->
+    	<c:if test="${!isMatched and user.isSeller and not hasComment }">
 	    <div>
 		    <form id="commentForm" method="post" class="reply-form comment-box">
-		        <input type="hidden" name="userNum" value="4" />
+		        <input type="hidden" name="userNum" value="${user.userNum }" />
 		        <input type="hidden" name="kockNum" value="${kock.kockNum}" />
 		        <input type="hidden" name="parentCommentNum" value="" />
 		        <input type="text" name="content" class="comment-input" placeholder="댓글을 입력해주세요." required="required">
 		        <button type="submit" class="btn-submit">등록</button>
 		    </form>
 		</div>
+		</c:if>
 	</div>
 </div>
 <script>
@@ -348,6 +358,43 @@ document.querySelectorAll('.btn-match').forEach(btn => {
 // 아니오 버튼은 단순히 모달 닫기
 document.getElementById('cancelMatchBtn').addEventListener('click', function () {
   document.getElementById('matchModal').style.display = 'none';
+});
+
+
+document.getElementById('matchForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // 기본 제출 막기
+
+    const form = e.target;
+    const formData = $(form).serialize();
+
+    $.ajax({
+        url: form.action,
+        method: 'POST',
+        data: formData,
+        success: function (response) {
+            // ✅ 매칭 성공 처리
+            alert("거래가 체결되었습니다.");
+
+            // 1. 모든 매칭 버튼 비활성화
+            document.querySelectorAll(".btn-match").forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add("disabled");
+                btn.textContent = "매칭 완료"; // 버튼 텍스트 바꾸기
+            });
+
+            // 2. 댓글 폼 제거
+            const commentForm = document.getElementById("commentForm");
+            if (commentForm) {
+                commentForm.remove();
+            }
+
+            // 3. 모달 닫기
+            document.getElementById('matchModal').style.display = 'none';
+        },
+        error: function () {
+            alert("거래 체결에 실패했습니다.");
+        }
+    });
 });
 
 </script>

@@ -71,5 +71,11 @@
 	</update>
 	<insert id="insertMatching" parameterType="matching">
 		INSERT INTO matching VALUES(NULL,#{kockNum},#{kcNum},#{buyerNum},#{sellerNum},NULL);		
-	</insert>	
+	</insert>
+	<update id="updateKockMatched" parameterType="long">
+	  UPDATE kockfarm
+	  SET isMatched = 1
+	  WHERE kockNum = #{kockNum}
+	</update>
+		
 </mapper>
