@@ -15,13 +15,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public void addProductWithOptions(Product product, List<ProductOption> options) throws Exception {
-		productDao.insertProductWithOptions(product, options);
-	}
-	
-	@Override
-	public void addProduct(Product product) throws Exception {
+	public void addProduct(Product product, List<ProductOption> options) throws Exception {
 		productDao.insertProduct(product);
+		
+		for (ProductOption option: options) {
+			option.setProductNum(product.getProductNum());
+			productDao.insertProductOption(option);
+		}
 	}
 
 	@Override
