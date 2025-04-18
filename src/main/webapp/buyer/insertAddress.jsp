@@ -17,42 +17,49 @@
 		<jsp:include page="/header/mainHeader.jsp"/>
 
 <div class="container">
-
-    <div class="header">배송지 주소 관리</div>
-			<jsp:include page="/header/sideMenu.jsp"/>
-	
-    <form action="${pageContext.request.contextPath}/insertAddress" method="POST">
-        <div class="formGroup">
-            <label>배송지 명칭</label>
-            <input type="text" value="" id="nickname" name="nickname">
-        </div>
-
-        <div class="formGroup">
-            <label>수령인</label>
-            <input type="text"value="" name="name">
-        </div>
-        <div class="formGroup">
-            <label>주소</label>
-            <div class="address-container">
-	            <!-- 주소 리스트 반복 -->
-                <input type="text" placeholder="우편번호" readonly  name="postCode" id="postCode" value="">
-                <button type="button" class="address-btn" id="address-btn"  onclick="sample6_execDaumPostcode()" >주소검색</button>
-            </div>
-            
-            <input type="text" placeholder="주소" readonly  name="addr1" id="addr1" value="" >
-            <input type="text" placeholder="상세주소" name="addr2" id="addr2" value="">
-        </div>
-        
-        <div class="formGroup">
-            <label>수령인 전화번호</label>
-            <input type="text" value="" name="phone">
-        </div>
+	<div class="wrapper">
+		<div class="sideMenu">
+			<jsp:include page="/header/buyerMenu.jsp" />
+		</div>
 		
-        <div class="btn-group">
-            <button type="submit" class="btn btn-save">등록</button>
-            <button type="button" class="btn btn-cancel">취소</button>
-        </div>
-    </form>
+		<div class="content">
+		
+		    <div class="header">배송지 주소 관리</div>
+			
+		    <form action="${pageContext.request.contextPath}/insertAddress" method="POST">
+		        <div class="formGroup">
+		            <label>배송지 명칭</label>
+		            <input type="text" value="" id="nickname" name="nickname">
+		        </div>
+		
+		        <div class="formGroup">
+		            <label>수령인</label>
+		            <input type="text"value="" name="name">
+		        </div>
+		        <div class="formGroup">
+		            <label>주소</label>
+		            <div class="address-container">
+			            <!-- 주소 리스트 반복 -->
+		                <input type="text" placeholder="우편번호" readonly  name="postCode" id="postCode" value="">
+		                <button type="button" class="address-btn" id="address-btn"  onclick="sample6_execDaumPostcode()" >주소검색</button>
+		            </div>
+		            
+		            <input type="text" placeholder="주소" readonly  name="addr1" id="addr1" value="" >
+		            <input type="text" placeholder="상세주소" name="addr2" id="addr2" value="">
+		        </div>
+		        
+		        <div class="formGroup">
+		            <label>수령인 전화번호</label>
+		            <input type="text" value="" name="phone">
+		        </div>
+				
+		        <div class="btn-group">
+		            <button type="submit" class="btn btn-save">등록</button>
+		            <button type="button" class="btn btn-cancel">취소</button>
+		        </div>
+		    </form>
+		</div>
+    </div>
 </div>
 <script>
     function sample6_execDaumPostcode() {
