@@ -17,73 +17,103 @@
 	<div class="container">
 	  <div class="header">
 	    <h2>광고 신청하기</h2>
-	    <div class="points">
-	      <div class="amount">9,290P</div>
-	      <div class="notice">포인트가 부족합니다. 광고 신청을 원하시면 포인트를 충전하세요.</div>
+	    <div class="points">                         
+			<div class="amount" id="pointAmount" data-point="${point}">${point}P</div>
+  			<div class="notice" id="pointNotice">포인트가 부족합니다. 광고 신청을 원하시면 포인트를 충전하세요.</div>
 	    </div>
 	  </div>
 	
 	  <form method="post" action="insertAdsBySeller" enctype="multipart/form-data">
 	    <div class="form-group">
 	      <div class="form-row">
-	        <label>제목</label>
-	        <input type="text" />
+	        <label for="title">제목</label>
+	        <input type="text" name="title" required="required"/>
 	      </div>
 	      <div class="form-row">
-	        <label>상품명</label>
-	        <input type="text" />
+	        <label for="productName">상품명</label>
+	        <input type="text" name="productName" required="required"/>
 	      </div>
 	    </div>
 	
 	    <div class="form-group">
 	      <div class="form-row">
 	        <label>작성자</label>
-	        <input type="text" />
+	        <input type="text" value="${userName}" readonly="readonly"/>
 	      </div>
 	      <div class="form-row">
-	        <label>상품 링크</label>
-	        <input type="text" />
+	        <label for="productUrl">상품 링크</label>
+	        <input type="text" name="productUrl" required="required"/>
 	      </div>
 	    </div>
-	  
 	    <div class="form-row">
-	      <label>광고 예상<br>시작일</label>
-	      <input type="date" readonly value="2025-04-01" />
-	      <span class="info-text">광고 게시일로부터 일주일입니다.</span>
+	      <label for="imgUrl">파일첨부</label>
+	      <input type="file" accept="image/*" name="imgUrl" id="ifile" style="display:none" required="required" onchange="readURL(this);"/>
+<!-- 	      <button type="button" class="upload-btn" onclick="document.getElementById('ifile').click()">업로드</button> -->	      
+		  <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="100px" 
+					onclick="document.getElementById('ifile').click();"/> 	
 	    </div>
 	
 	    <div class="form-row">
-	      <label>파일첨부</label>
-	      <input type="file" id="file-input" style="display:none" />
-	      <button type="button" class="upload-btn" onclick="document.getElementById('file-input').click()">업로드</button>
-	      <span id="file-name-display">선택된 파일 없음</span>
-	    </div>
-	
-	    <div class="form-row">
-	      <label>내용</label>
-	      <textarea></textarea>
+	      <label for="content">내용</label>
+	      <textarea name="content" required="required"></textarea>
 	    </div>
 	
 	
 	    <div class="buttons">
-	      <button class="btn btn-list">글 등록</button>
+	      <button class="btn btn-list" id="submitBtn">글 등록</button>
 	      <button class="btn btn-delete">취소</button>
 	  </div>
 	  </form>
 	</div>
 </div>
-  <script>
-    // 파일 이름 표시
-    document.getElementById("file-input").addEventListener("change", function() {
-      const fileName = this.files[0] ? this.files[0].name : "선택된 파일 없음";
-      document.getElementById("file-name-display").textContent = fileName;
-    });
 
-    // 폼 제출 시 파일 확인 (서버 업로드 없이 기본 기능)
-    document.getElementById("ad-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("제출이 완료되었습니다 (예시). 실제 서버 업로드는 별도 구현 필요!");
-    });
-  </script>
+<script>
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				const img = new Image();
+				img.onload = function() {
+					const width = img.width;
+					const height = img.height;
+					const widthValid = width >= 1270 && width <= 1290;
+					const heightValid = height >= 840 && height <= 860;
+
+					if (widthValid && heightValid) {
+						document.getElementById("preview").src = e.target.result;
+					} else {
+						alert("이미지 크기는 1280x850픽셀 ±10픽셀 이내여야 합니다.");
+						input.value = "";
+						document.getElementById("preview").src = "${contextPath}/img/kockUpload.PNG";
+					}
+				};
+				img.src = e.target.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	window.addEventListener("DOMContentLoaded", function () {
+		const pointEl = document.getElementById("pointAmount");
+		const noticeEl = document.getElementById("pointNotice");
+		const submitBtn = document.getElementById("submitBtn");
+
+		let point = parseInt(pointEl.dataset.point || "0");
+
+		// 쉼표 형식으로 포인트 표시
+		pointEl.textContent = point.toLocaleString() + "P";
+
+		if (point < 20000) {
+			noticeEl.style.display = "block";
+			submitBtn.disabled = true;
+			submitBtn.classList.add("disabled");
+		} else {
+			noticeEl.style.display = "none";
+			submitBtn.disabled = false;
+			submitBtn.classList.remove("disabled");
+		}
+	});
+</script>
+
 </body>
 </html>

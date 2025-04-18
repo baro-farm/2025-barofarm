@@ -1,6 +1,7 @@
-package controller.common;
+package controller.seller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.User;
-import service.buyer.KockFarmService;
-import service.buyer.KockFarmServiceImpl;
+import dto.seller.Advertisement;
+import service.seller.AdsService;
+import service.seller.AdsServiceImpl;
 
 /**
- * Servlet implementation class KockFarmList
+ * Servlet implementation class AdsList
  */
-@WebServlet("/kockFarmList")
-public class KockFarmList extends HttpServlet {
+@WebServlet("/sellerAdsList")
+public class AdsList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public KockFarmList() {
+    public AdsList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +35,19 @@ public class KockFarmList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		
-		KockFarmService service = new KockFarmServiceImpl();
+		AdsService service = new AdsServiceImpl();
 		
 		try {
-			request.setAttribute("kocks", service.getKockFarmList());
-			request.setAttribute("isSeller", user.getIsSeller());
-			request.getRequestDispatcher("/common/kockFarmList.jsp").forward(request, response);
+			List<Advertisement> adsList = service.selectAdsByUserNum(user.getUserNum());
+			request.setAttribute("adsList", adsList);
+			request.getRequestDispatcher("/seller/adsList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "콕팜 목록 조회에 실패했습니다");
+			request.setAttribute("err", "판매자 광고리스트 획득 실패");
 			request.getRequestDispatcher("error.jsp").forward(request, response);
-		
 		}
 	}
 
