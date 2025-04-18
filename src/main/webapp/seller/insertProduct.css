@@ -123,6 +123,22 @@
   border-radius: 4px;
 }
 
+.delete-option-btn {
+  margin-left: 12px;
+  background-color: #d72638; 
+  color: white;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.delete-option-btn:hover {
+  background-color: #c1212f; 
+}
+
 #product_image {
   margin-top: 6px;
 

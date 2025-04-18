@@ -81,11 +81,18 @@ addBtn.addEventListener('click', () => {
     <span>${name} (+${price}원)</span>
     <input type="hidden" name="option_name" value="${name}">
     <input type="hidden" name="option_price" value="${price}">
+    <button type="button" class="delete-option-btn">삭제</button>
   `;
   list.appendChild(li);
 
   nameInput.value = '';
   priceInput.value = '';
+});
+
+document.getElementById('option_list').addEventListener('click', function (e) {
+  if (e.target.classList.contains('delete-option-btn')) {
+    e.target.parentElement.remove(); // li 요소 삭제
+  }
 });
 
 const fileInput = document.getElementById('product_image');
