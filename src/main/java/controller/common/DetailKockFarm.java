@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.User;
 import dto.buyer.KockComment;
 import dto.buyer.KockFarm;
 import service.buyer.KockCommentService;
@@ -37,12 +39,29 @@ public class DetailKockFarm extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		Long kockNum = Long.parseLong(request.getParameter("kockNum"));
-
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
 		KockFarmService service = new KockFarmServiceImpl();
 		KockCommentService kcService = new KockCommentServiceImpl();
 		try {
 			KockFarm kock = service.selectKockFarm(kockNum);
 			List<KockComment> commentList = kcService.kockCommentListWithBaby(kockNum);
+			
+			boolean hasComment =false;
+			for (KockComment cm : commentList) {
+				if (cm.getUserNum()==user.getUserNum()) {
+					hasComment = true;
+					break;
+				}
+			}
+
+			request.setAttribute("isMatched", kock.isMatched());
+			System.out.println(kock.isMatched()+"sss");
+			request.setAttribute("hasComment", hasComment);
+			if(kock.getUserNum()==user.getUserNum()) request.setAttribute("isWriter", true);
+			request.setAttribute("user", user);
 			request.setAttribute("kock", kock);
 			request.setAttribute("commentList", commentList);
 			request.getRequestDispatcher("/common/detailKockFarm.jsp").forward(request, response);

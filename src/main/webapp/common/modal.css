@@ -1,0 +1,62 @@
+/* 모달 */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    border: 2px solid #65B741;
+    border-radius: 12px;
+    padding: 30px;
+    z-index: 1000;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);
+    font-family: 'SUIT-Regular', sans-serif;
+    display: none;
+}
+
+.modal p {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.modal ul {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.modal .buttons {
+    display: flex;
+	justify-content: center;
+}
+
+.modal .btn {
+    padding: 10px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.modal .btn-subscribe {
+    background-color: #65B741;
+    color: white;
+}
+
+.modal .btn-subscribe:hover {
+    background-color: #579d39;
+}
+
+.modal .btn-cancel {
+    background-color: #D72638;
+    color: white;
+}
+
+.modal .btn-cancel:hover {
+    background-color: #c1212f;
+}
