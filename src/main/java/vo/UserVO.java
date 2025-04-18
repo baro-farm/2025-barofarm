@@ -14,7 +14,7 @@ public class UserVO {
 	Date birthDate;
 	String email;
 	boolean isSeller;
-	boolean deleted;
+	boolean isDeleted;
 	List<Address> addresses;
 	public Long getUserNum() {
 		return userNum;
@@ -58,23 +58,29 @@ public class UserVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean isSeller() {
+	public boolean getIsSeller() {
 		return isSeller;
 	}
-	public void setSeller(boolean isSeller) {
+	public void setIsSeller(boolean isSeller) {
 		this.isSeller = isSeller;
 	}
-	public boolean isDeleted() {
-		return deleted;
+	public boolean getIsDeleted() {
+		return isDeleted;
 	}
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 	public List<Address> getAddresses() {
 		return addresses;
 	}
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
+	}
+	@Override
+	public String toString() {
+		return "UserVO [userNum=" + userNum + ", userId=" + userId + ", pwd=" + pwd + ", userName=" + userName
+				+ ", phone=" + phone + ", birthDate=" + birthDate + ", email=" + email + ", isSeller=" + isSeller
+				+ ", isDeleted=" + isDeleted + ", addresses=" + addresses + "]";
 	}
 	
 	
