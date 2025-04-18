@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.product">
+	<insert id="insertProduct" parameterType="product" useGeneratedKeys="true" keyProperty="productNum">
+		insert into product (sellerNum, cateNum, productName, content, stock, price, imgUrl, status) 
+		values (#{sellerNum}, #{cateNum}, #{productName}, #{content}, #{stock}, #{price}, #{imgUrl}, #{status})
+	</insert>
+	<update id="updateProduct" parameterType="product">
+		update product set cateNum=#{cateNum}, productName=#{productName}, content=#{content}, 
+		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status} salesVolume=#{salesVolume} where productNum=#{productNum} 
+	</update>
+	<update id="stopProduct" parameterType="product">
+		update product set status=#{status} where productNum=#{productNum}
+	</update>
+	<insert id="insertProductOption" parameterType="productOption">
+		insert into productOption (productNum, option, price) values (#{productNum}, #{option}, #{price})
+	</insert>
+	<update id="updateProductOption" parameterType="productOption">
+		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where productNum=#{productNum}
+	</update>
+</mapper>
