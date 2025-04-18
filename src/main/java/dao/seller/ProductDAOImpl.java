@@ -16,6 +16,11 @@ public class ProductDAOImpl implements ProductDAO {
 		sqlSession.insert("mapper.product.insertProduct", product);
 		sqlSession.commit();
 	}
+	
+	@Override
+	public Product selectProduct(Long productNum) throws Exception {	
+		return sqlSession.selectOne("mapper.product.selectProduct", productNum);
+	}
 
 	@Override
 	public void updateProduct(Product product) throws Exception {
@@ -33,6 +38,11 @@ public class ProductDAOImpl implements ProductDAO {
 	public void insertProductOption(ProductOption productOption) throws Exception {
 		sqlSession.insert("mapper.product.insertProductOption", productOption);
 		sqlSession.commit();
+	}
+	
+	@Override
+	public List<ProductOption> selectProductOption(Long productNum) throws Exception {
+		return sqlSession.selectList("mapper.product.selectProductOption", productNum);
 	}
 	
 	@Override

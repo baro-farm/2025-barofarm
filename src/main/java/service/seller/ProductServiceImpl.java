@@ -25,6 +25,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public Product selectProduct(Long productNum) throws Exception {
+		return productDao.selectProduct(productNum);
+	}
+	
+	@Override
 	public void updateProduct(Product product) throws Exception {
 		productDao.updateProduct(product);
 	}
@@ -37,6 +42,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void addProductOption(ProductOption productOption) throws Exception {
 		productDao.insertProductOption(productOption);		
+	}
+	
+	@Override
+	public List<ProductOption> selectProductOption(Long productNum) throws Exception {
+		return productDao.selectProductOption(productNum);
 	}
 	
 	@Override
