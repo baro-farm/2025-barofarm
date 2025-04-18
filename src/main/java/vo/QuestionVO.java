@@ -20,6 +20,9 @@ public class QuestionVO {
 	
 	Integer answerCount;
 	
+	String userId;
+
+	
 	public Long getQaNum() {
 		return qaNum;
 	}

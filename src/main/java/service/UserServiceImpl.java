@@ -1,11 +1,15 @@
 package service;
 
+import java.util.List;
+
 import dao.UserDAO;
 import dao.UserDAOImpl;
 import dao.buyer.AddressDAO;
 import dao.buyer.AddressDAOImpl;
 import dto.User;
+import dto.admin.AdminQuestion;
 import dto.buyer.Address;
+import vo.AdminQuestionVO;
 
 public class UserServiceImpl implements UserService{
 	private UserDAO userDao;
@@ -48,6 +52,22 @@ public class UserServiceImpl implements UserService{
 		userDao.deleteUser(userId);
 		return user;
 	}
+	
+	@Override
+	public void insertAdminQ(AdminQuestion adminQuestion) throws Exception {
+		userDao.insertAdminQ(adminQuestion);
+	}
+
+	@Override
+	public List<AdminQuestionVO> adminQList() throws Exception {
+		return userDao.AdminQList();
+	}
+
+	@Override
+	public AdminQuestionVO detailAdminQA(Long questionNum) throws Exception {
+		return userDao.detailAdminQA(questionNum);
+	}
+	
 
 	
 

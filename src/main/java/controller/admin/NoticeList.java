@@ -14,7 +14,7 @@ import service.admin.NoticeServiceImpl;
 /**
  * Servlet implementation class NoticeList
  */
-@WebServlet({"/noticeList", "/noticeListView"})
+@WebServlet("/noticeList")
 public class NoticeList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,12 +34,8 @@ public class NoticeList extends HttpServlet {
 		try {
 			request.setAttribute("noticeList", service.allNotice());
 			
-			if (request.getRequestURI().contains("noticeListView")) {
-	            request.getRequestDispatcher("/noticeListView.jsp").forward(request, response);
-	        } else {
-	            request.getRequestDispatcher("/admin/noticeList.jsp").forward(request, response);
-	        }
-			
+			request.getRequestDispatcher("/admin/noticeList.jsp").forward(request, response);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

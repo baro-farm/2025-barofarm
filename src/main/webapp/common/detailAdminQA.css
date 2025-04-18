@@ -1,0 +1,53 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+    flex: 1;
+    align-self: flex-start;
+    padding: 30px 0;
+    max-width: 1000px;
+    min-width: 0;
+    margin-left: 20px;
+    margin-right: auto;
+  	position: relative;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+/*제목*/
+.title { /* 컨텐츠 제목*/
+  color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.subtitle { /* 컨텐츠 부제목*/
+  font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 60px;
+}
+label {
+    display: inline-block;
+    width: 70px;
+    margin-bottom: 20px;
+}
+
+.question {
+    border: 1px solid #ccc;
+    border-radius: 8px 8px 0 0;
+    height: 200px;
+    width: 100%;
+    line-height: 1.6;
+    
+}
+.answer{
+    border: 1px solid #ccc;
+    border-radius: 0 0 8px 8px;
+    height: 100px;
+    line-height: 1.6;
+    margin-top: 8px;
+    
+}
