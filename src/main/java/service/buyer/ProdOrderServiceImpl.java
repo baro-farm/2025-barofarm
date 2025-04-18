@@ -5,6 +5,8 @@ import java.util.List;
 
 import dao.buyer.ProductOrderDAO;
 import dao.buyer.ProductOrderDAOImpl;
+import dto.buyer.PackageOrder;
+import dto.buyer.ProductOrder;
 import vo.ProdOrderVO;
 
 public class ProdOrderServiceImpl implements ProdOrderService {
@@ -28,6 +30,15 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 		List<ProdOrderVO> prodOrderList = new ArrayList<>();
 		prodOrderList = prodOrderDao.selectProdDetailOrderList(pdOrderNum);
 		return prodOrderList;
+	}
+
+	@Override
+	public void updateUserProdDeliveryStatus(Long pdOrderNum, String deliveryStatus) throws Exception {
+		ProductOrder pdOrder = new ProductOrder();
+		pdOrder.setPdOrderNum(pdOrderNum);
+		pdOrder.setDeleveryStatus(deliveryStatus);
+		
+		prodOrderDao.updateDeliveryStatus(pdOrder);		
 	}
 
 }

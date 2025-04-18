@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="dto.User" %>
-<%@ page import="vo.UserVO" %>
 
-<%
-UserVO user = (UserVO)request.getAttribute("user");
-%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -19,56 +14,63 @@ UserVO user = (UserVO)request.getAttribute("user");
 
 </head>
 <body>
-		<jsp:include page="/header/mainHeader.jsp"/>
+		
+<jsp:include page="/header/mainHeader.jsp"/>
 
 <div class="container">
-    <div class="header">내 정보 수정</div>
-
-    <form action="${pageContext.request.contextPath}/updateInfo" method="POST">
-        <div class="formGroup">
-            <label>아이디</label>
-            <input type="text" value="${user.userId}" readonly   name="userId">
-        </div>
-
-        <div class="formGroup">
-            <label>비밀번호</label>
-            <input type="password" name="pwd">
-        </div>
-
-        <div class="formGroup">
-            <label>이름</label>
-            <input type="text"value="${user.userName}" name="userName">
-        </div>
-
-        <div class="formGroup">
-            <label>전화번호</label>
-            <input type="text" value="${user.phone}" name="phone">
-        </div>
-
-        <div class="formGroup">
-            <label>이메일</label>
-            <input type="email" value="${user.email}" name="email">
-        </div>
+	<div class="wrapper">
+		<div class="sideMenu">
+			<jsp:include page="/header/buyerMenu.jsp" />
+		</div>
+		<div class="content">
+		    <div class="header">내 정보 수정</div>
 		
-        <div class="formGroup">
-            <label>주소</label>
-            <div class="address-container">
-	            <!-- 주소 리스트 반복 -->
-			<c:set var="address" value="${user.addresses[0]}"/>
-                <input type="text" placeholder="우편번호" readonly  name="postCode" id="postCode" value="${address.postCode}">
-                <button type="button" class="address-btn" id="address-btn"  onclick="sample6_execDaumPostcode()" >주소검색</button>
-            </div>
-            
-            <input type="text" placeholder="주소" readonly  name="addr1" id="addr1" value="${address.addr1}" >
-            <input type="text" placeholder="상세주소" name="addr2" id="addr2" value="${address.addr2}">
-        </div>
+		    <form action="${pageContext.request.contextPath}/updateInfo" method="POST">
+		        <div class="formGroup">
+		            <label>아이디</label>
+		            <input type="text" value="${user.userId}" readonly   name="userId">
+		        </div>
 		
-        <div class="btn-group">
-            <button type="submit" class="btn btn-save">수정</button>
-            <button type="button" class="btn btn-cancel">취소</button>
-            <button type="button" class="btn btn-delete">회원탈퇴</button>
-        </div>
-    </form>
+		        <div class="formGroup">
+		            <label>비밀번호</label>
+		            <input type="password" name="pwd">
+		        </div>
+		
+		        <div class="formGroup">
+		            <label>이름</label>
+		            <input type="text"value="${user.userName}" name="userName">
+		        </div>
+		
+		        <div class="formGroup">
+		            <label>전화번호</label>
+		            <input type="text" value="${user.phone}" name="phone">
+		        </div>
+		
+		        <div class="formGroup">
+		            <label>이메일</label>
+		            <input type="email" value="${user.email}" name="email">
+		        </div>
+				
+		        <div class="formGroup">
+		            <label>주소</label>
+		            <div class="address-container">
+					<c:set var="address" value="${user.addresses[0]}"/>
+		                <input type="text" placeholder="우편번호" readonly  name="postCode" id="postCode" value="${address.postCode}">
+		                <button type="button" class="address-btn" id="address-btn"  onclick="sample6_execDaumPostcode()" >주소검색</button>
+		            </div>
+		            
+		            <input type="text" placeholder="주소" readonly  name="addr1" id="addr1" value="${address.addr1}" >
+		            <input type="text" placeholder="상세주소" name="addr2" id="addr2" value="${address.addr2}">
+		        </div>
+				
+		        <div class="btn-group">
+		            <button type="submit" class="btn btn-save">수정</button>
+		            <button type="button" class="btn btn-cancel">취소</button>
+		            <button type="button" class="btn btn-delete">회원탈퇴</button>
+		        </div>
+		    </form>
+	    </div><!-- end of content -->
+    </div><!-- end of warraper -->
 </div>
 <script>
     function sample6_execDaumPostcode() {

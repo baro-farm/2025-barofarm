@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.buyer.PackageOrderDAO;
 import dao.buyer.PackageOrderDAOImpl;
+import dto.buyer.PackageOrder;
 import vo.PackOrderVO;
 
 public class PackOrderServiceImpl implements PackOrderService {
@@ -20,6 +21,16 @@ public class PackOrderServiceImpl implements PackOrderService {
 		List<PackOrderVO> packOrderList = new ArrayList<>();
 		packOrderList = packOrderDao.selectPackOrderList(userId);
 		return packOrderList;
+	}
+
+	@Override
+	public void updateUserPackDeliveryStatus(Long pkOrderNum, String deliveryStatus) throws Exception {
+
+		PackageOrder pkOrder = new PackageOrder();
+		pkOrder.setPkOrderNum(pkOrderNum);
+		pkOrder.setDeleveryStatus(deliveryStatus);
+		
+		packOrderDao.updateDeliveryStatus(pkOrder);
 	}
 
 }

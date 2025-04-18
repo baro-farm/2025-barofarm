@@ -54,8 +54,8 @@
         <span>마이페이지</span>
     </div>
     <ul class="menu-list">
-        <li><a href="#" >주문내역 및 배송조회</a></li>
-        <li><a href="#">회원 정보 수정</a></li>
+        <li><a href="prodOrderList" >주문내역 및 배송조회</a></li>
+        <li><a href="infoFoam">회원 정보 수정</a></li>
         <li class="dropdown">
             <a style="text-decoration: none;">콕팜</a>
             <ul class="submenu">
@@ -68,11 +68,11 @@
         <li class="dropdown">
             <a style="text-decoration: none;">리뷰</a>
             <ul class="submenu">
-                <li><a href="#">작성 가능한 리뷰</a></li>
+                <li><a href="prodWritableReviewList">작성 가능한 리뷰</a></li>
                 <li><a href="#">내가 작성한 리뷰</a></li>
             </ul>
         </li>
-        <li><a href="#">배송지 주소관리</a></li>
+        <li><a href="addressList">배송지 주소관리</a></li>
         <li><a href="#">고객센터</a></li>
     </ul>
 </div>

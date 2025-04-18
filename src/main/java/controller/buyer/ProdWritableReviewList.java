@@ -1,4 +1,3 @@
-
 package controller.buyer;
 
 import java.io.IOException;
@@ -9,22 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import dto.buyer.Address;
-import service.buyer.UserService;
-import service.buyer.UserServiceImpl;
+import dto.User;
+
+import service.buyer.ProdReviewSerivce;
+import service.buyer.ProdReviewServiceImpl;
+import vo.ProdReviewVO;
 
 /**
- * Servlet implementation class AddressList
+ * Servlet implementation class ProdWritableReviewList
  */
-@WebServlet("/addressList")
-public class AddressList extends HttpServlet {
+@WebServlet("/prodWritableReviewList")
+public class ProdWritableReviewList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddressList() {
+    public ProdWritableReviewList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +36,27 @@ public class AddressList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		UserService service = new UserServiceImpl();
-		List<Address> addressList = null;
-		try {
-			addressList = service.selectUserAddressList("gogogo");
-			System.out.println(addressList);
-			request.setAttribute("addressList", addressList);
-			request.getRequestDispatcher("/buyer/addressList.jsp").forward(request, response);
+		HttpSession session = request.getSession(false);
+		User user =null;
 
-			
-		}catch(Exception e) {
-			e.printStackTrace();
+		if (session != null) {
+			user = (User) session.getAttribute("user");
 		}
 		
+		
+		ProdReviewSerivce service = new ProdReviewServiceImpl();
+		List<ProdReviewVO> prodReviewList = null;
+		try {
+			
+			prodReviewList = service.selectUserWritableReviewList(user.getUserId());
+			request.setAttribute("prodReviewList", prodReviewList);
+			request.getRequestDispatcher("/buyer/writableReviewList.jsp").forward(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+
+		}
 	}
 
 	/**
