@@ -42,7 +42,9 @@
     <div class="user-info">
         <span>회원정보</span>
         <hr>
-        <p>USERNAME</p>
+        <c:if test="${not empty user}">
+    		<p>${user.userName} 님</p>
+		</c:if>
         <div class="user-buttons">
             <button>마이페이지</button>
             <button>로그아웃</button>
