@@ -12,5 +12,5 @@ public interface KockFarmService {
 	void deleteKockFarm(Long kockNum) throws Exception;
 	List<KockFarm> getKockFarmList() throws Exception;
 	//매칭
-	void insertMatching(Matching matching) throws Exception;
+	void insertMatching(Matching matching,Long kockNum) throws Exception;
 }

@@ -55,6 +55,8 @@ public class PackageOrderList extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+
 		}
 	}
 

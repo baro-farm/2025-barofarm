@@ -1,12 +1,15 @@
 package controller.common;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.User;
 import service.buyer.KockFarmService;
 import service.buyer.KockFarmServiceImpl;
 
@@ -30,10 +33,15 @@ public class KockFarmList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
 		KockFarmService service = new KockFarmServiceImpl();
 		
 		try {
 			request.setAttribute("kocks", service.getKockFarmList());
+			request.setAttribute("isSeller", user.getIsSeller());
 			request.getRequestDispatcher("/common/kockFarmList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

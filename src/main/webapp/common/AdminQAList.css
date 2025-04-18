@@ -1,0 +1,88 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+    flex: 1;
+    align-self: flex-start;
+    padding: 30px 0;
+    max-width: 1000px;
+    min-width: 0;
+    margin-left: 20px;
+    margin-right: auto;
+  	position: relative;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+/*제목*/
+.title { /* 컨텐츠 제목*/
+  color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.subtitle { /* 컨텐츠 부제목*/
+  font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 60px;
+}
+tbody tr:hover {
+    background-color: #FBF6EE;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    font-size: 14px;
+    text-align: left;
+}
+
+.table th:nth-child(1),.table td:nth-child(1){
+    width: 25px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.table th:nth-child(2),.table td:nth-child(2){
+    width: 60px;
+    text-align: center;
+}
+
+.table th:nth-child(3),.table td:nth-child(3){
+    padding-left: 20px;
+}
+
+.table th:nth-child(4),.table th:nth-child(5),
+.table td:nth-child(4),.table td:nth-child(5) {
+    text-align: right;
+    width: 80px;
+    padding-right: 20px;
+}
+
+/* 오버플로우 방지 */
+.table td:nth-child(3) {
+    max-width: 200px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .table td:nth-child(3) a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+.statusPending {
+    color: #a1a1a1;
+}

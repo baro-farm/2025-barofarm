@@ -46,7 +46,8 @@ public class KockFarmServiceImpl implements KockFarmService {
 
 	//매칭
 	@Override
-	public void insertMatching(Matching matching) throws Exception {
+	public void insertMatching(Matching matching,Long kockNum) throws Exception {
+		kockFarmDao.updateKockMatched(kockNum);
 		kockFarmDao.insertMatching(matching);
 	}
 }

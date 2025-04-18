@@ -13,4 +13,5 @@ public interface KockFarmDao {
 	List<KockFarm> getKockFarmList() throws Exception;
 	//매칭
 	void insertMatching(Matching matching) throws Exception;
+	void updateKockMatched(Long kockNum) throws Exception;
 }

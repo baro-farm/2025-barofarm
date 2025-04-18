@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
     <title>NoticeView</title>
     <link rel="stylesheet" href="${contextPath}/reset.css">
-    <link rel="stylesheet" href="${contextPath}/noticeListView.css" />
+    <link rel="stylesheet" href="${contextPath}/common/noticeListView.css" />
    <link
       href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css"
       rel="stylesheet"
@@ -16,9 +16,9 @@
 </head>
 <body>
     <div class="container">
-		<jsp:include page="./header/mainHeader.jsp" />
+		<jsp:include page="/header/mainHeader.jsp" />
 		<div class="wrapper">
-			<jsp:include page="./header/sideMenu.jsp" />
+			<jsp:include page="/header/sideMenu.jsp" />
 			<div class="content">
 		    <h1 class="title">공지사항</h1>
         	<p class="subtitle">관리자가 쓰는 서비스 관련 공지</p>
@@ -44,7 +44,7 @@
 		      </table>
 			</div> <!-- content -->
 		</div> <!-- wrapper -->
-		<jsp:include page="./header/footer.jsp" />
+		<jsp:include page="/header/footer.jsp" />
     </div> <!-- container -->
 	<script src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"></script>
 	<script>

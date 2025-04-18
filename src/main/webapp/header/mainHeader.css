@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+header{
+	display: flex;
+	position: relative;
+}
+.nav-menu {
+  position: absolute;
+  bottom: 0;
+}
+
 .mainHeader{
     width: 1280px;
     margin: 0 auto;
@@ -21,7 +30,7 @@
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
-  padding: 10px 15px;
+  padding: 0 15px;
 }
 /* 로그인가입 */
 .userMenu{
@@ -54,10 +63,6 @@
 }
 .headerli {
     margin: 105px 30px 0 30px;
-    padding: 5px 8px 0 8px;            
-}
-.headerli:hover {
-    border-bottom: 2px solid #FFB534;
 }
 
 /* 검색바 */
