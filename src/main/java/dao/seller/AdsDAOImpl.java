@@ -14,21 +14,34 @@ public class AdsDAOImpl implements AdsDAO {
 	@Override
 	public boolean insertAds(Advertisement ads) throws Exception {
 		int result = sqlSession.insert("mapper.advertisement.insertAds",ads);
-		sqlSession.commit();
-		return result==1;
+		if (result==1) {
+			sqlSession.commit();
+			return result==1;
+		} else {
+			sqlSession.rollback();
+			return result!=1;
+		}
 	}
 	@Override
 	public List<Advertisement> selectAdsByUserNum(Long userNum) throws Exception {
 		return sqlSession.selectList("mapper.advertisement.selectAdsByUserNum",userNum);
 	}
 	@Override
-	public boolean updateAdsStatus(Long adsNum, String status) throws Exception {
+	public void updateAdsStatus(Long adsNum, String status) throws Exception {
 		Map<String,Object> param = new HashMap<>();
 		param.put("adsNum", adsNum);
 		param.put("status", status);
-		int result = sqlSession.update("mapper.advertisement.updateAdsStatus",param);
+		sqlSession.update("mapper.advertisement.updateAdsStatus",param);
 		sqlSession.commit();
-		return result==1;
 	}
-
+	@Override
+	public Advertisement selectAdsByAdsNum(Long adsNum) throws Exception {
+		return sqlSession.selectOne("mapper.advertisement.selectAdsByAdsNum", adsNum);
+	}
+	@Override
+	public void updateAds(Advertisement ads) throws Exception {
+		sqlSession.update("mapper.advertisement.updateAds",ads);
+		sqlSession.commit();		
+	}
+	
 }

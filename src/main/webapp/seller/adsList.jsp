@@ -101,9 +101,10 @@
 							  <c:choose>
 							    <c:when test="${ads.status == '승인대기'}">
 							      <button class="btn-cancel" data-adsnum="${ads.adsNum }">취소</button>
+							      <button class="btn-edit" onclick="location.href='${contextPath}/updateAdsBySeller?adsNum=${ads.adsNum }'" >수정</button>							      
 							    </c:when>
 							    <c:when test="${ads.status == '승인반려'}">
-							      <button class="btn-edit">수정</button>
+							      <button class="btn-edit" onclick="location.href='${contextPath}/updateAdsBySeller?adsNum=${ads.adsNum }'" >수정</button>
 							    </c:when>
 							    <c:otherwise>
 							      <!-- 게시중 / 종료 상태일 때는 버튼 없음 -->
@@ -124,6 +125,14 @@
         <button class="btn btn-cancel" id="closeModalBtn">취소</button>
     </div>
 </div>
+<!-- 이미지 모달 -->
+<div id="imgModal" class="modal" style="display:none;">
+  <div id="imgModalContent">
+    <span id="closeImgModal" style="cursor:pointer; float: right;">❌</span>
+    <img id="modalImage" src="" style="max-width: 100%; height: auto; margin-top: 20px;" />
+  </div>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   let selectedAdsNum = null;
@@ -173,5 +182,35 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // 이미지 클릭 → 모달에 원본 표시
+  document.querySelectorAll(".product-img").forEach(function(img) {
+    img.addEventListener("click", function () {
+      const modal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("modalImage");
+      modalImg.src = this.src.replace("width=100px", ""); // 혹시 URL 파라미터가 있다면 제거
+      modal.style.display = "block";
+    });
+  });
+
+  // 닫기
+  document.getElementById("closeImgModal").addEventListener("click", function () {
+    document.getElementById("imgModal").style.display = "none";
+  });
+});
+
+document.getElementById("imgModal").addEventListener("click", function (e) {
+	  const modalContent = document.getElementById("imgModalContent");
+
+	  // 모달 콘텐츠 영역 외부를 클릭한 경우에만 닫기
+	  if (!modalContent.contains(e.target)) {
+	    this.style.display = "none";
+	  }
+	});
+
+
+</script>
+
 </body>
 </html>
