@@ -10,6 +10,19 @@ public class AdminQuestion {
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
 	String type;
+	
+	public AdminQuestion() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public AdminQuestion(Long userNum,String title, String content, String type) {
+		super();
+		this.userNum = userNum;
+		this.title = title;
+		this.content = content;
+		this.type = type;
+	}
 
 	public Long getQuestionNum() {
 		return questionNum;
@@ -65,11 +78,6 @@ public class AdminQuestion {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public AdminQuestion() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }
