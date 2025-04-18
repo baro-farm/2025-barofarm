@@ -10,6 +10,21 @@
 		select * from advertisement where userNum=#{userNum} ORDER BY adsNum desc
 	</select>
 	<update id="updateAdsStatus" parameterType="map">
-		update advertisement set status=#{status} where adsNum=#{adsNum} 
+		update advertisement set status=#{status}, updatedAt = NOW() where adsNum=#{adsNum} 
+	</update>
+	<select id="selectAdsByAdsNum" parameterType="Long" resultType="advertisement">
+		select * from advertisement where adsNum=#{adsNum}
+	</select>
+	<update id="updateAds" parameterType="advertisement">
+		UPDATE advertisement
+		<set>
+		  <if test="title != null and title != ''"> title = #{title}, </if>
+		  <if test="content != null and content != ''"> content = #{content}, </if>
+		  <if test="productName != null and productName != ''"> productName = #{productName}, </if>
+		  <if test="imgUrl != null and imgUrl != ''"> imgUrl = #{imgUrl}, </if>
+		  <if test="productUrl != null and productUrl != ''"> productUrl = #{productUrl}, </if>
+		  updatedAt = NOW()
+		</set>
+		WHERE adsNum = #{adsNum}
 	</update>
 </mapper>

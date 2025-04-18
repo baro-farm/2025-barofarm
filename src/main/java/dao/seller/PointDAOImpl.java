@@ -15,13 +15,12 @@ public class PointDAOImpl implements PointDAO {
 		return sqlSession.selectOne("mapper.point.getPoint",userNum);
 	}
 	@Override
-	public boolean updatePoint(Integer point, Long userNum) throws Exception {
+	public void updatePoint(Integer point, Long userNum) throws Exception {
 		Map<String,Object> param = new HashMap<>();
 		param.put("point", point);
 		param.put("userNum", userNum);
-		int result = sqlSession.update("mapper.point.updatePoint",param);
+		sqlSession.update("mapper.point.updatePoint",param);
 		sqlSession.commit();
-		return result==1;
 	}
 
 }
