@@ -53,8 +53,9 @@
 		         </c:forEach>
 		        </tbody>
 		      </table>
-		      <!-- 구매자 글쓰기 버튼 -->
-        	<a href="insertAdminQ" class="writeButton">글쓰기</a>
+		      	<c:if test="${user != null}">
+		      		<a href="insertAdminQ" class="writeButton">글쓰기</a>
+		      	</c:if>
 			</div> <!-- content -->
 		</div> <!-- wrapper -->
 		<jsp:include page="/header/footer.jsp" />

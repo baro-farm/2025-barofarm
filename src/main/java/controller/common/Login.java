@@ -35,7 +35,6 @@ public class Login extends HttpServlet {
 		String userId = "";
 	    String saveId = "";
 	    String autoLogin = "";
-	    String pwd = "";
 
 	    Cookie[] cookies = request.getCookies();
 	    if (cookies != null) {
@@ -44,21 +43,13 @@ public class Login extends HttpServlet {
 	                case "userId": userId = c.getValue(); break;
 	                case "saveId": saveId = c.getValue(); break;
 	                case "autoLogin": autoLogin = c.getValue(); break;
-	                case "pwd": pwd = c.getValue(); break;
 	            }
 	        }
-	    }
-	    
-	    String err = (String) request.getSession().getAttribute("err");
-	    if (err != null) {
-	        request.setAttribute("err", err);
-	        request.getSession().removeAttribute("err");
 	    }
 
 	    request.setAttribute("userId", userId);
 	    request.setAttribute("saveId", saveId);
 	    request.setAttribute("autoLogin", autoLogin);
-	    request.setAttribute("pwd", pwd);
 
 	    request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
@@ -68,6 +59,9 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
+		request.setCharacterEncoding("utf-8");
+		
 		String userId = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
 		String saveId = request.getParameter("saveId");
@@ -77,57 +71,31 @@ public class Login extends HttpServlet {
 		try {
 			User user = service.login(userId, pwd);
 			user.setPwd("");
+
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
+
+			int cookieTime = 60 * 60 * 24 * 31;
 			
-			Cookie cookieId = null;
-			Cookie cookiePwd = null;
-			Cookie cookieSaveId = null;
-			Cookie cookieAutoLogin = null;
-			
-			if (saveId != null || autoLogin != null) { // 아이디 저장
-			    cookieId = new Cookie("userId", userId);
-			    cookieId.setMaxAge(60*60*24*31);
-			} else {
-			    cookieId = new Cookie("userId", "");
-			    cookieId.setMaxAge(0);
+			Cookie cookieId = new Cookie("userId", (saveId != null || autoLogin != null) ? userId : "");
+			cookieId.setMaxAge((saveId != null || autoLogin != null) ? cookieTime : 0);
+			Cookie cookiePwd = new Cookie("pwd", (autoLogin != null) ? pwd : "");
+			cookiePwd.setMaxAge((autoLogin != null) ? cookieTime : 0);
+			Cookie cookieSaveId = new Cookie("saveId", (saveId != null) ? "on" : "");
+			cookieSaveId.setMaxAge((saveId != null) ? cookieTime : 0);
+			Cookie cookieAutoLogin = new Cookie("autoLogin", (autoLogin != null) ? "on" : "");
+			cookieAutoLogin.setMaxAge((autoLogin != null) ? cookieTime : 0);
+
+			for (Cookie c : new Cookie[]{cookieId, cookiePwd, cookieSaveId, cookieAutoLogin}) {
+				c.setPath("/");
+				response.addCookie(c);
 			}
-			if (saveId != null) {
-				cookieSaveId = new Cookie("saveId", "on");
-	            cookieSaveId.setMaxAge(60*60*24*31);
-			} else {
-				cookieSaveId = new Cookie("saveId", "");
-				cookieSaveId.setMaxAge(0);
-	        }
-			// 자동 로그인
-			if (autoLogin != null) {
-				cookiePwd = new Cookie("pwd", pwd);
-				cookieAutoLogin = new Cookie("autoLogin", "on");
-	            cookiePwd.setMaxAge(60*60*24*31);
-	            cookieAutoLogin.setMaxAge(60*60*24*31);
-			}else {
-				cookiePwd = new Cookie("pwd", "");
-				cookieAutoLogin = new Cookie("autoLogin", "");
-	            cookiePwd.setMaxAge(0);
-	            cookieAutoLogin.setMaxAge(0);
-	            
-	        }
-			cookieId.setPath("/");
-			cookiePwd.setPath("/");
-			cookieSaveId.setPath("/");
-			cookieAutoLogin.setPath("/");
-			response.addCookie(cookieId);
-            response.addCookie(cookieSaveId);
-            response.addCookie(cookiePwd);
-            response.addCookie(cookieAutoLogin);
-			
-			response.sendRedirect("main.jsp");
+
+			response.getWriter().write("{\"success\": true}");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			request.getSession().setAttribute("err", "아이디 또는 비밀번호가 잘못되었습니다.");
-			request.getSession().setAttribute("userId", userId);
-			response.sendRedirect("login");
+			response.getWriter().write("{\"success\": false, \"message\": \"아이디 또는 비밀번호가 잘못되었습니다.\"}");
 		}
 	}
 

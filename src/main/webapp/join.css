@@ -6,7 +6,6 @@
 .content{
   flex: 1;
 }
-
 .join { /* 컨텐츠 */
 	margin: 50px auto;
     padding: 20px;
@@ -83,6 +82,12 @@
     visibility: visible;
     max-height: 400px;
     opacity: 1;
+}
+.doubleCheck{
+	font-size: 12px;
+    color: red;
+    text-align: left;
+    margin: 0 10px 10px;
 }
 /* 주소찾기 */
 .zipcodeContainer {

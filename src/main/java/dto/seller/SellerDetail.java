@@ -11,6 +11,12 @@ public class SellerDetail {
 		super();
 	}
 
+	public SellerDetail(String storeName, String businessNum) {
+		super();
+		this.storeName = storeName;
+		this.businessNum = businessNum;
+	}
+
 	public SellerDetail(Long sellerNum, Long userNum, String storeName, String businessNum, boolean isAlarm) {
 		super();
 		this.sellerNum = sellerNum;

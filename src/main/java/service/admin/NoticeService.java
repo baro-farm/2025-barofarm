@@ -10,4 +10,5 @@ public interface NoticeService {
 	void deleteNotice(Integer noticeNum) throws Exception;
 	Notice selectNotice(Integer noticeNum) throws Exception;
 	void updateNotice(Notice notice) throws Exception;
+	List<Notice> selectRecentNotices() throws Exception;
 }

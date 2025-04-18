@@ -31,18 +31,20 @@
 	            <div class="inputWithButton">
 	                <input type="text" class="inputField" name="userId" id="userId" placeholder="아이디" 
 	                	value="${userId != null ? userId : ''}" required>
-	                <button type="button" id="doubldId" class="checkBtn">중복확인</button>
+	                <button type="button" id="doubleId" class="checkBtn">중복확인</button>
 	            </div>
+	            <p id="idCheckResult" class="doubleCheck"></p>
 	            <input type="password" class="inputField" name="pwd" placeholder="비밀번호" 
 	            	value="${pwd != null ? pwd : ''}" required>
 	            <p class="passwordMsg">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)</p>
 	            <!-- 판매자 가입 시 추가 입력란 -->
 	            <div id="sellerFields" >
 	            	<div class="inputWithButton">
-	                	<input type="text" class="inputField" name="storeName" placeholder="스토어명"
+	                	<input type="text" class="inputField" name="storeName" id="storeName" placeholder="스토어명"
 	                		value="${storeName != null ? storeName : ''}">
-	                    <a href="#" class="checkBtn">중복확인</a>
+	                    <button type="button" id="doubleStoreName" class="checkBtn">중복확인</button>
 	                </div>
+	                <p id="storeNameCheckResult" class="doubleCheck"></p>
 	                <input type="text" class="inputField" name="businessNum" placeholder="사업자번호"
 	                	value="${businessNum != null ? businessNum : ''}">
 	            </div>

@@ -25,18 +25,23 @@
 	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 	                </c:when>
 	                <c:otherwise>
-	                	<span><b>${user.userId}</b></span>
+	                	<li class="userli"><p>${user.userId}</p></li>
 	                	<li class="userli"><a href="logout" id="" class="userBtn">로그아웃</a></li>
 	                	<c:choose>
 					        <c:when test="${user.isSeller == true}">
 					          <li class="userli"><a href="sellerAdsList" class="userBtn">마이스토어</a></li>
+					          <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+	                		  <li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 					        </c:when>
-					        <c:otherwise>
-					          <li class="userli"><a href="infoForm" class="userBtn">마이페이지</a></li>
-					        </c:otherwise>
+							<c:when test="${user.userId == 'admin'}">
+							    <li class="userli"><a href="userList" class="userBtn">관리자페이지</a></li>
+							</c:when>
+							<c:otherwise>
+							    <li class="userli"><a href="infoFoam" class="userBtn">마이페이지</a></li>
+							    <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+	                			<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
+							</c:otherwise>
 					      </c:choose>
-		                <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
-	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 	                </c:otherwise>
              	</c:choose>
             </ul>
@@ -44,7 +49,7 @@
         <!-- 헤더 -->
         <header class="headerMenu">
             <div class="headerlogo">
-                <a href="main.jsp">
+                <a href="main">
                     <img src="https://i.ibb.co/zH5kPJNt/barologo1.png" alt="barologo1" border="0" class="logo">
                 </a>
             </div>

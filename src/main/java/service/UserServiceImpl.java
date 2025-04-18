@@ -6,29 +6,42 @@ import dao.UserDAO;
 import dao.UserDAOImpl;
 import dao.buyer.AddressDAO;
 import dao.buyer.AddressDAOImpl;
+import dao.seller.SellerDAO;
+import dao.seller.SellerDAOImpl;
 import dto.User;
 import dto.admin.AdminQuestion;
+import dto.admin.Notice;
 import dto.buyer.Address;
+import dto.seller.SellerDetail;
 import vo.AdminQuestionVO;
+import vo.SellerVO;
 
 public class UserServiceImpl implements UserService{
 	private UserDAO userDao;
 	private AddressDAO addressDao;
+	private SellerDAO sellerDao;
 
 	public UserServiceImpl() {
 		 userDao = new UserDAOImpl();
 		 addressDao = new AddressDAOImpl();
+		 sellerDao = new SellerDAOImpl();
 	}
 	
 	@Override
-	public void join(User user, Address address) throws Exception {
+	public void join(User user, Address address, SellerDetail sellerDetail) throws Exception {
 		 User exist = userDao.selectUser(user.getUserId());
 		 if (exist != null) throw new Exception("이미 존재하는 아이디입니다.");
 		    
-		 userDao.insertUser(user);         // 유저 저장
-		 System.out.println("생성된 userNum: " + user.getUserNum()); 
+		 userDao.insertUser(user);
+		 
 		 address.setUserNum(user.getUserNum());
-		 addressDao.insertAddress(address); // 주소 저장
+		 addressDao.insertAddress(address);
+		 
+ 
+		 if (user.getIsSeller() == true && sellerDetail != null) {
+		        sellerDetail.setUserNum(user.getUserNum());
+		        sellerDao.insertSellerDetail(sellerDetail);
+		 }
 	}
 
 	@Override
@@ -67,6 +80,17 @@ public class UserServiceImpl implements UserService{
 	public AdminQuestionVO detailAdminQA(Long questionNum) throws Exception {
 		return userDao.detailAdminQA(questionNum);
 	}
+
+	@Override
+	public List<AdminQuestion> selectAdminQ() throws Exception {
+		return userDao.selectRecentAdminQ();
+	}
+
+	@Override
+	public boolean doubleStoreNameCheck(String storeName) throws Exception {
+		 return sellerDao.doubleStoreNameCheck(storeName);
+	}
+
 	
 
 	

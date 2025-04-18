@@ -12,16 +12,16 @@ import service.UserServiceImpl;
 
 
 /**
- * Servlet implementation class MemberIdCheck
+ * Servlet implementation class DoubleIdCheck
  */
-@WebServlet("/userDoubleId")
-public class UserIdCheck extends HttpServlet {
+@WebServlet("/doubleIdCheck")
+public class DoubleIdCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserIdCheck() {
+    public DoubleIdCheck() {
         super();
         // TODO Auto-generated constructor stub
     }

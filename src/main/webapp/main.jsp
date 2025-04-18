@@ -160,24 +160,30 @@
 				<div class="notice">
 					<div class="noticeHeader">
 				        <h3>공지사항</h3>
-				        <a href="#">+</a>
+				        <a href="noticeListView">+</a>
 					</div>
-					<ul>
-				    	<li><a href="#">업무처리 매뉴얼</a><span>2019-12-29</span></li>
-				        <li><a href="#">고객센터 운영시간 변경 안내</a><span>2019-12-29</span></li>
-				        <li><a href="#">불량 야채 사진 변경 안내</a><span>2019-12-29</span></li>
-				    </ul>
+					<ul class="recentNotice">
+					  <c:forEach var="n" items="${noticeList}">
+					    <li>
+					      <a href="detailNotice?noticeNum=${n.noticeNum}">${n.title}</a>
+					      <span>${n.createdAt}</span>
+					    </li>
+					  </c:forEach>
+					  </ul>
 			    </div>
 		    	<div class="faq">
 			    	<div class="faqHeader">
 				        <h3>문의하기</h3>
-				        <a href="#">+</a>
+				        <a href="AdminQAList">+</a>
 			      	</div>
-		      		<ul>
-				        <li><a href="#">[배송] 주문한 상품은 언제 배송되나요?</a><span>2019-12-29</span></li>
-				        <li><a href="#">[교환/환불] 상품을 교환하고 싶어요.</a><span>2019-12-29</span></li>
-				        <li><a href="#">[배송] 배송 상태가 보이지 않아요.</a><span>2019-12-29</span></li>
-		      		</ul>
+		      		<ul class="recentAdminQ">
+					  <c:forEach var="q" items="${adminQ}">
+					    <li>
+					      <a href="detailAdminQA?questionNum=${q.questionNum}">${q.title}</a>
+					      <span>${q.createdAt}</span>
+					    </li>
+					  </c:forEach>
+					  </ul>
 		    	</div>
 			</div>
 			</div>

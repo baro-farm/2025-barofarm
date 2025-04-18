@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.User;
 import dto.admin.AdminQuestion;
+import dto.admin.Notice;
 import vo.AdminQuestionVO;
 
 public interface UserDAO {
@@ -13,4 +14,7 @@ public interface UserDAO {
 	void insertAdminQ(AdminQuestion adminQuestion) throws Exception;
 	List<AdminQuestionVO> AdminQList() throws Exception;
 	AdminQuestionVO detailAdminQA(Long questionNum) throws Exception;
+	List<AdminQuestion> selectRecentAdminQ() throws Exception;
+	
+
 }

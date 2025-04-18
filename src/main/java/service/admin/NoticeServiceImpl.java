@@ -37,4 +37,10 @@ public class NoticeServiceImpl implements NoticeService {
 	public void updateNotice(Notice notice) throws Exception {
 		noticeDao.updateNotice(notice);
 	}
+	
+	@Override
+	public List<Notice> selectRecentNotices() throws Exception {
+		return noticeDao.selectRecentNotices();
+	}
+	
 }

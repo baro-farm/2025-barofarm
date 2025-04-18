@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import dto.User;
 import dto.admin.AdminAnswer;
 import dto.admin.AdminQuestion;
+import dto.admin.Notice;
 import util.MybatisSqlSessionFactory;
 import vo.AdminQuestionVO;
 
@@ -17,7 +18,6 @@ public class UserDAOImpl implements UserDAO {
 	public void insertUser(User user) throws Exception {
 			sqlSession.insert("mapper.user.insertUser", user);
 			sqlSession.commit();
-			
 	}
 
 	@Override
@@ -47,5 +47,9 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.selectOne("mapper.adminQuestion.selectAdminQA", questionNum);
 	}
 
+	@Override
+	public List<AdminQuestion> selectRecentAdminQ() throws Exception {
+		return sqlSession.selectList("mapper.adminQuestion.selectRecentAdminQ");
+	}
 	
 }

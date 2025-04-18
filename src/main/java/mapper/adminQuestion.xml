@@ -40,5 +40,11 @@
 	  LEFT JOIN adminanswer ans ON a.questionNum = ans.questionNum
 	  Where a.questionNum =#{questionNum}
 	</select>
+	<select id="selectRecentAdminQ" resultType="AdminQuestion">
+	  SELECT questionNum, title, createdAt
+	  FROM adminquestion
+	  ORDER BY createdAt DESC
+	  LIMIT 3
+	</select>
 	
 </mapper>
