@@ -25,6 +25,9 @@
 		<typeAlias type="dto.seller.SellerDetail" alias="seller" />
 		<typeAlias type="dto.admin.Store" alias="store" />
     	<typeAlias type="vo.PackOrderVO" alias="packOrderVo"/>
+    	<typeAlias type="dto.seller.Advertisement" alias="advertisement"/>
+    	<typeAlias type="dto.seller.Point" alias="point"/>
+    	<typeAlias type="dto.seller.usePoint" alias="usePoint"/>
 	</typeAliases>
 		
 	<environments default="development">
@@ -49,5 +52,8 @@
 		<mapper resource="mapper/packageOrder.xml"/>
 		<mapper resource="mapper/customerService.xml" />
 		<mapper resource="mapper/seller.xml" />
+		<mapper resource="mapper/advertisement.xml"/>
+		<mapper resource="mapper/point.xml"/>
+		<mapper resource="mapper/usePoint.xml"/>		
 	</mappers>
 </configuration>

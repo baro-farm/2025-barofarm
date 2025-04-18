@@ -80,17 +80,18 @@
 		                    <td><a href="detailKockFarm?kockNum=${kock.kockNum }">${kock.title }</a></td>
 		                    <td>${kock.userName }</td>
 		                    <fmt:parseDate value="${kock.createdAt}" pattern="yyyy-MM-dd" var="createdDate"/>
-		                   
 		                    <td><fmt:formatDate value="${createdDate }" pattern="yyyy-MM-dd"/></td>
 		                </tr>
 	                </c:forEach>
 	            </tbody>
 	        </table>
-	
+			<c:if test="${!isSeller }">
 	        <div class="buttons">
 	            <button class="btn btn-list" onclick="location.href='insertKockFarm'">글 등록</button>
 	        </div>
+	        </c:if>
 	    </div>
+	    
 	</div>
 </body>
 
