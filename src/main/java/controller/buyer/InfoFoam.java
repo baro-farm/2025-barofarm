@@ -37,15 +37,16 @@ public class InfoFoam extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
-		HttpSession session = request.getSession(false);
-		
 		UserService service= new UserServiceImpl();
+		
+		HttpSession session = request.getSession(false);
 		User sessionUser =null;
-		UserVO user = null;
-
+		
 		if(session != null) {
 			sessionUser=(User)session.getAttribute("user");
 		}
+		
+		UserVO user = null;
 		
 		try {
 			
@@ -55,8 +56,6 @@ public class InfoFoam extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 	}
 
