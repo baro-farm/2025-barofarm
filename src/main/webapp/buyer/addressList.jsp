@@ -60,46 +60,51 @@ $(function() {
 
 </head>
 <body>
-		<jsp:include page="/header/mainHeader.jsp"/>
-	<div class="addressContainer">
-	
-		<!-- 헤더 -->
-		<div class="addressHeader">배송지 주소관리</div>
-		<jsp:include page="/header/sideMenu.jsp"/>
-		<!-- 주소 목록 테이블 -->
-		<table class="addressTable">
-			<thead>
-				<tr>
-					<th>배송지</th>
-					<th>수령인</th>
-					<th>연락처</th>
-					<th>우편번호</th>
-					<th>주소</th>
-					<th>관리</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="address" items="${addressList }">
-					<tr id="row-${address.addrNum}">
-						<td><c:if test="${address.isDefault}">
-								<span class="defaultAddress">(기본)</span>
-							</c:if> ${address.nickname }</td>
-						<td>${address.name }</td>
-						<td>${address.phone }</td>
-						<td>${address.postCode }</td>
-						<td>${address.addr1 }${address.addr2 }</td>
+	<jsp:include page="/header/mainHeader.jsp"/>
+	<div class="container">
+		<div class="wrapper">
+			<div class="sideMenu">
+				<jsp:include page="/header/buyerMenu.jsp" />
+			</div>
 						
-						<td>
-							<button class="btnGreen updateBtn" data-addrnum = "${address.addrNum }">수정</button>
-							<c:if test="${!address.isDefault }">
-								<button class="btnRed deleteBtn" data-addrnum = "${address.addrNum }">삭제</button>
-							</c:if></td>
-						
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-
+			<div class="content">
+				<!-- 헤더 -->
+				<div class="addressHeader">배송지 주소관리</div>
+				<!-- 주소 목록 테이블 -->
+				<table class="addressTable">
+					<thead>
+						<tr>
+							<th>배송지</th>
+							<th>수령인</th>
+							<th>연락처</th>
+							<th>우편번호</th>
+							<th>주소</th>
+							<th>관리</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="address" items="${addressList }">
+							<tr id="row-${address.addrNum}">
+								<td><c:if test="${address.isDefault}">
+										<span class="defaultAddress">(기본)</span>
+									</c:if> ${address.nickname }</td>
+								<td>${address.name }</td>
+								<td>${address.phone }</td>
+								<td>${address.postCode }</td>
+								<td>${address.addr1 }${address.addr2 }</td>
+								
+								<td>
+									<button class="btnGreen updateBtn" data-addrnum = "${address.addrNum }">수정</button>
+									<c:if test="${!address.isDefault }">
+										<button class="btnRed deleteBtn" data-addrnum = "${address.addrNum }">삭제</button>
+									</c:if></td>
+								
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
 		<!-- 페이지네이션 -->
 		<div class="pagination">
 			<span class="active">1</span> <span>2</span> <span>3</span> <span>4</span>

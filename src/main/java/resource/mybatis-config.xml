@@ -27,7 +27,7 @@
     	<typeAlias type="vo.PackOrderVO" alias="packOrderVo"/>
     	<typeAlias type="dto.seller.Advertisement" alias="advertisement"/>
     	<typeAlias type="dto.seller.Point" alias="point"/>
-    	<typeAlias type="dto.seller.usePoint" alias="usePoint"/>
+    	<typeAlias type="dto.seller.UsePoint" alias="usePoint"/>
 	</typeAliases>
 		
 	<environments default="development">
