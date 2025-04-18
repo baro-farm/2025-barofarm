@@ -66,7 +66,7 @@
             </ul>
         </li>
         <li><a href="#">정기배송 신청내역</a></li>
-        <li><a href="#">상품 문의</a></li>
+        <li><a href="questionList">상품 문의</a></li>
         <li class="dropdown">
             <a style="text-decoration: none;">리뷰</a>
             <ul class="submenu">
