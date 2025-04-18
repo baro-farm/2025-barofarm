@@ -121,3 +121,7 @@ form textarea {
 .btn-list:hover { background-color: #579d39;}
 .btn-edit:hover { background-color: #e6a42f;}
 .btn-delete:hover { background-color: #c1212f;}
+.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

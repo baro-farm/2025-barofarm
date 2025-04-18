@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import dto.User;
 import dto.buyer.KockFarm;
 import service.buyer.KockFarmService;
 import service.buyer.KockFarmServiceImpl;
@@ -36,6 +38,10 @@ public class InsertKockFarm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		request.setAttribute("userName", user.getUserName());
+
 		request.getRequestDispatcher("/buyer/insertKockFarm.jsp").forward(request, response);
 	}
 
@@ -51,7 +57,10 @@ public class InsertKockFarm extends HttpServlet {
 		MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8",
 				new DefaultFileRenamePolicy());
 		
-		Long userNum = Long.parseLong(multi.getParameter("userNum"));
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+
+		Long userNum = user.getUserNum();
 		Long cateNum = Long.parseLong(multi.getParameter("cateNum"));
 		String title = multi.getParameter("title");
 		Integer quantity = Integer.parseInt(multi.getParameter("quantity"));

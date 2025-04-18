@@ -45,4 +45,10 @@ public class KockFarmDaoImpl implements KockFarmDao {
 		sqlSession.insert("mapper.kockFarm.insertMatching",matching);
 		sqlSession.commit();
 	}
+
+	@Override
+	public void updateKockMatched(Long kockNum) throws Exception {
+		sqlSession.update("mapper.kockFarm.updateKockMatched", kockNum);
+		sqlSession.commit();
+	}
 }
