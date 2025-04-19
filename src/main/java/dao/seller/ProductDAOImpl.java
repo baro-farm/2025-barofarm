@@ -33,7 +33,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public void stopProduct(Product product) throws Exception {
+	public void updateProductStatus(Product product) throws Exception {
 		sqlSession.update("mapper.product.stopProduct", product);
 		sqlSession.commit();
 	}

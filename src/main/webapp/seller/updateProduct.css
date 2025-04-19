@@ -175,6 +175,9 @@
 #update_btn {
   width: 100px;
   height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
   background-color: #ffb534;
   border-radius: 8px;
@@ -190,9 +193,12 @@
   background-color: #e6a42f;
 }
 
-#stop_btn {
+#toggle_btn {
   width: 120px;
   height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
   background-color: #d72638;
   border-radius: 8px;
@@ -203,7 +209,7 @@
   cursor: pointer;
 }
 
-#stop_btn:hover {
+#toggle_btn:hover {
   background-color: #c1212f;
 }
 
