@@ -91,13 +91,20 @@ public class UpdateProduct extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		User user = (User) request.getSession().getAttribute("user");
+//		if (user == null) {
+//			response.sendRedirect("/barofarm/login");
+//			return;
+//		}
+		
 		if (user == null) {
-			response.sendRedirect("/barofarm/login");
-			return;
+		    response.sendRedirect("/barofarm/updateProduct?error=unauthorized");
+		    return;
 		}
 
 		// 옵션 제외한 정보들
 		Long productNum = 3L; // 임시값
+		Long userNum = user.getUserNum();
+		SellerService sellerService = new SellerServiceImpl();
 
 		String productName = request.getParameter("product_name");
 		Integer price = Integer.parseInt(request.getParameter("product_price"));
@@ -108,8 +115,18 @@ public class UpdateProduct extends HttpServlet {
 		// 기존 상품 조회 (기존 이미지 경로를 유지하기 위함)
 		ProductService productService = new ProductServiceImpl();
 		Product existingProduct = null;
+		Long sellerNum = null;
+		
 		try {
 			existingProduct = productService.selectProduct(productNum);
+			sellerNum = sellerService.selectSellerNum(userNum);
+			
+			if (existingProduct.getSellerNum() != sellerNum) {
+//				response.sendRedirect("/barofarm/login");
+				response.sendRedirect("/barofarm/updateProduct?error=unauthorized");
+//			    return;
+		        return; // 권한 없는 사용자 접근 방지
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -140,15 +157,6 @@ public class UpdateProduct extends HttpServlet {
 
 		} else {
 			imageUrl = existingProduct.getImgUrl();
-		}
-
-		SellerService sellerService = new SellerServiceImpl();
-		Long userNum = user.getUserNum();
-		Long sellerNum = null;
-		try {
-			sellerNum = sellerService.selectSellerNum(userNum);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		LocalDateTime currentDate = LocalDateTime.now();
