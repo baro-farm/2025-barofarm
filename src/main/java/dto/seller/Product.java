@@ -77,6 +77,20 @@ public class Product {
 		this.imgUrl = imgUrl;
 		this.status = status;
 	}
+	public Product(Long productNum, Long sellerNum, Integer cateNum, String productName, String content, Integer stock, Integer price,
+			String imgUrl, boolean status, LocalDateTime updatedAt) {
+		super();
+		this.productNum = productNum;
+		this.sellerNum = sellerNum;
+		this.cateNum = cateNum;
+		this.productName = productName;
+		this.content = content;
+		this.stock = stock;
+		this.price = price;
+		this.imgUrl = imgUrl;
+		this.status = status;
+		this.updatedAt = updatedAt;
+	}
 	
 	public Product(Long productNum, boolean status) {
 		super();

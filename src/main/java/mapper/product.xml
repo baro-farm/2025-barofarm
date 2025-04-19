@@ -12,7 +12,7 @@
 	</select>
 	<update id="updateProduct" parameterType="product">
 		update product set cateNum=#{cateNum}, productName=#{productName}, content=#{content}, 
-		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status}, salesVolume=#{salesVolume} where productNum=#{productNum} 
+		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status} where productNum=#{productNum} 
 	</update>
 	<update id="stopProduct" parameterType="product">
 		update product set status=#{status} where productNum=#{productNum}
@@ -24,7 +24,9 @@
 		select * from productOption where productNum=#{productNum}
 	</select>
 	<update id="updateProductOption" parameterType="productOption">
-		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where productNum=#{productNum}
+		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where optionNum=#{optionNum}
 	</update>
-	
+	<delete id="deleteProductOption" parameterType="Long">
+		delete from productOption where optionNum=#{optionNum}
+	</delete>
 </mapper>
