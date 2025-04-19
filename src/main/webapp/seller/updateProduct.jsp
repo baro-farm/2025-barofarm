@@ -89,7 +89,15 @@
 			</div>
 			<div id="submit">
 				<button type="submit" id="update_btn">수정하기</button>
-				<button type="submit" id="stop_btn">판매 중단하기</button>
+				<button type="button" id="toggle_btn"
+					data-product-num="${product.productNum}"
+					data-status="${product.status}">
+					<c:choose>
+						<c:when test="${product.status}">판매 중단하기</c:when>
+						<c:otherwise>판매 재개하기</c:otherwise>
+					</c:choose>
+				</button>
+
 			</div>
 		</form>
 	</div>

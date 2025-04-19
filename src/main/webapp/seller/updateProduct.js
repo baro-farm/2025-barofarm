@@ -129,3 +129,33 @@ fileInput.addEventListener('change', (event) => {
     preview.innerHTML = '';
   }
 });
+
+// 상품 판매 상태 변경
+document.getElementById('toggle_btn').addEventListener('click', async function () {
+  const productNum = this.dataset.productNum;
+  const currentStatus = this.dataset.status === 'true';
+
+  const confirmMsg = currentStatus ? '판매를 중단하시겠습니까?' : '판매를 재개하시겠습니까?';
+  if (!confirm(confirmMsg)) return;
+
+  try {
+    const res = await fetch('/barofarm/toggleProductStatus', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ productNum })
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      alert(result.message);
+      location.reload(); // 또는 버튼 텍스트/데이터만 교체
+    } else {
+      alert(result.message || '처리에 실패했습니다.');
+    }
+  } catch (err) {
+    console.error('에러 발생:', err);
+    alert('서버와의 통신 중 문제가 발생했습니다.');
+  }
+});
