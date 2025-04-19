@@ -41,8 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const priceValue = document.getElementById('product_price').value;
 
-      const submitter = e.submitter?.id;
-      if (submitter === 'stop') {
+      if (clickedButton === 'stop') {
         // 판매 중단 처리
         this.submit();
         // 원하는 로직 추가
@@ -66,6 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   const params = new URLSearchParams(location.search);
+  if (params.get('error') === 'unauthorized') {
+    alert('해당 상품의 판매자만 변경이 가능합니다.');
+    //history.back(); // 또는 location.href = '/barofarm/원하는곳';
+  }
   if (params.get('success') === 'true') {
     alert('상품 수정이 완료되었습니다!');
     // 주소 깔끔하게 정리
@@ -74,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     alert('상품 수정에 실패했습니다.');
     history.replaceState({}, '', location.pathname);
   }
+  
+  
 });
 
 const addBtn = document.getElementById('add_option_btn');
