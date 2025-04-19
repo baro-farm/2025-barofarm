@@ -30,17 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('update_btn').addEventListener('click', () => {
     clickedButton = 'update';
   });
-  document.getElementById('stop_btn').addEventListener('click', () => {
-    clickedButton = 'stop';
-  });
 
   document
     .getElementById('product_form')
     .addEventListener('submit', function (e) {
       e.preventDefault();
-
-      const priceValue = document.getElementById('product_price').value;
-
       if (clickedButton === 'stop') {
         // 판매 중단 처리
         this.submit();
@@ -57,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const htmlContent = editor.getHTML();
         const contentInput = document.getElementById('product_content');
         contentInput.value = htmlContent;
+
         // 조건 만족했으니 submit
         setTimeout(() => {
           this.submit(); // 여기서 진짜 submit 실행
