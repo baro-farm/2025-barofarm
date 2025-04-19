@@ -69,6 +69,13 @@ public class ProductOption {
 		this.price = price;
 	}
 
+	public ProductOption(Long optionNum, String option, Integer price) {
+		super();
+		this.optionNum = optionNum;
+		this.option = option;
+		this.price = price;
+	}
+
 	public ProductOption(Long productNum, String option, Integer price, LocalDateTime updatedAt) {
 		super();
 		this.productNum = productNum;

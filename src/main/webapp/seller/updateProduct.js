@@ -1,67 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const editor = new toastui.Editor({
-		  el: document.querySelector('#editor'),
-		  height: '500px',
-		  initialEditType: 'wysiwyg',
-		  previewStyle: 'vertical',
-		  initialValue: document.getElementById('origin_content').innerHTML.trim(),
-		  hooks: {
-		      addImageBlobHook: async (blob, callback) => {
-		        const formData = new FormData();
-		        formData.append('uploadFile', blob);
+  const editor = new toastui.Editor({
+    el: document.querySelector('#editor'),
+    height: '500px',
+    initialEditType: 'wysiwyg',
+    previewStyle: 'vertical',
+    initialValue: document.getElementById('origin_content').innerHTML.trim(),
+    hooks: {
+      addImageBlobHook: async (blob, callback) => {
+        const formData = new FormData();
+        formData.append('uploadFile', blob);
 
-			try {
-		        const res = await fetch('/barofarm/imageUpload', {
-		          method: 'POST',
-		          body: formData,
-		        });
-		
-		        const result = await res.json();
-		        callback(result.url, '이미지'); // 이미지가 에디터에 삽입됨
-				} catch (e) {
-					console.log('이미지 업로드 실패: ', e);
-				}
-     	},
+        try {
+          const res = await fetch('/barofarm/imageUpload', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const result = await res.json();
+          callback(result.url, '이미지'); // 이미지가 에디터에 삽입됨
+        } catch (e) {
+          console.log('이미지 업로드 실패: ', e);
+        }
       },
-	});
-	
-	document
-	  .getElementById('product_form')
-	  .addEventListener('submit', function (e) {
-	    e.preventDefault();
-	
-	    // 옵션 검사
-	    const list = document.getElementById('option_list');
-	    if (list.children.length < 1) {
-	      alert('옵션을 1개 이상 추가해주세요.');
-	      return;
-	    }
-	
-	    // 에디터에서 HTML 내용 가져오기
-	    const htmlContent = editor.getHTML();
-	    console.log('에디터 내용:', htmlContent); // 디버깅용
-	    const contentInput = document.getElementById('product_content');
-	    contentInput.value = htmlContent;
-	    console.log(contentInput.value);
-	
-	    // 조건 만족했으니 submit
-	    setTimeout(() => {
-	      this.submit(); // 여기서 진짜 submit 실행
-	    }, 0);
-	  });
+    },
+  });
 
-	const params = new URLSearchParams(location.search);
-	  if (params.get('success') === 'true') {
-	    alert('상품 등록이 완료되었습니다!');
-	    // 주소 깔끔하게 정리
-	    history.replaceState({}, '', location.pathname);
-	  } else if (params.get('success') === 'false') {
-	    alert('상품 등록에 실패했습니다.');
-	    history.replaceState({}, '', location.pathname);
+  let clickedButton = null;
+
+  document.getElementById('update_btn').addEventListener('click', () => {
+    clickedButton = 'update';
+  });
+  document.getElementById('stop_btn').addEventListener('click', () => {
+    clickedButton = 'stop';
+  });
+
+  document
+    .getElementById('product_form')
+    .addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const priceValue = document.getElementById('product_price').value;
+
+      const submitter = e.submitter?.id;
+      if (submitter === 'stop') {
+        // 판매 중단 처리
+        this.submit();
+        // 원하는 로직 추가
+      } else {
+        // 옵션 검사
+        const list = document.getElementById('option_list');
+        if (list.children.length < 1) {
+          alert('옵션을 1개 이상 추가해주세요.');
+          return;
+        }
+
+        // 에디터에서 HTML 내용 가져오기
+        const htmlContent = editor.getHTML();
+        const contentInput = document.getElementById('product_content');
+        contentInput.value = htmlContent;
+        // 조건 만족했으니 submit
+        setTimeout(() => {
+          this.submit(); // 여기서 진짜 submit 실행
+        }, 0);
+      }
+    });
+
+  const params = new URLSearchParams(location.search);
+  if (params.get('success') === 'true') {
+    alert('상품 수정이 완료되었습니다!');
+    // 주소 깔끔하게 정리
+    history.replaceState({}, '', location.pathname);
+  } else if (params.get('success') === 'false') {
+    alert('상품 수정에 실패했습니다.');
+    history.replaceState({}, '', location.pathname);
   }
 });
-
-console.log('test')
 
 const addBtn = document.getElementById('add_option_btn');
 const nameInput = document.getElementById('option_name');
@@ -79,11 +92,11 @@ addBtn.addEventListener('click', () => {
 
   const li = document.createElement('li');
   li.innerHTML = `
-    <span>${name} (+${price}원)</span>
-    <input type="hidden" name="option_name" value="${name}">
-    <input type="hidden" name="option_price" value="${price}">
-    <button type="button" class="delete-option-btn">삭제</button>
-  `;
+      <span>${name} (+${price}원)</span>
+      <input type="hidden" name="option_name" value="${name}">
+      <input type="hidden" name="option_price" value="${price}">
+      <button type="button" class="delete-option-btn">삭제</button>
+    `;
   list.appendChild(li);
 
   nameInput.value = '';
