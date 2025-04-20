@@ -168,12 +168,13 @@ public class UpdateProduct extends HttpServlet {
 		String[] optionNums = request.getParameterValues("option_num");
 
 		List<ProductOption> optionList = new ArrayList<>();
-		if (optionNames != null && optionPrices != null) {
-			for (int i = 0; i < optionNames.length; i++) {
-				ProductOption opt = new ProductOption(Long.parseLong(optionNums[i]), optionNames[i],
-						Integer.parseInt(optionPrices[i]));
-				optionList.add(opt);
-			}
+		for (int i = 0; i < optionNames.length; i++) {
+		    Long optionNum = null;
+		    if (optionNums != null && optionNums.length > i && optionNums[i] != null && !optionNums[i].isEmpty()) {
+		        optionNum = Long.parseLong(optionNums[i]);
+		    }
+		    ProductOption opt = new ProductOption(optionNum, optionNames[i], Integer.parseInt(optionPrices[i]));
+		    optionList.add(opt);
 		}
 
 		boolean result = false;

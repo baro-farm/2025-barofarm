@@ -85,16 +85,17 @@ addBtn.addEventListener('click', () => {
   const name = nameInput.value.trim();
   const price = priceInput.value.trim();
 
-  if (!name || isNaN(price)) {
+  if (!name || !price) {
     alert('옵션명과 가격을 제대로 입력해주세요.');
     return;
   }
 
   const li = document.createElement('li');
   li.innerHTML = `
-      <span>${name} (+${price}원)</span>
+      <span>${name} (${price}원)</span>
       <input type="hidden" name="option_name" value="${name}">
       <input type="hidden" name="option_price" value="${price}">
+      <button type="button" class="edit-option-btn">수정</button>
       <button type="button" class="delete-option-btn">삭제</button>
     `;
   list.appendChild(li);
@@ -104,8 +105,73 @@ addBtn.addEventListener('click', () => {
 });
 
 document.getElementById('option_list').addEventListener('click', function (e) {
+  const li = e.target.closest('li');
+
+  // 삭제
   if (e.target.classList.contains('delete-option-btn')) {
-    e.target.parentElement.remove(); // li 요소 삭제
+    li.remove();
+    return;
+  }
+
+  // 수정 모드 진입
+  if (e.target.classList.contains('edit-option-btn')) {
+    const span = li.querySelector('span');
+    const nameInput = li.querySelector('input[name="option_name"]');
+    const priceInput = li.querySelector('input[name="option_price"]');
+    const optionNumInput = li.querySelector('input[name="option_num"]');
+
+    // 기존 값
+    const currentName = nameInput.value;
+    const currentPrice = priceInput.value;
+
+    // span 영역을 인풋 필드로 대체
+    span.innerHTML = `
+      <input type="text" class="inline-edit name-edit" value="${currentName}" />
+      <input type="number" class="inline-edit price-edit" value="${currentPrice}" />
+      <button type="button" class="save-option-btn">저장</button>
+      <button type="button" class="cancel-option-btn">취소</button>
+    `;
+
+    // 기존 버튼 숨기기
+    li.querySelector('.edit-option-btn').style.display = 'none';
+    li.querySelector('.delete-option-btn').style.display = 'none';
+  }
+
+  // 저장
+  if (e.target.classList.contains('save-option-btn')) {
+    const li = e.target.closest('li');
+    const nameField = li.querySelector('.name-edit');
+    const priceField = li.querySelector('.price-edit');
+    const name = nameField.value.trim();
+    const price = priceField.value.trim();
+
+    if (!name || isNaN(price)) {
+      alert('유효한 옵션명과 숫자 가격을 입력해주세요.');
+      return;
+    }
+
+    // 값 업데이트
+    li.querySelector('input[name="option_name"]').value = name;
+    li.querySelector('input[name="option_price"]').value = price;
+    li.querySelector('span').innerText = `${name} (${price}원)`;
+
+    // 버튼 복구
+    li.querySelector('.edit-option-btn').style.display = '';
+    li.querySelector('.delete-option-btn').style.display = '';
+  }
+
+  // 취소
+  if (e.target.classList.contains('cancel-option-btn')) {
+    const li = e.target.closest('li');
+    const name = li.querySelector('input[name="option_name"]').value;
+    const price = li.querySelector('input[name="option_price"]').value;
+
+    // 내용 복구
+    li.querySelector('span').innerText = `${name} (${price}원)`;
+
+    // 버튼 복구
+    li.querySelector('.edit-option-btn').style.display = '';
+    li.querySelector('.delete-option-btn').style.display = '';
   }
 });
 

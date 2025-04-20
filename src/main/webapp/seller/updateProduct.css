@@ -123,14 +123,29 @@
   border-radius: 4px;
 }
 
+.edit-option-btn {
+  padding: 4px 10px;
+  background-color: #ffb534; 
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.edit-option-btn:hover {
+  background-color: #e6a42f;
+}
+
 .delete-option-btn {
-  margin-left: 12px;
+  margin-left: 4px;
   background-color: #d72638;
   color: white;
   padding: 4px 10px;
   border: none;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -138,6 +153,39 @@
 .delete-option-btn:hover {
   background-color: #c1212f;
 }
+
+/* 인라인 옵션 수정 스타일 */
+.inline-edit {
+  padding: 4px;
+  margin-right: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.name-edit {
+  width: 120px;
+}
+
+.price-edit {
+  width: 80px;
+}
+
+.save-option-btn,
+.cancel-option-btn {
+  margin-right: 4px;
+  padding: 4px 10px;
+  background-color: #65b741;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cancel-option-btn {
+  background-color: #d72638;
+}
+
 
 #product_image {
   margin-top: 6px;

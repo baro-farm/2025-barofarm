@@ -63,10 +63,11 @@
 			</div>
 			<ul id="option_list">
 				<c:forEach var="opt" items="${productOption}">
-					<li><span>${opt.option} (+${opt.price}원)</span> <input
+					<li><span>${opt.option} (${opt.price}원)</span> <input
 						type="hidden" name="option_name" value="${opt.option}" /> <input
 						type="hidden" name="option_price" value="${opt.price}" /> <input
 						type="hidden" name="option_num" value="${opt.optionNum}" />
+						<button type="button" class="edit-option-btn">수정</button>
 						<button type="button" class="delete-option-btn">삭제</button></li>
 				</c:forEach>
 			</ul>
