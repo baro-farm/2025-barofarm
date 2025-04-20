@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import dto.seller.Advertisement;
 import util.MybatisSqlSessionFactory;
+import util.SearchDtoSoy;
 
 public class AdsDAOImpl implements AdsDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -42,6 +43,16 @@ public class AdsDAOImpl implements AdsDAO {
 	public void updateAds(Advertisement ads) throws Exception {
 		sqlSession.update("mapper.advertisement.updateAds",ads);
 		sqlSession.commit();		
+	}
+	
+	//관리자
+	@Override
+	public List<Advertisement> selectAdsBySearchDto(SearchDtoSoy dto) throws Exception {
+		return sqlSession.selectList("mapper.advertisement.selectAdsBySearchDto",dto);
+	}
+	@Override
+	public int countAdsBySearchDtoSoy(SearchDtoSoy dto) throws Exception {
+		return sqlSession.selectOne("mapper.advertisement.countAdsBySearchDto", dto);
 	}
 	
 }

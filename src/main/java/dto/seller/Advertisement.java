@@ -16,6 +16,8 @@ public class Advertisement {
 	LocalDateTime updatedAt;
 	Long userNum;
 	String status;
+	
+	String storeName;
 	public Advertisement() {
 	}
 	public Advertisement(Long adsNum, String title, String content, String productName, String imgUrl,
@@ -115,4 +117,11 @@ public class Advertisement {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	
 }

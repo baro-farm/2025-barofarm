@@ -1,0 +1,230 @@
+
+
+.tab-buttons button {
+  padding: 8px 16px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 16px;
+}
+.tab-buttons button.active {
+  background-color: #65B741;
+  color: white;
+  font-weight: bold;
+}
+
+
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+    flex: 1;
+    align-self: flex-start;
+    padding: 30px 0;
+    max-width: 1000px;
+    min-width: 0;
+    margin-left: 20px;
+    margin-right: auto;
+  	position: relative;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+/*제목*/
+.title { /* 컨텐츠 제목*/
+  color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.subtitle { /* 컨텐츠 부제목*/
+  font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 60px;
+}
+tbody tr:hover {
+    background-color: #FBF6EE;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    font-size: 14px;
+    text-align: left;
+}
+
+.table th:nth-child(1),.table td:nth-child(1){
+    width: 25px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.table th:nth-child(2),.table td:nth-child(2){
+    width: 60px;
+    text-align: center;
+}
+
+.table th:nth-child(3),.table td:nth-child(3){
+    padding-left: 20px;
+}
+
+.table th:nth-child(4),.table th:nth-child(5),
+.table td:nth-child(4),.table td:nth-child(5) {
+    text-align: right;
+    width: 80px;
+    padding-right: 20px;
+}
+
+/* 오버플로우 방지 */
+.table td:nth-child(3) {
+    max-width: 200px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .table td:nth-child(3) a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+.statusPending {
+    color: #a1a1a1;
+}
+
+/* ✅ 배너 추가 버튼 */
+.banner-add-btn {
+  background-color: #65B741;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.banner-add-btn:hover {
+  background-color: #589d3a;
+}
+
+/* ✅ 메인 배너 테이블 */
+.banner-table th, .banner-table td {
+  text-align: center;
+}
+
+/* ✅ 모달 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* ✅ 모달 창 */
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  padding: 30px 40px;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 헤더 */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #65B741;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* 입력 필드 */
+.modal-content label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="file"] {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 업로드 버튼 */
+.file-upload-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.upload-btn {
+  background-color: #65B741;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.notice {
+  font-size: 12px;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* 페이징 */
+.paging a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #333;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.paging a.active {
+  background-color: #65B741;
+  color: white;
+  font-weight: bold;
+}

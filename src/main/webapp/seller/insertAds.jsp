@@ -61,7 +61,7 @@
 	
 	    <div class="buttons">
 	      <button class="btn btn-list" id="submitBtn">글 등록</button>
-	      <button class="btn btn-delete">취소</button>
+	      <button class="btn btn-delete" onclick="location.href = '${contextPath}/sellerAdsList'">취소</button>
 	  </div>
 	  </form>
 	</div>

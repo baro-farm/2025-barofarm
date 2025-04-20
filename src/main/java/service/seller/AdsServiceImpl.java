@@ -6,6 +6,7 @@ import dao.seller.AdsDAO;
 import dao.seller.AdsDAOImpl;
 import dto.seller.Advertisement;
 import dto.seller.UsePoint;
+import util.SearchDtoSoy;
 
 public class AdsServiceImpl implements AdsService {
 	private AdsDAO adsDAO;
@@ -53,6 +54,14 @@ public class AdsServiceImpl implements AdsService {
 	@Override
 	public void updateAds(Advertisement ads) throws Exception {
 		adsDAO.updateAds(ads);
+	}
+	@Override
+	public List<Advertisement> selectAdsBySearchDto(SearchDtoSoy dto) throws Exception {
+		return adsDAO.selectAdsBySearchDto(dto);
+	}
+	@Override
+	public int countAdsBySearchDtoSoy(SearchDtoSoy dto) throws Exception {
+		return adsDAO.countAdsBySearchDtoSoy(dto);
 	}
 	
 
