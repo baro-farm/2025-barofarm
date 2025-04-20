@@ -40,7 +40,7 @@ public class SellerCancelAds extends HttpServlet {
              Long adsNum = jsonObj.get("adsNum").getAsLong();
             
              AdsService service = new AdsServiceImpl();
-             service.cancelAdsAndRefund(adsNum, "취소 완료");
+             service.cancelAdsAndRefund(adsNum, "취소완료");
              
              resObj.addProperty("success", true);
 		} catch (Exception e) {
