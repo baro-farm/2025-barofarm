@@ -38,6 +38,7 @@
 			alias="advertisement" />
 		<typeAlias type="dto.seller.Point" alias="point" />
 		<typeAlias type="dto.seller.UsePoint" alias="usePoint" />
+		<typeAlias type="dto.seller.PackageProduct" alias="packageProduct" />
 	</typeAliases>
 
 	<environments default="development">
@@ -68,5 +69,6 @@
 		<mapper resource="mapper/advertisement.xml" />
 		<mapper resource="mapper/point.xml" />
 		<mapper resource="mapper/usePoint.xml" />
+		<mapper resource="mapper/packageProduct.xml" />
 	</mappers>
 </configuration>
