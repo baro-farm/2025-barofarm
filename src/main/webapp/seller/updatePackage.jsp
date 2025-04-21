@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -7,12 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 | 꾸러미 상품 등록</title>
+<title>판매자 | 꾸러미 상품 수정</title>
 <link rel="stylesheet" href="${contextPath}/reset.css" />
-<link rel="stylesheet" href="${contextPath}/seller/insertPackage.css" />
+<link rel="stylesheet" href="${contextPath}/seller/updatePackage.css" />
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-</head>
 </head>
 <body>
 	<jsp:include page="/header/sellerHeader.jsp" />
@@ -21,35 +20,35 @@
 			<span id="email">${user.getUserId()}</span> <span>마이스토어</span> <span>로그아웃</span>
 		</div>
 	</header>
-
+	
 	<div id="content">
-		<span id="title">꾸러미 상품 등록</span>
+		<span id="title">꾸러미 상품 수정</span>
 		<!-- 상품명,가격,재고, 카테고리,옵션,배송비,상품이미지 -->
-		<form action="${contextPath }/insertPackage" id="package_form"
+		<form action="${contextPath }/updatePackage" id="update_package"
 			method="POST" enctype="multipart/form-data">
 			<div class="input_div">
 				<label for="product_name">상품명</label> <input type="text"
-					id="product_name" name="product_name" required />
+					id="product_name" name="product_name" required value=${packageProduct.packageName }>
 			</div>
 			<!-- 최대 인원 선택 -->
 			<div class="input_div">
 				<label for="max_people">판매 단위</label> <select id="package_unit" name="package_unit">
-					<option value="1인">1인</option>
-					<option value="2인">2인</option>
-					<option value="3인">3인</option>
-					<option value="4인">4인</option>
+					<option value="1인" ${packageProduct.packageUnit == "1인" ? 'selected': ''}>1인</option>
+					<option value="2인" ${packageProduct.packageUnit == "2인" ? 'selected': ''}>2인</option>
+					<option value="3인" ${packageProduct.packageUnit == "3인" ? 'selected': ''}>3인</option>
+					<option value="4인" ${packageProduct.packageUnit == "4인" ? 'selected': ''}>4인</option>
 				</select>
 			</div>
 			<div id="options_container">
 				<div class="input_div">
-					<label for="package_price"> 1인 가격 </label> <input type="number"
-						name="package_price" id="package_price" placeholder="1인 가격 (원)"
-						required>
+					<label for="package_price">${packageProduct.packageUnit } 가격 </label> <input type="number"
+						name="package_price" id="package_price" placeholder="${packageProduct.packageUnit } 가격 (원)"
+						required value=${packageProduct.packagePrice }>
 				</div>
 			</div>
 			<div class="input_div">
 				<label for="package_stock">재고</label> <input type="number"
-					id="package_stock" name="package_stock" required />
+					id="package_stock" name="package_stock" required value=${packageProduct.stock }>
 			</div>
 			<div class="input_div">
 				<label for="product_category">카테고리</label> <select
@@ -74,12 +73,12 @@
 					<div>
 
 						<label for="start" class="">시작일</label> <input type="date"
-							id="start" name="start_date" value="2025-04-04" min="2025-04-04"
+							id="start" name="start_date" value="${packageProduct.startDate }" min="2025-04-04"
 							max="2029-12-31" />
 					</div>
 					<div>
 						<label for="end">종료일</label> <input type="date" id="end"
-							name="end_date" value="2025-04-04" min="2025-04-04"
+							name="end_date" value="${packageProduct.endDate }" min="2025-04-04"
 							max="2029-12-31" />
 					</div>
 
@@ -87,21 +86,27 @@
 			</div>
 			<div class="input_div">
 				<label for="product_image">상품 이미지</label> <input type="file"
-					id="product_image" name="product_image" accept="image/*" required />
+					id="product_image" name="product_image" accept="image/*" />
 			</div>
+			<c:if test="${not empty packageProduct.imgUrl}">
+				<div id="preview">
+					<img src="${contextPath}${packageProduct.imgUrl}" alt="현재 이미지" />
+				</div>
+			</c:if>
 			<div id="preview"></div>
 			<div id="editor_div">
 				<span id="product_content">상품 상세설명</span>
 				<div id="editor"></div>
-				<input type="hidden" id="package_content" name="package_content" />
+				<input type="hidden" id="update_package_content" name="update_package_content" />
+				<div id="origin_content" style="display: none;">${packageProduct.content }</div>
 			</div>
 			<div id="submit">
-				<input type="submit" id="insert_product" value="등록하기"></input>
+				<button type="submit" id="update_product_btn">수정하기</button>
 			</div>
 		</form>
 	</div>
 	<script
 		src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-	<script src="${contextPath }/seller/insertPackage.js"></script>
+	<script src="${contextPath }/seller/updatePackage.js"></script>
 </body>
 </html>

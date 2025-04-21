@@ -7,4 +7,10 @@
 		insert into package (sellerNum, cateNum, packageName, content, packagePrice, stock, startDate, endDate, packageUnit, imgUrl) 
 		values (#{sellerNum}, #{cateNum}, #{packageName}, #{content}, #{packagePrice}, #{stock}, #{startDate}, #{endDate}, #{packageUnit}, #{imgUrl})
 	</insert>
+	<select id="selectPackageProduct" parameterType="Long" resultType="packageProduct">
+		select * from package where packageNum=#{packageNum}
+	</select> 
+	<update id="updatePackageProduct" parameterType="packageProduct">
+		update package set cateNum=#{cateNum}, packageName=#{packageName}, content=#{content}, packagePrice=#{packagePrice}, stock=#{stock}, startDate=#{startDate}, endDate=#{endDate}, packageUnit=#{packageUnit}, updatedAt=#{updatedAt}, imgUrl=#{imgUrl} where packageNum=#{packageNum}
+	</update>
 </mapper>

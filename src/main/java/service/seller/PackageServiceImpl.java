@@ -16,4 +16,13 @@ public class PackageServiceImpl implements PackageService {
 		packageDao.insertPackageProduct(packageProduct);
 	}
 
+	@Override
+	public PackageProduct selectPackageProduct(Long packageNum) throws Exception {
+		return packageDao.selectPackageProduct(packageNum);
+	}
+	
+	@Override
+	public void updatePackageProduct(PackageProduct packageProduct) throws Exception {
+		packageDao.updatePackageProduct(packageProduct);		
+	}
 }

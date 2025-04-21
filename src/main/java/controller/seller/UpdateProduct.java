@@ -56,8 +56,8 @@ public class UpdateProduct extends HttpServlet {
 		}
 
 		// 양배추 상품 번호 임시로 정함
-//		Long productNum = 160L;
-		Long productNum = 3L;
+		Long productNum = 160L;
+//		Long productNum = 3L;
 		ProductService productService = new ProductServiceImpl();
 		SellerService sellerService = new SellerServiceImpl();
 		Product product = null;
@@ -102,7 +102,8 @@ public class UpdateProduct extends HttpServlet {
 		}
 
 		// 옵션 제외한 정보들
-		Long productNum = 3L; // 임시값
+//		Long productNum = 3L; // 임시값
+		Long productNum = 160L; // 임시값
 		Long userNum = user.getUserNum();
 		SellerService sellerService = new SellerServiceImpl();
 
@@ -111,7 +112,7 @@ public class UpdateProduct extends HttpServlet {
 		Integer stock = Integer.parseInt(request.getParameter("product_stock"));
 		Integer cateNum = Integer.parseInt(request.getParameter("product_category"));
 		String content = request.getParameter("product_content");
-
+	
 		// 기존 상품 조회 (기존 이미지 경로를 유지하기 위함)
 		ProductService productService = new ProductServiceImpl();
 		Product existingProduct = null;

@@ -71,8 +71,8 @@
 				</c:forEach>
 			</ul>
 			<div class="input_div">
-				<label for="product_image">상품 이미지</label> <input type="file"
-					id="product_image" name="product_image" accept="image/*" />
+				<label for="product_image">상품 이미지</label> 
+				<input type="file" id="product_image" name="product_image" accept="image/*" />
 			</div>
 			<c:if test="${not empty product.imgUrl}">
 				<div id="preview">
