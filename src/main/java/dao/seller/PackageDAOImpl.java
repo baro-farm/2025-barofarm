@@ -14,4 +14,14 @@ public class PackageDAOImpl implements PackageDAO {
 		sqlSession.commit();
 	}
 
+	@Override
+	public PackageProduct selectPackageProduct(Long packageNum) throws Exception {
+		return sqlSession.selectOne("mapper.packageProduct.selectPackageProduct", packageNum);	
+	}
+	
+	@Override
+	public void updatePackageProduct(PackageProduct packageProduct) throws Exception {
+		sqlSession.update("mapper.packageProduct.updatePackageProduct", packageProduct);
+		sqlSession.commit();
+	}
 }

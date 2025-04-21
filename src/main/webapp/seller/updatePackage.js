@@ -2,8 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     height: '500px',
-    initialEditType: 'markdown',
+    initialEditType: 'wysiwyg',
     previewStyle: 'vertical',
+    initialValue: document.getElementById('origin_content').innerHTML.trim(),
     hooks: {
       addImageBlobHook: async (blob, callback) => {
         const formData = new FormData();
@@ -24,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document
-    .getElementById('package_form')
+    .getElementById('update_package')
     .addEventListener('submit', function (e) {
       e.preventDefault();
 
       const htmlContent = editor.getHTML().trim();
       const markdownContent = editor.getMarkdown().trim();
-      const contentInput = document.getElementById('package_content');
+      const contentInput = document.getElementById('update_package_content');
 
       if (!markdownContent) {
         alert('상품 상세설명을 입력해주세요!');
