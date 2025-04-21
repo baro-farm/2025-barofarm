@@ -4,7 +4,7 @@
 	
 <mapper namespace="mapper.packageProduct">
 	<insert id="insertPackageProduct" parameterType="packageProduct" useGeneratedKeys="true" keyProperty="packageNum">
-		insert into package (sellerNum, cateNum, packageName, content, packagePrice, stock, startDate, endDate, packageUnit) 
-		values (#{sellerNum}, #{cateNum}, #{packageName}, #{content}, #{packagePrice}, #{stock}, #{startDate}, #{endDate}, #{packageUnit})
+		insert into package (sellerNum, cateNum, packageName, content, packagePrice, stock, startDate, endDate, packageUnit, imgUrl) 
+		values (#{sellerNum}, #{cateNum}, #{packageName}, #{content}, #{packagePrice}, #{stock}, #{startDate}, #{endDate}, #{packageUnit}, #{imgUrl})
 	</insert>
 </mapper>

@@ -34,10 +34,10 @@
 			<!-- 최대 인원 선택 -->
 			<div class="input_div">
 				<label for="max_people">판매 단위</label> <select id="package_unit" name="package_unit">
-					<option value="1">1인</option>
-					<option value="2">2인</option>
-					<option value="3">3인</option>
-					<option value="4">4인</option>
+					<option value="1인">1인</option>
+					<option value="2인">2인</option>
+					<option value="3인">3인</option>
+					<option value="4인">4인</option>
 				</select>
 			</div>
 			<div id="options_container">

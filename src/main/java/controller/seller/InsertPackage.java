@@ -61,7 +61,7 @@ public class InsertPackage extends HttpServlet {
 		}
 		
 		String packageName = request.getParameter("product_name");
-		Integer packageUnit = Integer.parseInt(request.getParameter("package_unit"));
+		String packageUnit = request.getParameter("package_unit");
 		Integer packagePrice = Integer.parseInt(request.getParameter("package_price"));
 		Integer stock = Integer.parseInt(request.getParameter("package_stock"));
 		Integer cateNum = Integer.parseInt(request.getParameter("product_category"));
@@ -92,9 +92,8 @@ public class InsertPackage extends HttpServlet {
         } catch (Exception e) {
         	e.printStackTrace();
         }
-        
-        // 테이블에 imgUrl이 없음..
-        PackageProduct packageProduct = new PackageProduct(sellerNum, cateNum, packageName, content, packagePrice, stock, startDate, endDate, packageUnit);
+ 
+        PackageProduct packageProduct = new PackageProduct(sellerNum, cateNum, packageName, content, packagePrice, stock, startDate, endDate, packageUnit, imageUrl);
         
         boolean result = false;
         
