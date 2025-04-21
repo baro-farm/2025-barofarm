@@ -11,6 +11,7 @@
 	        po.orderedAt,
 	        poi.productNum,
 	        po.pdOrderNum,
+	        po.userNum,
 	        DATE_ADD(po.orderedAt, INTERVAL 30 DAY) AS deadline
 	    FROM productOrder po
 	    JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
@@ -26,4 +27,35 @@
 	            AND r.productNum = poi.productNum
 	      )	
 	</select>
+	
+	<select id="selectWrittenReviewList" parameterType="Long" resultType="prodReview">
+		SELECT 
+		    pr.reviewNum,
+		    pr.userNum,
+		    p.productNum,
+		    p.productName,
+		    p.imgUrl AS productImgUrl,
+		    pr.pdRating,
+		    pr.pdReviewContent,
+		    pr.createdAt,
+		    u.userName AS buyerName,
+		    s.storeName
+		FROM 
+		    prodReview pr
+		JOIN 
+		    product p ON pr.productNum = p.productNum
+		JOIN 
+		    user u ON pr.userNum = u.userNum
+		JOIN 
+		    sellerdetail s ON p.sellerNum = s.sellerNum
+		WHERE 
+		    pr.userNum = #{userNum}  -- 여기 ?는 구매자 userNum
+		ORDER BY 
+		    pr.createdAt DESC;
+	</select>
+	
+	<insert id="insertProdReview" parameterType="prodReview">
+		insert into prodReview (userNum,productNum,pdRating,pdReviewContent,pdReviewImgUrl)
+			values(#{userNum},#{productNum},#{pdRating},#{pdReviewContent},#{pdReviewImgUrl})
+	</insert>
 </mapper>

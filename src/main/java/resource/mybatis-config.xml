@@ -40,6 +40,10 @@
 			alias="advertisement" />
 		<typeAlias type="dto.seller.Point" alias="point" />
 		<typeAlias type="dto.seller.UsePoint" alias="usePoint" />
+		<typeAlias type="vo.MyPageSummaryVO" alias="myPageVo" />
+		<typeAlias type="vo.KockFarmVO" alias="kockFarmVo" />
+		<typeAlias type="vo.KockCommentVO" alias="kockCommentVo" />
+	
 	</typeAliases>
 
     <environments default="development">
@@ -70,5 +74,7 @@
 		<mapper resource="mapper/advertisement.xml" />
 		<mapper resource="mapper/point.xml" />
 		<mapper resource="mapper/usePoint.xml" />
+		<mapper resource="mapper/myPageSummary.xml" />
+
 	</mappers>
 </configuration>

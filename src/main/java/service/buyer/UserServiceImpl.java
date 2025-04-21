@@ -52,4 +52,10 @@ public class UserServiceImpl implements UserService {
 		userDao.deleteAddress(addrNum);
 	}
 
+	@Override
+	public Long selectUserNumByUserId(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		return userDao.selectUserNumById(userId);
+	}
+
 }

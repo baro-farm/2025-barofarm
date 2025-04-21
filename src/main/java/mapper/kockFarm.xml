@@ -77,5 +77,65 @@
 	  SET isMatched = 1
 	  WHERE kockNum = #{kockNum}
 	</update>
-		
+	
+	<!-- 마이페이지 콕팜 관련 -->
+	<!-- 콕팜 게시글 리스트 -->
+	<select id="selectKockFarmPostList" parameterType="map" resultType="kockFarmVo">
+		select
+			k.kockNum,k.userNum, k.cateNum, k.content, k.title, k.createdAt, k.isMatched,
+			c.name AS name, count(kc.kcNum) AS kcCommentCount, m.sellerNum, s.storeName
+		from kockfarm k
+		join category c on k.catenum = c.catenum
+		left join kockcomment kc on k.kockNum = kc.kockNum
+		left join matching m on k.kockNum = m.kockNum
+		left join sellerDetail s on m.sellerNum=s.sellerNum
+	  	WHERE k.userNum=#{userNum}
+	  	 AND k.createdAt >= #{startDate}
+    		<if test="isMatched != null">
+      			AND k.isMatched = #{isMatched}
+    		</if>
+	  	GROUP BY k.kockNum, k.userNum, k.cateNum, k.title,k.content, k.createdAt, k.isMatched, c.name, m.matchingNum, m.sellerNum, s.storeName
+		ORDER BY k.createdAt DESC	
+	</select>
+	
+	<select id="selectAllKockCommentList" parameterType="map" resultType="kockCommentVo">
+	  SELECT *
+	  FROM(
+	  
+	    SELECT 
+	      kc.kcNum AS commentNum,
+	      kc.kockNum,
+	      kf.title,
+	      kc.content,
+	      kc.createdAt,
+	      '원댓글' AS commentType
+	    FROM kockComment kc
+	    JOIN kockfarm kf ON kc.kockNum = kf.kockNum
+	    WHERE kc.userNum = #{userNum}
+	    
+	    UNION ALL
+	    
+	    SELECT 
+	      bc.reNum AS commentNum,
+	      kc.kockNum,
+	      kf.title,
+	      bc.content,
+	      bc.createdAt,
+	      '대댓글' AS commentType
+	    FROM babyComment bc
+	    JOIN kockComment kc ON bc.kcNum = kc.kcNum
+	    JOIN kockfarm kf ON kc.kockNum = kf.kockNum
+	    WHERE bc.userNum = #{userNum}
+  	) AS allComments
+  	ORDER BY createdAt DESC
+  	LIMIT #{limit} OFFSET #{offset}
+	</select>	
+	
+	<select id="countAllComments" parameterType="long" resultType="Integer">
+	  SELECT
+	    (SELECT COUNT(*) FROM kockComment WHERE userNum = #{userNum})
+	    +
+	    (SELECT COUNT(*) FROM babyComment WHERE userNum = #{userNum})
+	</select>
+	
 </mapper>

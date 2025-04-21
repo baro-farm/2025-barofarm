@@ -67,4 +67,10 @@ public class ProductDAOImpl implements ProductDAO {
 		sqlSession.update("mapper.product.updateProductOption", productOption);
 		sqlSession.commit();		
 	}
+
+
+	@Override
+	public List<Product> selectProductList(Long sellerNum) throws Exception {
+		return sqlSession.selectList("mapper.product.selectProductList",sellerNum);
+	}
 }

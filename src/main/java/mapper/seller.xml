@@ -38,4 +38,12 @@
 		    GROUP BY sellerNum
 		) totalSales ON s.sellerNum = totalSales.sellerNum
 	</select>
+	
+	<select id="selectSellerNumByUserID" parameterType="String" resultType="Long">
+		select sellerNum
+		from sellerDetail s
+		join user u on s.userNum = u.userNum
+		where u.userId=#{userId}
+	</select>
+	
 </mapper>

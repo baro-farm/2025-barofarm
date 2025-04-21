@@ -16,6 +16,9 @@ public class Product {
 	LocalDateTime updatedAt;
 	Long salesVolume;
 	
+	String name; //카테고리 이름
+	Float ratingAvg;//평점
+	
 	public Product() {
 		super();
 	}
@@ -178,6 +181,14 @@ public class Product {
 
 	public void setSalesVolume(Long salesVolume) {
 		this.salesVolume = salesVolume;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

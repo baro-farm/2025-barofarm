@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.seller.ProductDAO;
 import dao.seller.ProductDAOImpl;
+import dao.seller.SellerDAO;
 import dto.seller.Product;
 import dto.seller.ProductOption;
 
@@ -42,5 +43,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateProductOption(ProductOption productOption) throws Exception {
 		productDao.updateProductOption(productOption);		
+	}
+
+	@Override
+	public List<Product> selectSellerProductList(Long sellerNum) throws Exception {
+		// TODO Auto-generated method stub
+		return productDao.selectProductList(sellerNum);
 	}
 }

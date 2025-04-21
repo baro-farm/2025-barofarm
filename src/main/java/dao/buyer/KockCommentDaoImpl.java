@@ -1,12 +1,14 @@
 package dao.buyer;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.BabyComment;
 import dto.buyer.KockComment;
 import util.MybatisSqlSessionFactory;
+import vo.KockCommentVO;
 
 public class KockCommentDaoImpl implements KockCommentDao {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -44,5 +46,15 @@ public class KockCommentDaoImpl implements KockCommentDao {
 	public List<BabyComment> babyCommentList(Long kcNum) throws Exception {
 		return sqlSession.selectList("mapper.kockFarm.babyCommentList",kcNum);
 	}
+	
+	@Override
+	public List<KockCommentVO> selectAllKockCommentList(Map<String,Object>param) throws Exception {
+		return sqlSession.selectList("mapper.kockFarm.selectAllKockCommentList",param);
+	}
 
+	@Override
+	public Integer countAllComments(Long userNum) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.kockFarm.countAllComments",userNum);
+	}
 }

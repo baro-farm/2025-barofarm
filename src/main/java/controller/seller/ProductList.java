@@ -1,6 +1,7 @@
-package controller.buyer;
+package controller.seller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,24 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.User;
-import dto.buyer.Address;
-import dto.buyer.ProdQuestion;
-import service.buyer.ProdQuestionService;
-import service.buyer.ProdQuestionServiceImpl;
-import vo.QuestionVO;
-
+import dto.seller.Product;
+import service.seller.ProductService;
+import service.seller.ProductServiceImpl;
+import service.seller.SellerDetailService;
+import service.seller.SellerDetailServiceImpl;
 
 /**
- * Servlet implementation class QuestionList
+ * Servlet implementation class ProductList
  */
-@WebServlet("/questionList")
-public class ProdQuestionList extends HttpServlet {
+@WebServlet("/productList")
+public class ProductList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProdQuestionList() {
+    public ProductList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,6 +37,7 @@ public class ProdQuestionList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		
 		HttpSession session = request.getSession(false);
@@ -45,18 +46,28 @@ public class ProdQuestionList extends HttpServlet {
 		if(session != null) {
 			sessionUser=(User)session.getAttribute("user");
 		}
+		if(sessionUser == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+		}
 		
-		ProdQuestionService service = new ProdQuestionServiceImpl();
-		List<QuestionVO> questionList = null;
+		
+		List<Product> productList= new ArrayList<>();
+		SellerDetailService detailService = new SellerDetailServiceImpl();
+		ProductService service = new ProductServiceImpl();
+		
 		try {
-			questionList = service.selectUserQuestionList(sessionUser.getUserId());
-			request.setAttribute("questionList", questionList);
-			request.getRequestDispatcher("/buyer/questionList.jsp").forward(request, response);
+			System.out.println(sessionUser.getUserId());
+			Long sellerNum = detailService.selectSellerNumById(sessionUser.getUserId());
+			System.out.println(sellerNum);
+			productList = service.selectSellerProductList(sellerNum);
+			System.out.println(productList);
+			request.setAttribute("productList", productList);
+			request.getRequestDispatcher("/seller/productList.jsp").forward(request, response);
 
-			
-		}catch(Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
-		}	}
+		}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
