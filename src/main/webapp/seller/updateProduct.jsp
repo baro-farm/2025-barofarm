@@ -39,16 +39,15 @@
 					id="product_stock" name="product_stock" value="${product.stock }" />
 			</div>
 			<div class="input_div">
-				<label for="product_category">카테고리</label> <select
-					name="product_category" id="product_category"
-					value=${product.cateNum }>
-					<option value="1">배추/무/대파/부추</option>
-					<option value="2">오이/호박/가지</option>
-					<option value="3">고추/피망/파프리카/열매채소</option>
-					<option value="4">감자/고구마</option>
-					<option value="5">양상추/양배추/새싹채소</option>
-					<option value="6">당근/연근/뿌리채소</option>
-					<option value="7">마늘/양파/생강/파</option>
+				<label for="product_category">카테고리</label>
+				<select name="product_category" id="product_category">
+				  <option value="1" ${product.cateNum == 1 ? 'selected' : ''}>배추/무/대파/부추</option>
+				  <option value="2" ${product.cateNum == 2 ? 'selected' : ''}>오이/호박/가지</option>
+				  <option value="3" ${product.cateNum == 3 ? 'selected' : ''}>고추/피망/파프리카/열매채소</option>
+				  <option value="4" ${product.cateNum == 4 ? 'selected' : ''}>감자/고구마</option>
+				  <option value="5" ${product.cateNum == 5 ? 'selected' : ''}>양상추/양배추/새싹채소</option>
+				  <option value="6" ${product.cateNum == 6 ? 'selected' : ''}>당근/연근/뿌리채소</option>
+				  <option value="7" ${product.cateNum == 7 ? 'selected' : ''}>마늘/양파/생강/파</option>
 				</select>
 			</div>
 			<!-- 옵션 등록 영역 -->
