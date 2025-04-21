@@ -1,0 +1,26 @@
+.container {
+	width: 1280px;
+	margin: 0 auto;
+	display: flex;
+}
+
+.sideMenu {
+	position: relative;
+}
+
+.cart-item {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+	display: flex;
+	align-items: center;
+}
+
+.cart-item img {
+	width: 100px;
+	height: auto;
+	margin-right: 20px;
+}
+
+.cart-item-info {
+	flex: 1;
+}
