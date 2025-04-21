@@ -1,11 +1,16 @@
 package service.buyer;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.buyer.KockFarmDao;
 import dao.buyer.KockFarmDaoImpl;
 import dto.buyer.KockFarm;
 import dto.buyer.Matching;
+import vo.KockCommentVO;
+import vo.KockFarmVO;
 
 public class KockFarmServiceImpl implements KockFarmService {
 	private KockFarmDao kockFarmDao;
@@ -50,4 +55,12 @@ public class KockFarmServiceImpl implements KockFarmService {
 		kockFarmDao.updateKockMatched(kockNum);
 		kockFarmDao.insertMatching(matching);
 	}
+
+	@Override
+	public List<KockFarmVO> selectMyPostList(Long userNum,LocalDate startDate,Boolean isMatched) throws Exception {
+		
+		return kockFarmDao.selectKockFarmPostList(userNum,startDate,isMatched);
+	}
+
+
 }

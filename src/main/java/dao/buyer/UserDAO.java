@@ -8,6 +8,7 @@ import vo.UserVO;
 
 public interface UserDAO {
 	UserVO selectUser(String userId) throws Exception;
+	Long selectUserNumById(String userId) throws Exception;
 	void updateUser(UserVO user) throws Exception;
 	void insertAddress(Address address,String userId) throws Exception;
 	List<Address> selectAddressList(String userId) throws Exception;

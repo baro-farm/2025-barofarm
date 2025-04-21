@@ -14,4 +14,10 @@ public class SellerDAOImpl implements SellerDAO {
 		sqlSession.commit();
 	}
 
+	@Override
+	public Long selectSellerNumByUserID(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.seller.selectSellerNumByUserID",userId);
+	}
+
 }

@@ -20,4 +20,12 @@
 	<update id="updateProductOption" parameterType="productOption">
 		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where productNum=#{productNum}
 	</update>
+	
+	<!-- product List -->
+	<select id="selectProductList" parameterType="long" resultType="product">
+		select p.* , c.name
+		from product p
+		join category c on p.cateNum = c.cateNum
+		where sellerNum = #{sellerNum}
+	</select>
 </mapper>

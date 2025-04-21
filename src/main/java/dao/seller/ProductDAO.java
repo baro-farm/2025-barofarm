@@ -12,4 +12,7 @@ public interface ProductDAO {
 	void stopProduct(Product product) throws Exception;
 	void insertProductOption(ProductOption productOption) throws Exception;
 	void updateProductOption(ProductOption productOption) throws Exception;
+	
+	//product List
+	List<Product> selectProductList(Long sellerNum) throws Exception;
 }

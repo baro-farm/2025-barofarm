@@ -46,8 +46,8 @@
     		<p>${user.userName} 님</p>
 		</c:if>
         <div class="user-buttons">
-            <button>마이페이지</button>
-            <button>로그아웃</button>
+            <button onclick="location.href='${contextPath}/myPageMain'">마이페이지</button>
+            <button onclick="location.href='${contextPath}/logout'">로그아웃</button>
         </div>
     </div>
 
@@ -58,6 +58,25 @@
     <ul class="menu-list">
         <li><a href="prodOrderList" >주문내역 및 배송조회</a></li>
         <li><a href="infoFoam">회원 정보 수정</a></li>
+
+        <li><a href="questionList">상품 문의</a></li>
+        
+        <li class="dropdown">
+            <a style="text-decoration: none;">리뷰</a>
+            <ul class="submenu">
+                <li><a href="prodWritableReviewList">작성 가능한 리뷰</a></li>
+                <li><a href="prodWrittenReviewList">내가 작성한 리뷰</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a style="text-decoration: none;">꾸러미</a>
+            <ul class="submenu">
+                <li><a href="#">주문내역 및 배송조회</a></li>
+            	<li><a href="#">리뷰</a></li>
+            	<li><a href="#">상품 문의</a></li>
+                <li><a href="#">구독 관리</a></li>
+            </ul>
+        </li>
         <li class="dropdown">
             <a style="text-decoration: none;">콕팜</a>
             <ul class="submenu">
@@ -65,15 +84,7 @@
                 <li><a href="#">내 댓글</a></li>
             </ul>
         </li>
-        <li><a href="#">정기배송 신청내역</a></li>
-        <li><a href="questionList">상품 문의</a></li>
-        <li class="dropdown">
-            <a style="text-decoration: none;">리뷰</a>
-            <ul class="submenu">
-                <li><a href="prodWritableReviewList">작성 가능한 리뷰</a></li>
-                <li><a href="#">내가 작성한 리뷰</a></li>
-            </ul>
-        </li>
+
         <li><a href="addressList">배송지 주소관리</a></li>
         <li><a href="#">고객센터</a></li>
     </ul>

@@ -1,12 +1,17 @@
 package dao.buyer;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.KockFarm;
 import dto.buyer.Matching;
 import util.MybatisSqlSessionFactory;
+import vo.KockCommentVO;
+import vo.KockFarmVO;
 
 public class KockFarmDaoImpl implements KockFarmDao {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -51,4 +56,14 @@ public class KockFarmDaoImpl implements KockFarmDao {
 		sqlSession.update("mapper.kockFarm.updateKockMatched", kockNum);
 		sqlSession.commit();
 	}
+
+	@Override
+	public List<KockFarmVO> selectKockFarmPostList(Long userNum,LocalDate startDate,Boolean isMatched) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("userNum", userNum);
+		param.put("startDate", startDate);
+		param.put("isMatched", isMatched);		
+		return sqlSession.selectList("mapper.kockFarm.selectKockFarmPostList", param);
+	}
+
 }

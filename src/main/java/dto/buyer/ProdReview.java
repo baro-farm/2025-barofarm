@@ -11,12 +11,15 @@ public class ProdReview {
 	Integer pdRating;
 	String pdReviewContent;
 	String pdReviewImgUrl;
-	LocalDateTime createdAt;
-	LocalDateTime updatedAt;
+	LocalDate createdAt;
+	LocalDate updatedAt;
 	boolean pdStatus;
 	String pdComment;
 	boolean pdCommentStatus;
 	
+	String storeName; // 스토어 이름
+	String productName; // 상품 이름
+
 	public ProdReview() {
 		super();
 	}
@@ -28,6 +31,18 @@ public class ProdReview {
 		this.pdRating = pdRating;
 		this.pdReviewContent = pdReviewContent;
 		this.pdReviewImgUrl = pdReviewImgUrl;
+	}
+
+	public ProdReview(Long userNum, Long productNum, Integer pdRating, String pdReviewContent, String pdReviewImgUrl,
+			String storeName,String productName) {
+		super();
+		this.userNum = userNum;
+		this.productNum = productNum;
+		this.pdRating = pdRating;
+		this.pdReviewContent = pdReviewContent;
+		this.pdReviewImgUrl = pdReviewImgUrl;
+		this.storeName = storeName;
+		this.productName = productName;
 	}
 
 	public ProdReview(Long reviewNum, String pdComment) {
@@ -84,19 +99,19 @@ public class ProdReview {
 		this.pdReviewImgUrl = pdReviewImgUrl;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public LocalDateTime getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(LocalDateTime updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
@@ -123,6 +138,34 @@ public class ProdReview {
 	public void setPdCommentStatus(boolean pdCommentStatus) {
 		this.pdCommentStatus = pdCommentStatus;
 	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	
+	
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	@Override
+	public String toString() {
+		return "ProdReview [reviewNum=" + reviewNum + ", userNum=" + userNum + ", productNum=" + productNum
+				+ ", pdRating=" + pdRating + ", pdReviewContent=" + pdReviewContent + ", pdReviewImgUrl="
+				+ pdReviewImgUrl + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", pdStatus=" + pdStatus
+				+ ", pdComment=" + pdComment + ", pdCommentStatus=" + pdCommentStatus + ", storeName=" + storeName
+				+ ", productName=" + productName + "]";
+	}
+
 	
 	
 }

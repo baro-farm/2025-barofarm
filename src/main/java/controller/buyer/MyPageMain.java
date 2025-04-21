@@ -1,6 +1,7 @@
 package controller.buyer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,24 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.User;
-import dto.buyer.Address;
 import dto.buyer.ProdQuestion;
-import service.buyer.ProdQuestionService;
-import service.buyer.ProdQuestionServiceImpl;
-import vo.QuestionVO;
-
+import dto.buyer.ProdReview;
+import service.buyer.MyPageSummaryService;
+import service.buyer.MyPageSummaryServiceImpl;
+import service.buyer.UserService;
+import service.buyer.UserServiceImpl;
+import vo.MyPageSummaryVO;
 
 /**
- * Servlet implementation class QuestionList
+ * Servlet implementation class MyPageMain
  */
-@WebServlet("/questionList")
-public class ProdQuestionList extends HttpServlet {
+@WebServlet("/myPageMain")
+public class MyPageMain extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProdQuestionList() {
+    public MyPageMain() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,18 +47,30 @@ public class ProdQuestionList extends HttpServlet {
 		if(session != null) {
 			sessionUser=(User)session.getAttribute("user");
 		}
-		
-		ProdQuestionService service = new ProdQuestionServiceImpl();
-		List<QuestionVO> questionList = null;
-		try {
-			questionList = service.selectUserQuestionList(sessionUser.getUserId());
-			request.setAttribute("questionList", questionList);
-			request.getRequestDispatcher("/buyer/questionList.jsp").forward(request, response);
+		MyPageSummaryService service = new MyPageSummaryServiceImpl();
+		UserService userService = new UserServiceImpl();
 
+		MyPageSummaryVO myPageVo =  null;
+		List<ProdQuestion> prodQuestions = new ArrayList<>();
+		List<ProdReview> prodReviews = new ArrayList<>();
+		
+		try {
+			System.out.println(sessionUser.getUserId());
+			Long userNum = userService.selectUserNumByUserId(sessionUser.getUserId());
+			myPageVo = service.selectUserMyPageSummary(userNum);
+			prodQuestions = service.selectUserRecentQuestions(userNum);
+			prodReviews=service.selectUserRecentReviews(userNum);
 			
-		}catch(Exception e) {
+			request.setAttribute("myPageVo", myPageVo);
+			request.setAttribute("prodQuestions", prodQuestions);
+			request.setAttribute("prodReviews", prodReviews);
+			request.getRequestDispatcher("/buyer/mypageMain.jsp").forward(request, response);
+
+		}catch(Exception e ) {
 			e.printStackTrace();
-		}	}
+		}
+				
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

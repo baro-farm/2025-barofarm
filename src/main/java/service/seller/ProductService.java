@@ -12,4 +12,7 @@ public interface ProductService {
 	void stopProduct(Product product) throws Exception;
 	void addProductOption(ProductOption productOption) throws Exception;
 	void updateProductOption(ProductOption productOption) throws Exception;
+	
+	//product List
+	List<Product> selectSellerProductList(Long sellerNum) throws Exception;
 }

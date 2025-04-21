@@ -7,6 +7,8 @@ import dto.User;
 import vo.UserVO;
 
 public interface UserService {
+	Long selectUserNumByUserId(String userId) throws Exception;
+	
 	UserVO selectUserInfo(String userId) throws Exception;
 	void updateUserInfo(UserVO user) throws Exception;
 	void insertUserAddress(Address address, String userId) throws Exception;
