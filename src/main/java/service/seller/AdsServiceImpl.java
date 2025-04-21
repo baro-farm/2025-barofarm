@@ -4,19 +4,24 @@ import java.util.List;
 
 import dao.seller.AdsDAO;
 import dao.seller.AdsDAOImpl;
+import dto.admin.Banner;
 import dto.seller.Advertisement;
 import dto.seller.UsePoint;
+import service.admin.BannerService;
+import service.admin.BannerServiceImpl;
 import util.SearchDtoSoy;
 
 public class AdsServiceImpl implements AdsService {
 	private AdsDAO adsDAO;
 	private PointService pointService;
 	private UsePointService usePointService;
+	private BannerService bannerService;
 	
 	public AdsServiceImpl() {
 		adsDAO = new AdsDAOImpl();
 	    pointService = new PointServiceImpl();
 	    usePointService = new UsePointServiceImpl();
+	    bannerService = new BannerServiceImpl();
 	}
 	@Override
 	public void insertAds(Advertisement ads) throws Exception {
@@ -55,6 +60,12 @@ public class AdsServiceImpl implements AdsService {
 	public void updateAds(Advertisement ads) throws Exception {
 		adsDAO.updateAds(ads);
 	}
+	
+	//관리자
+	@Override
+	public List<Advertisement> selectAdsWithPosting() throws Exception {
+		return adsDAO.selectAdsWithPosting();
+	}
 	@Override
 	public List<Advertisement> selectAdsBySearchDto(SearchDtoSoy dto) throws Exception {
 		return adsDAO.selectAdsBySearchDto(dto);
@@ -64,5 +75,25 @@ public class AdsServiceImpl implements AdsService {
 		return adsDAO.countAdsBySearchDtoSoy(dto);
 	}
 	
+	@Override
+	public boolean updateAdsStatusByAdmin(Long adsNum, String status) throws Exception {
+		boolean updated = adsDAO.updateAdsStatus(adsNum,status);
+		if (!updated) return false;
+		Advertisement ads = adsDAO.selectAdsByAdsNum(adsNum);
+		Long userNum = ads.getUserNum();
+		if ("이미지부적격".equals(status) || "상품링크오류".equals(status)) {
+			// 포인트 반환
+			pointService.updatePoint(+20000, userNum);
+			//포인트 사용 내역
+			Integer currPoint = pointService.getPoint(userNum).getPoint();
+			UsePoint usePoint = new UsePoint(userNum, +20000, "광고반려", currPoint);
+			usePointService.insertUsePoint(usePoint);
+		} else if ("승인".equals(status)) {
+			//배너 삽입
+			Banner banner = new Banner(null, adsNum, ads.getTitle(), ads.getImgUrl(), ads.getProductUrl(), null, null, true, ads.getUserNum());
+			bannerService.insertBannerBySellerAds(banner);
+		}
+		return true;
+	}
 
 }

@@ -103,8 +103,11 @@
 							      <button class="btn-cancel" data-adsnum="${ads.adsNum }">취소</button>
 							      <button class="btn-edit" onclick="location.href='${contextPath}/updateAdsBySeller?adsNum=${ads.adsNum }'" >수정</button>							      
 							    </c:when>
-							    <c:when test="${ads.status == '승인반려'}">
-							      <button class="btn-edit" onclick="location.href='${contextPath}/updateAdsBySeller?adsNum=${ads.adsNum }'" >수정</button>
+							    <c:when test="${ads.status == '이미지부적격' or ads.status == '상품링크오류'}">
+									N							
+							    </c:when>
+							    <c:when test="${ads.status == '승인'}">
+									Y						
 							    </c:when>
 							    <c:otherwise>
 							      <!-- 게시중 / 종료 상태일 때는 버튼 없음 -->
