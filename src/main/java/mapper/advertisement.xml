@@ -10,7 +10,12 @@
 		select * from advertisement where userNum=#{userNum} ORDER BY adsNum desc
 	</select>
 	<update id="updateAdsStatus" parameterType="map">
-		update advertisement set status=#{status}, updatedAt = NOW() where adsNum=#{adsNum} 
+		update advertisement set status=#{status}, updatedAt = NOW()
+		 <if test="status == '승인'">
+	       , startDate = NOW(),
+	         endDate = DATE_ADD(NOW(), INTERVAL 7 DAY)
+	     </if>
+		 where adsNum=#{adsNum} 
 	</update>
 	<select id="selectAdsByAdsNum" parameterType="Long" resultType="advertisement">
 		select * from advertisement where adsNum=#{adsNum}
@@ -29,9 +34,13 @@
 	</update>
 	
 	<!-- 관리자 -->
+	<select id="selectAdsWithPosting" resultType="advertisement">
+			SELECT a.*, s.storeName  FROM advertisement a
+	  JOIN sellerdetail s ON s.userNum=a.userNum WHERE STATUS='승인' or STATUS='승인대기'
+	</select>
 	<select id="selectAdsBySearchDto" resultType="advertisement" parameterType="searchDtoSoy">
 		SELECT a.*, s.storeName  FROM advertisement a
-	  JOIN sellerdetail s ON s.sellerNum=a.userNum
+	  JOIN sellerdetail s ON s.userNum=a.userNum WHERE STATUS!='승인' and STATUS!='승인대기'
 	  <where>
 	    <!-- 🔍 키워드 검색 조건 -->
 	    <if test="keyword != null and keyword != ''">
@@ -63,8 +72,8 @@
 	</select>
 	
 	<select id="countAdsBySearchDto" resultType="int" parameterType="searchDtoSoy">
-	SELECT count(*)  FROM advertisement a
-	  JOIN sellerdetail s ON s.sellerNum=a.userNum
+		SELECT count(*)  FROM advertisement a
+	  JOIN sellerdetail s ON s.userNum=a.userNum WHERE STATUS!='승인' and STATUS!='승인대기'
 	  <where>
 	    <if test="keyword != null and keyword != ''">
 	      <choose>
@@ -89,6 +98,10 @@
 	    </if>
 	  </where>
 	</select>
-		
-
+	<update id="updateExpiredAdsStatus">
+	  UPDATE advertisement
+	  SET status = '종료'
+	  WHERE endDate &lt; NOW()
+	  AND status = '승인'
+	</update>
 </mapper>

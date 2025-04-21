@@ -228,3 +228,14 @@ tbody tr:hover {
   color: white;
   font-weight: bold;
 }
+
+.btn-cancel {
+    background-color: #D72638;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-cancel:hover { background-color: #c1212f;}

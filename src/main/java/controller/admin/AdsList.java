@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.User;
+import dto.admin.Banner;
 import dto.seller.Advertisement;
+import service.admin.BannerService;
+import service.admin.BannerServiceImpl;
 import service.seller.AdsService;
 import service.seller.AdsServiceImpl;
 import util.PageInfoSoy;
@@ -52,13 +55,18 @@ public class AdsList extends HttpServlet {
 		
 		try {
 			AdsService service = new AdsServiceImpl();
+			BannerService bservice = new BannerServiceImpl();
 			List<Advertisement> adsList = service.selectAdsBySearchDto(dto);
+			List<Banner> bannerList = bservice.adminBannerList();
+			List<Advertisement> postingList = service.selectAdsWithPosting();
 			
 			int cnt = service.countAdsBySearchDtoSoy(dto);
 			PageInfoSoy pageInfo = new PageInfoSoy(dto.getPage(), cnt, 5, dto.getRecordSize());
 			
 			request.setAttribute("adsList", adsList);
 			request.setAttribute("pi", pageInfo);
+			request.setAttribute("bannerList", bannerList);
+			request.setAttribute("postingList", postingList);
 			request.getRequestDispatcher("/admin/adsList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

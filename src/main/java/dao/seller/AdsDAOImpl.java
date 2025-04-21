@@ -28,12 +28,13 @@ public class AdsDAOImpl implements AdsDAO {
 		return sqlSession.selectList("mapper.advertisement.selectAdsByUserNum",userNum);
 	}
 	@Override
-	public void updateAdsStatus(Long adsNum, String status) throws Exception {
+	public boolean updateAdsStatus(Long adsNum, String status) throws Exception {
 		Map<String,Object> param = new HashMap<>();
 		param.put("adsNum", adsNum);
 		param.put("status", status);
-		sqlSession.update("mapper.advertisement.updateAdsStatus",param);
+		int result =  sqlSession.update("mapper.advertisement.updateAdsStatus",param);
 		sqlSession.commit();
+		return result ==1;
 	}
 	@Override
 	public Advertisement selectAdsByAdsNum(Long adsNum) throws Exception {
@@ -47,6 +48,10 @@ public class AdsDAOImpl implements AdsDAO {
 	
 	//관리자
 	@Override
+	public List<Advertisement> selectAdsWithPosting() throws Exception {
+		return sqlSession.selectList("mapper.advertisement.selectAdsWithPosting");
+	}
+	@Override
 	public List<Advertisement> selectAdsBySearchDto(SearchDtoSoy dto) throws Exception {
 		return sqlSession.selectList("mapper.advertisement.selectAdsBySearchDto",dto);
 	}
@@ -54,5 +59,9 @@ public class AdsDAOImpl implements AdsDAO {
 	public int countAdsBySearchDtoSoy(SearchDtoSoy dto) throws Exception {
 		return sqlSession.selectOne("mapper.advertisement.countAdsBySearchDto", dto);
 	}
-	
+	@Override
+	public void updateExpiredAdsStatus() throws Exception {
+		sqlSession.update("mapper.advertisement.updateExpiredAdsStatus");
+		sqlSession.commit();
+	}
 }
