@@ -9,4 +9,5 @@ public interface BannerDAO {
 	List<Banner> adminBannerList() throws Exception;
 	boolean updateBannerPosted(Long bannerNum) throws Exception;
 	void insertBannerBySellerAds(Banner banner) throws Exception;
+	int countSellerBanner() throws Exception;
 }
