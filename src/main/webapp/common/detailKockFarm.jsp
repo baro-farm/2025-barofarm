@@ -267,7 +267,7 @@ $(document).on("submit", ".babyForm", function (e) {
 	</div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
     const replyFormTemplate = document.querySelector("#reply-form-template");
     let activeForm = null;
 
@@ -292,6 +292,40 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+ */
+ 
+ document.addEventListener("DOMContentLoaded", function () {
+	    const replyFormTemplate = document.querySelector("#reply-form-template");
+	    let activeForm = null;
+
+	    document.addEventListener("click", function (e) {
+	        if (e.target && e.target.classList.contains("btn-reply")) {
+	            const kcNum = e.target.dataset.commentId;
+
+	            // 현재 클릭된 답글 버튼이 속한 댓글 div 찾기
+	            const commentBox = e.target.closest(".comments");
+
+	            // 기존 폼 제거
+	            if (activeForm) {
+	                activeForm.remove();
+	                // 같은 위치면 토글처럼 끄고 끝내기
+	                if (activeForm.parentElement === commentBox) {
+	                    activeForm = null;
+	                    return;
+	                }
+	            }
+
+	            // 템플릿 복제 및 값 설정
+	            const newForm = replyFormTemplate.firstElementChild.cloneNode(true);
+	            newForm.querySelector("input[name='kcNum']").value = kcNum;
+	            newForm.querySelector("form").classList.add("babyForm");
+
+	            // 해당 댓글 박스 안에 폼 추가
+	            commentBox.appendChild(newForm);
+	            activeForm = newForm;
+	        }
+	    });
+	});
 
 </script>  
 

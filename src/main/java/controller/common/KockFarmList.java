@@ -41,7 +41,7 @@ public class KockFarmList extends HttpServlet {
 		
 		try {
 			request.setAttribute("kocks", service.getKockFarmList());
-			request.setAttribute("isSeller", user.getIsSeller());
+			if (user!=null) request.setAttribute("isSeller", user.getIsSeller());
 			request.getRequestDispatcher("/common/kockFarmList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

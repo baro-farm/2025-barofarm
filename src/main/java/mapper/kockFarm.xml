@@ -67,14 +67,14 @@
 	
 	<!--  콕팜 매칭 -->
 	<update id="idMatched" parameterType="Long">
-		UPDATE kockFarm SET isMatched=1 WHERE kockNum=#{kockNum};
+		UPDATE kockFarm SET isMatched=1, updatedAt = NOW() WHERE kockNum=#{kockNum};
 	</update>
 	<insert id="insertMatching" parameterType="matching">
 		INSERT INTO matching VALUES(NULL,#{kockNum},#{kcNum},#{buyerNum},#{sellerNum},NULL);		
 	</insert>
 	<update id="updateKockMatched" parameterType="long">
 	  UPDATE kockfarm
-	  SET isMatched = 1
+	  SET isMatched = 1, updatedAt = NOW()
 	  WHERE kockNum = #{kockNum}
 	</update>
 		
