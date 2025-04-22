@@ -26,7 +26,6 @@
 		        
 		        	<c:forEach var="comment" items="${kockCommentList}">
 			        	 <div class="commentBox" data-kocknum="${comment.kockNum }">
-			        	 <c:out value="${comment.kockNum }"></c:out>
 			                <input type="checkbox"
 					            id="commentCheck${status.index}" 
 					            name="commentCheck" 

@@ -10,20 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import dto.seller.QuestionAnswer;
+import service.buyer.PackQuestionService;
+import service.buyer.PackQuestionServiceImpl;
 import service.buyer.ProdQuestionService;
 import service.buyer.ProdQuestionServiceImpl;
 
 /**
  * Servlet implementation class SelectProdAnswer
  */
-@WebServlet("/selectProdAnswer")
-public class SelectProdAnswer extends HttpServlet {
+@WebServlet("/selectPackAnswer")
+public class SelectPackAnswer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectProdAnswer() {
+    public SelectPackAnswer() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,14 +37,14 @@ public class SelectProdAnswer extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		long qaNum = Long.parseLong(request.getParameter("qaNum"));
-		ProdQuestionService service = new ProdQuestionServiceImpl();
-		QuestionAnswer prodAnswer = null;
+		PackQuestionService service = new PackQuestionServiceImpl();
+		QuestionAnswer packAnswer = null;
 		try {
-			prodAnswer = service.selectQuestionAnswer(qaNum);
-			if(prodAnswer != null) {
+			packAnswer = service.selectPackQuestionAnswer(qaNum);
+			if(packAnswer != null) {
 				JSONObject jsonObj = new JSONObject();
-				jsonObj.put("content", prodAnswer.getContent());
-				jsonObj.put("createdAt", prodAnswer.getCreatedAt().toString());
+				jsonObj.put("content", packAnswer.getContent());
+				jsonObj.put("createdAt", packAnswer.getCreatedAt().toString());
 				
 				response.setContentType("application/json;charset=utf-8");
 				response.getWriter().write(jsonObj.toString());

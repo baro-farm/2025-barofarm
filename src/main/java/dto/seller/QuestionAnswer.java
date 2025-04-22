@@ -2,18 +2,18 @@ package dto.seller;
 
 import java.time.LocalDateTime;
 
-public class ProdAnswer {
+public class QuestionAnswer {
 	Long paNum;
 	Long qaNum;
 	String content;
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
 	
-	public ProdAnswer() {
+	public QuestionAnswer() {
 		super();
 	}
 
-	public ProdAnswer(Long qaNum, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public QuestionAnswer(Long qaNum, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.qaNum = qaNum;
 		this.content = content;
@@ -21,7 +21,7 @@ public class ProdAnswer {
 		this.updatedAt = updatedAt;
 	}
 	
-	public ProdAnswer(Long paNum, Long qaNum, String content, LocalDateTime createdAt) {
+	public QuestionAnswer(Long paNum, Long qaNum, String content, LocalDateTime createdAt) {
 		super();
 		this.paNum = paNum;
 		this.qaNum = qaNum;
@@ -29,7 +29,7 @@ public class ProdAnswer {
 		this.createdAt = createdAt;
 	}
 	
-	public ProdAnswer(Long paNum, Long quNum, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public QuestionAnswer(Long paNum, Long qaNum, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.paNum = paNum;
 		this.qaNum = qaNum;
@@ -50,7 +50,7 @@ public class ProdAnswer {
 		return qaNum;
 	}
 
-	public void setQaNum(Long quNum) {
+	public void setQaNum(Long qaNum) {
 		this.qaNum = qaNum;
 	}
 

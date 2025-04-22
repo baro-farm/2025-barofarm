@@ -71,17 +71,17 @@
         <li class="dropdown">
             <a style="text-decoration: none;">꾸러미</a>
             <ul class="submenu">
-                <li><a href="#">주문내역 및 배송조회</a></li>
+                <li><a href="packOrderList">주문내역 및 배송조회</a></li>
             	<li><a href="#">리뷰</a></li>
-            	<li><a href="#">상품 문의</a></li>
+            	<li><a href="packQuestionList">상품 문의</a></li>
                 <li><a href="#">구독 관리</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a style="text-decoration: none;">콕팜</a>
             <ul class="submenu">
-                <li><a href="#">내 게시글</a></li>
-                <li><a href="#">내 댓글</a></li>
+                <li><a href="kockFarmPostList">내 게시글</a></li>
+                <li><a href="kockCommentList">내 댓글</a></li>
             </ul>
         </li>
 
