@@ -7,12 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import dto.User;
 import service.seller.AdsService;
 import service.seller.AdsServiceImpl;
 /**
@@ -35,19 +33,24 @@ public class SellerCancelAds extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Gson gson = new Gson();
-		
+		JsonObject resObj = new JsonObject();
 		try {
         	 // 1. 요청 JSON 파싱 (최소한의 코드)
              JsonObject jsonObj = gson.fromJson(request.getReader(), JsonObject.class);
              Long adsNum = jsonObj.get("adsNum").getAsLong();
             
              AdsService service = new AdsServiceImpl();
-             boolean result = service.cancelAdsAndRefund(adsNum, "취소완료");
+             service.cancelAdsAndRefund(adsNum, "취소");
+             
+             resObj.addProperty("success", true);
 		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			e.printStackTrace();
+			resObj.addProperty("success", false);
+	        resObj.addProperty("error", e.getMessage());
+	    }
         
-		
+	    response.setContentType("application/json; charset=utf-8");
+	    response.getWriter().print(gson.toJson(resObj));
 	}
 
 }

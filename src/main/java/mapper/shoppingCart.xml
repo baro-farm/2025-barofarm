@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.shoppingCart">
+
+  <select id="selectCartByUser" parameterType="Long" resultType="shoppingCartItem">
+    SELECT 
+      sc.cartNum,
+      p.productNum,
+      p.productName,
+      p.imgUrl,
+      p.price,
+      po.optionNum,
+      po.option,
+      po.price AS optionPrice,
+      sc.quantity,
+      ((p.price + po.price) * sc.quantity) AS totalPrice,
+      s.storeName
+    FROM shoppingcart sc
+    JOIN productoption po ON sc.optionNum = po.optionNum
+    JOIN product p ON po.productNum = p.productNum
+    JOIN sellerdetail s ON sc.sellerNum = s.sellerNum
+    WHERE sc.userNum = #{userNum}
+    ORDER BY sc.createdAt DESC
+  </select>
+
+</mapper>

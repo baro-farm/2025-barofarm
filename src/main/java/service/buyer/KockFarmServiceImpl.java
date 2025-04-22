@@ -31,9 +31,10 @@ public class KockFarmServiceImpl implements KockFarmService {
 
 	@Override
 	public KockFarm updateKockFarm(KockFarm kockFarm) throws Exception {
-		KockFarm skock = kockFarmDao.selectKockFarm(kockFarm.getKockNum());
-		if (kockFarm.getImgUrl()==null) {
-			kockFarm.setImgUrl(skock.getImgUrl());
+		KockFarm origin = kockFarmDao.selectKockFarm(kockFarm.getKockNum());
+		String newImg = kockFarm.getImgUrl();
+		if (newImg == null || newImg.trim().isEmpty()) {
+			kockFarm.setImgUrl(origin.getImgUrl());
 		}
 		kockFarmDao.updateKockFarm(kockFarm);
 		return kockFarm;

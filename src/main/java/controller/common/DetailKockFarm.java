@@ -58,7 +58,6 @@ public class DetailKockFarm extends HttpServlet {
 			}
 
 			request.setAttribute("isMatched", kock.isMatched());
-			System.out.println(kock.isMatched()+"sss");
 			request.setAttribute("hasComment", hasComment);
 			if(kock.getUserNum()==user.getUserNum()) request.setAttribute("isWriter", true);
 			request.setAttribute("user", user);

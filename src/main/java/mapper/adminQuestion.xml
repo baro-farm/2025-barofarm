@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 	
 <mapper namespace="mapper.adminQuestion">
-	<insert id="insertAdminQ" parameterType="adminQuestion" useGeneratedKeys="true" keyProperty="questionNum">
+	<insert id="insertAdminQA" parameterType="adminQuestion" useGeneratedKeys="true" keyProperty="questionNum">
 		insert into adminQuestion (userNum,title,content,type)
 		values(#{userNum},#{title},#{content},#{type})
 	</insert>
@@ -39,6 +39,35 @@
 	  JOIN user u ON a.userNum = u.userNum
 	  LEFT JOIN adminanswer ans ON a.questionNum = ans.questionNum
 	  Where a.questionNum =#{questionNum}
+	</select>
+	<select id="selectRecentAdminQA" resultType="AdminQuestion">
+	  SELECT questionNum, title, createdAt
+	  FROM adminquestion
+	  ORDER BY createdAt DESC
+	  LIMIT 3
+	</select>
+	<select id="selectAdminQAListByPage" resultType="AdminQuestionVO">
+	SELECT 
+	    a.questionNum,
+	    a.title,
+	    a.type,
+	    a.createdAt,
+	    u.userId,
+	    
+	    CASE 
+	      WHEN ans.aaNum IS NOT NULL THEN '1'
+	      ELSE '0'
+	    END AS answerStatus
+	
+	  FROM adminquestion a
+	  JOIN user u ON a.userNum = u.userNum
+	  LEFT JOIN adminanswer ans ON a.questionNum = ans.questionNum
+	  order by a.questionNum desc 
+	  limit #{num},10
+	</select>
+	
+	<select id="selectAdminQACount" resultType="Integer">
+		select count(*) from adminquestion
 	</select>
 	
 </mapper>
