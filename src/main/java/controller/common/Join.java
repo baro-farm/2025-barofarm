@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dto.User;
 import dto.buyer.Address;
+import dto.seller.SellerDetail;
 import service.UserService;
 import service.UserServiceImpl;
 import vo.SellerVO;
@@ -43,31 +44,26 @@ public class Join extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
 		String userid = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
 		String userName = request.getParameter("userName");
 		String phone = request.getParameter("phone");
-		String birthStr = request.getParameter("birthDate"); //날짜변환
+		String birthStr = request.getParameter("birthDate");
 		LocalDate birthDate = LocalDate.parse(birthStr);
 		String email = request.getParameter("email");
-		String isSellerStr = request.getParameter("isSeller"); // "true" 또는 "false"
+		String isSellerStr = request.getParameter("isSeller");
 		boolean isSeller = Boolean.parseBoolean(isSellerStr);
 
 		User user = new User(userid,pwd,userName,phone,birthDate,email,isSeller);
 		
-		//판매자 정보
-		String storeName = request.getParameter("storeName");
-		String businessNum = request.getParameter("businessNum");
-		SellerVO seller = new SellerVO();
-		seller.setStoreName(storeName);
-		seller.setBusinessNum(businessNum);
 		//주소
 		String postCode = request.getParameter("postCode");
 		String addr1 = request.getParameter("addr1");
 		String addr2Str = request.getParameter("addr2");
 		String extraAddr = request.getParameter("extraAddr");
 		String addr2 = addr2Str + " " + extraAddr;
-		
+				
 		Address address = new Address();
 		address.setNickname("기본배송지");
 		address.setName(userName);
@@ -76,12 +72,21 @@ public class Join extends HttpServlet {
 		address.setAddr1(addr1);
 		address.setAddr2(addr2);
 		address.setIsDefault(true);
+		
+		//판매자 정보
+		SellerDetail sellerDetail = null;
+		if (isSeller) {
+			String storeName = request.getParameter("storeName");
+			String businessNum = request.getParameter("businessNum");
+			sellerDetail = new SellerDetail(storeName, businessNum);
+		}
 
 		UserService service = new UserServiceImpl();
 		
 		try {
-			service.join(user, address);
-			response.sendRedirect("main.jsp"); // *추후 메인이동으로 변경 필요
+			service.join(user, address, sellerDetail);
+			response.sendRedirect("login");
+			
 		} catch(Exception e) {
 			request.setAttribute("userId", userid);
 			request.setAttribute("pwd", pwd);
@@ -90,8 +95,8 @@ public class Join extends HttpServlet {
 			request.setAttribute("birthDate", birthStr);
 			request.setAttribute("email", email);
 			request.setAttribute("isSeller", isSellerStr);
-			request.setAttribute("storeName", storeName);
-			request.setAttribute("businessNum", businessNum);
+			request.setAttribute("storeName", request.getParameter("storeName"));
+			request.setAttribute("businessNum", request.getParameter("businessNum"));
 			request.setAttribute("postCode", postCode);
 			request.setAttribute("addr1", addr1);
 			request.setAttribute("addr2", addr2Str);
@@ -99,7 +104,7 @@ public class Join extends HttpServlet {
 			
 			e.printStackTrace();
 			request.setAttribute("error", "회원가입에 실패했습니다.");
-			request.getRequestDispatcher("join").forward(request, response);
+			request.getRequestDispatcher("join.jsp").forward(request, response);
 		}
 	}
 

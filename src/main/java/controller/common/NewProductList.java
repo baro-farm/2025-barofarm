@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.UserService;
-import service.UserServiceImpl;
-import service.admin.NoticeService;
-import service.admin.NoticeServiceImpl;
+import service.UserProductService;
+import service.UserProductServiceImpl;
 import util.PageInfo;
-import vo.AdminQuestionVO;
+import vo.ProductVO;
 
 /**
- * Servlet implementation class AdminQAList
+ * Servlet implementation class NewProductList
  */
-@WebServlet("/adminQAList")
-public class AdminQAList extends HttpServlet {
+@WebServlet("/newProductList")
+public class NewProductList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminQAList() {
+    public NewProductList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,29 +33,25 @@ public class AdminQAList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
 		String pageStr = request.getParameter("page");
-		Integer page = null;
-		
-		if(pageStr==null) {
-			page = 1;
-		} else {
-			page = Integer.parseInt(pageStr);
-		}
-		
+		int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
 		PageInfo pageInfo = new PageInfo(page);
-		UserService service = new UserServiceImpl();
-		
+
+		UserProductService service = new UserProductServiceImpl();
+
 		try {
-			List<AdminQuestionVO> adminQAList = service.adminQAListByPage(pageInfo);
+			List<ProductVO> newList = service.NewProductByPage(pageInfo);
+
 			request.setAttribute("pageInfo", pageInfo);
-			request.setAttribute("adminQAList", adminQAList);
+			request.setAttribute("productList", newList);
+			request.setAttribute("cateName", "신상품");
+			request.setAttribute("listType", "new");
 			
-			request.getRequestDispatcher("/common/AdminQAList.jsp").forward(request, response);
+
+			request.getRequestDispatcher("productList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "게시판 목록조회를 실패했습니다.");
+			request.setAttribute("err", "신상품 목록 조회 실패");
 		}
 	}
 

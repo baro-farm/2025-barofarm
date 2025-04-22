@@ -20,18 +20,16 @@
 			<h2 class="loginTitle">로그인</h2>
 		    <!-- 로그인 폼 -->
 		    <form action="login" method="post" class="loginForm">
-		    	<input type="text" class="inputField" name="userId" value="${userId}" placeholder="아이디" required>
-		        <input type="password" class="inputField" name="pwd" placeholder="비밀번호" required>  
+		    	<input type="text" id="userId" class="inputField" name="userId" value="${userId}" placeholder="아이디" required>
+		        <input type="password" id="pwd" class="inputField" name="pwd" placeholder="비밀번호" required>  
 		        <!-- 아이디 저장 & 자동 로그인 -->
 		        <div class="loginOptions">
-		        	<label><input type="checkbox" name="saveId" value="on" ${not empty saveId ? "checked" : ""}> 아이디 저장</label>
-		        	<label><input type="checkbox" name="autoLogin" value="on" ${not empty autoLogin ? "checked": ""}> 자동 로그인</label>
+		        	<label><input type="checkbox" id="saveId" name="saveId" value="on" ${saveId eq 'on' ? 'checked' : ''}> 아이디 저장</label>
+		        	<label><input type="checkbox" id="autoLogin" name="autoLogin" value="on" ${autoLogin eq 'on' ? 'checked' : ''}> 자동 로그인</label>
 		        </div>
-		        <c:if test="${not empty err}">
-				    <div class="errorMsg">${err}</div>
-				</c:if>
+		        <p id="loginErr" style="color:red;"></p>
 		        <!-- 로그인 버튼 -->
-		        <button type="submit" class="loginBtn">로그인</button>
+		        <button type="button" onclick="loginSubmit()" class="loginBtn">로그인</button>
 		        <a href="" class="kakaoLoginBtn">
 		        	<img src="${contextPath}/img/kakao_login_large_wide.png" alt="카카오 로그인">
 		        </a>
@@ -48,4 +46,29 @@
 	<jsp:include page="/header/footer.jsp" />
 	</div> <!-- 전체 컨테이너 -->
 </body>
+<script>
+function loginSubmit() {
+  $.ajax({
+    url: "login",
+    type: "POST",
+    dataType: "json",
+    data: {
+      userId: $("#userId").val(),
+      pwd: $("#pwd").val(),
+      saveId: $("#saveId").is(":checked") ? "on" : null,
+      autoLogin: $("#autoLogin").is(":checked") ? "on" : null
+    },
+    success: function(result) {
+      if (result.success) {
+        window.location.href = "main";
+      } else {
+        $("#loginErr").text("아이디 또는 비밀번호가 잘못되었습니다.");
+      }
+    },
+    error: function() {
+      alert("서버와 통신 중 오류가 발생했습니다.");
+    }
+  });
+}
+</script>
 </html>

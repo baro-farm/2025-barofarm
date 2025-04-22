@@ -27,7 +27,7 @@
 .subtitle { /* 컨텐츠 부제목*/
   font-size: 16px;
   color: #4d4d4d;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 tbody tr:hover {
     background-color: #FBF6EE;
@@ -40,7 +40,7 @@ tbody tr:hover {
 }
 
 .table th, .table td {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
     padding: 15px 0;
     font-size: 14px;
     text-align: left;
@@ -64,10 +64,13 @@ tbody tr:hover {
 .table th:nth-child(4),.table th:nth-child(5),
 .table td:nth-child(4),.table td:nth-child(5) {
     text-align: right;
-    width: 80px;
+    width: 100px;
     padding-right: 20px;
 }
-
+.qtitle{
+	color: black;
+	text-decoration: none;
+}
 /* 오버플로우 방지 */
 .table td:nth-child(3) {
     max-width: 200px; 
@@ -82,7 +85,33 @@ tbody tr:hover {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  
+.writeButton{
+	font-size: 14px;
+	color: white;
+	padding: 3px 9px;
+  	border-radius: 8px;
+ 	background-color: #FFB534;
+  	text-decoration: none;
+  	border: none;
+}  
 .statusPending {
     color: #a1a1a1;
+}
+
+/* 페이징 */
+#paging {
+    text-align: center;
+}
+
+#paging a {
+	color: black;
+	text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    margin: 0 5px;
+    cursor: pointer;
+}
+#paging a:hover {
+	color: #FFB534;
+	font-weight:bold;
 }

@@ -34,14 +34,17 @@ public class Logout extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie c : cookies) {
-                if ("userId".equals(c.getName()) || "pwd".equals(c.getName()) || "saveId".equals(c.getName()) || "autoLogin".equals(c.getName())) {
+            	String name = c.getName();
+            	
+            	if ("pwd".equals(name) || "autoLogin".equals(name)) {
+                    c.setValue("");
                     c.setMaxAge(0);
                     c.setPath("/");
                     response.addCookie(c);
                 }
             }
         }
-        response.sendRedirect("main.jsp");
+        response.sendRedirect("main");
 	}
 
 }

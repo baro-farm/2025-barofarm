@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.UserService;
-import service.UserServiceImpl;
+import dto.admin.Notice;
 import service.admin.NoticeService;
 import service.admin.NoticeServiceImpl;
 import util.PageInfo;
-import vo.AdminQuestionVO;
 
 /**
- * Servlet implementation class AdminQAList
+ * Servlet implementation class UserNoticeList
  */
-@WebServlet("/adminQAList")
-public class AdminQAList extends HttpServlet {
+@WebServlet("/userNoticeList")
+public class UserNoticeList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminQAList() {
+    public UserNoticeList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,14 +45,15 @@ public class AdminQAList extends HttpServlet {
 		}
 		
 		PageInfo pageInfo = new PageInfo(page);
-		UserService service = new UserServiceImpl();
+		NoticeService service = new NoticeServiceImpl();
 		
 		try {
-			List<AdminQuestionVO> adminQAList = service.adminQAListByPage(pageInfo);
+			List<Notice> noticeList = service.NoticeListByPage(pageInfo);
 			request.setAttribute("pageInfo", pageInfo);
-			request.setAttribute("adminQAList", adminQAList);
+			request.setAttribute("noticeList", noticeList);
 			
-			request.getRequestDispatcher("/common/AdminQAList.jsp").forward(request, response);
+			request.getRequestDispatcher("/common/userNoticeList.jsp").forward(request, response);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("err", "게시판 목록조회를 실패했습니다.");
