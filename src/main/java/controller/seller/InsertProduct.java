@@ -20,6 +20,8 @@ import dto.seller.Product;
 import dto.seller.ProductOption;
 import service.seller.ProductService;
 import service.seller.ProductServiceImpl;
+import service.seller.SellerService;
+import service.seller.SellerServiceImpl;
 
 /**
  * Servlet implementation class InsertProduct
@@ -56,11 +58,9 @@ public class InsertProduct extends HttpServlet {
 		
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("/barofarm/login");
 			return;
 		}
-		
-//		System.out.println("옵션명들: " + Arrays.toString(request.getParameterValues("option_name")));
 
 		// 옵션 제외한 정보들
 		String productName = request.getParameter("product_name");
@@ -83,40 +83,56 @@ public class InsertProduct extends HttpServlet {
 
         String imageUrl = "/upload/product/" + savedFileName;
         
+        SellerService sellerService = new SellerServiceImpl();
         Long userNum = user.getUserNum();
-        Product product = new Product(userNum, cateNum, productName, content, stock, price, imageUrl, true);
+        Long sellerNum = null;
+        try {
+        	sellerNum = sellerService.selectSellerNum(userNum); 
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
         
+        Product product = new Product(sellerNum, cateNum, productName, content, stock, price, imageUrl, true);  
                
         String[] optionNames = request.getParameterValues("option_name");
         String[] optionPrices = request.getParameterValues("option_price");
-        Long productNum = product.getProductNum();
         
         List<ProductOption> optionList = new ArrayList<>();
         if (optionNames != null && optionPrices != null) {
         	for (int i = 0; i < optionNames.length; i++) {
-        		ProductOption opt = new ProductOption(productNum, optionNames[i], Integer.parseInt(optionPrices[i]));
+        		ProductOption opt = new ProductOption(optionNames[i], Integer.parseInt(optionPrices[i]));
         		optionList.add(opt);
         	}
         }
        
+        boolean result = false;
         try {
         	ProductService service = new ProductServiceImpl();
-        	service.addProductWithOptions(product, optionList);        	
+        	service.addProduct(product, optionList);
+        	result = true;
         } catch (Exception e) {
         	e.printStackTrace();
         }
 
-        System.out.println("상품명: " + request.getParameter("product_name"));
-        System.out.println("가격: " + request.getParameter("product_price"));
-        System.out.println("재고: " + request.getParameter("product_stock"));
-        System.out.println("카테고리: " + request.getParameter("product_category"));
-        System.out.println("상세설명: " + request.getParameter("product_content"));
-        System.out.println("userNum: "+ userNum);
-        
-        System.out.println("상품명: " + productName);
-        System.out.println("상품 등록 결과 productNum = " + product.getProductNum());
-        System.out.println("옵션 수 = " + optionNames.length);
+        if (result) {
+            response.sendRedirect("/barofarm/insertProduct?success=true");
+        } else {
+            response.sendRedirect("/barofarm/insertProduct?success=false");
+        }
 
+        // 혹시 모를 출력값
+//        System.out.println("상품명: " + request.getParameter("product_name"));
+//        System.out.println("가격: " + request.getParameter("product_price"));
+//        System.out.println("재고: " + request.getParameter("product_stock"));
+//        System.out.println("카테고리: " + request.getParameter("product_category"));
+//        System.out.println("상세설명: " + request.getParameter("product_content"));
+//        System.out.println("userNum: "+ userNum);
+//        
+//        System.out.println("상품명: " + productName);
+//        System.out.println("상품 등록 결과 productNum = " + product.getProductNum());
+//        System.out.println(product.getSellerNum());
+//        System.out.println(product.toString());
+//        System.out.println("옵션 수 = " + optionNames.length);
 	}
 
 }

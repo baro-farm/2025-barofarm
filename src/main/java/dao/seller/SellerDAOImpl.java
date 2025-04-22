@@ -14,10 +14,14 @@ public class SellerDAOImpl implements SellerDAO {
 		sqlSession.commit();
 	}
 
-	@Override
+	@Overrid
+	public Long selectSellerNum(Long userNum) throws Exception {
+		return sqlSession.selectOne("mapper.seller.selectSellerNum", userNum);
+	}
+  
+  @Override
 	public boolean doubleStoreNameCheck(String storeName) throws Exception {
 		 SellerDetail seller = sqlSession.selectOne("mapper.seller.selectStoreByName", storeName);
 		 return seller != null;
 	}
-
 }

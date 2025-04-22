@@ -7,9 +7,12 @@
 		insert into product (sellerNum, cateNum, productName, content, stock, price, imgUrl, status) 
 		values (#{sellerNum}, #{cateNum}, #{productName}, #{content}, #{stock}, #{price}, #{imgUrl}, #{status})
 	</insert>
+	<select id="selectProduct" parameterType="Long" resultType="product">
+		select * from product where productNum=#{productNum}
+	</select>
 	<update id="updateProduct" parameterType="product">
 		update product set cateNum=#{cateNum}, productName=#{productName}, content=#{content}, 
-		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status} salesVolume=#{salesVolume} where productNum=#{productNum} 
+		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status} where productNum=#{productNum} 
 	</update>
 	<update id="stopProduct" parameterType="product">
 		update product set status=#{status} where productNum=#{productNum}
@@ -17,9 +20,17 @@
 	<insert id="insertProductOption" parameterType="productOption">
 		insert into productOption (productNum, option, price) values (#{productNum}, #{option}, #{price})
 	</insert>
+	<select id="selectProductOption" parameterType="Long" resultType="productOption">
+		select * from productOption where productNum=#{productNum}
+	</select>
 	<update id="updateProductOption" parameterType="productOption">
-		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where productNum=#{productNum}
+		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where optionNum=#{optionNum}
 	</update>
+
+	<delete id="deleteProductOption" parameterType="Long">
+		delete from productOption where optionNum=#{optionNum}
+	</delete>
+
 	<select id="selectProductByCategory" resultType="ProductVO" parameterType="map">
 	  SELECT 
 	    p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -139,10 +150,4 @@
 	    SELECT COUNT(*) FROM product
 	    WHERE productName LIKE CONCAT('%', #{keyword}, '%')
 	</select>
-	
-	
-	
-	
-	
-	
 </mapper>

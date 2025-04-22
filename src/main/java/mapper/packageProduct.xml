@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.packageProduct">
+	<insert id="insertPackageProduct" parameterType="packageProduct" useGeneratedKeys="true" keyProperty="packageNum">
+		insert into package (sellerNum, cateNum, packageName, content, packagePrice, stock, startDate, endDate, packageUnit, imgUrl) 
+		values (#{sellerNum}, #{cateNum}, #{packageName}, #{content}, #{packagePrice}, #{stock}, #{startDate}, #{endDate}, #{packageUnit}, #{imgUrl})
+	</insert>
+	<select id="selectPackageProduct" parameterType="Long" resultType="packageProduct">
+		select * from package where packageNum=#{packageNum}
+	</select> 
+	<update id="updatePackageProduct" parameterType="packageProduct">
+		update package set cateNum=#{cateNum}, packageName=#{packageName}, content=#{content}, packagePrice=#{packagePrice}, stock=#{stock}, startDate=#{startDate}, endDate=#{endDate}, packageUnit=#{packageUnit}, updatedAt=#{updatedAt}, imgUrl=#{imgUrl} where packageNum=#{packageNum}
+	</update>
+</mapper>
