@@ -3,8 +3,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="mapper.seller">
-	<insert id="insertSeller" parameterType="seller">
-		insert into user (userNum, storeName, businessNum)
+	<insert id="insertSeller" parameterType="seller" useGeneratedKeys="true" keyProperty="sellerNum">
+		insert into sellerDetail (userNum, storeName, businessNum)
 				values (#{userNum}, #{storeName}, #{businessNum})
 	</insert>
 	<select id="selectStoreList" resultType="store">
@@ -40,5 +40,9 @@
 	</select>
 	<select id="selectSellerNum" parameterType="Long" resultType="Long">
 		select sellerNum from sellerDetail where userNum=#{userNum}
+	</select>
+	
+	<select id="selectStoreByName" parameterType="String" resultType="seller">
+    	SELECT * FROM sellerDetail WHERE storeName = #{storeName}
 	</select>
 </mapper>

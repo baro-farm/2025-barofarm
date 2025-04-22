@@ -26,7 +26,128 @@
 	<update id="updateProductOption" parameterType="productOption">
 		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where optionNum=#{optionNum}
 	</update>
+
 	<delete id="deleteProductOption" parameterType="Long">
 		delete from productOption where optionNum=#{optionNum}
 	</delete>
+
+	<select id="selectProductByCategory" resultType="ProductVO" parameterType="map">
+	  SELECT 
+	    p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
+	    s.storeName,
+	    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+	    COUNT(r.reviewNum) AS reviewCount
+	  FROM product p
+	  JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	  LEFT JOIN review r ON p.productNum = r.productNum
+	  WHERE p.cateNum = #{cateNum}
+	  GROUP BY p.productNum
+	
+	  <choose>
+	    <when test="sort == 'createdAt'">
+	      ORDER BY p.createdAt DESC, p.productName ASC
+	    </when>
+	    <when test="sort == 'priceAsc'">
+	      ORDER BY p.price ASC, p.productName ASC
+	    </when>
+	    <when test="sort == 'priceDesc'">
+	      ORDER BY p.price DESC, p.productName ASC
+	    </when>
+	    <otherwise>
+	      ORDER BY p.productName DESC
+	    </otherwise>
+	  </choose>
+	
+	  LIMIT #{start}, 20
+	</select>
+	<select id="countProductByCategory" resultType="Integer">
+	    SELECT COUNT(*) FROM product WHERE cateNum = #{cateNum}
+	</select>
+	<select id="selectBest5" resultType="ProductVO">
+		SELECT 
+			p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
+			s.storeName,
+			IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+			COUNT(r.reviewNum) AS reviewCount
+		FROM product p
+		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+		LEFT JOIN review r ON p.productNum = r.productNum
+		GROUP BY p.productNum
+		ORDER BY p.salesVolume DESC
+		LIMIT 5
+	</select>
+	<select id="selectNew5" resultType="ProductVO">
+		SELECT 
+			p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
+			s.storeName,
+			IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+			COUNT(r.reviewNum) AS reviewCount,
+			p.createdAt
+		FROM product p
+		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+		LEFT JOIN review r ON p.productNum = r.productNum
+		GROUP BY p.productNum
+		ORDER BY p.createdAt DESC
+		LIMIT 5
+	</select>
+	<select id="selectBestProductsByPage" resultType="ProductVO">
+	    SELECT 
+	        p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
+	        s.storeName,
+	        IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+	        COUNT(r.reviewNum) AS reviewCount
+	    FROM product p
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	    LEFT JOIN review r ON p.productNum = r.productNum
+	    GROUP BY p.productNum
+	    ORDER BY p.salesVolume DESC
+	    LIMIT #{start}, 20
+	</select>
+	<select id="countBestProducts" resultType="Integer">
+	    SELECT LEAST(COUNT(*), 100) FROM product
+	</select>
+	<select id="selectNewProductsByPage" resultType="ProductVO">
+	    SELECT 
+	        p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
+	        s.storeName,
+	        IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+	        COUNT(r.reviewNum) AS reviewCount
+	    FROM product p
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	    LEFT JOIN review r ON p.productNum = r.productNum
+	    GROUP BY p.productNum
+	    ORDER BY p.createdAt DESC, productName ASC
+	    LIMIT #{start}, 20
+	</select>
+	
+	<select id="countNewProducts" resultType="Integer">
+	    SELECT LEAST(COUNT(*), 100) FROM product
+	</select>
+	<select id="searchProduct" resultType="ProductVO" parameterType="map">
+		SELECT p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
+	    s.storeName,
+	    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+	    COUNT(r.reviewNum) AS reviewCount
+	  	FROM product p
+	  	JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	  	LEFT JOIN review r ON p.productNum = r.productNum
+	  	WHERE p.productName LIKE CONCAT('%', #{keyword}, '%')
+	  	GROUP BY p.productNum
+	  	<choose>
+	    	<when test="sort == 'priceAsc'">
+	      		ORDER BY p.price ASC, p.productName ASC
+	    	</when>
+	    	<when test="sort == 'priceDesc'">
+	     		ORDER BY p.price DESC, p.productName ASC
+	    	</when>
+	    	<otherwise>
+	      		ORDER BY p.createdAt DESC, p.productName ASC
+	    	</otherwise>
+	  	</choose>
+	  	LIMIT #{start}, 20
+	</select>
+	<select id="countProductsByKeyword" resultType="Integer">
+	    SELECT COUNT(*) FROM product
+	    WHERE productName LIKE CONCAT('%', #{keyword}, '%')
+	</select>
 </mapper>

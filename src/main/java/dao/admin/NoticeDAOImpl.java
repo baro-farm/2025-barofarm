@@ -36,4 +36,20 @@ public class NoticeDAOImpl implements NoticeDAO {
 		sqlSession.update("mapper.notice.updateNotice", notice);
 		sqlSession.commit();		
 	}
+
+	@Override
+	public List<Notice> selectRecentNotices() throws Exception {
+		return sqlSession.selectList("mapper.notice.selectRecentNotices");
+	}
+	
+	@Override
+	public List<Notice> selectNoticeListByPage(Integer row) throws Exception {
+		return sqlSession.selectList("mapper.notice.selectNoticeListByPage", row);
+	}
+
+	@Override
+	public Integer selectNoticeCount() throws Exception {
+		return sqlSession.selectOne("mapper.notice.selectNoticeCount");
+	}
+	
 }

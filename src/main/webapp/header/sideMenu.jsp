@@ -40,14 +40,13 @@
         <span>카테고리</span>
     </div>
     <ul class="menu-list">
-        <li><a href="#" class="active">배추/무/대파/부추</a></li>
-        <li><a href="#">오이/호박/가지</a></li>
-        <li><a href="#">콕팜 조회</a></li>
-        <li><a href="#">고추/피망/파프리카/열매채소</a></li>
-        <li><a href="#">감자/고구마</a></li>
-        <li><a href="#">양상추/양배추/새싹채소</a></li>
-        <li><a href="#">당근/연근/뿌리채소</a></li>
-        <li><a href="#">마늘/양파/생강/파</a></li>
+        <li><a href="productList?cateNum=1" class="active">배추/무/대파/부추</a></li>
+        <li><a href="productList?cateNum=2">오이/호박/가지</a></li>
+        <li><a href="productList?cateNum=3">고추/피망/파프리카/열매채소</a></li>
+        <li><a href="productList?cateNum=4">감자/고구마</a></li>
+        <li><a href="productList?cateNum=5">양상추/양배추/새싹채소</a></li>
+        <li><a href="productList?cateNum=6">당근/연근/뿌리채소</a></li>
+        <li><a href="productList?cateNum=7">마늘/양파/생강/파</a></li>
     </ul>
 
     <div class="menu-title">
