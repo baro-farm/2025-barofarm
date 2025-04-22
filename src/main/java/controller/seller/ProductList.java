@@ -21,7 +21,7 @@ import service.seller.SellerDetailServiceImpl;
 /**
  * Servlet implementation class ProductList
  */
-@WebServlet("/productList")
+@WebServlet("/sellerProductList")
 public class ProductList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

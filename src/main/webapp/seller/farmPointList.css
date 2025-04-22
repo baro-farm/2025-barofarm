@@ -3,21 +3,46 @@
 body {
 	flex-direction: column;
 }
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
 
+#info {
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+#email {
+  font-size: 16px;
+  color: #ffb534;
+}
 .wrapper {
     display: flex;
     flex-direction: row;
     min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
 }
+
 .content {
-    flex: 1;
-    align-self: flex-start;
-    padding: 30px 0;
     max-width: 1000px;
     min-width: 0;
     margin-left: 20px;
     margin-right: auto;
   	position: relative;
+  	padding-top: 80px !important;
+  	margin: 40px auto !important;
+    padding-left: 220px !important;
 }
 .sideMenu {
 	position: relative;
@@ -107,7 +132,10 @@ tbody tr:hover {
     margin: 10px 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
+.point-box div {
+	display :flex;
+	align-items: center;
+}
 .point-label {
     font-weight: bold;
     color: #65B741;
@@ -117,6 +145,7 @@ tbody tr:hover {
 .point-value {
     font-size: 18px;
     font-weight: bold;
+    margin-right: 12px;
 }
 
 .charge-btn {
@@ -243,19 +272,24 @@ th {
     font-weight: bold;
 }
 
-.pagination {
+/* 페이징 */
+.paging a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #333;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.paging a.active {
+  background-color: #65B741;
+  color: white;
+  font-weight: bold;
+}
+
+/* 검색 */
+.history-section div {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 10px;
-}
-
-.page, .prev, .next {
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.page.active {
-    font-weight: bold;
-    color: #FFB534;
+    justify-content: space-between;
+    align-items: center;
 }

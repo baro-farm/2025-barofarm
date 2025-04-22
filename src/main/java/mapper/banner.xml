@@ -26,6 +26,9 @@
 		SELECT COUNT(*) 
 		FROM banner 
 		WHERE isPosted = TRUE 
-		AND adsNum IS NOT NULL;
+		AND adsNum IS NOT NULL
+	</select>
+	<select id="selectBannerByIsPosted" resultType="banner">
+		SELECT * FROM banner WHERE isPosted=1
 	</select>
 </mapper>

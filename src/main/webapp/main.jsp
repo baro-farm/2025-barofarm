@@ -19,21 +19,20 @@
 		<!-- 배너  -->
 		<div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
 				<div class="carousel-inner">
-		     		<div class="carousel-item active">
-		        		<img src="${contextPath}/img/bener1.jpg" class="d-block w-100" alt="...">
-		      		</div>
-				    <div class="carousel-item">
-				    	<img src="${contextPath}/img/bener2.jpg" class="d-block w-100" alt="...">
-				    </div>
-					<div class="carousel-item">
-				        <img src="${contextPath}/img/bener3.jpg" class="d-block w-100" alt="...">
-				     </div>
-				    <div class="carousel-item">
-				        <img src="${contextPath}/img/bener1.jpg" class="d-block w-100" alt="...">
-				     </div>
-				    <div class="carousel-item">
-				        <img src="${contextPath}/img/bener2.jpg" class="d-block w-100" alt="...">
-				     </div>
+   				    <c:if test="${empty bannerList}">
+					    <div class="carousel-item active">
+					    	<img src="${contextPath}/img/bener3.jpg" class="d-block w-100" alt="...">
+					    </div>
+				    </c:if>
+				    <c:if test="${not empty bannerList}">
+     				    <c:forEach var="banner" items="${bannerList}" varStatus="status">
+			                <div class="carousel-item ${status.first ? 'active' : ''}">
+			                    <a href="${banner.targetUrl}">
+			                        <img src="${contextPath}/kockImg?imgUrl=${banner.imgUrl}" class="d-block w-100" alt="...">
+			                    </a>
+			                </div>
+			            </c:forEach>
+				     </c:if>
 				</div>
 		    	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
 		      		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
