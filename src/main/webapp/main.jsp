@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />   
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,106 +53,44 @@
 			    <section class="bestProducts">
 			    	<h2 class="listTitle">베스트 TOP5</h2>
 			      	<div class="product-list">
-			        	<div class="product">
-				          	<div class="productImgBox">
-				          		<a href=""><img src="${contextPath}/img/fruits1.jpg" alt=""></a>
-				          	</div>
-					        <p><a href="" class="productName">제품명/국내산/패키지asdasdaaaaaaaaaaaa</a></p>
-					        <p><a href="" class="storeName">상추마루</a></p>
-					        <p class="price">5,500원</p>
-					        <p class="reviewScore">⭐ 4.5 (212)</p>
-						</div>
-						<div class="product">
-					    	<div class="productImgBox">
-					        	<a href=""><img src="${contextPath}/img/fruits2.jpg" alt=""></a>
-					        </div>
-				          	<p><a href="" class="productName">제품명/국내산/패키지</a></p>
-				          	<p><a href="" class="storeName">상추마루</a></p>
-				          	<p class="price">5,500원</p>
-				          	<p class="reviewScore">⭐ 4.5 (212)</p>
-				        </div>
-				        <div class="product">
-					    	<div class="productImgBox">
-					        	<a href=""><img src="${contextPath}/img/fruits3.jpg" alt=""></a>
-					        </div>
-				          	<p><a href="" class="productName">제품명/국내산/패키지</a></p>
-				          	<p><a href="" class="storeName">상추마루</a></p>
-				          	<p class="price">5,500원</p>
-				          	<p class="reviewScore">⭐ 4.5 (212)</p>
-				        </div>
-				        <div class="product">
-					    	<div class="productImgBox">
-					        	<a href=""><img src="${contextPath}/img/fruits2.jpg" alt=""></a>
-					        </div>
-				          	<p><a href="" class="productName">제품명/국내산/패키지</a></p>
-				          	<p><a href="" class="storeName">상추마루</a></p>
-				          	<p class="price">5,500원</p>
-				          	<p class="reviewScore">⭐ 4.5 (212)</p>
-				        </div>
-				        <div class="product">
-					    	<div class="productImgBox">
-					        	<a href=""><img src="${contextPath}/img/fruits1.jpg" alt=""></a>
-					        </div>
-				          	<p><a href="" class="productName">제품명/국내산/패키지</a></p>
-				          	<p><a href="" class="storeName">상추마루</a></p>
-				          	<p class="price">5,500원</p>
-				          	<p class="reviewScore">⭐ 4.5 (212)</p>
-				        </div>
+			      		<c:forEach var="p" items="${bestProducts}">
+				        	<div class="product">
+					          	<div class="productImgBox">
+					          		<a href=""><img src="${contextPath}/img/fruits1.jpg" alt=""></a>
+					          	</div>
+						        <p><a href="" class="productName">${p.productName}</a></p>
+						        <p><a href="" class="storeName">${p.storeName}</a></p>
+						        <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
+						        <p class="reviewScore">
+						        	⭐ <fmt:formatNumber value="${p.avgRating}" type="number" maxFractionDigits="1" />
+						        	(${p.reviewCount})
+						        </p>
+							</div>
+						</c:forEach>
 		      		</div>
-		      		<button class="viewMore" >상품 더보기</button>
+		      		<a href="bestProductList" class="viewMore" >상품 더보기</a>
 		    	</section>
 		    	<hr>
 		    	<!-- 신제품 TOP5 -->
 		    	<section class="newProducts">
 		      		<h2 class="listTitle">신제품 TOP5</h2>
 		      		<div class="product-list">
-			      		<div class="product">
+		      			<c:forEach var="p" items="${newProducts}">
+			      			<div class="product">
 					          	<div class="productImgBox">
 					          		<a href=""><img src="${contextPath}/img/fruits1.jpg" alt=""></a>
 					          	</div>
-						        <p><a href="" class="productName">제품명/국내산/패키지asdasdaaaaaaaaaaaa</a></p>
-						        <p><a href="" class="storeName">상추마루</a></p>
-						        <p class="price">5,500원</p>
-						        <p class="reviewScore">⭐ 4.5 (212)</p>
+						        <p><a href="" class="productName">${p.productName}</a></p>
+						        <p><a href="" class="storeName">${p.storeName}</a></p>
+						        <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
+						        <p class="reviewScore">
+						        	⭐ <fmt:formatNumber value="${p.avgRating}" type="number" maxFractionDigits="1" /> 
+						        	(${p.reviewCount})
+						        </p>
 							</div>
-							<div class="product">
-						    	<div class="productImgBox">
-						        	<a href=""><img src="${contextPath}/img/fruits2.jpg" alt=""></a>
-						        </div>
-					          	<p><a href="" class="productName">제품명/국내산/패키지</a></p>
-					          	<p><a href="" class="storeName">상추마루</a></p>
-					          	<p class="price">5,500원</p>
-					          	<p class="reviewScore">⭐ 4.5 (212)</p>
-					        </div>
-					        <div class="product">
-						    	<div class="productImgBox">
-						        	<a href=""><img src="${contextPath}/img/fruits3.jpg" alt=""></a>
-						        </div>
-					          	<p><a href="" class="productName">제품명/국내산/패키지</a></p>
-					          	<p><a href="" class="storeName">상추마루</a></p>
-					          	<p class="price">5,500원</p>
-					          	<p class="reviewScore">⭐ 4.5 (212)</p>
-					        </div>
-					        <div class="product">
-						    	<div class="productImgBox">
-						        	<a href=""><img src="${contextPath}/img/fruits2.jpg" alt=""></a>
-						        </div>
-					          	<p><a href="" class="productName">제품명/국내산/패키지</a></p>
-					          	<p><a href="" class="storeName">상추마루</a></p>
-					          	<p class="price">5,500원</p>
-					          	<p class="reviewScore">⭐ 4.5 (212)</p>
-					        </div>
-					        <div class="product">
-						    	<div class="productImgBox">
-						        	<a href=""><img src="${contextPath}/img/fruits1.jpg" alt=""></a>
-						        </div>
-					          	<p><a href="" class="productName">제품명/국내산/패키지</a></p>
-					          	<p><a href="" class="storeName">상추마루</a></p>
-					          	<p class="price">5,500원</p>
-					          	<p class="reviewScore">⭐ 4.5 (212)</p>
-					        </div>
-			      		</div>
-		      			<button class="viewMore">상품 더보기</button>
+						</c:forEach>
+			      	</div>
+		      		<a href="newProductList" class="viewMore">상품 더보기</a>
 		    	</section>
 		  </div>
 			<hr>
@@ -160,24 +99,30 @@
 				<div class="notice">
 					<div class="noticeHeader">
 				        <h3>공지사항</h3>
-				        <a href="#">+</a>
+				        <a href="userNoticeList">+</a>
 					</div>
-					<ul>
-				    	<li><a href="#">업무처리 매뉴얼</a><span>2019-12-29</span></li>
-				        <li><a href="#">고객센터 운영시간 변경 안내</a><span>2019-12-29</span></li>
-				        <li><a href="#">불량 야채 사진 변경 안내</a><span>2019-12-29</span></li>
-				    </ul>
+					<ul class="recentNotice">
+					  <c:forEach var="n" items="${noticeList}">
+					    <li>
+					      <a href="detailNotice?noticeNum=${n.noticeNum}">${n.title}</a>
+					      <span>${n.createdAt}</span>
+					    </li>
+					  </c:forEach>
+					  </ul>
 			    </div>
 		    	<div class="faq">
 			    	<div class="faqHeader">
 				        <h3>문의하기</h3>
-				        <a href="#">+</a>
+				        <a href="adminQAList">+</a>
 			      	</div>
-		      		<ul>
-				        <li><a href="#">[배송] 주문한 상품은 언제 배송되나요?</a><span>2019-12-29</span></li>
-				        <li><a href="#">[교환/환불] 상품을 교환하고 싶어요.</a><span>2019-12-29</span></li>
-				        <li><a href="#">[배송] 배송 상태가 보이지 않아요.</a><span>2019-12-29</span></li>
-		      		</ul>
+		      		<ul class="recentAdminQA">
+					  <c:forEach var="q" items="${adminQA}">
+					    <li>
+					      <a href="detailAdminQA?questionNum=${q.questionNum}">${q.title}</a>
+					      <span>${q.createdAt}</span>
+					    </li>
+					  </c:forEach>
+					  </ul>
 		    	</div>
 			</div>
 			</div>

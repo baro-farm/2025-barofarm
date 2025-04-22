@@ -10,36 +10,33 @@
 		<typeAlias type="vo.UserVO" alias="userVo" />
 		<typeAlias type="dto.buyer.KockFarm" alias="kockFarm" />
 		<typeAlias type="dto.buyer.KockComment" alias="kockComment" />
-		<typeAlias type="dto.admin.CustomerService"
-			alias="customerService" />
-		<typeAlias type="dto.admin.AdminQuestion"
-			alias="adminQuestion" />
+		<typeAlias type="dto.admin.CustomerService"	alias="customerService" />
+		<typeAlias type="dto.admin.AdminQuestion" alias="adminQuestion" />
 		<typeAlias type="dto.admin.AdminAnswer" alias="adminAnswer" />
 		<typeAlias type="dto.admin.Notice" alias="notice" />
-		<typeAlias type="dto.buyer.ProdQuestion"
-			alias="prodQuestion" />
+		<typeAlias type="dto.buyer.ProdQuestion" alias="prodQuestion" />
 		<typeAlias type="vo.QuestionVO" alias="questionVo" />
 		<typeAlias type="dto.seller.ProdAnswer" alias="prodAnswer" />
 		<typeAlias type="dto.buyer.ProductOrder" alias="prodOrder" />
 		<typeAlias type="dto.buyer.PackageOrder" alias="packOrder" />
-		<typeAlias type="dto.buyer.ProductOrderItem"
-			alias="prodOrderItem" />
+		<typeAlias type="dto.buyer.ProductOrderItem" alias="prodOrderItem" />
 		<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo" />
 		<typeAlias type="dto.buyer.BabyComment" alias="babyComment" />
 		<typeAlias type="dto.buyer.Matching" alias="matching" />
 		<typeAlias type="dto.seller.SellerDetail" alias="seller" />
 		<typeAlias type="dto.admin.Store" alias="store" />
 		<typeAlias type="dto.seller.Product" alias="product" />
-		<typeAlias type="dto.seller.ProductOption"
-			alias="productOption" />
+		<typeAlias type="dto.seller.ProductOption" alias="productOption" />
 		<typeAlias type="vo.PackOrderVO" alias="packOrderVo" />
 		<typeAlias type="vo.AdminQuestionVO" alias="adminQuestionVO" />
-		<typeAlias type="dto.seller.Advertisement"
-			alias="advertisement" />
+		<typeAlias type="dto.seller.Advertisement" alias="advertisement" />
 		<typeAlias type="dto.seller.Point" alias="point" />
 		<typeAlias type="dto.seller.UsePoint" alias="usePoint" />
 		<typeAlias type="dto.admin.Banner" alias="banner" />
 		<typeAlias type="util.SearchDtoSoy" alias="searchDtoSoy" />
+		<typeAlias type="dto.seller.PackageProduct" alias="packageProduct" />
+		<typeAlias type="dto.buyer.ShoppingCartItem" alias="shoppingCartItem" />
+		<typeAlias type="vo.ProductVO" alias="ProductVO" />
 	</typeAliases>
 
 	<environments default="development">
@@ -71,5 +68,7 @@
 		<mapper resource="mapper/point.xml" />
 		<mapper resource="mapper/usePoint.xml" />
 		<mapper resource="mapper/banner.xml" />
+		<mapper resource="mapper/packageProduct.xml" />
+		<mapper resource="mapper/shoppingCart.xml" />
 	</mappers>
 </configuration>

@@ -58,7 +58,7 @@
             <input
               type="number"
               id="option_price"
-              placeholder="추가 가격 (원)"
+              placeholder="추가 가격 (원) 또는 기본 가격 0(원)"
             />
             <button type="button" id="add_option_btn">추가</button>
           </div>
@@ -75,7 +75,7 @@
         </div>
         <div id="preview"></div>
         <div id="editor_div">
-          <span id="product_content">상품 상세설명</span>
+          <span id="product_content_title">상품 상세설명</span>
           <div id="editor"></div>
           <input type="hidden" id="product_content" name="product_content" />
         </div>
