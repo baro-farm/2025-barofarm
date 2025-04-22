@@ -63,9 +63,15 @@ public class ProductOption {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductOption(Long productNum, String option, Integer price) {
+	public ProductOption(String option, Integer price) {
 		super();
-		this.productNum = productNum;
+		this.option = option;
+		this.price = price;
+	}
+
+	public ProductOption(Long optionNum, String option, Integer price) {
+		super();
+		this.optionNum = optionNum;
 		this.option = option;
 		this.price = price;
 	}

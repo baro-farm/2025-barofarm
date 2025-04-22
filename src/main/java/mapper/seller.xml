@@ -38,9 +38,11 @@
 		    GROUP BY sellerNum
 		) totalSales ON s.sellerNum = totalSales.sellerNum
 	</select>
+	<select id="selectSellerNum" parameterType="Long" resultType="Long">
+		select sellerNum from sellerDetail where userNum=#{userNum}
+	</select>
 	
 	<select id="selectStoreByName" parameterType="String" resultType="seller">
     	SELECT * FROM sellerDetail WHERE storeName = #{storeName}
 	</select>
-	
 </mapper>
