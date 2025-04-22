@@ -121,7 +121,11 @@ document.getElementById('optionChangeForm').addEventListener('submit', function(
   console.log('deleteCartNums:', deleteCartNums);
 console.log('hiddenQuantities:', document.getElementById('hiddenQuantities').value);
 
-  this.submit();
+	setTimeout(() => {
+	      this.submit(); // 여기서 진짜 submit 실행
+	    }, 0);
+  location.reload();
+  //this.submit();
 });
 
 
