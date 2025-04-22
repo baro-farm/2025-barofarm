@@ -39,9 +39,8 @@
 	            	<label id="qContent">내용</label>
 	        		<input type="text" id="qContent" name="content" />
 			        <div id="bottom">
-			        	<a href="qList" class="backBtn">목록으로</a>
 				      	<button type="submit" id="insertBtn">작성하기</button>
-			    	  	<button id="cancelBtn">취소하기</button>
+			    	  	<button id="backBtn">취소하기</button>
 			      	</div>
       			</form>
       		</div>

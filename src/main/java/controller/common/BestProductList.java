@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.UserService;
-import service.UserServiceImpl;
-import service.admin.NoticeService;
-import service.admin.NoticeServiceImpl;
+import service.UserProductService;
+import service.UserProductServiceImpl;
 import util.PageInfo;
-import vo.AdminQuestionVO;
+import vo.ProductVO;
 
 /**
- * Servlet implementation class AdminQAList
+ * Servlet implementation class BestProductList
  */
-@WebServlet("/adminQAList")
-public class AdminQAList extends HttpServlet {
+@WebServlet("/bestProductList")
+public class BestProductList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminQAList() {
+    public BestProductList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,26 +36,22 @@ public class AdminQAList extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String pageStr = request.getParameter("page");
-		Integer page = null;
-		
-		if(pageStr==null) {
-			page = 1;
-		} else {
-			page = Integer.parseInt(pageStr);
-		}
+		int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
 		
 		PageInfo pageInfo = new PageInfo(page);
-		UserService service = new UserServiceImpl();
-		
+
+		UserProductService service = new UserProductServiceImpl();
 		try {
-			List<AdminQuestionVO> adminQAList = service.adminQAListByPage(pageInfo);
+			List<ProductVO> bestList = service.BestProductByPage(pageInfo);
+
 			request.setAttribute("pageInfo", pageInfo);
-			request.setAttribute("adminQAList", adminQAList);
-			
-			request.getRequestDispatcher("/common/AdminQAList.jsp").forward(request, response);
+			request.setAttribute("productList", bestList);
+			request.setAttribute("cateName", "베스트");
+
+			request.getRequestDispatcher("productList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "게시판 목록조회를 실패했습니다.");
+			request.setAttribute("err", "베스트 상품 조회 실패");
 		}
 	}
 

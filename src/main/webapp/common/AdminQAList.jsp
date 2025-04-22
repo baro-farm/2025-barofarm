@@ -8,8 +8,7 @@
 	<meta charset="UTF-8">
 	<title>문의하기 리스트 조회</title>
 	<link rel="stylesheet" href="${contextPath}/reset.css" />
-    <link rel="stylesheet" href="${contextPath}/common/AdminQAList.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css" /> 
+    <link rel="stylesheet" href="${contextPath}/common/AdminQAList.css" /> 
 </head>
 <body>
 	<div class="container">
@@ -44,8 +43,7 @@
 					      	</c:choose>
 		          		</td>
 		          		<td>
-		          			<p>[ ${q.type} ]</p>
-		          			<a href="detailAdminQA?questionNum=${q.questionNum}" class="ellipsis">${q.title}</a>
+		          			<a href="detailAdminQA?questionNum=${q.questionNum}" class="qtitle">[ ${q.type} ] ${q.title}</a>
 		          		</td>
 						<td><p>${q.userId}</p></td>
 		          		<td>${q.createdAt}</td>
@@ -53,22 +51,43 @@
 		         </c:forEach>
 		        </tbody>
 		      </table>
-		      <!-- 구매자 글쓰기 버튼 -->
-        	<a href="insertAdminQ" class="writeButton">글쓰기</a>
+		      <div id="paging">
+					<c:choose>
+						<c:when test="${pageInfo.curPage > 1 }">
+							<a href="adminQAList?page=${pageInfo.curPage-1 }">&lt;</a>
+						</c:when>
+						<c:otherwise>
+							<a>&lt;</a>
+						</c:otherwise>
+					</c:choose>
+					
+						<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage }" step="1" var="page">
+							<c:choose>
+								<c:when test="${page eq pageInfo.curPage}">
+									<a href="adminQAList?page=${page }" class="select">${page }</a>
+								</c:when>
+								<c:otherwise>
+									<a href="adminQAList?page=${page }" class="btn">${page }</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>	
+						
+					<c:choose>
+						<c:when test="${pageInfo.curPage < pageInfo.allPage }">
+							<a href="adminQAList?page=${pageInfo.curPage+1 }">&gt;</a>
+						</c:when>
+						<c:otherwise>
+							<a>&gt;</a>
+						</c:otherwise>	
+					</c:choose>
+				</div>
+		      	<c:if test="${user != null}">
+		      		<a href="insertAdminQA" class="writeButton">글쓰기</a>
+		      	</c:if>
 			</div> <!-- content -->
 		</div> <!-- wrapper -->
 		<jsp:include page="/header/footer.jsp" />
     </div> <!-- container -->
-	<script src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"></script>
-	<script>
-		new DataTable('AdminQAList', {
-			layout: {
-				topStart: null,
-				topEnd: null,
-				bottomStart: null,
-		   		bottomEnd: 'paging' // 하단 오른쪽에 페이지네이션만 표시
-		  	}
-		});
-	</script>
+	
 </body>
 </html>
