@@ -8,11 +8,7 @@
 	<meta charset="UTF-8">
     <title>NoticeView</title>
     <link rel="stylesheet" href="${contextPath}/reset.css">
-    <link rel="stylesheet" href="${contextPath}/common/noticeListView.css" />
-   <link
-      href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css"
-      rel="stylesheet"
-    /> 
+    <link rel="stylesheet" href="${contextPath}/common/userNoticeList.css" />
 </head>
 <body>
     <div class="container">
@@ -42,20 +38,39 @@
 		         </c:forEach>
 		        </tbody>
 		      </table>
+		      <div id="paging">
+					<c:choose>
+						<c:when test="${pageInfo.curPage > 1 }">
+							<a href="userNoticeList?page=${pageInfo.curPage-1 }">&lt;</a>
+						</c:when>
+						<c:otherwise>
+							<a>&lt;</a>
+						</c:otherwise>
+					</c:choose>
+					
+						<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage }" step="1" var="page">
+							<c:choose>
+								<c:when test="${page eq pageInfo.curPage}">
+									<a href="userNoticeList?page=${page }" class="select">${page }</a>
+								</c:when>
+								<c:otherwise>
+									<a href="userNoticeList?page=${page }" class="btn">${page }</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>	
+						
+					<c:choose>
+						<c:when test="${pageInfo.curPage < pageInfo.allPage }">
+							<a href="userNoticeList?page=${pageInfo.curPage+1 }">&gt;</a>
+						</c:when>
+						<c:otherwise>
+							<a>&gt;</a>
+						</c:otherwise>	
+					</c:choose>
+				</div>
 			</div> <!-- content -->
 		</div> <!-- wrapper -->
 		<jsp:include page="/header/footer.jsp" />
     </div> <!-- container -->
-	<script src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"></script>
-	<script>
-		new DataTable('#notice_table', {
-			layout: {
-				topStart: null,
-				topEnd: null,
-				bottomStart: null,
-		   		bottomEnd: 'paging' // 하단 오른쪽에 페이지네이션만 표시
-		  	}
-		});
-	</script>
 </body>
 </html>
