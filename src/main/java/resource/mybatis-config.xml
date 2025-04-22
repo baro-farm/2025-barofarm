@@ -19,7 +19,7 @@
 		<typeAlias type="dto.buyer.ProdQuestion"
 			alias="prodQuestion" />
 		<typeAlias type="vo.QuestionVO" alias="questionVo" />
-		<typeAlias type="dto.seller.ProdAnswer" alias="prodAnswer" />
+		<typeAlias type="dto.seller.QuestionAnswer" alias="questionAnswer" />
 		<typeAlias type="dto.buyer.ProductOrder" alias="prodOrder" />
 		<typeAlias type="dto.buyer.ProdReview" alias="prodReview" />
 		<typeAlias type="vo.ProdReviewVO" alias="prodReviewVO" />
@@ -43,27 +43,27 @@
 		<typeAlias type="vo.MyPageSummaryVO" alias="myPageVo" />
 		<typeAlias type="vo.KockFarmVO" alias="kockFarmVo" />
 		<typeAlias type="vo.KockCommentVO" alias="kockCommentVo" />
-	
 	</typeAliases>
 
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/barofarm"/>
-                <property name="username" value="root"/>
-                <property name="password" value="emb306"/>
-            </dataSource>
-        </environment>
-    </environments>
-    
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="org.mariadb.jdbc.Driver" />
+				<property name="url" value="jdbc:mariadb://localhost:3306/barofarm" />
+				<property name="username" value="root" />
+				<property name="password" value="7564" />
+			</dataSource>
+		</environment>
+	</environments>
+
 	<mappers>
 		<mapper resource="mapper/address.xml" />
 		<mapper resource="mapper/user.xml" />
 		<mapper resource="mapper/kockFarm.xml" />
 		<mapper resource="mapper/admin/notice.xml" />
 		<mapper resource="mapper/prodQuestion.xml" />
+		<mapper resource="mapper/packQuestion.xml" />
 		<mapper resource="mapper/productOrder.xml" />
 		<mapper resource="mapper/prodReview.xml" />
 		<mapper resource="mapper/packageOrder.xml" />
@@ -75,6 +75,5 @@
 		<mapper resource="mapper/point.xml" />
 		<mapper resource="mapper/usePoint.xml" />
 		<mapper resource="mapper/myPageSummary.xml" />
-
 	</mappers>
 </configuration>

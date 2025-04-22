@@ -9,7 +9,7 @@ import dto.seller.QuestionAnswer;
 import util.MybatisSqlSessionFactory;
 import vo.QuestionVO;
 
-public class ProdQuestionDAOImpl implements ProdQuestionDAO {
+public class PackQuestionDAOImpl implements PackQuestionDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 	
 	private Long selectUserNumById(String userId) {
@@ -18,21 +18,21 @@ public class ProdQuestionDAOImpl implements ProdQuestionDAO {
 	}
 	
 	@Override
-	public List<QuestionVO> selectQuestionList(String userId) throws Exception {
+	public List<QuestionVO> selectQuestionListWithPackage(String userId) throws Exception {
 		Long userNum = selectUserNumById(userId);
-		return sqlSession.selectList("mapper.prodQuestion.selectQuestionListWithProduct",userNum);
+		return sqlSession.selectList("mapper.packQuestion.selectQuestionListWithPackage",userNum);
 	}
 
 	@Override
-	public Integer selectAnswerCount(Long qaNum) throws Exception {
+	public Integer selectPackAnswerCount(Long qaNum) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.prodQuestion.selectAnswerCount",qaNum);
+		return sqlSession.selectOne("mapper.packQuestion.selectPackAnswerCount",qaNum);
 	}
 
 	@Override
-	public QuestionAnswer selectAnswer(Long qaNum) throws Exception {
+	public QuestionAnswer selectPackAnswer(Long qaNum) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.prodQuestion.selectAnswer",qaNum);
+		return sqlSession.selectOne("mapper.packQuestion.selectPackAnswer",qaNum);
 	}
 
 
