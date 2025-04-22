@@ -9,7 +9,7 @@ public class CartProductGroup {
 	private String imgUrl;
 	private int basePrice;
 	private List<ShoppingCartItem> options; // 같은 상품의 여러 옵션들
-
+	
 	public String getStoreName() {
 		return storeName;
 	}

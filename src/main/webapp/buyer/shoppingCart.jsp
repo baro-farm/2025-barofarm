@@ -46,20 +46,20 @@
 
 								<div>
 									<c:forEach var="opt" items="${product.options}">
-										<p>${opt.option}/ ${opt.quantity}개 (+${opt.optionPrice}원)</p>
-										<button class="open-modal" data-cart="${opt.cartNum}"
-											data-product="${product.productNum}">옵션 변경</button>
+										<p>${opt.option}/${opt.quantity}개 (+${opt.optionPrice}원)</p>
 									</c:forEach>
+										<button class="open-modal" data-cart="${opt.cartNum}"
+											data-product="${product.productNum}"
+											data-quantity="${opt.quantity}">주문 변경</button>
 								</div>
 
 								<div>
 									<p class="total">
-										총 가격:
-										<c:forEach var="opt" items="${product.options}"
-											varStatus="loop">
-                ${opt.totalPrice}<c:if test="${!loop.last}"> + </c:if>
+										<c:set var="sum" value="0" />
+										<c:forEach var="opt" items="${product.options}">
+											<c:set var="sum" value="${sum + opt.totalPrice}" />
 										</c:forEach>
-										원
+										${sum}원
 									</p>
 								</div>
 							</div>
@@ -76,19 +76,79 @@
 	<!-- 모달 본체 -->
 	<div id="optionModal" class="modal" style="display: none;">
 		<div class="modal-content">
-			<h3>옵션 변경</h3>
+			<h3>옵션 / 수량 변경</h3>
 			<form id="optionChangeForm" method="post"
-				action="${contextPath}/updateCartOption">
-				<input type="hidden" name="cartNum" id="modalCartNum" /> <label>옵션
-					선택 <select name="newOptionNum" id="modalOptionSelect"></select>
-				</label>
-				<div style="display: flex; gap: 10px; justify-content: flex-end;">
-					<button type="submit">변경</button>
+				action="${contextPath}/updateCartOptions">
+				<input type="hidden" name="productNum" id="modalProductNum" />
+
+				<!-- 옵션 리스트 (기존 옵션들 수정/삭제) -->
+				<div id="optionListArea"></div>
+
+				<!-- 옵션 추가 -->
+				<div style="margin-top: 20px;">
+					<label>옵션 추가 <select id="addOptionSelect"></select>
+					</label> <label>수량 <input type="number" id="addOptionQuantity"
+						min="1" value="1" />
+					</label>
+					<button type="button" id="addOptionBtn">추가</button>
+				</div>
+
+				<div
+					style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+					<div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+						<input type="hidden" name="productNum" id="modalProductNum" />
+
+						<!-- 기존 옵션 수정용 -->
+<!-- 						<input type="hidden" id="hiddenCartNums" name="cartNums" value=""> -->
+						<!-- cartNum[] 배열로 -->
+						<!-- <input type="hidden" id="hiddenNewOptionNums" name="quantities" value=""> -->
+						<!-- quantity[] 배열로 -->
+
+						<!-- 추가 옵션용 -->
+						<!-- <input type="hidden" id="hiddenNewQuantities" name="newOptionNums" value=""> -->
+						<!-- 새로 추가할 optionNum[] -->
+						<!-- <input type="hidden" id="hiddenDeleteCartNums" name="newQuantities" value=""> -->
+						<!-- 새로 추가할 quantity[] -->
+
+						<!-- 삭제 옵션용 -->
+						<!-- <input type="hidden" name="deleteCartNums" value=""> -->
+						<!-- 삭제할 cartNum[] -->
+						
+						<!-- 기존 옵션 수정용 -->
+<!-- <input type="hidden" id="hiddenCartNums" name="cartNums" value="">
+<input type="hidden" id="hiddenQuantities" name="quantities" value="">
+
+추가 옵션용
+<input type="hidden" id="hiddenNewOptionNums" name="newOptionNums" value="">
+<input type="hidden" id="hiddenNewQuantities" name="newQuantities" value="">
+
+삭제 옵션용
+<input type="hidden" id="hiddenDeleteCartNums" name="deleteCartNums" value=""> -->
+<!-- <input type="hidden" id="hiddenCartNums" name="cartNums[]" value="">
+<input type="hidden" id="hiddenQuantities" name="quantities[]" value="">
+<input type="hidden" id="hiddenNewOptionNums" name="newOptionNums[]" value="">
+<input type="hidden" id="hiddenNewQuantities" name="newQuantities[]" value="">
+<input type="hidden" id="hiddenDeleteCartNums" name="deleteCartNums[]" value=""> -->
+
+<input type="hidden" id="hiddenCartNums" name="cartNums" value="">
+<input type="hidden" id="hiddenQuantities" name="quantities" value="">
+
+<input type="hidden" id="hiddenNewOptionNums" name="newOptionNums" value="">
+<input type="hidden" id="hiddenNewQuantities" name="newQuantities" value="">
+
+<input type="hidden" id="hiddenDeleteCartNums" name="deleteCartNums" value="">
+
+						
+
+						<button type="submit">저장</button>
+					</div>
+
 					<button type="button" onclick="closeModal()">닫기</button>
 				</div>
 			</form>
 		</div>
 	</div>
+
 
 	<script src="${contextPath }/buyer/shoppingCart.js"></script>
 </body>
