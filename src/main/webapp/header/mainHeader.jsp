@@ -36,6 +36,10 @@
 					          <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
 	                		  <li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 					        </c:when>
+					        
+					        <c:otherwise>
+					          <li class="userli"><a href="infoFoam" class="userBtn">마이페이지</a></li>
+					        </c:otherwise>
 							<c:when test="${user.userId == 'admin'}">
 							    <li class="userli"><a href="userList" class="userBtn">관리자페이지</a></li>
 							</c:when>

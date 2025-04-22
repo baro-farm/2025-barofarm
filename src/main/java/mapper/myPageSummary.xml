@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.myPageSummary">
+	<select id="selectMyPageSummary" parameterType="long" resultType="myPageVo">
+	    SELECT
+	        (SELECT COUNT(*) FROM productOrder WHERE userNum = #{userNum}) AS totalOrders,
+	        (SELECT COUNT(*) FROM prodReview WHERE userNum = #{userNum}) AS totalReviews,
+	        (SELECT COUNT(*) FROM productOrder WHERE userNum = #{userNum} AND deleveryStatus = '취소완료') AS totalCancels,
+	        (SELECT COUNT(*) FROM packageOrder WHERE userNum = #{userNum}) AS totalPackages,
+	        (SELECT COUNT(*) FROM prodQuestion WHERE userNum = #{userNum}) AS totalQuestions,
+	        (SELECT COUNT(*) FROM productOrder WHERE userNum = #{userNum} AND deleveryStatus = '결제완료') AS paymentComplete,
+	        (SELECT COUNT(*) FROM productOrder WHERE userNum = #{userNum} AND deleveryStatus = '배송준비') AS deliveryReady,
+	        (SELECT COUNT(*) FROM productOrder WHERE userNum = #{userNum} AND deleveryStatus = '배송중') AS deliveryProgress,
+	        (SELECT COUNT(*) FROM productOrder WHERE userNum = #{userNum} AND deleveryStatus = '배송완료') AS deliveryComplete
+	</select>
+	
+	<select id="selectRecentQuestions" parameterType="long" resultType="prodQuestion">
+		select q.title, p.productNum, p.productName, q.createdAt
+		from prodQuestion q
+		join product p on q.productNum = p.productNum
+		where q.userNum = #{userNum}
+		order by q.createdAt DESC
+		Limit 5
+	</select>
+	
+	<select id="selectRecentReviews" parameterType="long" resultType="prodReview">
+		select 
+			reviewNum, userNum,  
+			CASE 
+      			WHEN CHAR_LENGTH(pdReviewContent) > 30 THEN CONCAT(LEFT(pdReviewContent, 30), '...')
+      			ELSE pdReviewContent
+    			END AS pdReviewContent
+    	from prodReview
+    	where userNum=#{userNum}
+    	order by createdAt DESC
+    	Limit 5
+	</select>
+</mapper>

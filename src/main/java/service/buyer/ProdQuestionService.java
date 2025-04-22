@@ -3,10 +3,10 @@ package service.buyer;
 import java.util.List;
 
 import dto.buyer.ProdQuestion;
-import dto.seller.ProdAnswer;
+import dto.seller.QuestionAnswer;
 import vo.QuestionVO;
 
 public interface ProdQuestionService {
 	List<QuestionVO> selectUserQuestionList(String userId) throws Exception;
-	ProdAnswer selectQuestionAnswer(Long qaNum) throws Exception;
+	QuestionAnswer selectQuestionAnswer(Long qaNum) throws Exception;
 }

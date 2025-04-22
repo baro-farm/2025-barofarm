@@ -26,7 +26,15 @@
 	<update id="updateProductOption" parameterType="productOption">
 		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where optionNum=#{optionNum}
 	</update>
-
+	
+	<!-- product List -->
+	<select id="selectProductList" parameterType="long" resultType="product">
+		select p.* , c.name
+		from product p
+		join category c on p.cateNum = c.cateNum
+		where sellerNum = #{sellerNum}
+	</select>
+	
 	<delete id="deleteProductOption" parameterType="Long">
 		delete from productOption where optionNum=#{optionNum}
 	</delete>
@@ -60,9 +68,11 @@
 	
 	  LIMIT #{start}, 20
 	</select>
+	
 	<select id="countProductByCategory" resultType="Integer">
 	    SELECT COUNT(*) FROM product WHERE cateNum = #{cateNum}
 	</select>
+	
 	<select id="selectBest5" resultType="ProductVO">
 		SELECT 
 			p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -76,6 +86,7 @@
 		ORDER BY p.salesVolume DESC
 		LIMIT 5
 	</select>
+	
 	<select id="selectNew5" resultType="ProductVO">
 		SELECT 
 			p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -90,6 +101,7 @@
 		ORDER BY p.createdAt DESC
 		LIMIT 5
 	</select>
+	
 	<select id="selectBestProductsByPage" resultType="ProductVO">
 	    SELECT 
 	        p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -103,9 +115,11 @@
 	    ORDER BY p.salesVolume DESC
 	    LIMIT #{start}, 20
 	</select>
+	
 	<select id="countBestProducts" resultType="Integer">
 	    SELECT LEAST(COUNT(*), 100) FROM product
 	</select>
+	
 	<select id="selectNewProductsByPage" resultType="ProductVO">
 	    SELECT 
 	        p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -123,6 +137,7 @@
 	<select id="countNewProducts" resultType="Integer">
 	    SELECT LEAST(COUNT(*), 100) FROM product
 	</select>
+	
 	<select id="searchProduct" resultType="ProductVO" parameterType="map">
 		SELECT p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
 	    s.storeName,
@@ -146,6 +161,7 @@
 	  	</choose>
 	  	LIMIT #{start}, 20
 	</select>
+	
 	<select id="countProductsByKeyword" resultType="Integer">
 	    SELECT COUNT(*) FROM product
 	    WHERE productName LIKE CONCAT('%', #{keyword}, '%')

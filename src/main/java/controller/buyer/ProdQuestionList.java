@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.User;
 import dto.buyer.Address;
 import dto.buyer.ProdQuestion;
 import service.buyer.ProdQuestionService;
@@ -36,11 +38,18 @@ public class ProdQuestionList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession(false);
+		User sessionUser =null;
+		
+		if(session != null) {
+			sessionUser=(User)session.getAttribute("user");
+		}
+		
 		ProdQuestionService service = new ProdQuestionServiceImpl();
 		List<QuestionVO> questionList = null;
 		try {
-			questionList = service.selectUserQuestionList("hong12");
-			System.out.println(questionList);
+			questionList = service.selectUserQuestionList(sessionUser.getUserId());
 			request.setAttribute("questionList", questionList);
 			request.getRequestDispatcher("/buyer/questionList.jsp").forward(request, response);
 

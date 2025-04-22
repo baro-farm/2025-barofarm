@@ -6,16 +6,13 @@ import java.util.List;
 import dao.buyer.UserDAO;
 import dao.buyer.UserDAOImpl;
 import dto.buyer.Address;
-import dto.User;
 import vo.UserVO;
 
 public class UserServiceImpl implements UserService {
 	private UserDAO userDao;
-	private UserVO userVo;
 	 
 	public UserServiceImpl() {
 		userDao = new UserDAOImpl();
-		userVo = new UserVO();
 	}
 	
 	@Override
@@ -53,6 +50,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUserAddress(Long addrNum) throws Exception {
 		userDao.deleteAddress(addrNum);
+	}
+
+	@Override
+	public Long selectUserNumByUserId(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		return userDao.selectUserNumById(userId);
 	}
 
 }

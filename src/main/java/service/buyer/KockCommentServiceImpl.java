@@ -1,11 +1,14 @@
 package service.buyer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.buyer.KockCommentDao;
 import dao.buyer.KockCommentDaoImpl;
 import dto.buyer.BabyComment;
 import dto.buyer.KockComment;
+import vo.KockCommentVO;
 
 public class KockCommentServiceImpl implements KockCommentService {
 	private KockCommentDao kockCommentDao;
@@ -37,6 +40,21 @@ public class KockCommentServiceImpl implements KockCommentService {
 	@Override
 	public BabyComment selectBCommentByReNum(Long reNum) throws Exception {
 		return kockCommentDao.selectBCommentByReNum(reNum);
+	}
+	
+	@Override
+	public List<KockCommentVO> selectUserMyCommentList(Long userNum, int limit, int offset) throws Exception {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("userNum", userNum);
+	    param.put("limit", limit);
+	    param.put("offset", offset);
+	    return kockCommentDao.selectAllKockCommentList(param);
+	    
+	}
+
+	@Override
+	public Integer selectCountAllComment(Long userNum) throws Exception {
+		return kockCommentDao.countAllComments(userNum);
 	}
 
 }

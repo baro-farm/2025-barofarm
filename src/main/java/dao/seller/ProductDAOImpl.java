@@ -60,4 +60,10 @@ public class ProductDAOImpl implements ProductDAO {
 		sqlSession.delete("mapper.product.deleteProductOption", optionNum);
 		sqlSession.commit();
 	}
+
+
+	@Override
+	public List<Product> selectProductList(Long sellerNum) throws Exception {
+		return sqlSession.selectList("mapper.product.selectProductList",sellerNum);
+	}
 }

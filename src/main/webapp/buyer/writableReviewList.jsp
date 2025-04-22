@@ -32,12 +32,18 @@
 					<div class="reviewBox">
 						<img class="reviewImage" src="${prodReview.imgUrl }" alt="img">
 						<div class="reviewContent">
-							<div class="storeName">${prodReview.storeName }</div>
-							<div class="productName">${prodReview.productName }</div>
-							<div class="purchaseDate">${prodReview.orderdAt }</div>
-							<div class="writeDeadline">작성 기한: ${prodReview.deadline }</div>
+							<div class="storeName">[${prodReview.storeName }]</div>
+							<div class="productName" style="margin-top:10px">${prodReview.productName }</div>
+							<div class="purchaseDate" style="margin-top:10px">${prodReview.orderdAt }</div>
+							<div class="writeDeadline" style="margin-top:10px">작성 기한: ${prodReview.deadline }</div>
 						</div>
-						<button class="reviewButton">리뷰쓰기</button>
+						<button class="reviewButton writeReviewBtn"
+							data-store-name="${prodReview.storeName }"
+							data-product-name="${prodReview.productName }"
+							data-product-num="${prodReview.productNum }"
+							data-img-url="${prodReview.imgUrl }"
+							data-user-num="${prodReview.userNum }"> 리뷰쓰기</button>
+							
 					</div>
 					
 				</c:forEach>
@@ -51,4 +57,33 @@
 		</div>
 	</div>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	  const buttons = document.querySelectorAll(".writeReviewBtn");
+
+	  buttons.forEach(button => {
+	    button.addEventListener("click", () => {
+	      const data = {
+	        userNum: button.dataset.userNum?.trim(),
+	        productNum: button.dataset.productNum?.trim(),
+	        storeName: button.dataset.storeName?.trim(),
+	        productName: button.dataset.productName?.trim(),
+	        imgUrl: button.dataset.imgUrl?.trim()
+	      };
+
+	      const queryString = 
+	        "userNum=" + encodeURIComponent(data.userNum)+
+	        "&productNum=" + encodeURIComponent(data.productNum) +
+	        "&storeName=" + encodeURIComponent(data.storeName) +
+	        "&productName=" + encodeURIComponent(data.productName) +
+	        "&imgUrl=" + encodeURIComponent(data.imgUrl);
+
+	      const destination = `/barofarm/insertProdReview?`+ queryString;
+	      console.log("이동할 주소:", destination);
+
+	      window.location.href = destination;
+	    });
+	  });
+	});
+</script>
 </html>

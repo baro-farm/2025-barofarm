@@ -62,4 +62,5 @@ public class UserDAOImpl implements UserDAO {
 		sqlSession.delete("mapper.user.deleteAddress",addrNum);
 		sqlSession.commit();
 	}
+
 }

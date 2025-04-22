@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import dto.seller.ProdAnswer;
+import dto.seller.QuestionAnswer;
 import service.buyer.ProdQuestionService;
 import service.buyer.ProdQuestionServiceImpl;
 
@@ -36,7 +36,7 @@ public class SelectProdAnswer extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		long qaNum = Long.parseLong(request.getParameter("qaNum"));
 		ProdQuestionService service = new ProdQuestionServiceImpl();
-		ProdAnswer prodAnswer = null;
+		QuestionAnswer prodAnswer = null;
 		try {
 			prodAnswer = service.selectQuestionAnswer(qaNum);
 			if(prodAnswer != null) {

@@ -36,11 +36,12 @@ public class ProdWritableReviewList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
 		HttpSession session = request.getSession(false);
-		User user =null;
-
-		if (session != null) {
-			user = (User) session.getAttribute("user");
+		User sessionUser =null;
+		
+		if(session != null) {
+			sessionUser=(User)session.getAttribute("user");
 		}
 		
 		
@@ -48,7 +49,7 @@ public class ProdWritableReviewList extends HttpServlet {
 		List<ProdReviewVO> prodReviewList = null;
 		try {
 			
-			prodReviewList = service.selectUserWritableReviewList(user.getUserId());
+			prodReviewList = service.selectUserWritableReviewList(sessionUser.getUserId());
 			request.setAttribute("prodReviewList", prodReviewList);
 			request.getRequestDispatcher("/buyer/writableReviewList.jsp").forward(request, response);
 
