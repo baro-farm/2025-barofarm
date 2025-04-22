@@ -85,7 +85,7 @@
 	                </c:forEach>
 	            </tbody>
 	        </table>
-			<c:if test="${!isSeller }">
+			<c:if test="${isSeller eq false }">
 	        <div class="buttons">
 	            <button class="btn btn-list" onclick="location.href='insertKockFarm'">글 등록</button>
 	        </div>

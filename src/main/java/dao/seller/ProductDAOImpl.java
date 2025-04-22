@@ -10,34 +10,7 @@ import util.MybatisSqlSessionFactory;
 
 public class ProductDAOImpl implements ProductDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
-	
-	@Override
-	public void insertProductWithOptions(Product product, List<ProductOption> optionList) throws Exception {
-		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false); // autoCommit = false
 
-		try {
-			// 상품 insert
-			sqlSession.insert("mapper.product.insertProduct", product);
-
-			// 옵션이 있으면 반복 insert
-			if (optionList != null && !optionList.isEmpty()) {
-				for (ProductOption opt : optionList) {
-					opt.setProductNum(product.getProductNum()); // FK 설정
-					sqlSession.insert("mapper.product.insertProductOption", opt);
-				}
-			}
-
-			sqlSession.commit(); // ✅ 전체 성공하면 commit
-
-		} catch (Exception e) {
-			sqlSession.rollback(); // ❌ 실패 시 전체 rollback
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-	}
-
-	
 	@Override
 	public void insertProduct(Product product) throws Exception {
 		sqlSession.insert("mapper.product.insertProduct", product);
@@ -45,27 +18,47 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
+	public Product selectProduct(Long productNum) throws Exception {
+		return sqlSession.selectOne("mapper.product.selectProduct", productNum);
+	}
+
+	@Override
 	public void updateProduct(Product product) throws Exception {
+
+		System.out.println("====== Product 업데이트 시도 ======");
+		System.out.println("product.getSalesVolume() = " + product.getSalesVolume());
+
 		sqlSession.update("mapper.product.updateProduct", product);
 		sqlSession.commit();
 	}
 
 	@Override
-	public void stopProduct(Product product) throws Exception {
+	public void updateProductStatus(Product product) throws Exception {
 		sqlSession.update("mapper.product.stopProduct", product);
 		sqlSession.commit();
 	}
-	
+
 	@Override
 	public void insertProductOption(ProductOption productOption) throws Exception {
 		sqlSession.insert("mapper.product.insertProductOption", productOption);
 		sqlSession.commit();
 	}
-	
+
+	@Override
+	public List<ProductOption> selectProductOption(Long productNum) throws Exception {
+		return sqlSession.selectList("mapper.product.selectProductOption", productNum);
+	}
+
 	@Override
 	public void updateProductOption(ProductOption productOption) throws Exception {
 		sqlSession.update("mapper.product.updateProductOption", productOption);
-		sqlSession.commit();		
+		sqlSession.commit();
+	}
+
+	@Override
+	public void deleteProductOption(Long optionNum) throws Exception {
+		sqlSession.delete("mapper.product.deleteProductOption", optionNum);
+		sqlSession.commit();
 	}
 
 

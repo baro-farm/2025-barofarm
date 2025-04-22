@@ -1,14 +1,14 @@
 package dto.admin;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class AdminQuestion {
 	Long questionNum;
 	Long userNum;
 	String title;
 	String content;
-	LocalDateTime createdAt;
-	LocalDateTime updatedAt;
+	LocalDate createdAt;
+	LocalDate updatedAt;
 	String type;
 	
 	public AdminQuestion() {
@@ -56,19 +56,19 @@ public class AdminQuestion {
 		this.content = content;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public LocalDateTime getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(LocalDateTime updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 

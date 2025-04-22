@@ -7,6 +7,6 @@
 		select * from point where userNum=#{userNum}
 	</select>
 	<update id="updatePoint" parameterType="map">
-		update point set point = point + #{point} where userNum = #{userNum}
+		update point set point = point + #{point}, updatedAt = NOW() where userNum = #{userNum}
 	</update>
 </mapper>

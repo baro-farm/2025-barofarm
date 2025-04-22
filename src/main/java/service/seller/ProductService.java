@@ -6,13 +6,18 @@ import dto.seller.Product;
 import dto.seller.ProductOption;
 
 public interface ProductService {
-	void addProductWithOptions(Product product, List<ProductOption> options) throws Exception;
-	void addProduct(Product product) throws Exception;
-	void updateProduct(Product product) throws Exception;
-	void stopProduct(Product product) throws Exception;
+	void addProduct(Product product, List<ProductOption> options) throws Exception;
+	Product selectProduct(Long productNum) throws Exception;
+	void updateProduct(Product product, List<ProductOption> options) throws Exception;
+	void updateProductStatus(Product product) throws Exception;
 	void addProductOption(ProductOption productOption) throws Exception;
+	List<ProductOption> selectProductOption(Long productNum) throws Exception;
 	void updateProductOption(ProductOption productOption) throws Exception;
+<<<<<<< HEAD
 	
 	//product List
 	List<Product> selectSellerProductList(Long sellerNum) throws Exception;
+=======
+	void deleteProductOption(Long optionNum) throws Exception;
+>>>>>>> 97dae17f455da4ed5425e030cb80043191540f72
 }

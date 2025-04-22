@@ -27,7 +27,7 @@
 .subtitle { /* 컨텐츠 부제목*/
   font-size: 16px;
   color: #4d4d4d;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 tbody tr:hover {
     background-color: #FBF6EE;
@@ -58,7 +58,7 @@ tbody tr:hover {
 .table th:nth-child(3),.table th:nth-child(4),
 .table td:nth-child(3),.table td:nth-child(4) {
     text-align: right;
-    width: 80px;
+    width: 100px;
     padding-right: 20px;
 }
 
@@ -78,16 +78,20 @@ tbody tr:hover {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-
 /* 페이징 */
-.dataTables_paginate {
+#paging {
     text-align: center;
 }
 
-.paging a {
+#paging a {
+	color: black;
+	text-decoration: none;
     display: inline-flex;
     justify-content: center;
     margin: 0 5px;
     cursor: pointer;
 }
-
+#paging a:hover {
+	color: #FFB534;
+	font-weight:bold;
+}

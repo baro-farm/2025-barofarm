@@ -19,4 +19,16 @@
 	<update id="updateNotice" parameterType="notice">
 		update notice set userNum=#{userNum}, title=#{title}, content=#{content}, fixed=#{fixed} where noticeNum=#{noticeNum}
 	</update>
+	<select id="selectRecentNotices" resultType="notice">
+	  SELECT noticeNum, title, createdAt
+	  FROM notice
+	  ORDER BY createdAt DESC
+	  LIMIT 3
+	</select>
+	<select id="selectNoticeListByPage" resultType="notice">
+		select * from notice order by noticeNum desc limit #{num},10
+	</select>
+	<select id="selectNoticeCount" resultType="Integer">
+		select count(*) from notice
+	</select>
 </mapper>

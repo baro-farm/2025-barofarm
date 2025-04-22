@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import dto.User;
 import dto.seller.Advertisement;
+import service.admin.BannerService;
+import service.admin.BannerServiceImpl;
 import service.seller.AdsService;
 import service.seller.AdsServiceImpl;
 
@@ -39,10 +41,12 @@ public class AdsList extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		
 		AdsService service = new AdsServiceImpl();
-		
+		BannerService bs = new BannerServiceImpl();
 		try {
 			List<Advertisement> adsList = service.selectAdsByUserNum(user.getUserNum());
+			int bannerCnt = bs.countSellerBanner();
 			request.setAttribute("adsList", adsList);
+			request.setAttribute("bannerCnt", bannerCnt);
 			request.getRequestDispatcher("/seller/adsList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
