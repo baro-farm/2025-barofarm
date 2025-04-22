@@ -14,8 +14,8 @@ public class PointServiceImpl implements PointService {
 		return pointDAO.getPoint(userNum);
 	}
 	@Override
-	public boolean updatePoint(Integer Point, Long userNum) throws Exception {
-		return false;
+	public void updatePoint(Integer point, Long userNum) throws Exception {
+		pointDAO.updatePoint(point, userNum);
 	}
 
 }

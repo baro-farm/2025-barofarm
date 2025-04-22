@@ -97,7 +97,7 @@
 	      </div>
 	
 	      <div class="button-group">
-	        <button type="submit" class="btn btn-submit">등록하기</button>
+	        <button type="submit" class="btn btn-submit">수정</button>
 	        <button type="button" class="btn btn-cancel" onclick="location.href='kockFarmList'">취소</button>
 	      </div>
 	    </form>
