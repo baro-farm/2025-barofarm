@@ -1,5 +1,6 @@
 package vo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class QuestionVO {
@@ -8,7 +9,7 @@ public class QuestionVO {
 	Long productNum;
 	String title;
 	String content;
-	LocalDateTime createdAt;
+	LocalDate createdAt;
 	
 	//product
 	String productName;
@@ -17,6 +18,10 @@ public class QuestionVO {
 	//seller detail
 	Long sellerNum;
 	String storeName;
+	
+	//pack Question
+	Long packageNum;
+	String packageName;
 	
 	Integer answerCount;
 	
@@ -47,10 +52,10 @@ public class QuestionVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public LocalDateTime getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 	public String getProductName() {

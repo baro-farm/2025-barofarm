@@ -13,5 +13,11 @@ public interface ProductService {
 	void addProductOption(ProductOption productOption) throws Exception;
 	List<ProductOption> selectProductOption(Long productNum) throws Exception;
 	void updateProductOption(ProductOption productOption) throws Exception;
+<<<<<<< HEAD
+	
+	//product List
+	List<Product> selectSellerProductList(Long sellerNum) throws Exception;
+=======
 	void deleteProductOption(Long optionNum) throws Exception;
+>>>>>>> 97dae17f455da4ed5425e030cb80043191540f72
 }

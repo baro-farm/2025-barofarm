@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: SUIT-Regular, sans-serif;
+}
+
+body {
+    
+    margin: 20px;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+
+.content {
+	flex: 1;
+	align-self: flex-start;
+	padding: 30px 0;
+	max-width: 1000px;
+	min-width: 0;
+	margin-left: 20px;
+	margin-right: auto;
+	margin-top:35px;
+	position: relative;
+}
+
+.sideMenu {
+	position: relative;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.commentBox {
+    border-top: 1px solid #ccc;
+    padding: 15px 0;
+}
+
+.commentBox input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.commentContent {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 90%;
+}
+
+.commentText {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.commentDate {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.commentNote {
+    color: #666;
+    font-size: 13px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.footer input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.footerLeft {
+    font-size: 14px;
+}
+
+.footerRight button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.btnDelete {
+    background-color: #e74c3c;
+}
+
+.btnWrite {
+    background-color: #27ae60;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination span,
+.pagination a {
+    margin: 0 4px;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination .currentPage {
+    color: green;
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+    color: #666;
+    
+}
+a:hover{
+    color: #FFB534;
+}

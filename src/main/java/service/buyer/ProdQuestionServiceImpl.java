@@ -6,7 +6,7 @@ import java.util.List;
 import dao.buyer.ProdQuestionDAO;
 import dao.buyer.ProdQuestionDAOImpl;
 import dto.buyer.ProdQuestion;
-import dto.seller.ProdAnswer;
+import dto.seller.QuestionAnswer;
 import vo.QuestionVO;
 
 public class ProdQuestionServiceImpl implements ProdQuestionService {
@@ -30,7 +30,7 @@ public class ProdQuestionServiceImpl implements ProdQuestionService {
 	}
 
 	@Override
-	public ProdAnswer selectQuestionAnswer(Long qaNum) throws Exception {
+	public QuestionAnswer selectQuestionAnswer(Long qaNum) throws Exception {
 		// TODO Auto-generated method stub
 		return questDao.selectAnswer(qaNum);
 	}

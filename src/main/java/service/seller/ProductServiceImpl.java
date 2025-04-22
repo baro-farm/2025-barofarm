@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import dao.seller.ProductDAO;
 import dao.seller.ProductDAOImpl;
+import dao.seller.SellerDAO;
 import dto.seller.Product;
 import dto.seller.ProductOption;
 
@@ -81,5 +82,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void deleteProductOption(Long optionNum) throws Exception {
 		productDao.deleteProductOption(optionNum);
+	}
+
+	@Override
+	public List<Product> selectSellerProductList(Long sellerNum) throws Exception {
+		// TODO Auto-generated method stub
+		return productDao.selectProductList(sellerNum);
 	}
 }

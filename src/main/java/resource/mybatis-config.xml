@@ -16,8 +16,10 @@
 		<typeAlias type="dto.admin.Notice" alias="notice" />
 		<typeAlias type="dto.buyer.ProdQuestion" alias="prodQuestion" />
 		<typeAlias type="vo.QuestionVO" alias="questionVo" />
-		<typeAlias type="dto.seller.ProdAnswer" alias="prodAnswer" />
+		<typeAlias type="dto.seller.QuestionAnswer" alias="questionAnswer" />
 		<typeAlias type="dto.buyer.ProductOrder" alias="prodOrder" />
+		<typeAlias type="dto.buyer.ProdReview" alias="prodReview" />
+		<typeAlias type="vo.ProdReviewVO" alias="prodReviewVO" />
 		<typeAlias type="dto.buyer.PackageOrder" alias="packOrder" />
 		<typeAlias type="dto.buyer.ProductOrderItem" alias="prodOrderItem" />
 		<typeAlias type="vo.ProdOrderVO" alias="prodOrderVo" />
@@ -32,6 +34,9 @@
 		<typeAlias type="dto.seller.Advertisement" alias="advertisement" />
 		<typeAlias type="dto.seller.Point" alias="point" />
 		<typeAlias type="dto.seller.UsePoint" alias="usePoint" />
+		<typeAlias type="vo.MyPageSummaryVO" alias="myPageVo" />
+		<typeAlias type="vo.KockFarmVO" alias="kockFarmVo" />
+		<typeAlias type="vo.KockCommentVO" alias="kockCommentVo" />
 		<typeAlias type="dto.admin.Banner" alias="banner" />
 		<typeAlias type="util.SearchDtoSoy" alias="searchDtoSoy" />
 		<typeAlias type="dto.seller.PackageProduct" alias="packageProduct" />
@@ -44,8 +49,7 @@
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="org.mariadb.jdbc.Driver" />
-				<property name="url"
-					value="jdbc:mariadb://localhost:3306/barofarm" />
+				<property name="url" value="jdbc:mariadb://localhost:3306/barofarm" />
 				<property name="username" value="root" />
 				<property name="password" value="7564" />
 			</dataSource>
@@ -58,7 +62,9 @@
 		<mapper resource="mapper/kockFarm.xml" />
 		<mapper resource="mapper/admin/notice.xml" />
 		<mapper resource="mapper/prodQuestion.xml" />
+		<mapper resource="mapper/packQuestion.xml" />
 		<mapper resource="mapper/productOrder.xml" />
+		<mapper resource="mapper/prodReview.xml" />
 		<mapper resource="mapper/packageOrder.xml" />
 		<mapper resource="mapper/customerService.xml" />
 		<mapper resource="mapper/seller.xml" />
@@ -67,6 +73,7 @@
 		<mapper resource="mapper/advertisement.xml" />
 		<mapper resource="mapper/point.xml" />
 		<mapper resource="mapper/usePoint.xml" />
+		<mapper resource="mapper/myPageSummary.xml" />
 		<mapper resource="mapper/banner.xml" />
 		<mapper resource="mapper/packageProduct.xml" />
 		<mapper resource="mapper/shoppingCart.xml" />

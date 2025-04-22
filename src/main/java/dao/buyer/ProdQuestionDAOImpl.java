@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ProdQuestion;
-import dto.seller.ProdAnswer;
+import dto.seller.QuestionAnswer;
 import util.MybatisSqlSessionFactory;
 import vo.QuestionVO;
 
@@ -30,7 +30,7 @@ public class ProdQuestionDAOImpl implements ProdQuestionDAO {
 	}
 
 	@Override
-	public ProdAnswer selectAnswer(Long qaNum) throws Exception {
+	public QuestionAnswer selectAnswer(Long qaNum) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mapper.prodQuestion.selectAnswer",qaNum);
 	}

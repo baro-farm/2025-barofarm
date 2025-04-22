@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="dto.User" %>
+<%@ page import="vo.UserVO" %>
 
+<%
+UserVO user = (UserVO)request.getAttribute("user");
+%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>

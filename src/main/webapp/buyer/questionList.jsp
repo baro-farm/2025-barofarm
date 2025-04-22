@@ -58,53 +58,61 @@
     </script>
 </head>
 <body>
+<jsp:include page="/header/mainHeader.jsp"/>
 
 <div class="container">
-    <div class="header">상품 문의 내역</div>
-
-    <!-- 필터 섹션 -->
-    <div class="filterSection">
-        <select>
-            <option>6개월</option>
-            <option>3개월</option>
-            <option>1개월</option>
-        </select>
-        <select>
-            <option>전체</option>
-            <option>답변 완료</option>
-            <option>답변 미완료</option>
-        </select>
-    </div>
-
-    <!-- 문의 내역 반복 -->
-    <c:forEach var="question" items="${questionList }">
-    
-    <div class="question">
-        <div class="imgBox"><img src="${question.imgUrl }" alt="imgsrc"></div>
-        <div class="questionContent">
-            <div class="questionTitle"><a href="#">${question.productName }</a></div>
-            <div class="questionInfo">${question.storeName } | 문의일:${question.createdAt }</div>
-            <div class="questionText" name="content">${question.content}</div>
-            <c:choose>
-            
-            	<c:when  test="${question.answerCount>0 }">
-		            <button class="replyBtn"  data-qanum="${question.qaNum}">답변 ${question.answerCount} ▼</button>
-		            
-		            <div class="replyBox">
-		                <strong>답변</strong>
-		                <div class="questionReply"></div>
-		                <div class="questionReplyDate"></div>
-		            </div>
-	            </c:when>
-	            
-	            <c:otherwise>
-		            <button class="replyBtn">답변 0</button>
-	            </c:otherwise>
-	            
-            </c:choose>
-        </div>
-    </div>
-    </c:forEach>
+    <div class="wrapper">
+		<div class="sideMenu">
+			<jsp:include page="/header/buyerMenu.jsp" />
+		</div>
+		<div class="content">
+			
+	    	<div class="header">상품 문의 내역</div>
+	
+		    <!-- 필터 섹션 -->
+		    <div class="filterSection">
+		        <select>
+		            <option>6개월</option>
+		            <option>3개월</option>
+		            <option>1개월</option>
+		        </select>
+		        <select>
+		            <option>전체</option>
+		            <option>답변 완료</option>
+		            <option>답변 미완료</option>
+		        </select>
+		    </div>
+	
+		    <!-- 문의 내역 반복 -->
+		    <c:forEach var="question" items="${questionList }">
+			    <div class="question">
+			        <div class="imgBox"><img src="${question.imgUrl }" alt="imgsrc"></div>
+			        <div class="questionContent">
+			            <div class="questionTitle"><a href="#">${question.productName }</a></div>
+			            <div class="questionInfo">${question.storeName } | 문의일:${question.createdAt }</div>
+			            <div class="questionText" name="content">${question.content}</div>
+			            <c:choose>
+			            
+			            	<c:when  test="${question.answerCount>0 }">
+					            <button class="replyBtn"  data-qanum="${question.qaNum}">답변 ${question.answerCount} ▼</button>
+					            
+					            <div class="replyBox">
+					                <strong>답변</strong>
+					                <div class="questionReply"></div>
+					                <div class="questionReplyDate"></div>
+					            </div>
+				            </c:when>
+				            
+				            <c:otherwise>
+					            <button class="replyBtn">답변 0</button>
+				            </c:otherwise>
+				            
+			            </c:choose>
+			        </div>
+			    </div>
+		    </c:forEach>
+		</div>
+	</div>
 </div>
 <!-- toggleReply 토클버튼 ajax안쓰는 버전 -->
 <!-- 

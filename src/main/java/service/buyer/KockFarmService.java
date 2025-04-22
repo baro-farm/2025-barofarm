@@ -1,9 +1,12 @@
 package service.buyer;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import dto.buyer.KockFarm;
 import dto.buyer.Matching;
+import vo.KockCommentVO;
+import vo.KockFarmVO;
 
 public interface KockFarmService {
 	void insertKockFarm(KockFarm kockFarm) throws Exception;
@@ -13,4 +16,6 @@ public interface KockFarmService {
 	List<KockFarm> getKockFarmList() throws Exception;
 	//매칭
 	void insertMatching(Matching matching,Long kockNum) throws Exception;
+	//마이페이지 리스트
+	List<KockFarmVO> selectMyPostList(Long userNum,LocalDate startDate, Boolean isMatched) throws Exception;
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.packQuestion">
+	<select id="selectQuestionListWithPackage" parameterType="Long" resultType="questionVo">
+		select 
+			q.qaNum, q.content, q.createdAt ,p.packageNum, p.packageName, p.imgUrl, s.sellerNum, s.storeName
+		from packquestion q
+		join package p On q.packageNum = p.packageNum
+		join sellerdetail s on p.sellerNum = s.sellerNum
+		where q.userNum = #{userNum}
+		order by q.createdAt DESC
+	</select>
+	
+	<select id="selectPackAnswer" parameterType="Long" resultType="questionAnswer">
+		select qaNum,content,createdAt
+		from packanswer
+		where qaNum = #{qaNum}
+	</select>
+	
+	<select id="selectPackAnswerCount" parameterType="Long" resultType="Integer">
+		select count(*)
+		from packanswer
+		where qaNum = #{qaNum}
+	</select>
+</mapper>

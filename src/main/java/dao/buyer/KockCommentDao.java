@@ -1,9 +1,11 @@
 package dao.buyer;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.buyer.BabyComment;
 import dto.buyer.KockComment;
+import vo.KockCommentVO;
 
 public interface KockCommentDao {
 	boolean insertKockComment(KockComment kComment) throws Exception;
@@ -14,4 +16,9 @@ public interface KockCommentDao {
 	boolean insertBabyComment(BabyComment bComment) throws Exception;
 	List<BabyComment> babyCommentList(Long kcNum) throws Exception;
 	BabyComment selectBCommentByReNum(Long reNum) throws Exception;
+	
+	//마이페이지 댓글 리스트
+	List<KockCommentVO> selectAllKockCommentList(Map<String,Object>param) throws Exception;
+	Integer countAllComments(Long userNum) throws Exception;
+
 }
