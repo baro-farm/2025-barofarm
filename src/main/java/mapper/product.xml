@@ -47,7 +47,7 @@
 	    COUNT(r.reviewNum) AS reviewCount
 	  FROM product p
 	  JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	  LEFT JOIN review r ON p.productNum = r.productNum
+	  LEFT JOIN prodreview r ON p.productNum = r.productNum
 	  WHERE p.cateNum = #{cateNum}
 	  GROUP BY p.productNum
 	
@@ -81,7 +81,7 @@
 			COUNT(r.reviewNum) AS reviewCount
 		FROM product p
 		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-		LEFT JOIN review r ON p.productNum = r.productNum
+		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		GROUP BY p.productNum
 		ORDER BY p.salesVolume DESC
 		LIMIT 5
@@ -96,7 +96,7 @@
 			p.createdAt
 		FROM product p
 		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-		LEFT JOIN review r ON p.productNum = r.productNum
+		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		GROUP BY p.productNum
 		ORDER BY p.createdAt DESC
 		LIMIT 5
@@ -110,7 +110,7 @@
 	        COUNT(r.reviewNum) AS reviewCount
 	    FROM product p
 	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	    LEFT JOIN review r ON p.productNum = r.productNum
+	    LEFT JOIN prodreview r ON p.productNum = r.productNum
 	    GROUP BY p.productNum
 	    ORDER BY p.salesVolume DESC
 	    LIMIT #{start}, 20
@@ -128,7 +128,7 @@
 	        COUNT(r.reviewNum) AS reviewCount
 	    FROM product p
 	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	    LEFT JOIN review r ON p.productNum = r.productNum
+	    LEFT JOIN prodreview r ON p.productNum = r.productNum
 	    GROUP BY p.productNum
 	    ORDER BY p.createdAt DESC, productName ASC
 	    LIMIT #{start}, 20
@@ -145,7 +145,7 @@
 	    COUNT(r.reviewNum) AS reviewCount
 	  	FROM product p
 	  	JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	  	LEFT JOIN review r ON p.productNum = r.productNum
+	  	LEFT JOIN prodreview r ON p.productNum = r.productNum
 	  	WHERE p.productName LIKE CONCAT('%', #{keyword}, '%')
 	  	GROUP BY p.productNum
 	  	<choose>
