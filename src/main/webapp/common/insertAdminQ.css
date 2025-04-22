@@ -53,7 +53,7 @@ input{
     justify-content: space-between;
     margin: 20px 5px;
 }
-.backBtn {
+#backBtn {
   padding: 3px 9px;
   border-radius: 8px;
   border: 2px solid #FFB534;
@@ -70,10 +70,4 @@ input{
   font-weight: bold;
   border: none;
   cursor: pointer;
-}
-.bottom a:first-child {
-    margin-right: auto;
-}
-.bottom a:not(:first-child) {
-    margin-left: 10px;
 }
