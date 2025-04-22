@@ -1,0 +1,281 @@
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+#info {
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+#email {
+  font-size: 16px;
+  color: #ffb534;
+}
+
+#content {
+  width: calc(100vw - 220px);
+  max-width: 1280px;
+  margin: 40px auto;
+  padding-top: 80px;
+  gap: 20px;
+  padding-left: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#title {
+  font-size: 32px;
+  align-self: flex-start;
+}
+
+#form {
+  width: 100%;
+}
+
+.input_div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+#product_category {
+  height: 32px;
+  border-radius: 4px;
+}
+
+.input_div label {
+  width: 100px;
+  text-align: end;
+}
+.input_div input {
+  border-radius: 4px;
+  border: 1px solid #c2c2c2;
+  width: 240px;
+  padding: 6px 10px;
+}
+
+#product_name {
+  width: 800px;
+}
+
+.option-section {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.option-section label {
+  width: 100px;
+  text-align: end;
+}
+
+.option-inputs {
+  display: flex;
+  gap: 12px;
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+}
+
+.option-inputs input {
+  padding: 6px 10px;
+  border: 1px solid #c2c2c2;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.option-inputs button {
+  background-color: #ffb534;
+  color: white;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#option_list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 112px;
+}
+
+#option_list li {
+  margin-bottom: 6px;
+  background-color: #f9f9f9;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.edit-option-btn {
+  padding: 4px 10px;
+  background-color: #ffb534; 
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.edit-option-btn:hover {
+  background-color: #e6a42f;
+}
+
+.delete-option-btn {
+  margin-left: 4px;
+  background-color: #d72638;
+  color: white;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.delete-option-btn:hover {
+  background-color: #c1212f;
+}
+
+/* 인라인 옵션 수정 스타일 */
+.inline-edit {
+  padding: 4px;
+  margin-right: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.name-edit {
+  width: 120px;
+}
+
+.price-edit {
+  width: 80px;
+}
+
+.save-option-btn,
+.cancel-option-btn {
+  margin-right: 4px;
+  padding: 4px 10px;
+  background-color: #65b741;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cancel-option-btn {
+  background-color: #d72638;
+}
+
+
+#product_image {
+  margin-top: 6px;
+
+  padding: 8px;
+  border: 1px solid #c2c2c2;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#preview img {
+  width: 200px; /* 원하는 너비 */
+  height: auto; /* 비율 유지 */
+  margin-left: 112px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#editor_div {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+#product_content_title {
+  display: block;
+  text-align: end;
+  width: 100px;
+}
+
+#editor {
+  width: 1168px; /* stretch 대신 width 100% */
+}
+
+#update_btn {
+  width: 100px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  background-color: #ffb534;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+  /* align-content: center; */
+}
+
+#update_btn:hover {
+  background-color: #e6a42f;
+}
+
+#toggle_btn {
+  width: 120px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  background-color: #d72638;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+#toggle_btn:hover {
+  background-color: #c1212f;
+}
+
+#cancel_btn {
+  width: 80px;
+  height: 34px;
+  text-decoration: none;
+  background-color: #65b741;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+#submit {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 32px;
+}

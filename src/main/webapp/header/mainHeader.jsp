@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />    
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script>
+  const contextPath = "${contextPath}";
+</script>
 <!DOCTYPE html>
 <html>
     <!-- 로그인버튼 hover할떄 다른 디자인이 움직임 / 종버튼 알람올때 변경할지 / 종에 알림 수 입력하는거-->
@@ -25,18 +28,23 @@
 	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 	                </c:when>
 	                <c:otherwise>
-	                	<span><b>${user.userId}</b></span>
+	                	<li class="userli"><p>${user.userId}</p></li>
 	                	<li class="userli"><a href="logout" id="" class="userBtn">로그아웃</a></li>
 	                	<c:choose>
 					        <c:when test="${user.isSeller == true}">
 					          <li class="userli"><a href="sellerAdsList" class="userBtn">마이스토어</a></li>
+					          <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+	                		  <li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 					        </c:when>
-					        <c:otherwise>
-					          <li class="userli"><a href="infoForm" class="userBtn">마이페이지</a></li>
-					        </c:otherwise>
+							<c:when test="${user.userId == 'admin'}">
+							    <li class="userli"><a href="userList" class="userBtn">관리자페이지</a></li>
+							</c:when>
+							<c:otherwise>
+							    <li class="userli"><a href="infoFoam" class="userBtn">마이페이지</a></li>
+							    <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+	                			<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
+							</c:otherwise>
 					      </c:choose>
-		                <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
-	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 	                </c:otherwise>
              	</c:choose>
             </ul>
@@ -44,23 +52,23 @@
         <!-- 헤더 -->
         <header class="headerMenu">
             <div class="headerlogo">
-                <a href="main.jsp">
+                <a href="main">
                     <img src="https://i.ibb.co/zH5kPJNt/barologo1.png" alt="barologo1" border="0" class="logo">
                 </a>
             </div>
             <div class="navMenu">
                 <ul class="navMenuUl">
-                    <li class="headerli"><a href="#" class="headerBtn" id="new">신제품</a></li>
-                    <li class="headerli"><a href="#" class="headerBtn" id="best">베스트</a></li>
+                    <li class="headerli"><a href="newProductList" class="headerBtn" id="new">신제품</a></li>
+                    <li class="headerli"><a href="bestProductList" class="headerBtn" id="best">베스트</a></li>
                     <li class="headerli"><a href="#" class="headerBtn" id="package">꾸러미</a></li>
                     <li class="headerli"><a href="kockFarmList" class="headerBtn" id="kockFarm">콕팜</a></li>
                     <li class="headerli"><a href="adminQAList" class="headerBtn" id="kockFarm">문의하기</a></li>
-                    <li class="headerli"><a href="noticeListView" class="headerBtn" id="notice">공지사항</a></li>
+                    <li class="headerli"><a href="userNoticeList" class="headerBtn" id="notice">공지사항</a></li>
                 </ul>
             </div>
             <div class="searchBox">
-                <input type="text" placeholder="검색어 입력">
-                <button>
+                <input type="text" name="keyword" id="headerSearchInput" value="${param.keyword}" placeholder="검색어 입력">
+                <button id="headerSearchBtn">
                     <i class="bi bi-search"></i>
                 </button>
             </div>
@@ -68,4 +76,34 @@
         <hr>
         </div>
  </body>
+ <script>
+	document.addEventListener("DOMContentLoaded", function () {
+	  const input = document.getElementById("headerSearchInput");
+	  const button = document.getElementById("headerSearchBtn");
+	
+	  // 1. 버튼 클릭 시 이동
+	  button.addEventListener("click", () => {
+	    search();
+	  });
+	
+	  // 2. Enter 키 눌렀을 때 이동
+	  input.addEventListener("keydown", (e) => {
+	    if (e.key === "Enter") {
+	      search();
+	    }
+	  });
+	
+	  function search() {
+	    const keyword = input.value.trim();
+	    if (keyword === "") {
+	      alert("검색어를 입력해주세요!");
+	      return;
+	    }
+	
+	    const keyword = encodeURIComponent(keyword);
+	    location.href = `${contextPath}/searchProductList?keyword=${keyword}&page=1`;
+	  }
+	});
+</script>
+ 
 </html>
