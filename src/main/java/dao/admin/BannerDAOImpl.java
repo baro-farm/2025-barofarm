@@ -36,4 +36,9 @@ public class BannerDAOImpl implements BannerDAO{
 		sqlSession.commit();
 	}
 
+	@Override
+	public int countSellerBanner() throws Exception {
+		return sqlSession.selectOne("mapper.banner.countSellerBanner");
+	}
+
 }

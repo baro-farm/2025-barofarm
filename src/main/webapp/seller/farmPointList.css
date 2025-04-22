@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+body {
+	flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+    flex: 1;
+    align-self: flex-start;
+    padding: 30px 0;
+    max-width: 1000px;
+    min-width: 0;
+    margin-left: 20px;
+    margin-right: auto;
+  	position: relative;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+/*제목*/
+.title { /* 컨텐츠 제목*/
+  color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.subtitle { /* 컨텐츠 부제목*/
+  font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 60px;
+}
+tbody tr:hover {
+    background-color: #FBF6EE;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    font-size: 14px;
+    text-align: left;
+}
+
+.table th:nth-child(1),.table td:nth-child(1){
+    width: 25px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.table th:nth-child(2),.table td:nth-child(2){
+    width: 60px;
+    text-align: center;
+}
+
+.table th:nth-child(3),.table td:nth-child(3){
+    padding-left: 20px;
+}
+
+.table th:nth-child(4),.table th:nth-child(5),
+.table td:nth-child(4),.table td:nth-child(5) {
+    text-align: right;
+    width: 80px;
+    padding-right: 20px;
+}
+
+/* 오버플로우 방지 */
+.table td:nth-child(3) {
+    max-width: 200px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .table td:nth-child(3) a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+.statusPending {
+    color: #a1a1a1;
+}
+
+.point-header {
+    display: flex;
+    justify-content: space-between;
+}
+.point-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    margin: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.point-label {
+    font-weight: bold;
+    color: #65B741;
+    font-size: 18px;
+}
+
+.point-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.charge-btn {
+    background: #65B741;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.charge-btn:hover {
+    background-color: #579d39;
+}
+.subscribe-box {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+}
+
+.subscribe-btn {
+    background: #D72638;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.subscribe-btn:hover {
+    background-color: #c1212f;
+}
+.subscribed-btn {
+    background: #FFB534;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.subscribed-btn:hover {
+    background-color: #e6a42f;
+}
+
+.question-icon {
+    padding: 4px 4px;
+    border: 2px solid #D72638;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4px;
+    margin-top: 6px;
+}
+
+
+.history-section {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+    cursor: pointer !important; /* 정렬 활성화 */
+}
+.point-date{
+    display: flex;
+    align-items: center;
+}
+
+.status {
+    padding: 4px 4px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.use {
+    color: #D72638;
+    border: 2px solid #D72638;
+}
+
+.charge {
+    color: #65B741;
+    border: 2px solid #65B741;
+}
+
+.minus {
+    color: #D72638;
+    font-weight: bold;
+}
+
+.plus {
+    color: #65B741;
+    font-weight: bold;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.page, .prev, .next {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.page.active {
+    font-weight: bold;
+    color: #FFB534;
+}

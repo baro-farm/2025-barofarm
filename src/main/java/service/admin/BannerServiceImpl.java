@@ -28,4 +28,8 @@ public class BannerServiceImpl implements BannerService {
 	public void insertBannerBySellerAds(Banner banner) throws Exception {
 		bannerDAO.insertBannerBySellerAds(banner);
 	}
+	@Override
+	public int countSellerBanner() throws Exception {
+		return bannerDAO.countSellerBanner();
+	}
 }

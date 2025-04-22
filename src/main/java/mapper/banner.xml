@@ -16,11 +16,16 @@
   		INSERT INTO banner VALUES (NULL, #{adsNum}, #{title}, #{imgUrl}, #{targetUrl} ,NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY) ,1,#{userNum}  )
 	</insert>
 	<update id="updateExpiredBannerIsPosted">
-	  UPDATE banner
-	  SET isPosted = 0
-	  WHERE endDate &lt; NOW()
-	  AND isPosted = 1
-	  AND adsNum IS NOT NULL
+		UPDATE banner
+		SET isPosted = 0
+		WHERE endDate &lt; NOW()
+		AND isPosted = 1
+		AND adsNum IS NOT NULL
 	</update>
-		  
+	<select id="countSellerBanner" resultType="int">
+		SELECT COUNT(*) 
+		FROM banner 
+		WHERE isPosted = TRUE 
+		AND adsNum IS NOT NULL;
+	</select>
 </mapper>

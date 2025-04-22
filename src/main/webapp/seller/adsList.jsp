@@ -68,7 +68,12 @@
 	
 	            <div class="subscribe-box">
 	                <span class="question-icon">❓</span>
-	                <button class="btn-apply" onclick="location.href='${contextPath}/insertAdsBySeller'">📢 광고 신청하기</button>
+	                <c:if test="${bannerCnt <5 }">
+       	                <button class="btn-apply" onclick="location.href='${contextPath}/insertAdsBySeller'">📢 광고 신청하기</button>
+	                </c:if>
+	                <c:if test="${bannerCnt >=5 }">
+	                	광고 마감입니다.
+	                </c:if>
 	            </div>
 	        </div>
 	
