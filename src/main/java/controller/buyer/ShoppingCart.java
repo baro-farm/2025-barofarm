@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.User;
+import dto.buyer.CartProductGroup;
 import dto.buyer.ShoppingCartItem;
 import service.buyer.ShoppingCartService;
 import service.buyer.ShoppingCartServiceImpl;
@@ -52,11 +53,38 @@ public class ShoppingCart extends HttpServlet {
             List<ShoppingCartItem> cartList = cartService.selectCartByUser(userNum);
 //            request.setAttribute("cartList", cartList);
             
-            Map<String, List<ShoppingCartItem>> cartMap = new LinkedHashMap<>();
+            Map<String, List<CartProductGroup>> cartMap = new LinkedHashMap<>();
 
             for (ShoppingCartItem item : cartList) {
                 String store = item.getStoreName();
-                cartMap.computeIfAbsent(store, k -> new ArrayList<>()).add(item);
+//                cartMap.computeIfAbsent(store, k -> new ArrayList<>()).add(item);
+                Long productNum = item.getProductNum();
+                
+                List<CartProductGroup> storeProducts = cartMap.computeIfAbsent(store, k -> new ArrayList<>());
+                
+                // 상품이 이미 존재하는지 확인
+                CartProductGroup existingProduct = null;
+                for (CartProductGroup group : storeProducts) {
+                    if (group.getProductNum().equals(productNum)) {
+                        existingProduct = group;
+                        break;
+                    }
+                }
+
+                // 없으면 새로 추가
+                if (existingProduct == null) {
+                    existingProduct = new CartProductGroup();
+                    existingProduct.setProductNum(productNum);
+                    existingProduct.setProductName(item.getProductName());
+                    existingProduct.setImgUrl(item.getImgUrl());
+                    existingProduct.setBasePrice(item.getPrice());
+                    existingProduct.setStoreName(store);
+                    existingProduct.setOptions(new ArrayList<>());
+                    storeProducts.add(existingProduct);
+                }
+
+                // 옵션 추가
+                existingProduct.getOptions().add(item);
             }
             request.setAttribute("cartMap", cartMap);
 
