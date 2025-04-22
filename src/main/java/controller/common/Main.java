@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.admin.AdminQuestion;
+import dto.admin.Banner;
 import dto.admin.Notice;
 import service.UserProductService;
 import service.UserProductServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
+import service.admin.BannerService;
+import service.admin.BannerServiceImpl;
 import service.admin.NoticeService;
 import service.admin.NoticeServiceImpl;
 import vo.ProductVO;
@@ -41,6 +44,7 @@ public class Main extends HttpServlet {
 		NoticeService nservice = new NoticeServiceImpl();
 		UserService uservice = new UserServiceImpl();
 		UserProductService pservice = new UserProductServiceImpl();
+		BannerService bservice = new BannerServiceImpl();
 
 		try {
 			// 베스트 TOP 5
@@ -55,7 +59,12 @@ public class Main extends HttpServlet {
 			// 문의하기
 			List<AdminQuestion> adminQA = uservice.recentAdminQA();
 			request.setAttribute("adminQA", adminQA);
+			//메인배너 상태 변경
+			bservice.updateExpiredBannerIsPosted();
+			List<Banner> bannerList = bservice.selectBannerByIsPosted();
+			request.setAttribute("bannerList", bannerList);
 			
+
 			request.getRequestDispatcher("main.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
