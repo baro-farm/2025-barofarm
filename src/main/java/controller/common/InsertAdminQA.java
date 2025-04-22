@@ -13,16 +13,16 @@ import service.UserService;
 import service.UserServiceImpl;
 
 /**
- * Servlet implementation class InsertAdminQ
+ * Servlet implementation class InsertAdminQA
  */
-@WebServlet("/insertAdminQ")
-public class InsertAdminQ extends HttpServlet {
+@WebServlet("/insertAdminQA")
+public class InsertAdminQA extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertAdminQ() {
+    public InsertAdminQA() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,11 +47,11 @@ public class InsertAdminQ extends HttpServlet {
 		String content = request.getParameter("content");
 		String type = request.getParameter("type");
 		
-		AdminQuestion adminQ = new AdminQuestion(userNum,title,content,type);
+		AdminQuestion adminQA = new AdminQuestion(userNum,title,content,type);
 		
 		try {
 			 UserService service = new UserServiceImpl();
-			 service.insertAdminQ(adminQ);
+			 service.writeAdminQA(adminQA);
 			 
 			 response.sendRedirect("adminQAList");
 		}catch (Exception e) {

@@ -1,45 +1,106 @@
-/* 아이디 중복 확인 */
+let isIdChecked = false;
+let isStoreChecked = false;
+
 $(function() {
-		$("#doubldId").click(function(e) {
+	/* 아이디 중복 확인 */
+	$("#doubleId").click(function(e) {
+		e.preventDefault();
+		
+		const userid = $("#userId").val();
+		if (!userid) {
+        	alert("아이디를 입력해주세요.");
+           	return;
+        }
+			
+		$.ajax({
+			url:'doubleIdCheck',
+			type:'post',
+			async:true,
+			dataType:'text',
+			data:{userid:$("#userId").val()},
+			success:function(result) {
+				if (result === "true") {
+					$("#idCheckResult").text("이미 사용 중인 아이디입니다.");
+					isIdChecked = false;
+				} else {
+				    $("#idCheckResult").text("사용 가능한 아이디입니다!");
+				    isIdChecked = true;
+				}
+			},
+			error:function(err) {
+				console.log(err);
+				alert("중복 확인 요청 실패.");
+			}	
+		})
+	})
+	
+	$("#userId").on("input", function () {
+    	isIdChecked = false;
+    	$("#idCheckResult").text("중복확인을 다시 해주세요.");
+  	});
+  	
+  	/* 스토어명 중복 확인 */
+  	$("#doubleStoreName").click(function(e) {
 			e.preventDefault();
 			
-			const userid = $("#userId").val();
+			const storeName = $("#storeName").val();
 			
-			if (!userid) { // 아이디가 입력되지 않은 경우 처리
-            	alert("아이디를 입력해주세요.");
+			if (!storename) {
+            	alert("스토어명을 입력해주세요.");
             	return;
             }
 			
 			$.ajax({
-				url:'userDoubleId',
+				url:'doubleStoreNameCheck',
 				type:'post',
 				async:true,
 				dataType:'text',
-				data:{userid:$("#userId").val()},
+				data:{storeName: storeName},
 				success:function(result) {
-					if(result==='true') {
-						alert("사용 중인 아이디입니다.")
-					} else if(result==='false'){
-						alert("사용 가능한 아이디입니다.")
-					}else {
-						alert(result);
-					}
+					if (result === "true") {
+				      $("#storeNameCheckResult").text("이미 사용 중인 스토어명입니다.");
+				      isStoreChecked = false;
+				    } else {
+				      $("#storeNameCheckResult").text("사용 가능한 스토어명입니다!");
+				      isStoreChecked = true;
+				    }
 				},
 				error:function(err) {
 					console.log(err);
 					alert("중복 확인 요청 실패.");
 				}
 			})
-		})
-	})	
+	})
 	
+	$("#storeName").on("input", function () {
+    	isStoreChecked = false;
+    	$("#storeNameCheckResult").text("중복확인을 다시 해주세요.");
+  	});
+})
+
+// 가입 시 검증 함수
+function validateJoin() {
+  const isSeller = $("input[name='isSeller']:checked").val() === "true";
+
+  if (!isIdChecked) {
+    alert("아이디 중복확인을 해주세요.");
+    return false;
+  }
+
+  if (isSeller && !isStoreChecked) {
+    alert("스토어명 중복확인을 해주세요.");
+    return false;
+  }
+
+  return true;
+}
+
 /* 판매자 가입 시 스토어명, 사업자번호 필수 입력 */
 document.addEventListener("DOMContentLoaded", function () {
     const isSellerRadios = document.querySelectorAll('input[name="isSeller"]');
     const sellerFields = document.getElementById("sellerFields");
     const sellerInputs = sellerFields.querySelectorAll("input");
 
-    // 라디오 버튼 변경 이벤트 처리
     isSellerRadios.forEach(function (radio) {
         radio.addEventListener("change", function () {
             if (radio.value === "true") {
@@ -56,7 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 기본적으로 구매자 가입이 선택되어 있으므로 초기화
     if (isSellerRadios[0].checked) {
         sellerFields.classList.remove("visible");
         sellerInputs.forEach(function (input) {
