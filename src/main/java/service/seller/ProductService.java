@@ -1,6 +1,7 @@
 package service.seller;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.seller.Product;
 import dto.seller.ProductOption;
@@ -13,11 +14,12 @@ public interface ProductService {
 	void addProductOption(ProductOption productOption) throws Exception;
 	List<ProductOption> selectProductOption(Long productNum) throws Exception;
 	void updateProductOption(ProductOption productOption) throws Exception;
-<<<<<<< HEAD
-	
+
 	//product List
 	List<Product> selectSellerProductList(Long sellerNum) throws Exception;
-=======
+	void updateProductStock(Long productNum, Integer stock) throws Exception;
+	void updateSellerProductStatus(List<Map<String, Object>> productList) throws Exception;
+	
 	void deleteProductOption(Long optionNum) throws Exception;
->>>>>>> 97dae17f455da4ed5425e030cb80043191540f72
+	
 }

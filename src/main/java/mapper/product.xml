@@ -28,12 +28,37 @@
 	</update>
 	
 	<!-- product List -->
-	<select id="selectProductList" parameterType="long" resultType="product">
-		select p.* , c.name
+	<select id="selectProductList" parameterType="long" resultType="productVo">
+		select p.productNum, p.sellerNum, p.productName,p.status, 
+		p.stock, p.price, p.imgUrl, p.createdAt, p.salesVolume,
+		c.name as cateName, COALESCE(AVG(r.pdRating), 0) AS avgRating
 		from product p
 		join category c on p.cateNum = c.cateNum
-		where sellerNum = #{sellerNum}
+		left join prodreview r on p.productNum = r.productNum
+		where p.sellerNum = #{sellerNum}
+		group by p.productNum
 	</select>
+	
+	<update id="updateProductStock" parameterType="map">
+		update product set stock = #{stock}
+		where productNum = #{productNum}
+	</update>
+	
+	<update id="updateProductStatusBatch" parameterType="list">
+	 	UPDATE product
+	    SET status = CASE productNum
+	        <foreach collection="list" item="item">
+	            WHEN #{item.productNum} THEN #{item.status}
+	        </foreach>
+	    END
+	    WHERE productNum IN
+	    <foreach collection="list" item="item" open="(" separator="," close=")">
+	        #{item.productNum}
+	    </foreach>
+	</update>
+	
+	
+	<!-- end of Product List -->
 	
 	<delete id="deleteProductOption" parameterType="Long">
 		delete from productOption where optionNum=#{optionNum}
@@ -47,7 +72,7 @@
 	    COUNT(r.reviewNum) AS reviewCount
 	  FROM product p
 	  JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	  LEFT JOIN review r ON p.productNum = r.productNum
+	  LEFT JOIN prodreview r ON p.productNum = r.productNum
 	  WHERE p.cateNum = #{cateNum}
 	  GROUP BY p.productNum
 	
@@ -81,7 +106,7 @@
 			COUNT(r.reviewNum) AS reviewCount
 		FROM product p
 		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-		LEFT JOIN review r ON p.productNum = r.productNum
+		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		GROUP BY p.productNum
 		ORDER BY p.salesVolume DESC
 		LIMIT 5
@@ -96,7 +121,7 @@
 			p.createdAt
 		FROM product p
 		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-		LEFT JOIN review r ON p.productNum = r.productNum
+		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		GROUP BY p.productNum
 		ORDER BY p.createdAt DESC
 		LIMIT 5
@@ -110,7 +135,7 @@
 	        COUNT(r.reviewNum) AS reviewCount
 	    FROM product p
 	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	    LEFT JOIN review r ON p.productNum = r.productNum
+	    LEFT JOIN prodreview r ON p.productNum = r.productNum
 	    GROUP BY p.productNum
 	    ORDER BY p.salesVolume DESC
 	    LIMIT #{start}, 20
@@ -128,7 +153,7 @@
 	        COUNT(r.reviewNum) AS reviewCount
 	    FROM product p
 	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	    LEFT JOIN review r ON p.productNum = r.productNum
+	    LEFT JOIN prodreview r ON p.productNum = r.productNum
 	    GROUP BY p.productNum
 	    ORDER BY p.createdAt DESC, productName ASC
 	    LIMIT #{start}, 20
@@ -145,7 +170,7 @@
 	    COUNT(r.reviewNum) AS reviewCount
 	  	FROM product p
 	  	JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	  	LEFT JOIN review r ON p.productNum = r.productNum
+	  	LEFT JOIN prodreview r ON p.productNum = r.productNum
 	  	WHERE p.productName LIKE CONCAT('%', #{keyword}, '%')
 	  	GROUP BY p.productNum
 	  	<choose>

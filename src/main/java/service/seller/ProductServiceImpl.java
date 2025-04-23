@@ -1,6 +1,8 @@
 package service.seller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import dao.seller.ProductDAO;
@@ -88,5 +90,19 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> selectSellerProductList(Long sellerNum) throws Exception {
 		// TODO Auto-generated method stub
 		return productDao.selectProductList(sellerNum);
+	}
+
+	@Override
+	public void updateProductStock(Long productNum, Integer stock) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("productNum", productNum);
+		param.put("stock", stock);
+		productDao.updateProductStock(param);
+		
+	}
+
+	@Override
+	public void updateSellerProductStatus(List<Map<String, Object>> productList) throws Exception {
+		productDao.updateProductStatusBatch(productList);
 	}
 }
