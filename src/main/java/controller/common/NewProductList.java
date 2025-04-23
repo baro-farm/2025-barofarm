@@ -33,9 +33,11 @@ public class NewProductList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
 		String pageStr = request.getParameter("page");
-		int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
-		PageInfo pageInfo = new PageInfo(page);
+		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
+		PageInfo pageInfo = new PageInfo(curPage, 20);
 
 		UserProductService service = new UserProductServiceImpl();
 

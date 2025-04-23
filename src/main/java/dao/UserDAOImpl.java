@@ -1,6 +1,8 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -55,6 +57,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public Integer selectAdminQACount() throws Exception {
 		return sqlSession.selectOne("mapper.adminQuestion.selectAdminQACount");
+	}
+
+	@Override
+	public String findId(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.user.findId", param);
 	}
 
 	
