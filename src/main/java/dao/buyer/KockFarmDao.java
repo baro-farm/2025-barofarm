@@ -6,6 +6,7 @@ import java.util.Map;
 
 import dto.buyer.KockFarm;
 import dto.buyer.Matching;
+import util.SearchDtoSoy;
 import vo.KockCommentVO;
 import vo.KockFarmVO;
 
@@ -14,7 +15,8 @@ public interface KockFarmDao {
 	KockFarm selectKockFarm(Long kockNum) throws Exception;
 	void updateKockFarm(KockFarm kockFarm);
 	void deleteKockFarm(Long kockNum) throws Exception;
-	List<KockFarm> getKockFarmList() throws Exception;
+	List<KockFarm> selectKFBySearchDto(SearchDtoSoy dto) throws Exception;
+	int countKFBySearchDto(SearchDtoSoy dto) throws Exception;
 	//매칭
 	void insertMatching(Matching matching) throws Exception;
 	void updateKockMatched(Long kockNum) throws Exception;

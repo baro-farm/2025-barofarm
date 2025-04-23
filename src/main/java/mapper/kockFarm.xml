@@ -22,14 +22,64 @@
 	<delete id="deleteKockFarm" parameterType="Long">
 		delete from kockFarm where kockNum=#{kockNum}
 	</delete>
-	<select id="getKockFarmList" resultType="kockFarm">
+	<select id="selectKFBySearchDto" resultType="kockFarm" parameterType="searchDtoSoy">
 		SELECT k.*, u.userName, c.name 
 		FROM kockfarm k 
 		JOIN user u ON k.userNum=u.userNum
 		JOIN category c on k.cateNum=c.cateNum
-		ORDER BY k.createdAt DESC;
+	  <where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'title'">
+	          k.title LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	        <when test="searchType == 'content'">
+	          k.content LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+	
+	    <!-- 📅 날짜 검색 조건 -->
+	    <if test="startDateFrom != null and startDateFrom != ''">
+		  AND Date(k.createdAt) &gt;= #{startDateFrom}
+		</if>
+		<if test="startDateTo != null and startDateTo != ''">
+		  AND Date(k.createdAt) &lt;= #{startDateTo}
+		</if>
+	    <!-- 👤 특정 유저 광고만 조회할 경우 -->
+
+	  </where>
+	  ORDER BY k.createdAt DESC
+	  LIMIT #{recordSize} OFFSET #{offset}
 	</select>
 	
+	<select id="countKFBySearchDto" resultType="int" parameterType="searchDtoSoy">
+		SELECT count(*)
+		FROM kockfarm k 
+		JOIN user u ON k.userNum=u.userNum
+		JOIN category c on k.cateNum=c.cateNum
+	  <where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'title'">
+	          k.title LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	        <when test="searchType == 'content'">
+	          k.content LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+	    <!-- 📅 날짜 검색 조건 -->
+	    <if test="startDateFrom != null and startDateFrom != ''">
+	      AND Date(k.createdAt) &gt;= #{startDateFrom}
+	    </if>
+	    <if test="startDateTo != null and startDateTo != ''">
+	  	  AND Date(k.createdAt) &lt;= #{startDateTo}
+	    </if>
+	  </where>
+	</select>
 	<!-- 콕팜 댓글 -->
 	<insert id="insertKockComment" parameterType="kockComment" useGeneratedKeys="true" keyProperty="kcNum">
 		INSERT INTO kockcomment VALUES(NULL,#{kockNum},#{userNum},NULL,#{content});

@@ -12,58 +12,68 @@
 </head>
 <body>
 <div class="main">
-	<c:import url="/header/mainHeader.jsp" />
-
-	<div class="container">
-	  <div class="header">
-	    <h2>광고 신청하기</h2>
-	    <div class="points">                         
-			<div class="amount" id="pointAmount" data-point="${point}">${point}P</div>
-  			<div class="notice" id="pointNotice">포인트가 부족합니다. 광고 신청을 원하시면 포인트를 충전하세요.</div>
-	    </div>
-	  </div>
-	
-	  <form method="post" action="insertAdsBySeller" enctype="multipart/form-data">
-	    <div class="form-group">
-	      <div class="form-row">
-	        <label for="title">제목</label>
-	        <input type="text" name="title" required="required"/>
-	      </div>
-	      <div class="form-row">
-	        <label for="productName">상품명</label>
-	        <input type="text" name="productName" required="required"/>
-	      </div>
-	    </div>
-	
-	    <div class="form-group">
-	      <div class="form-row">
-	        <label>작성자</label>
-	        <input type="text" value="${userName}" readonly="readonly"/>
-	      </div>
-	      <div class="form-row">
-	        <label for="productUrl">상품 링크</label>
-	        <input type="text" name="productUrl" required="required"/>
-	      </div>
-	    </div>
-	    <div class="form-row">
-	      <label for="imgUrl">파일첨부</label>
-	      <input type="file" accept="image/*" name="imgUrl" id="ifile" style="display:none" required="required" onchange="readURL(this);"/>
-<!-- 	      <button type="button" class="upload-btn" onclick="document.getElementById('ifile').click()">업로드</button> -->	      
-		  <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="100px" 
-					onclick="document.getElementById('ifile').click();"/> 	
-	    </div>
-	
-	    <div class="form-row">
-	      <label for="content">내용</label>
-	      <textarea name="content" required="required"></textarea>
-	    </div>
-	
-	
-	    <div class="buttons">
-	      <button class="btn btn-list" id="submitBtn">글 등록</button>
-	      <button class="btn btn-delete" onclick="location.href = '${contextPath}/sellerAdsList'">취소</button>
-	  </div>
-	  </form>
+	<div class="wrapper">
+		<div class="sidebar">
+				<jsp:include page="/header/sellerHeader.jsp" />
+        </div>	
+        <header id="header">
+	        <div id="info">
+	            <span id="email">kosta@kosta.com</span>
+	            <span>내 정보</span>
+	            <span>로그아웃</span>
+	        </div>
+	    </header>	    
+		<div class="content">
+		  <div class="content-header">
+		    <h2>광고 신청하기</h2>
+		    <div class="points">                         
+				<div class="amount" id="pointAmount" data-point="${point}">${point}P</div>
+	  			<div class="notice" id="pointNotice">포인트가 부족합니다. 광고 신청을 원하시면 포인트를 충전하세요.</div>
+		    </div>
+		  </div>
+		
+		  <form method="post" action="insertAdsBySeller" enctype="multipart/form-data">
+		    <div class="form-group">
+		      <div class="form-row">
+		        <label for="title">제목</label>
+		        <input type="text" name="title" required="required"/>
+		      </div>
+		      <div class="form-row">
+		        <label for="productName">상품명</label>
+		        <input type="text" name="productName" required="required"/>
+		      </div>
+		    </div>
+		
+		    <div class="form-group">
+		      <div class="form-row">
+		        <label>작성자</label>
+		        <input type="text" value="${userName}" readonly="readonly"/>
+		      </div>
+		      <div class="form-row">
+		        <label for="productUrl">상품 링크</label>
+		        <input type="text" name="productUrl" required="required"/>
+		      </div>
+		    </div>
+		    <div class="form-row">
+		      <label for="imgUrl">파일첨부</label>
+		      <input type="file" accept="image/*" name="imgUrl" id="ifile" style="display:none" required="required" onchange="readURL(this);"/>
+	<!-- 	      <button type="button" class="upload-btn" onclick="document.getElementById('ifile').click()">업로드</button> -->	      
+			  <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="100px" 
+						onclick="document.getElementById('ifile').click();"/> 	
+		    </div>
+		
+		    <div class="form-row">
+		      <label for="content">내용</label>
+		      <textarea name="content" required="required"></textarea>
+		    </div>
+		
+		
+		    <div class="buttons">
+		      <button class="btn btn-list" id="submitBtn">글 등록</button>
+		      <button class="btn btn-delete" onclick="location.href = '${contextPath}/sellerAdsList'">취소</button>
+		  </div>
+		  </form>
+		</div>
 	</div>
 </div>
 

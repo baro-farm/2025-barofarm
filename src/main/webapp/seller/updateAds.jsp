@@ -12,9 +12,19 @@
 </head>
 <body>
 <div class="main">
-	<c:import url="/header/mainHeader.jsp" />
-	  <div class="container">
-	    <div class="header">
+	<div class="wrapper">
+		<div class="sidebar">
+				<jsp:include page="/header/sellerHeader.jsp" />
+        </div>	
+        <header id="header">
+	        <div id="info">
+	            <span id="email">kosta@kosta.com</span>
+	            <span>내 정보</span>
+	            <span>로그아웃</span>
+	        </div>
+	    </header>	    
+		<div class="content">
+		  <div class="content-header">
 	        <h2>광고 신청 수정하기</h2>
 	        <div class="points">
 	          <div class="notice">배너 이미지 크기는 1280x850픽셀 ±10픽셀 이내여야 합니다.</div>
@@ -66,12 +76,13 @@
 	      </div>
 	
 	
-	      <div class="buttons">
+	      	<div class="buttons">
 	        <button type="submit" class="btn btn-list">글 등록</button>
 	        <button type="button" class="btn btn-delete" onclick="location.href='sellerAdsList'">취소</button>
-	    </div>
+	    	</div>
 	    </form>
-	  </div>
+	  	</div>
+	</div>
 </div>
 <script>
 	function readURL(input) {
