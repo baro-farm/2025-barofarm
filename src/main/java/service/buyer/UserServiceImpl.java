@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
 		userDao.updateUser(user);
 	}
 	
-	public void insertUserAddress(Address address,String userId) throws Exception{
-		userDao.insertAddress(address, userId);
+	public void insertUserAddress(Address address) throws Exception{
+		userDao.insertAddress(address);
 	}
 
 	@Override
