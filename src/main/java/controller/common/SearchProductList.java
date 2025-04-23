@@ -39,16 +39,13 @@ public class SearchProductList extends HttpServlet {
 		String pageStr = request.getParameter("page");
 		String sort = request.getParameter("sort");
 		
-		int page = 1;
-		if (pageStr != null && !pageStr.trim().equals("")) {
-		    page = Integer.parseInt(pageStr);
-		}
+		int curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
 		
 		if (sort == null || sort.trim().equals("")) {
-		    sort = "createdAt";
+		    sort = "salesVolume";
 		}
 
-		PageInfo pageInfo = new PageInfo(page);
+		PageInfo pageInfo = new PageInfo(curPage, 20);
 		UserProductService service = new UserProductServiceImpl();
 
 		try {
