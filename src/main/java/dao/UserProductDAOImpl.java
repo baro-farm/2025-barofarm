@@ -32,23 +32,13 @@ public class UserProductDAOImpl implements UserProductDAO{
 	}
 
 	@Override
-	public List<ProductVO> selectBestProductsByPage(Integer start) throws Exception {
-		return sqlSession.selectList("mapper.product.selectBestProductsByPage", start);
+	public List<ProductVO> selectBestProductByPage() throws Exception {
+		return sqlSession.selectList("mapper.product.selectBestProductsByPage");
 	}
 
 	@Override
-	public Integer countBestProducts() throws Exception {
-		return sqlSession.selectOne("mapper.product.countBestProducts");
-	}
-
-	@Override
-	public List<ProductVO> selectNewProductsByPage(Integer start) throws Exception {
-		return sqlSession.selectList("mapper.product.selectNewProductsByPage", start);
-	}
-
-	@Override
-	public Integer countNewProducts() throws Exception {
-		return sqlSession.selectOne("mapper.product.countNewProducts");
+	public List<ProductVO> selectNewProductByPage() throws Exception {
+		return sqlSession.selectList("mapper.product.selectNewProductsByPage");
 	}
 
 	@Override

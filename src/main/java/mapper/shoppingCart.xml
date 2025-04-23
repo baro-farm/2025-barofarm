@@ -4,26 +4,64 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.shoppingCart">
+	<select id="selectCartByUser" parameterType="Long"
+		resultType="shoppingCartItem">
+		SELECT
+		sc.cartNum,
+		p.productNum,
+		p.productName,
+		p.imgUrl,
+		p.price,
+		po.optionNum,
+		po.option,
+		po.price AS optionPrice,
+		sc.quantity,
+		((p.price + po.price) * sc.quantity) AS totalPrice,
+		s.storeName
+		FROM
+		shoppingcart sc
+		JOIN productoption po ON sc.optionNum = po.optionNum
+		JOIN product p ON po.productNum = p.productNum
+		JOIN sellerdetail s ON
+		sc.sellerNum = s.sellerNum
+		WHERE sc.userNum = #{userNum}
+		ORDER BY
+		sc.createdAt DESC
+	</select>
+	<select id="selectCartOptionsByProduct" parameterType="Long"
+		resultType="shoppingCartItem">
+		SELECT sc.cartNum, po.optionNum, po.option, sc.quantity,
+		po.price
+		FROM shoppingcart sc
+		JOIN productoption po ON sc.optionNum =
+		po.optionNum
+		WHERE po.productNum = #{productNum}
+	</select>
+	<update id="updateCartOption" parameterType="map">
+		UPDATE shoppingcart
+		SET optionNum = #{newOptionNum},
+		quantity = #{newQuantity}
+		WHERE cartNum
+		= #{cartNum}
+	</update>
+	<update id="updateCartQuantity" parameterType="map">
+		UPDATE shoppingcart
+		SET quantity = #{quantity}
+		WHERE cartNum = #{cartNum}
+	</update>
 
-  <select id="selectCartByUser" parameterType="Long" resultType="shoppingCartItem">
-    SELECT 
-      sc.cartNum,
-      p.productNum,
-      p.productName,
-      p.imgUrl,
-      p.price,
-      po.optionNum,
-      po.option,
-      po.price AS optionPrice,
-      sc.quantity,
-      ((p.price + po.price) * sc.quantity) AS totalPrice,
-      s.storeName
-    FROM shoppingcart sc
-    JOIN productoption po ON sc.optionNum = po.optionNum
-    JOIN product p ON po.productNum = p.productNum
-    JOIN sellerdetail s ON sc.sellerNum = s.sellerNum
-    WHERE sc.userNum = #{userNum}
-    ORDER BY sc.createdAt DESC
-  </select>
+	<insert id="insertCartOption" parameterType="map">
+		INSERT INTO shoppingcart (sellerNum, userNum, optionNum, quantity)
+		SELECT s.sellerNum, #{userNum}, po.optionNum, #{quantity}
+		FROM productoption po
+		JOIN product p ON po.productNum = p.productNum
+		JOIN sellerdetail s ON p.sellerNum = s.sellerNum
+		WHERE po.optionNum = #{optionNum}
+	</insert>
+
+	<delete id="deleteCartOption" parameterType="Long">
+		DELETE FROM shoppingcart
+		WHERE cartNum = #{cartNum}
+	</delete>
 
 </mapper>

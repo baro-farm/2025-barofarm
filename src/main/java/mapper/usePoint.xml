@@ -6,4 +6,70 @@
 	<insert id="insertUsePoint" parameterType="usePoint" useGeneratedKeys="true" keyProperty="upNum">
 		insert into usepoint (userNum,usedPoint,type,currPoint) VALUE(#{userNum},#{usedPoint},#{type},#{currPoint});
 	</insert>
+	<select id="selectUsePointListBySearchDto" resultType="usePoint" parameterType="searchDtoSoy">
+		SELECT * FROM usePoint 
+		<where>
+			userNum=#{userNum}
+	            <if test="keyword != null and keyword != ''">
+		            <choose>
+                        <!-- type 검색 (광고등록, 광고취소 등) -->
+		                <when test="searchType == 'type'">
+		                    AND type LIKE CONCAT('%', #{keyword}, '%')
+		                </when>
+                        <!-- 충전/사용 여부 (usedPoint > 0 or < 0) -->
+		                <when test="searchType == 'point'">
+		                    <choose>
+		                        <when test="keyword == '충전'">
+		                            AND usedPoint &gt; 0
+		                        </when>
+		                        <when test="keyword == '사용'">
+		                            AND usedPoint &lt; 0
+		                        </when>
+		                    </choose>
+		                </when>
+		            </choose>
+		        </if>
+		
+		    <if test="startDateFrom != null and startDateFrom != ''">
+		      AND a.startDate &gt;= #{startDateFrom}
+		    </if>
+		    <if test="startDateTo != null and startDateTo != ''">
+		      AND a.startDate &lt;= #{startDateTo}
+		    </if>
+		  </where>
+			ORDER BY createdAt DESC
+			LIMIT #{offset}, #{recordSize}
+	</select>
+	<select id="countUsePointBySearchDto" resultType="int" parameterType="searchDtoSoy">
+		SELECT count(*) FROM usePoint 
+		<where>
+			userNum=#{userNum}
+	            <if test="keyword != null and keyword != ''">
+		            <choose>
+                        <!-- type 검색 (광고등록, 광고취소 등) -->
+		                <when test="searchType == 'type'">
+		                    AND type LIKE CONCAT('%', #{keyword}, '%')
+		                </when>
+                        <!-- 충전/사용 여부 (usedPoint > 0 or < 0) -->
+		                <when test="searchType == 'point'">
+		                    <choose>
+		                        <when test="keyword == '충전'">
+		                            AND usedPoint &gt; 0
+		                        </when>
+		                        <when test="keyword == '사용'">
+		                            AND usedPoint &lt; 0
+		                        </when>
+		                    </choose>
+		                </when>
+		            </choose>
+		        </if>
+		
+		    <if test="startDateFrom != null and startDateFrom != ''">
+		      AND a.startDate &gt;= #{startDateFrom}
+		    </if>
+		    <if test="startDateTo != null and startDateTo != ''">
+		      AND a.startDate &lt;= #{startDateTo}
+		    </if>
+		  </where>
+	</select>
 </mapper>

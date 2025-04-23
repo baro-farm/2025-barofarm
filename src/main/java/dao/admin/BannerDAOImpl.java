@@ -41,4 +41,15 @@ public class BannerDAOImpl implements BannerDAO{
 		return sqlSession.selectOne("mapper.banner.countSellerBanner");
 	}
 
+	@Override
+	public void updateExpiredBannerIsPosted() throws Exception {
+		sqlSession.update("mapper.banner.updateExpiredBannerIsPosted");
+		sqlSession.commit();
+	}
+
+	@Override
+	public List<Banner> selectBannerByIsPosted() throws Exception {
+		return sqlSession.selectList("mapper.banner.selectBannerByIsPosted");
+	}
+
 }

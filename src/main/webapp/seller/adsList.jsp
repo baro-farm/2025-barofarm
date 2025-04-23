@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%
+    long startTime = System.currentTimeMillis();
+    request.setAttribute("startTime", startTime);
+%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" /> 
 <!DOCTYPE html>
 <html lang="ko">
