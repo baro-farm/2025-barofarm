@@ -35,8 +35,9 @@ public class ProductList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
+		Integer cateNum = Integer.parseInt(request.getParameter("cateNum"));
 		String pageStr = request.getParameter("page");
-		int cateNum = Integer.parseInt(request.getParameter("cateNum"));
+		String sort = request.getParameter("sort");
 		
 		//카테고리
 		String cateName = null;
@@ -50,28 +51,19 @@ public class ProductList extends HttpServlet {
 		    case 7: cateName = "마늘/양파/생강/파"; break;
 		}
 		
-		String sort = request.getParameter("sort");
+		// 페이징
+		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
+		PageInfo pageInfo = new PageInfo(curPage, 20);
 		
-		//페이징 처리
-		Integer page = null;
-		if(pageStr==null) {
-			page = 1;
-		} else {
-			page = Integer.parseInt(pageStr);
-		}
 		
-		PageInfo pageInfo = new PageInfo(page);
 		UserProductService service = new UserProductServiceImpl();
-		
-		
 		try {
 			List<ProductVO> productList = service.ProductByCategory(pageInfo, cateNum, sort);
 			
+			request.setAttribute("productList", productList);
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("cateNum", cateNum);
 			request.setAttribute("cateName", cateName);
-			request.setAttribute("listType", "category");
-			request.setAttribute("productList", productList);
 			request.setAttribute("sort", sort);
 			
 			request.getRequestDispatcher("productList.jsp").forward(request, response);

@@ -1,6 +1,8 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.UserDAO;
 import dao.UserDAOImpl;
@@ -105,6 +107,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<AdminQuestion> recentAdminQA() throws Exception {
 		return userDao.selectRecentAdminQA();
+	}
+
+	@Override
+	public String findId(String email, String phone) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("email", email);
+		param.put("phone", phone);
+		
+		return userDao.findId(param);
+
 	}
 	
 
