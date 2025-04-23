@@ -1,6 +1,7 @@
 package dto.seller;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class UsePoint {
 	Long upNum;
@@ -10,6 +11,8 @@ public class UsePoint {
 	Integer currPoint;
 	String payInfo;
 	LocalDateTime createdAt;
+	
+	Date createdAtDate;
 	public UsePoint() {
 	}
 	public UsePoint(Long upNum, Long userNum, Integer usedPoint, String type, Integer currPoint, String payInfo,
@@ -76,5 +79,11 @@ public class UsePoint {
 	}
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+	public Date getCreatedAtDate() {
+		return createdAtDate;
+	}
+	public void setCreatedAtDate(Date createdAtDate) {
+		this.createdAtDate = createdAtDate;
 	}
 }
