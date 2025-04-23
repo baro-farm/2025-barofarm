@@ -4,6 +4,11 @@
     }
 }
 
+.table {
+    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
+}
+
+
 @font-face {
     font-family: 'SUIT-Regular';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
@@ -11,19 +16,11 @@
     font-style: normal;
 }
 
-
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.table {
-    width: 100%;
-    min-width: 1024px;  /* ✅ 1024px 이하로는 안 줄어듦 */
-}
 * {
     font-family: SUIT-Regular, sans-serif;
 }
+
+/*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
 #header {
   position: fixed;
   top: 0;
@@ -37,18 +34,7 @@
   background-color: white;
 }
 
-#info {
-  padding-right: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-}
-
-#email {
-  font-size: 16px;
-  color: #ffb534;
-}
+/* 내용 */
 
 #content {
   width: calc(100vw - 220px);
@@ -75,6 +61,12 @@
   font-size: 32px;
   align-self: flex-start;
 }
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
 tbody tr:hover {
     background-color: #FBF6EE;
 }
@@ -228,7 +220,8 @@ input[type=number] {
     background-color: #65B741;
     color: white;
 }
- a{
+
+a{
 	color:black
 }
 a:hover{

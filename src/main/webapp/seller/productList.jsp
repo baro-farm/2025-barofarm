@@ -155,18 +155,14 @@
 </head>
 
 <body>
-    <div class="inner_body">
-        <div class="sidebar">
-			<jsp:include page="/header/sellerHeader.jsp" />
-        </div>
-    </div>
+	
+	<jsp:include page="/header/sellerHeader.jsp" />
+    
     <header id="header">
-        <div id="info">
-            <span id="email">kosta@kosta.com</span>
-            <span>내 정보</span>
-            <span>로그아웃</span>
-        </div>
+			<jsp:include page="/header/adminSellerTop.jsp" />
+
     </header>
+    
     <div id="content">
         <div class="notice-header">
             <span id="title">상품 관리</span>
