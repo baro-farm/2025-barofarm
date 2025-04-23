@@ -18,23 +18,22 @@ public class UserProductServiceImpl implements UserProductService{
 
 	@Override
 	public List<ProductVO> ProductByCategory(PageInfo pageInfo,Integer cateNum,String sort) throws Exception {
-		Integer adminQACnt = userProductDao.countProductByCategory(cateNum);
-		Integer allPage = (int)Math.ceil((double)adminQACnt/10);
-		//startPage : 1~10=<1, 11~20=>11
+		// 1. 전체 상품 수
+		Integer productCnt = userProductDao.countProductByCategory(cateNum);
+		Integer allPage = (int)Math.ceil((double)productCnt/pageInfo.getPageSize());
+		// 2. 페이지 네비게이션 계산
 		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1; // 1,11,21,31 ...
-		//endPage : 1~10=>10, 11~20=>20
-		Integer endPage = startPage+10-1; // 10,20,30,40 ...
+		Integer endPage = startPage+10-1; 
 		if(endPage>allPage) endPage=allPage;
 		
 		pageInfo.setAllPage(allPage);
 		pageInfo.setStartPage(startPage);
 		pageInfo.setEndPage(endPage);
 		
-		Integer start = (pageInfo.getCurPage()-1)*10+1;
-		
 		Map<String, Object> param = new HashMap<>();
 		param.put("cateNum", cateNum);
-	    param.put("start", start);
+		param.put("start", pageInfo.getOffset());
+        param.put("pageSize", pageInfo.getPageSize());
 	    param.put("sort", sort);
 		
 		return userProductDao.selectProductByCategory(param);
@@ -52,59 +51,61 @@ public class UserProductServiceImpl implements UserProductService{
 
 	@Override
 	public List<ProductVO> BestProductByPage(PageInfo pageInfo) throws Exception {
-		Integer totalCount = userProductDao.countBestProducts();
-		Integer allPage = (int)Math.ceil((double)totalCount / 20);
+		List<ProductVO> allProducts = userProductDao.selectBestProductByPage();
+		Integer productCnt = allProducts.size();
+		Integer allPage = (int)Math.ceil((double)productCnt/pageInfo.getPageSize());
 
-		Integer curPage = pageInfo.getCurPage();
-		Integer startPage = ((curPage - 1) / 10) * 10 + 1;
-		Integer endPage = startPage + 9;
-		if (endPage > allPage) endPage = allPage;
+		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
+		Integer endPage = startPage+10-1;
+		if(endPage>allPage) endPage=allPage;
 
 		pageInfo.setAllPage(allPage);
 		pageInfo.setStartPage(startPage);
 		pageInfo.setEndPage(endPage);
 
-		int start = (curPage - 1) * 20;
-		return userProductDao.selectBestProductsByPage(start);
+		// 5. 페이징 (Java에서 OFFSET 계산해서 자름)
+		Integer offset = pageInfo.getOffset();
+		Integer end = Math.min(offset + pageInfo.getPageSize(), productCnt);
+	    return allProducts.subList(offset, end);
 	}
 
 	@Override
 	public List<ProductVO> NewProductByPage(PageInfo pageInfo) throws Exception {
-		 int totalCount = userProductDao.countNewProducts();
-		    int allPage = (int)Math.ceil((double)totalCount / 20);
+		List<ProductVO> allProducts = userProductDao.selectNewProductByPage();
+		Integer productCnt = allProducts.size();
+		Integer allPage = (int)Math.ceil((double)productCnt/pageInfo.getPageSize());
 
-		    int curPage = pageInfo.getCurPage();
-		    int startPage = ((curPage - 1) / 10) * 10 + 1;
-		    int endPage = startPage + 9;
-		    if (endPage > allPage) endPage = allPage;
+		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
+		Integer endPage = startPage+10-1;
+		if(endPage>allPage) endPage=allPage;
 
-		    pageInfo.setAllPage(allPage);
-		    pageInfo.setStartPage(startPage);
-		    pageInfo.setEndPage(endPage);
+		pageInfo.setAllPage(allPage);
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
 
-		    int start = (curPage - 1) * 20;
-		    return userProductDao.selectNewProductsByPage(start);
+		// 5. 페이징 (Java에서 OFFSET 계산해서 자름)
+		Integer offset = pageInfo.getOffset();
+		Integer end = Math.min(offset + pageInfo.getPageSize(), productCnt);
+	    return allProducts.subList(offset, end);
 	}
 
 	@Override
 	public List<ProductVO> searchProducts(PageInfo pageInfo, String keyword, String sort) throws Exception {
-		int totalCount = userProductDao.countProductsByKeyword(keyword);
-	    int allPage = (int)Math.ceil((double) totalCount / 20);
+		Integer productCnt = userProductDao.countProductsByKeyword(keyword);
+		Integer allPage = (int)Math.ceil((double) productCnt / 20);
 
-	    int curPage = pageInfo.getCurPage();
-	    int startPage = ((curPage - 1) / 10) * 10 + 1;
-	    int endPage = startPage + 9;
-	    if (endPage > allPage) endPage = allPage;
+		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
+	    Integer endPage = startPage+10-1;
+	    if(endPage>allPage) endPage=allPage;
 
 	    pageInfo.setAllPage(allPage);
 	    pageInfo.setStartPage(startPage);
 	    pageInfo.setEndPage(endPage);
 
-	    int start = (curPage - 1) * 20;
-
 	    Map<String, Object> param = new HashMap<>();
 	    param.put("keyword", keyword);
-	    param.put("start", start);
+	    param.put("start", pageInfo.getOffset());
+	    param.put("pageSize", pageInfo.getPageSize());
 	    param.put("sort", sort);
 
 	    return userProductDao.searchProducts(param);

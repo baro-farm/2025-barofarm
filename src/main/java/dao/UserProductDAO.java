@@ -12,11 +12,8 @@ public interface UserProductDAO {
 	List<ProductVO> selectBest5() throws Exception;
 	List<ProductVO> selectNew5() throws Exception;
 	
-	List<ProductVO> selectBestProductsByPage(Integer start) throws Exception;
-	Integer countBestProducts() throws Exception;
-	
-	List<ProductVO> selectNewProductsByPage(Integer start) throws Exception;
-	Integer countNewProducts() throws Exception;
+	List<ProductVO> selectBestProductByPage() throws Exception;
+	List<ProductVO> selectNewProductByPage() throws Exception;
 	
 	List<ProductVO> searchProducts(Map<String, Object> param) throws Exception;
 	Integer countProductsByKeyword(String keyword) throws Exception;

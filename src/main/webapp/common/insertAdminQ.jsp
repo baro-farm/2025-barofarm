@@ -20,7 +20,7 @@
 		    	<h1 class="title">문의하기</h1>
 		        <p class="subtitle">서비스와 관련하여 관리자에게 문의</p>
 		        
-		        <form action="insertAdminQ" method="POST">
+		        <form action="insertAdminQA" method="POST">
 	            	<label id="writerId">작성자</label>
 	            	<input type="text" id="writerIdBox" value="${user.userId}" readonly />
 	            	<br>
