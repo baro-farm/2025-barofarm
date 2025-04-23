@@ -21,12 +21,12 @@
             <li><a href="#">꾸러미 구독 관리</a></li>
             <li><a href="#">리뷰</a></li>
             <li><a href="#">콕팜</a></li>
-            <li><a href="#">팜포인트</a></li>
+            <li><a href="${contextPath }/farmPointList">팜포인트</a></li>
             <li><a href="#">알림 내역</a></li>
             <li><a href="#">문의 내역</a></li>
             <li><a href="#">취소 내역</a></li>
             <li><a href="#">스토어 정보</a></li>
-            <li><a href="#">배너 광고</a></li>
+            <li><a href="${contextPath }/sellerAdsList">배너 광고</a></li>
 
         </ul>
     </div>
