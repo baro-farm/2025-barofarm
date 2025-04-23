@@ -32,4 +32,12 @@ public class BannerServiceImpl implements BannerService {
 	public int countSellerBanner() throws Exception {
 		return bannerDAO.countSellerBanner();
 	}
+	@Override
+	public void updateExpiredBannerIsPosted() throws Exception {
+		bannerDAO.updateExpiredBannerIsPosted();
+	}
+	@Override
+	public List<Banner> selectBannerByIsPosted() throws Exception {
+		return bannerDAO.selectBannerByIsPosted();
+	}
 }

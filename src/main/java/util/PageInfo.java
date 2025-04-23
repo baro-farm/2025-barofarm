@@ -2,6 +2,7 @@ package util;
 
 public class PageInfo {
 	private Integer curPage;
+	private Integer pageSize;
 	private Integer allPage;
 	private Integer startPage;
 	private Integer endPage;
@@ -11,11 +12,26 @@ public class PageInfo {
 		this.curPage=curPage;
 	}
 	
+    public PageInfo(int curPage, int pageSize) {
+        this.curPage = curPage;
+        this.pageSize = pageSize;
+    }
+
+    public Integer getOffset() {
+        return (curPage - 1) * pageSize;
+    }	
+	
 	public Integer getCurPage() {
 		return curPage;
 	}
 	public void setCurPage(Integer curPage) {
 		this.curPage = curPage;
+	}
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
 	public Integer getAllPage() {
 		return allPage;

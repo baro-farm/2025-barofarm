@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.User;
 import dto.admin.AdminQuestion;
@@ -21,6 +22,8 @@ public interface UserService {
 	AdminQuestionVO detailAdminQA(Long qNum) throws Exception;
 	List<AdminQuestionVO> adminQAListByPage(PageInfo pageInfo) throws Exception;
 	List<AdminQuestion> recentAdminQA() throws Exception;
+	
+	String findId(String email, String phone) throws Exception; 
 	
 
 }

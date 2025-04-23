@@ -1,4 +1,4 @@
-package controller.seller;
+package controller.buyer;
 
 import java.io.IOException;
 import java.util.ArrayList;
