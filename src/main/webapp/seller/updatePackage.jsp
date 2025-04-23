@@ -53,13 +53,13 @@
 			<div class="input_div">
 				<label for="product_category">카테고리</label> <select
 					name="product_category" id="product_category">
-					<option value="1">배추/무/대파/부추</option>
-					<option value="2">오이/호박/가지</option>
-					<option value="3">고추/피망/파프리카/열매채소</option>
-					<option value="4">감자/고구마</option>
-					<option value="5">양상추/양배추/새싹채소</option>
-					<option value="6">당근/연근/뿌리채소</option>
-					<option value="7">마늘/양파/생강/파</option>
+					<option value="1" ${product.cateNum == 1 ? 'selected' : ''}>배추/무/대파/부추</option>
+					<option value="2" ${product.cateNum == 2 ? 'selected' : ''}>오이/호박/가지</option>
+					<option value="3" ${product.cateNum == 3 ? 'selected' : ''}>고추/피망/파프리카/열매채소</option>
+					<option value="4" ${product.cateNum == 4 ? 'selected' : ''}>감자/고구마</option>
+					<option value="5" ${product.cateNum == 5 ? 'selected' : ''}>양상추/양배추/새싹채소</option>
+					<option value="6" ${product.cateNum == 6 ? 'selected' : ''}>당근/연근/뿌리채소</option>
+					<option value="7" ${product.cateNum == 7 ? 'selected' : ''}>마늘/양파/생강/파</option>
 				</select>
 			</div>
 			<!-- select나 라디오 버튼으로 최대 몇인까지 가능하게 할 건지 추가하고 옵션으로 1인은 얼마, 2인은 얼마 이렇게 판매자가 기입을 하면? -->
@@ -100,6 +100,7 @@
 				<input type="hidden" id="update_package_content" name="update_package_content" />
 				<div id="origin_content" style="display: none;">${packageProduct.content }</div>
 			</div>
+			<input type="hidden" name="packageNum" value="${packageProduct.packageNum}">
 			<div id="submit">
 				<button type="submit" id="update_product_btn">수정하기</button>
 			</div>

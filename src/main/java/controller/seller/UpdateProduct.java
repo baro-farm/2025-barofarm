@@ -55,9 +55,7 @@ public class UpdateProduct extends HttpServlet {
 			return;
 		}
 
-		// 양배추 상품 번호 임시로 정함
-		Long productNum = 160L;
-//		Long productNum = 3L;
+		Long productNum = Long.parseLong(request.getParameter("productNum"));
 		ProductService productService = new ProductServiceImpl();
 		SellerService sellerService = new SellerServiceImpl();
 		Product product = null;
@@ -102,8 +100,7 @@ public class UpdateProduct extends HttpServlet {
 		}
 
 		// 옵션 제외한 정보들
-//		Long productNum = 3L; // 임시값
-		Long productNum = 160L; // 임시값
+		Long productNum = Long.parseLong(request.getParameter("productNum"));
 		Long userNum = user.getUserNum();
 		SellerService sellerService = new SellerServiceImpl();
 

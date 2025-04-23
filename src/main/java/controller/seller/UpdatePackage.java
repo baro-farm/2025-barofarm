@@ -50,8 +50,7 @@ public class UpdatePackage extends HttpServlet {
 			return;
 		}
 		
-		// 임시값
-		Long packageNum = 4L;
+		Long packageNum = Long.parseLong(request.getParameter("packageNum"));
 		PackageService packageSerivce = new PackageServiceImpl();
 		SellerService sellerService = new SellerServiceImpl();
 		PackageProduct packageProduct = null;
@@ -86,7 +85,7 @@ public class UpdatePackage extends HttpServlet {
 		    return;
 		}
 		
-		Long packageNum = 4L;
+		Long packageNum = Long.parseLong(request.getParameter("packageNum"));
 		Long userNum = user.getUserNum();
 		SellerService sellerService = new SellerServiceImpl();
 		
