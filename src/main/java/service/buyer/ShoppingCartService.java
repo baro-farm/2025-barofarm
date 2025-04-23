@@ -10,4 +10,5 @@ public interface ShoppingCartService {
 	void updateCartQuantity(Long cartNum, Integer quantity) throws Exception;
 	void addCartOption(Long userNum, Long optionNum, Integer quantity) throws Exception;
 	void deleteCartOption(Long cartNum) throws Exception;
+	List <ShoppingCartItem> selectCartByCartNums(List<Long> cartNums) throws Exception;
 }

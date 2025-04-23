@@ -21,6 +21,10 @@
 	margin-bottom: 40px;
 }
 
+.store-group { 
+	margin-bottom: 80px;
+}
+
 .store_name {
 	display: flex;
 	align-items: center;
@@ -55,6 +59,34 @@
 	padding: 0px 20px;
 }
 
+.info-1 {
+	display: flex;
+	flex-direction: column;
+	flex: 2;
+	gap:8px;
+}
+
+.info-2 {
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	flex: 2;
+	gap: 12px;	
+}
+
+.info-3 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+}
+
+.option-list {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
 .product-title {
   font-weight: bold;
   font-size: 16px;
@@ -63,6 +95,16 @@
 .price {
   font-weight: bold;
   color: #333;
+}
+
+.open-modal {
+	background-color: #6CAF50;
+	color: white;
+	border: none;
+	padding: 5px 8px;
+	cursor: pointer;
+	font-size: 14px;
+	border-radius: 4px;
 }
 
 .modal {
@@ -112,14 +154,6 @@
   background-color: #4d8d31;
 }
 
-/* .modal::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: -1;
-}
- */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -130,3 +164,31 @@
   z-index: 9998;
 }
 
+#optionListArea {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.option-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.number-input {
+	width: 80px;	
+}
+
+#addOptionSelect {
+	width: 80%;
+
+}
+
+.store-total-div {
+	width: 100%;
+	padding: 20px 0;
+	border-bottom: 1px solid black;
+	display: flex;
+	
+}

@@ -80,7 +80,7 @@ document.querySelectorAll('.open-modal').forEach(btn => {
       div.classList.add('option-row');
       div.innerHTML = `
         <span>${opt.option} (${opt.price}원)</span>
-        <input type="number" name="quantities" value="${opt.quantity}" min="1" data-cart="${opt.cartNum}">
+        <input type="number" class="number-input" name="quantities" value="${opt.quantity}" min="1" data-cart="${opt.cartNum}">
         <button type="button" class="delete-option-btn" data-cart="${opt.cartNum}">삭제</button>
       `;
       optionListArea.appendChild(div);
@@ -139,3 +139,153 @@ function closeModal() {
 }
 
 document.getElementById('modalOverlay').addEventListener('click', closeModal);
+
+function updateSelectAllCheck() {
+  const totalProducts = document.querySelectorAll('.product-checkbox').length;
+  const totalChecked = document.querySelectorAll('.product-checkbox:checked').length;
+  const selectAll = document.getElementById('selectAll');
+  selectAll.checked = totalProducts > 0 && totalProducts === totalChecked;
+}
+
+// 체크박스 및 합계 업데이트 로직
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 스토어 체크박스 클릭 시 해당 스토어 상품 체크박스 모두 선택/해제
+  document.querySelectorAll('.store-checkbox').forEach(storeCheck => {
+  storeCheck.addEventListener('change', () => {
+    const storeGroup = storeCheck.closest('.store-group');
+    const productChecks = storeGroup.querySelectorAll('.product-checkbox');
+    
+    productChecks.forEach(prodCheck => prodCheck.checked = storeCheck.checked);
+    
+    updateStoreTotal(storeGroup);  // 스토어 합계 업데이트
+    updateSelectAllCheck();        // 전체 체크박스 업데이트
+  });
+});
+
+
+  // 각 상품 체크박스 클릭 시 합계 업데이트
+  document.querySelectorAll('.product-checkbox').forEach(prodCheck => {
+  prodCheck.addEventListener('change', () => {
+    const storeGroup = prodCheck.closest('.store-group');
+    const productChecks = storeGroup.querySelectorAll('.product-checkbox');
+    const productChecked = storeGroup.querySelectorAll('.product-checkbox:checked');
+    
+    // 스토어 체크박스 상태 업데이트
+    const storeCheckbox = storeGroup.querySelector('.store-checkbox');
+    storeCheckbox.checked = productChecks.length === productChecked.length;
+
+    updateStoreTotal(storeGroup);  // 스토어 합계 업데이트
+    updateSelectAllCheck();        // 전체 체크박스 업데이트
+  });
+});
+
+});
+
+// 선택된 상품들의 건수와 총합을 스토어별로 업데이트
+function updateStoreTotal(storeGroup) {
+  let total = 0;
+  let count = 0;
+  storeGroup.querySelectorAll('.product-checkbox:checked').forEach(check => {
+    const productTotal = parseInt(check.dataset.totalPrice) || 0;
+    total += productTotal;
+    count++;
+  });
+  const totalBox = storeGroup.querySelector('.store-total');
+  totalBox.textContent = `선택된 상품 ${count}건 / 총합 ${total.toLocaleString()}원`;
+
+  updateAllTotal();  // 전체 총합 + 건수도 같이 업데이트
+}
+
+function updateAllTotal() {
+  let total = 0;
+  let count = 0;
+  document.querySelectorAll('.product-checkbox:checked').forEach(check => {
+    const productTotal = parseInt(check.dataset.totalPrice) || 0;
+    total += productTotal;
+    count++;
+  });
+  const totalBox = document.querySelector('.all-total');
+  totalBox.textContent = `전체 선택된 상품 ${count}건 / 총합 ${total.toLocaleString()}원`;
+}
+
+function getSelectedCartNums(storeGroup = null) {
+  const selected = [];
+  const checkboxes = storeGroup 
+    ? storeGroup.querySelectorAll('.product-checkbox:checked') 
+    : document.querySelectorAll('.product-checkbox:checked');
+
+  checkboxes.forEach(check => {
+    const cartNumsStr = check.dataset.cartNums;  // 여기서 cartNums 가져옴
+    const cartNums = cartNumsStr
+      .split(',')
+      .map(num => num.trim())  // 여기 추가!
+      .filter(num => num);
+    selected.push(...cartNums);
+  });
+
+  return selected;
+}
+
+document.getElementById('selectAll').addEventListener('change', (e) => {
+  const checked = e.target.checked;
+
+  // 스토어 체크박스, 상품 체크박스 전부 선택/해제
+  document.querySelectorAll('.store-checkbox').forEach(storeCb => storeCb.checked = checked);
+  document.querySelectorAll('.product-checkbox').forEach(prodCb => prodCb.checked = checked);
+
+  // 전체/스토어 합계 업데이트
+  document.querySelectorAll('.store-group').forEach(group => {
+    updateStoreTotal(group);
+  });
+});
+
+document.querySelectorAll('.store-order-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const storeGroup = btn.closest('.store-group');
+    const cartNums = getSelectedCartNums(storeGroup);
+    if (cartNums.length === 0) {
+      alert('상품을 선택하세요!');
+      return;
+    }
+
+    fetch('/barofarm/payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(cartNums.map(num => ['cartNums[]', num]))
+    }).then(response => response.text())
+      .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+      });
+  });
+});
+
+document.getElementById('all-order-btn').addEventListener('click', () => {
+  const cartNums = getSelectedCartNums();
+  if (cartNums.length === 0) {
+    alert('상품을 선택하세요!');
+    return;
+  }
+//console.log('cartNums:', cartNums);  // 선택된 cartNums 찍어보기
+//console.log('fetch 요청 시작!');
+
+  fetch('/barofarm/payment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(cartNums.map(num => ['cartNums[]', num]))
+  }).then(response => {
+	  // console.log('서버 응답:', response); 
+	  return response.text();
+	 })
+    .then(html => {
+	//console.log('받아온 HTML:', html);  // 여기서 HTML 내용 확인
+    // 받아온 HTML을 새로운 페이지로 열기
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    document.open();
+    document.write(doc.documentElement.innerHTML);
+    document.close();
+  });
+});

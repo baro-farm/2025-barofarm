@@ -36,7 +36,8 @@
 		JOIN productoption po ON sc.optionNum =
 		po.optionNum
 		WHERE po.productNum = #{productNum}
-		AND sc.userNum = #{userNum}
+		AND sc.userNum =
+		#{userNum}
 	</select>
 	<update id="updateCartOption" parameterType="map">
 		UPDATE shoppingcart
@@ -46,23 +47,54 @@
 		= #{cartNum}
 	</update>
 	<update id="updateCartQuantity" parameterType="map">
-		UPDATE shoppingcart
+		UPDATE
+		shoppingcart
 		SET quantity = #{quantity}
 		WHERE cartNum = #{cartNum}
 	</update>
 
 	<insert id="insertCartOption" parameterType="map">
-		INSERT INTO shoppingcart (sellerNum, userNum, optionNum, quantity)
-		SELECT s.sellerNum, #{userNum}, po.optionNum, #{quantity}
-		FROM productoption po
+		INSERT INTO
+		shoppingcart (sellerNum, userNum, optionNum, quantity)
+		SELECT
+		s.sellerNum, #{userNum}, po.optionNum, #{quantity}
+		FROM productoption
+		po
 		JOIN product p ON po.productNum = p.productNum
-		JOIN sellerdetail s ON p.sellerNum = s.sellerNum
+		JOIN sellerdetail s ON
+		p.sellerNum = s.sellerNum
 		WHERE po.optionNum = #{optionNum}
 	</insert>
 
 	<delete id="deleteCartOption" parameterType="Long">
-		DELETE FROM shoppingcart
+		DELETE FROM
+		shoppingcart
 		WHERE cartNum = #{cartNum}
 	</delete>
+	<select id="selectCartByCartNums" parameterType="List"
+		resultType="shoppingCartItem">
+		SELECT
+		sc.cartNum,
+		p.productNum,
+		p.productName,
+		p.imgUrl,
+		p.price,
+		po.optionNum,
+		po.option,
+		po.price AS optionPrice,
+		sc.quantity,
+		((p.price + po.price) * sc.quantity) AS totalPrice,
+		s.storeName
+		FROM
+		shoppingcart sc
+		JOIN productoption po ON sc.optionNum = po.optionNum
+		JOIN product p ON po.productNum = p.productNum
+		JOIN sellerdetail s ON sc.sellerNum = s.sellerNum
+		WHERE sc.cartNum IN
+		<foreach collection="list" item="cartNum" open="("
+			separator="," close=")">
+			#{cartNum}
+		</foreach>
+	</select>
 
 </mapper>

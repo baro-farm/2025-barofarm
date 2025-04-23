@@ -37,5 +37,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public void deleteCartOption(Long cartNum) throws Exception {
 		shoppingCartDao.deleteCartOption(cartNum);
 	}
+	
+	@Override
+	public List<ShoppingCartItem> selectCartByCartNums(List<Long> cartNums) throws Exception {
+		return shoppingCartDao.selectCartByCartNums(cartNums);
+	}
 
 }
