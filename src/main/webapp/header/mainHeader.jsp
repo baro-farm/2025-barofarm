@@ -16,6 +16,33 @@
     <link rel="stylesheet" href="${contextPath}/header/mainHeader.css">
     <title>Document</title>
  </head>
+ <script>
+ window.onload = function () {
+	  const input = document.getElementById("headerSearchInput");
+	  const button = document.getElementById("headerSearchBtn");
+
+	  button.addEventListener("click", () => {
+	    search();
+	  });
+
+	  input.addEventListener("keydown", (e) => {
+	    if (e.key === "Enter") {
+	      search();
+	    }
+	  });
+
+	  function search() {
+	    const keyword = input.value.trim();
+	    if (keyword === "" || keyword == null) {
+	      alert("검색어를 입력해주세요!");
+	      return;
+	    }
+
+	    const ekeyword = encodeURIComponent(keyword);
+	    location.href = `\${contextPath}/searchProductList?keyword=\${ekeyword}&page=1&sort=salesVolume`;
+	  }
+	};
+</script>
  <body>
  	<div class="mainHeader">
         <div class="userMenu">
@@ -36,10 +63,6 @@
 					          <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
 	                		  <li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 					        </c:when>
-					        
-					        <c:otherwise>
-					          <li class="userli"><a href="infoFoam" class="userBtn">마이페이지</a></li>
-					        </c:otherwise>
 							<c:when test="${user.userId == 'admin'}">
 							    <li class="userli"><a href="userList" class="userBtn">관리자페이지</a></li>
 							</c:when>
@@ -71,7 +94,7 @@
                 </ul>
             </div>
             <div class="searchBox">
-                <input type="text" name="keyword" id="headerSearchInput" value="${param.keyword}" placeholder="검색어 입력">
+                <input type="text" name="keyword" id="headerSearchInput" value="${keyword}" placeholder="검색어 입력">
                 <button id="headerSearchBtn">
                     <i class="bi bi-search"></i>
                 </button>
@@ -80,34 +103,4 @@
         <hr>
         </div>
  </body>
- <script>
-	document.addEventListener("DOMContentLoaded", function () {
-	  const input = document.getElementById("headerSearchInput");
-	  const button = document.getElementById("headerSearchBtn");
-	
-	  // 1. 버튼 클릭 시 이동
-	  button.addEventListener("click", () => {
-	    search();
-	  });
-	
-	  // 2. Enter 키 눌렀을 때 이동
-	  input.addEventListener("keydown", (e) => {
-	    if (e.key === "Enter") {
-	      search();
-	    }
-	  });
-	
-	  function search() {
-	    const keyword = input.value.trim();
-	    if (keyword === "") {
-	      alert("검색어를 입력해주세요!");
-	      return;
-	    }
-	
-	    const keyword = encodeURIComponent(keyword);
-	    location.href = `${contextPath}/searchProductList?keyword=${keyword}&page=1`;
-	  }
-	});
-</script>
- 
 </html>

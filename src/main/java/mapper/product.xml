@@ -47,7 +47,7 @@
 	    COUNT(r.reviewNum) AS reviewCount
 	  FROM product p
 	  JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	  LEFT JOIN review r ON p.productNum = r.productNum
+	  LEFT JOIN prodreview r ON p.productNum = r.productNum
 	  WHERE p.cateNum = #{cateNum}
 	  GROUP BY p.productNum
 	
@@ -66,13 +66,11 @@
 	    </otherwise>
 	  </choose>
 	
-	  LIMIT #{start}, 20
+	  LIMIT #{start}, #{pageSize}
 	</select>
-	
 	<select id="countProductByCategory" resultType="Integer">
 	    SELECT COUNT(*) FROM product WHERE cateNum = #{cateNum}
 	</select>
-	
 	<select id="selectBest5" resultType="ProductVO">
 		SELECT 
 			p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -81,12 +79,11 @@
 			COUNT(r.reviewNum) AS reviewCount
 		FROM product p
 		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-		LEFT JOIN review r ON p.productNum = r.productNum
+		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		GROUP BY p.productNum
-		ORDER BY p.salesVolume DESC
+		ORDER BY p.salesVolume DESC, productName ASC
 		LIMIT 5
 	</select>
-	
 	<select id="selectNew5" resultType="ProductVO">
 		SELECT 
 			p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -96,12 +93,11 @@
 			p.createdAt
 		FROM product p
 		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-		LEFT JOIN review r ON p.productNum = r.productNum
+		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		GROUP BY p.productNum
-		ORDER BY p.createdAt DESC
+		ORDER BY p.createdAt DESC, productName ASC
 		LIMIT 5
 	</select>
-	
 	<select id="selectBestProductsByPage" resultType="ProductVO">
 	    SELECT 
 	        p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -110,16 +106,11 @@
 	        COUNT(r.reviewNum) AS reviewCount
 	    FROM product p
 	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	    LEFT JOIN review r ON p.productNum = r.productNum
+	    LEFT JOIN prodreview r ON p.productNum = r.productNum
 	    GROUP BY p.productNum
-	    ORDER BY p.salesVolume DESC
-	    LIMIT #{start}, 20
+	    ORDER BY p.salesVolume DESC, productName ASC
+	    LIMIT 100
 	</select>
-	
-	<select id="countBestProducts" resultType="Integer">
-	    SELECT LEAST(COUNT(*), 100) FROM product
-	</select>
-	
 	<select id="selectNewProductsByPage" resultType="ProductVO">
 	    SELECT 
 	        p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
@@ -128,16 +119,11 @@
 	        COUNT(r.reviewNum) AS reviewCount
 	    FROM product p
 	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	    LEFT JOIN review r ON p.productNum = r.productNum
+	    LEFT JOIN prodreview r ON p.productNum = r.productNum
 	    GROUP BY p.productNum
 	    ORDER BY p.createdAt DESC, productName ASC
-	    LIMIT #{start}, 20
+	    LIMIT 100
 	</select>
-	
-	<select id="countNewProducts" resultType="Integer">
-	    SELECT LEAST(COUNT(*), 100) FROM product
-	</select>
-	
 	<select id="searchProduct" resultType="ProductVO" parameterType="map">
 		SELECT p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
 	    s.storeName,
@@ -145,25 +131,28 @@
 	    COUNT(r.reviewNum) AS reviewCount
 	  	FROM product p
 	  	JOIN sellerDetail s ON p.sellerNum = s.sellerNum
-	  	LEFT JOIN review r ON p.productNum = r.productNum
+	  	LEFT JOIN prodreview r ON p.productNum = r.productNum
 	  	WHERE p.productName LIKE CONCAT('%', #{keyword}, '%')
 	  	GROUP BY p.productNum
 	  	<choose>
-	    	<when test="sort == 'priceAsc'">
-	      		ORDER BY p.price ASC, p.productName ASC
-	    	</when>
-	    	<when test="sort == 'priceDesc'">
-	     		ORDER BY p.price DESC, p.productName ASC
-	    	</when>
-	    	<otherwise>
-	      		ORDER BY p.createdAt DESC, p.productName ASC
-	    	</otherwise>
+		  	<when test="sort == 'createdAt'">
+		    	ORDER BY p.createdAt DESC, p.productName ASC
+		  	</when>
+		  	<when test="sort == 'priceAsc'">
+		    	ORDER BY p.price ASC, p.productName ASC
+		  	</when>
+		  	<when test="sort == 'priceDesc'">
+		    	ORDER BY p.price DESC, p.productName ASC
+		  	</when>
+		  	<otherwise>
+		    	ORDER BY p.salesVolume DESC, p.productName ASC
+		  	</otherwise>
 	  	</choose>
-	  	LIMIT #{start}, 20
+	  	LIMIT #{start}, #{pageSize}
 	</select>
-	
-	<select id="countProductsByKeyword" resultType="Integer">
-	    SELECT COUNT(*) FROM product
+	<select id="countProductsByKeyword" resultType="Integer" parameterType="String">
+	    SELECT COUNT(*) 
+	    FROM product
 	    WHERE productName LIKE CONCAT('%', #{keyword}, '%')
 	</select>
 </mapper>

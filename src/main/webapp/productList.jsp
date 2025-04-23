@@ -6,16 +6,16 @@
 <c:set var="pagingUrl">
   <c:choose>
     <c:when test="${listType == 'search'}">
-      ${contextPath}/searchProductList?keyword=${keyword}&page=
+      ${contextPath}/searchProductList?keyword=${keyword}
     </c:when>
     <c:when test="${listType == 'best'}">
-      ${contextPath}/bestProductList?page=
+      ${contextPath}/bestProductList
     </c:when>
     <c:when test="${listType == 'new'}">
-      ${contextPath}/newProductList?page=
+      ${contextPath}/newProductList
     </c:when>
     <c:otherwise>
-      ${contextPath}/productList?cateNum=${cateNum}&page=
+      ${contextPath}/productList?cateNum=${cateNum}
     </c:otherwise>
   </c:choose>
 </c:set>
@@ -45,9 +45,9 @@
 				</h2>
         		<div class="searchSorting">
 				  <ul class="searchList">
-				    <li><a href="${pagingUrl}&sort=createdAt">신상품</a></li>
-				    <li><a href="${pagingUrl}&sort=priceAsc">낮은가격</a></li>
-				    <li><a href="${pagingUrl}&sort=priceDesc">높은가격</a></li>
+				    <li><a href="${pagingUrl}&page=1&sort=createdAt">신상품</a></li>
+				    <li><a href="${pagingUrl}&page=1&sort=priceAsc">낮은가격</a></li>
+				    <li><a href="${pagingUrl}&page=1&sort=priceDesc">높은가격</a></li>
 				  </ul>
 				</div>
 
@@ -66,12 +66,11 @@
 		            </c:forEach>
 		    	</div>
 
-		    	
 		    	<div id="paging">
 					<!-- 이전 페이지 -->
 					<c:choose>
 					  <c:when test="${pageInfo.curPage > 1}">
-					    <a href="${pagingUrl}${pageInfo.curPage - 1}">&lt;</a>
+					    <a href="${pagingUrl}&page=${pageInfo.curPage - 1}&sort=${sort}">&lt;</a>
 					  </c:when>
 					  <c:otherwise>
 					    <a class="disabled">&lt;</a>
@@ -81,17 +80,17 @@
 					<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
 					  <c:choose>
 					    <c:when test="${page == pageInfo.curPage}">
-					      <a href="${pagingUrl}${page}" class="select">${page}</a>
+					      <a href="${pagingUrl}&page=${page}&sort=${sort}" class="select">${page}</a>
 					    </c:when>
 					    <c:otherwise>
-					      <a href="${pagingUrl}${page}" class="btn">${page}</a>
+					      <a href="${pagingUrl}&page=${page}&sort=${sort}" class="btn">${page}</a>
 					    </c:otherwise>
 					  </c:choose>
 					</c:forEach>
 					<!-- 다음 페이지 -->
 					<c:choose>
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-					    <a href="${pagingUrl}${pageInfo.curPage + 1}">&gt;</a>
+					    <a href="${pagingUrl}&page=${pageInfo.curPage + 1}&sort=${sort}">&gt;</a>
 					  </c:when>
 					  <c:otherwise>
 					    <a class="disabled">&gt;</a>
