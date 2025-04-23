@@ -1,3 +1,9 @@
+@media (max-width: 1200px) {
+    .table {
+        width: 1200px;  /* ✅ 1024px에서 멈춤 */
+    }
+}
+
 @font-face {
     font-family: 'SUIT-Regular';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
@@ -5,6 +11,16 @@
     font-style: normal;
 }
 
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    min-width: 1024px;  /* ✅ 1024px 이하로는 안 줄어듦 */
+}
 * {
     font-family: SUIT-Regular, sans-serif;
 }
@@ -32,7 +48,9 @@
 #email {
   font-size: 16px;
   color: #ffb534;
-}#content {
+}
+
+#content {
   width: calc(100vw - 220px);
   max-width: 1280px;
   margin: 40px auto;
@@ -46,6 +64,13 @@
     right: 0;
   
 }
+
+.notice-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;  /* ✅ 왼쪽 정렬 */
+}
+
 #title {
   font-size: 32px;
   align-self: flex-start;
@@ -62,31 +87,34 @@ tbody tr:hover {
 
 .table th, .table td {
     border-bottom: 1px solid #ddd;
-    padding: 15px 0;
+    padding: 5px;
     font-size: 14px;
-    text-align: left;
+    text-align: center;
 }
 
 .table th:nth-child(1),.table td:nth-child(1){
-    width: 25px;
+    width: 10px;
     padding: 0 20px;
-    text-align: center;
 }
 
-.table th:nth-child(2),.table td:nth-child(2){
-    width: 60px;
-    text-align: center;
+.table th:nth-child(2) .table td:nth-child(2){
+    width: 70px;
 }
 
 .table th:nth-child(3),.table td:nth-child(3){
-    padding-left: 20px;
+   width: 75px;
 }
 
-.table th:nth-child(4),.table th:nth-child(5),
-.table td:nth-child(4),.table td:nth-child(5) {
-    text-align: right;
+.table th:nth-child(4),.table td:nth-child(4),
+.table th:nth-child(9),.table td:nth-child(9){
+	width: 160px;
+	
+}
+.table th:nth-child(5),.table td:nth-child(5) {
     width: 80px;
-    padding-right: 20px;
+}
+.table th:nth-child(6),.table td:nth-child(6) {
+    width: 90px;
 }
 
 /* 오버플로우 방지 */
@@ -123,7 +151,51 @@ tbody tr:hover {
     background-color: #D72638;
     color: white;
 }
+input.stock {
+    width: 30px;             /* 너비 조정 */
+    text-align: center;      /* 가운데 정렬 */
+}
 
+/* 스피너 없애기 (Chrome, Safari) */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 스피너 없애기 (Firefox) */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.stockBtn{
+	    padding: 4px 8px;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #333;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.stockBtn:hover{
+    background-color: #65B741;  /* ✅ 메인 그린 톤 */
+    color: white;
+    border-color: #65B741;	
+}
+.saveBtn {
+    padding: 4px 10px;
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.saveBtn:hover {
+    background-color: #4e9e32;  /* ✅ 조금 더 진한 그린 */
+}
 .actions {
     width:70%;
     display: flex;
@@ -155,4 +227,10 @@ tbody tr:hover {
 .add {
     background-color: #65B741;
     color: white;
+}
+ a{
+	color:black
+}
+a:hover{
+	color:orange;
 }

@@ -7,25 +7,23 @@ public class ProductVO {
     private Long sellerNum;
     private String productName;
     private String storeName;
-    private int price;
+    private Integer price;
     private String imgUrl;
+    private Boolean status;
+    private Integer stock;
+    
 
     // 리뷰 정보
-    private double avgRating;
-    private int reviewCount;
+    private Double avgRating;
+    private Integer reviewCount;
 
     // 카테고리 정보
-    private int cateNum;
+    private Integer cateNum;
     private String cateName;
 
     // 정렬/조회용
-    private int salesVolume;
+    private Integer salesVolume;
     private LocalDate createdAt;
-    
-    
-    
-    
-    
 	public Long getProductNum() {
 		return productNum;
 	}
@@ -50,10 +48,10 @@ public class ProductVO {
 	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	public String getImgUrl() {
@@ -62,22 +60,34 @@ public class ProductVO {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	public double getAvgRating() {
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+	public Integer getStock() {
+		return stock;
+	}
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+	public Double getAvgRating() {
 		return avgRating;
 	}
-	public void setAvgRating(double avgRating) {
+	public void setAvgRating(Double avgRating) {
 		this.avgRating = avgRating;
 	}
-	public int getReviewCount() {
+	public Integer getReviewCount() {
 		return reviewCount;
 	}
-	public void setReviewCount(int reviewCount) {
+	public void setReviewCount(Integer reviewCount) {
 		this.reviewCount = reviewCount;
 	}
-	public int getCateNum() {
+	public Integer getCateNum() {
 		return cateNum;
 	}
-	public void setCateNum(int cateNum) {
+	public void setCateNum(Integer cateNum) {
 		this.cateNum = cateNum;
 	}
 	public String getCateName() {
@@ -86,10 +96,10 @@ public class ProductVO {
 	public void setCateName(String cateName) {
 		this.cateName = cateName;
 	}
-	public int getSalesVolume() {
+	public Integer getSalesVolume() {
 		return salesVolume;
 	}
-	public void setSalesVolume(int salesVolume) {
+	public void setSalesVolume(Integer salesVolume) {
 		this.salesVolume = salesVolume;
 	}
 	public LocalDate getCreatedAt() {
@@ -98,6 +108,7 @@ public class ProductVO {
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
+    
     
     
 }
