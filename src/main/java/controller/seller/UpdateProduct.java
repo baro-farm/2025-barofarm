@@ -184,9 +184,9 @@ public class UpdateProduct extends HttpServlet {
 		}
 
 		if (result) {
-			response.sendRedirect("/barofarm/updateProduct?success=true");
+			response.sendRedirect("/barofarm/sellerProductList");
 		} else {
-			response.sendRedirect("/barofarm/updateProduct?success=false");
+			response.sendRedirect("/barofarm/sellerProductList");
 		}
 	}
 
