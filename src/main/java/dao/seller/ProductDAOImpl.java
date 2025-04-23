@@ -1,6 +1,7 @@
 package dao.seller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -65,5 +66,17 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<Product> selectProductList(Long sellerNum) throws Exception {
 		return sqlSession.selectList("mapper.product.selectProductList",sellerNum);
+	}
+
+	@Override
+	public void updateProductStock(Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.product.updateProductStock",param);
+		sqlSession.commit();
+	}
+
+	@Override
+	public void updateProductStatusBatch(List<Map<String, Object>> productList) throws Exception {
+		sqlSession.update("mapper.product.updateProductStatusBatch", productList);
+		sqlSession.commit();
 	}
 }
