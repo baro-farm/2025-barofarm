@@ -18,7 +18,7 @@
             <li><a href="#">숨김 리뷰 조회</a></li>
             <li><a href="${contextPath }/noticeList">공지사항</a></li>
             <li><a href="${contextPath }/customerServiceList">고객센터</a></li>
-            <li><a href="#">배너 광고</a></li>
+            <li><a href="${contextPath }/adminAdsList">배너 광고</a></li>
             <li><a href="#">전체 매출</a></li>
             <li><a href="#">스토어별 매출</a></li>
             <li><a href="#">일반 상품 주문 조회</a></li>

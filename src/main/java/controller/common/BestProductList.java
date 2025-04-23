@@ -36,9 +36,8 @@ public class BestProductList extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String pageStr = request.getParameter("page");
-		int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
-		
-		PageInfo pageInfo = new PageInfo(page);
+		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
+		PageInfo pageInfo = new PageInfo(curPage, 20);
 
 		UserProductService service = new UserProductServiceImpl();
 		try {

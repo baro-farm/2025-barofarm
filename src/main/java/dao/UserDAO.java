@@ -1,10 +1,10 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.User;
 import dto.admin.AdminQuestion;
-import dto.admin.Notice;
 import vo.AdminQuestionVO;
 
 public interface UserDAO {
@@ -16,4 +16,5 @@ public interface UserDAO {
 	List<AdminQuestion> selectRecentAdminQA() throws Exception;
 	List<AdminQuestionVO> selectAdminQAListByPage(Integer row) throws Exception;
 	Integer selectAdminQACount() throws Exception;
+	String findId(Map<String, Object> param) throws Exception;
 }
