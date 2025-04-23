@@ -50,7 +50,11 @@
         
         <div class="formGroup">
             <label>수령인 전화번호</label>
-            <input type="text" value="${ address.phone}" name="phone">
+            <input type="text" value="${ address.phone}" name="phone"
+		            	maxlength="11" 
+       					pattern="\d*" 
+       					inputmode="numeric" 
+       					placeholder="숫자만 입력 (최대 11자리)">
         </div>
 			<input type="hidden" name="addrNum" value="${address.addrNum}" />
 		

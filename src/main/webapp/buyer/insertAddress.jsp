@@ -50,7 +50,11 @@
 		        
 		        <div class="formGroup">
 		            <label>수령인 전화번호</label>
-		            <input type="text" value="" name="phone">
+		            <input type="text" value="" name="phone"  
+		            	maxlength="11" 
+       					pattern="\d*" 
+       					inputmode="numeric" 
+       					placeholder="숫자만 입력 (최대 11자리)">
 		        </div>
 				
 		        <div class="btn-group">
