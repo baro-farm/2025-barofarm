@@ -180,4 +180,30 @@
 	    FROM product
 	    WHERE productName LIKE CONCAT('%', #{keyword}, '%')
 	</select>
+	<select id="selectDetailProduct" parameterType="long" resultType="productVo">
+		SELECT 
+		    p.productNum, 
+		    p.sellerNum, 
+		    s.storeName,                       
+		    p.productName, 
+		    p.price, 
+		    p.imgUrl,
+		    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating, 
+		    COUNT(r.reviewNum) AS reviewCount,
+		    po.option, 
+		    po.price AS optionPrice            
+		FROM product p
+		JOIN sellerDetail s ON p.sellerNum = s.sellerNum   
+		LEFT JOIN prodreview r ON p.productNum = r.productNum
+		WHERE p.productNum = #{productNum}
+	</select>
+	<select id="selectProductOptions" parameterType="long" resultType="vo.ProductOptionVO">
+	    SELECT 
+	        optionNum,
+	        option, 
+	        price AS optionPrice
+	    FROM productoption
+	    WHERE productNum = #{productNum}
+	</select>
+	
 </mapper>

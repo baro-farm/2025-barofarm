@@ -23,7 +23,9 @@ public interface UserService {
 	List<AdminQuestionVO> adminQAListByPage(PageInfo pageInfo) throws Exception;
 	List<AdminQuestion> recentAdminQA() throws Exception;
 	
-	String findId(String email, String phone) throws Exception; 
+	User findId(String email, String phone) throws Exception;
+	User findPwd(String email, String userId) throws Exception;
+	void updateResetPwdToken(Long userNum, String resetPwdToken) throws Exception;
 	
 
 }

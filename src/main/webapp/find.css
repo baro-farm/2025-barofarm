@@ -6,7 +6,7 @@
 .content{
   flex: 1;
 }
-.findIdContainer {
+.findContainer {
   margin: 100px auto;
   padding: 20px;
   width: 297px;
@@ -18,7 +18,7 @@
     color: #65B741;
   	font-size: 30px;
   	font-weight: bold;
-  	margin-bottom: 10px;
+  	margin-bottom: 40px;
   	text-align: center;
 }
 /* 입력 필드 스타일 */
@@ -35,7 +35,7 @@
     display: block;
     width: 300px;
     padding: 10px;
-    margin-top: 20px;
+    margin: 10px 0;
     background-color: #FFB534;
     border: none;
     color: white;
@@ -45,7 +45,20 @@
     text-align: center;
     text-decoration: none;
 }
-
+.resultBox {
+	margin-top: 10px;
+  	padding: 10px 0;
+  	display: none;
+  	font-size: 14px;
+}
+.resultBox strong {
+	color: #65B741;
+	font-size: 16px;
+	font-weight: bold;
+}
+.resultBox.fail {
+  color: red;
+}
 /* 하단 메뉴 */
 .bottomMenu {
     display: flex;

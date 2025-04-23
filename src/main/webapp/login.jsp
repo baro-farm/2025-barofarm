@@ -37,9 +37,9 @@
 		    <hr>
 		    <!-- 하단 메뉴 -->
 		    <div class="bottomMenu">
-		    	<a href="join">회원가입</a>
-		        <a href="findId">아이디 찾기</a>
-		        <a href="#">비밀번호 변경</a>
+		    	<a href="${contextPath}/join">회원가입</a>
+		        <a href="${contextPath}/findId">아이디 찾기</a>
+		        <a href="${contextPath}/findPwd">비밀번호 변경</a>
 		    </div>
 		</div> <!-- 로그인 컨텐츠  -->
 		</div>

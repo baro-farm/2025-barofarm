@@ -12,6 +12,10 @@ public class ProdReviewVO {
 	String imgUrl;
 	LocalDate orderdAt; // 구매일자
 	LocalDate deadline; // 작성 기한 (구매일자 + 30일)
+	LocalDate createdAt;
+	String userId;
+	Integer pdRating;
+	String pdContent;
 	
 	public Long getProductNum() {
 		return productNum;
@@ -61,5 +65,30 @@ public class ProdReviewVO {
 	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
 	}
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public Integer getPdRating() {
+		return pdRating;
+	}
+	public void setPdRating(Integer pdRating) {
+		this.pdRating = pdRating;
+	}
+	public String getPdContent() {
+		return pdContent;
+	}
+	public void setPdContent(String pdContent) {
+		this.pdContent = pdContent;
+	}
+	
 
 }

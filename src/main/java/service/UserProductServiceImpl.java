@@ -7,6 +7,7 @@ import java.util.Map;
 import dao.UserProductDAO;
 import dao.UserProductDAOImpl;
 import util.PageInfo;
+import vo.ProdReviewVO;
 import vo.ProductVO;
 
 public class UserProductServiceImpl implements UserProductService{
@@ -109,6 +110,32 @@ public class UserProductServiceImpl implements UserProductService{
 	    param.put("sort", sort);
 
 	    return userProductDao.searchProducts(param);
+	}
+
+	@Override
+	public List<ProdReviewVO> getProdReview(Integer prodNum, PageInfo pageInfo) throws Exception {
+		Integer prodCnt = userProductDao.countProdReview(prodNum);
+		Integer allPage = (int)Math.ceil((double) prodCnt / 3);
+
+		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
+	    Integer endPage = startPage+10-1;
+	    if(endPage>allPage) endPage=allPage;
+
+	    pageInfo.setAllPage(allPage);
+	    pageInfo.setStartPage(startPage);
+	    pageInfo.setEndPage(endPage);
+
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("productNum", prodNum);
+	    param.put("start", pageInfo.getOffset());
+	    param.put("pageSize", pageInfo.getPageSize());
+
+	    return userProductDao.selectProdReview(param);
+	}
+
+	@Override
+	public List<ProductVO> selectDetailProduct(Integer productNum) throws Exception {
+		 return userProductDao.selectDetailProduct(productNum);
 	}
 
 	

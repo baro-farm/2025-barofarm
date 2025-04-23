@@ -17,6 +17,8 @@ public class User {
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
 	String fcmToken;
+	String resetPwdToken;
+	LocalDateTime resetPwdTokenExpires;
 	
 	public User() {
 		super();
@@ -190,6 +192,22 @@ public class User {
 
 	public void setFcmToken(String fcmToken) {
 		this.fcmToken = fcmToken;
+	}
+
+	public String getResetPwdToken() {
+		return resetPwdToken;
+	}
+
+	public void setResetPwdToken(String resetPwdToken) {
+		this.resetPwdToken = resetPwdToken;
+	}
+
+	public LocalDateTime getResetPwdTokenExpires() {
+		return resetPwdTokenExpires;
+	}
+
+	public void setResetPwdTokenExpires(LocalDateTime resetPwdTokenExpires) {
+		this.resetPwdTokenExpires = resetPwdTokenExpires;
 	}
 
 	@Override

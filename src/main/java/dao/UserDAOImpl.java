@@ -60,8 +60,19 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public String findId(Map<String, Object> param) throws Exception {
+	public User findId(Map<String, Object> param) throws Exception {
 		return sqlSession.selectOne("mapper.user.findId", param);
+	}
+
+	@Override
+	public User findPwd(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.user.findPwd", param);
+	}
+
+	@Override
+	public void resetPwdToken(Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.user.resetPwdToken", param);
+		sqlSession.commit();
 	}
 
 	

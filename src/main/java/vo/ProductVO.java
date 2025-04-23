@@ -24,6 +24,11 @@ public class ProductVO {
     // 정렬/조회용
     private Integer salesVolume;
     private LocalDate createdAt;
+    
+    //상세 조회용
+    private String option;
+    private int optionPrice;
+    
 	public Long getProductNum() {
 		return productNum;
 	}
@@ -108,6 +113,19 @@ public class ProductVO {
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
+	public String getOption() {
+		return option;
+	}
+	public void setOption(String option) {
+		this.option = option;
+	}
+	public int getOptionPrice() {
+		return optionPrice;
+	}
+	public void setOptionPrice(int optionPrice) {
+		this.optionPrice = optionPrice;
+	}
+	
     
     
     

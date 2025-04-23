@@ -110,13 +110,31 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String findId(String email, String phone) throws Exception {
+	public User findId(String email, String phone) throws Exception {
 		Map<String, Object> param = new HashMap<>();
 		param.put("email", email);
 		param.put("phone", phone);
 		
 		return userDao.findId(param);
 
+	}
+
+	@Override
+	public User findPwd(String email, String userId) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("email", email);
+		param.put("userId", userId);
+		
+		return userDao.findPwd(param);
+	}
+
+	@Override
+	public void updateResetPwdToken(Long userNum, String resetPwdToken) throws Exception {
+		 Map<String, Object> param = new HashMap<>();
+		 param.put("userNum", userNum);
+		 param.put("resetPwdToken", resetPwdToken);
+		 
+		 userDao.resetPwdToken(param);
 	}
 	
 
