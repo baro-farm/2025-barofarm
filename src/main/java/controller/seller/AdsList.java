@@ -16,6 +16,8 @@ import service.admin.BannerService;
 import service.admin.BannerServiceImpl;
 import service.seller.AdsService;
 import service.seller.AdsServiceImpl;
+import util.PageInfoSoy;
+import util.SearchDtoSoy;
 
 /**
  * Servlet implementation class AdsList
@@ -40,11 +42,26 @@ public class AdsList extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		
+		//searchDTO 세팅
+		SearchDtoSoy dto = new SearchDtoSoy();
+		String pageParam = request.getParameter("page");
+		int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
+		dto.setPage(page); // ← 무조건 setPage() 사용!
+		dto.setKeyword(request.getParameter("keyword"));
+		dto.setSearchType(request.getParameter("searchType"));
+		dto.setStartDateFrom(request.getParameter("startDateFrom"));
+		dto.setStartDateTo(request.getParameter("startDateTo"));
+		dto.setUserNum(user.getUserNum());
+		
 		AdsService service = new AdsServiceImpl();
 		BannerService bs = new BannerServiceImpl();
 		try {
-			List<Advertisement> adsList = service.selectAdsByUserNum(user.getUserNum());
+			List<Advertisement> adsList = service.selectAdsBySearchDto(dto);
 			int bannerCnt = bs.countSellerBanner();
+			int cnt = service.countAdsBySearchDtoSoy(dto);
+			PageInfoSoy pageInfo = new PageInfoSoy(dto.getPage(), cnt, 5, dto.getRecordSize());
+
+			request.setAttribute("pi", pageInfo);
 			request.setAttribute("adsList", adsList);
 			request.setAttribute("bannerCnt", bannerCnt);
 			request.getRequestDispatcher("/seller/adsList.jsp").forward(request, response);

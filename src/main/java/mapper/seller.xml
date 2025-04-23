@@ -54,4 +54,12 @@
     	SELECT * FROM sellerDetail WHERE storeName = #{storeName}
 	</select>
 	
+	<select id="selectSellerVO" parameterType="Long" resultType="sellerVO">
+		SELECT * FROM user u
+		JOIN sellerdetail s ON u.userNum=s.userNum
+		WHERE s.userNum = #{userNum}
+	</select>
+	<update id="updateIsAlarm" parameterType="Long">
+		UPDATE sellerdetail SET isAlarm=NOT isAlarm WHERE userNum = #{userNum}
+	</update>
 </mapper>

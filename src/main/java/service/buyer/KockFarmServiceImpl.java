@@ -9,6 +9,7 @@ import dao.buyer.KockFarmDao;
 import dao.buyer.KockFarmDaoImpl;
 import dto.buyer.KockFarm;
 import dto.buyer.Matching;
+import util.SearchDtoSoy;
 import vo.KockCommentVO;
 import vo.KockFarmVO;
 
@@ -46,10 +47,15 @@ public class KockFarmServiceImpl implements KockFarmService {
 	}
 
 	@Override
-	public List<KockFarm> getKockFarmList() throws Exception {
-		return kockFarmDao.getKockFarmList();
+	public List<KockFarm> selectKFBySearchDto(SearchDtoSoy dto) throws Exception {
+		return kockFarmDao.selectKFBySearchDto(dto);
 	}
-
+	
+	@Override
+	public int countKFBySearchDto(SearchDtoSoy dto) throws Exception {
+		return kockFarmDao.countKFBySearchDto(dto);
+	}
+	
 	//매칭
 	@Override
 	public void insertMatching(Matching matching,Long kockNum) throws Exception {
@@ -62,6 +68,5 @@ public class KockFarmServiceImpl implements KockFarmService {
 		
 		return kockFarmDao.selectKockFarmPostList(userNum,startDate,isMatched);
 	}
-
 
 }

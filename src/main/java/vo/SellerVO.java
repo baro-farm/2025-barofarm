@@ -17,8 +17,6 @@ public class SellerVO {
     private String businessNum;
     private boolean isAlarm;
 
-    String str="머지 테스트";
-    private String test="merge";
     // 필요하다면 Getter/Setter, toString 등 추가
  
     public SellerVO() {
@@ -103,18 +101,4 @@ public class SellerVO {
 	public void setAlarm(boolean isAlarm) {
 		this.isAlarm = isAlarm;
 	}
-	public String getStr() {
-		return str;
-	}
-	public void setStr(String str) {
-		this.str = str;
-	}
-	public String getTest() {
-		return test;
-	}
-	public void setTest(String test) {
-		this.test = test;
-	}
-    
-    
 }

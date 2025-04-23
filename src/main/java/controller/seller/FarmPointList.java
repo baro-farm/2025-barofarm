@@ -18,10 +18,13 @@ import dto.seller.Point;
 import dto.seller.UsePoint;
 import service.seller.PointService;
 import service.seller.PointServiceImpl;
+import service.seller.SellerService;
+import service.seller.SellerServiceImpl;
 import service.seller.UsePointService;
 import service.seller.UsePointServiceImpl;
 import util.PageInfoSoy;
 import util.SearchDtoSoy;
+import vo.SellerVO;
 
 /**
  * Servlet implementation class FarmPointList
@@ -59,9 +62,12 @@ public class FarmPointList extends HttpServlet {
 
 		UsePointService uservice = new UsePointServiceImpl();
 		PointService pservice = new PointServiceImpl();
+		SellerService sservice = new SellerServiceImpl();
+		
 		try {
 			Point point = pservice.getPoint(user.getUserNum());
 			List<UsePoint> usePointList = uservice.selectUsePointListBySearchDto(dto);
+			SellerVO sellerDetail = sservice.getSerllerDetail(user.getUserNum());
 			
 			for (UsePoint u:usePointList) {
 				LocalDateTime ldt = u.getCreatedAt();
@@ -72,12 +78,10 @@ public class FarmPointList extends HttpServlet {
 			int cnt = uservice.countUsePointBySearchDto(dto);
 			PageInfoSoy pageInfo = new PageInfoSoy(dto.getPage(), cnt, 5, dto.getRecordSize());
 
-			for (UsePoint u: usePointList) {
- 	 			System.out.println(u.getUpNum());
- 			}
 			request.setAttribute("pi", pageInfo);
 			request.setAttribute("usePointList", usePointList);
 			request.setAttribute("point", point.getPoint());
+			request.setAttribute("isAlarm", sellerDetail.isAlarm());
 			request.getRequestDispatcher("/seller/farmPointList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
