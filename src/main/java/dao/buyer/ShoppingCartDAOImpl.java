@@ -1,5 +1,6 @@
 package dao.buyer;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,11 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 	}
 
 	@Override
-	public List<ShoppingCartItem> selectCartOptionsByProduct(Long productNum) throws Exception {
-		return sqlSession.selectList("mapper.shoppingCart.selectCartOptionsByProduct", productNum);
+	public List<ShoppingCartItem> selectCartOptionsByProduct(Long productNum, Long userNum) throws Exception {
+		Map<String, Object> params = new HashMap();
+		params.put("productNum", productNum);
+		params.put("userNum", userNum);
+		return sqlSession.selectList("mapper.shoppingCart.selectCartOptionsByProduct", params);
 	}
 	
 	 @Override

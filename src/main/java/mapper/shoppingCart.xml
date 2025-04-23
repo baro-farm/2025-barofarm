@@ -28,7 +28,7 @@
 		ORDER BY
 		sc.createdAt DESC
 	</select>
-	<select id="selectCartOptionsByProduct" parameterType="Long"
+	<select id="selectCartOptionsByProduct" parameterType="map"
 		resultType="shoppingCartItem">
 		SELECT sc.cartNum, po.optionNum, po.option, sc.quantity,
 		po.price
@@ -36,6 +36,7 @@
 		JOIN productoption po ON sc.optionNum =
 		po.optionNum
 		WHERE po.productNum = #{productNum}
+		AND sc.userNum = #{userNum}
 	</select>
 	<update id="updateCartOption" parameterType="map">
 		UPDATE shoppingcart

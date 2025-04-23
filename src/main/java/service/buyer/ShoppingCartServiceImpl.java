@@ -19,8 +19,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 
 	@Override
-	public List<ShoppingCartItem> selectCartOptionsByProduct(Long productNum) throws Exception {
-		return shoppingCartDao.selectCartOptionsByProduct(productNum);
+	public List<ShoppingCartItem> selectCartOptionsByProduct(Long productNum, Long userNum) throws Exception {
+		return shoppingCartDao.selectCartOptionsByProduct(productNum, userNum);
 	}
 
 	@Override
