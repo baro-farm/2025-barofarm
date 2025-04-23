@@ -51,7 +51,7 @@
             		<c:when test="${user==null}">
 	            		<li class="userli"><a href="login" id="login" class="userBtn">로그인</a></li>
 		                <li class="userli"><a href="join" id="join" class="userBtn">회원가입</a></li>
-		                <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+		                <li class="userli"><a href="shoppingCart" id="shoppingCart" class="userBtn">장바구니</a></li>
 	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 	                </c:when>
 	                <c:otherwise>
