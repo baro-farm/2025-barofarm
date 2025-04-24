@@ -89,10 +89,6 @@ public class UpdateProduct extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		User user = (User) request.getSession().getAttribute("user");
-//		if (user == null) {
-//			response.sendRedirect("/barofarm/login");
-//			return;
-//		}
 		
 		if (user == null) {
 		    response.sendRedirect("/barofarm/updateProduct?error=unauthorized");
@@ -106,7 +102,6 @@ public class UpdateProduct extends HttpServlet {
 
 		String productName = request.getParameter("product_name");
 		Integer price = Integer.parseInt(request.getParameter("product_price"));
-		Integer stock = Integer.parseInt(request.getParameter("product_stock"));
 		Integer cateNum = Integer.parseInt(request.getParameter("product_category"));
 		String content = request.getParameter("product_content");
 	
@@ -158,20 +153,22 @@ public class UpdateProduct extends HttpServlet {
 		}
 
 		LocalDateTime currentDate = LocalDateTime.now();
-		Product product = new Product(productNum, sellerNum, cateNum, productName, content, stock, price, imageUrl,
+		Product product = new Product(productNum, sellerNum, cateNum, productName, content, price, imageUrl,
 				true, currentDate);
 
 		String[] optionNames = request.getParameterValues("option_name");
 		String[] optionPrices = request.getParameterValues("option_price");
 		String[] optionNums = request.getParameterValues("option_num");
+		String[] optionStocks = request.getParameterValues("option_stock");
 
 		List<ProductOption> optionList = new ArrayList<>();
 		for (int i = 0; i < optionNames.length; i++) {
 		    Long optionNum = null;
-		    if (optionNums != null && optionNums.length > i && optionNums[i] != null && !optionNums[i].isEmpty()) {
+		    if (optionNums != null && optionNums.length > i && optionNums[i] != null && !optionNums[i].isEmpty() && 
+		    		optionStocks != null && optionStocks.length > i && optionStocks[i] != null && !optionStocks[i].isEmpty()) {
 		        optionNum = Long.parseLong(optionNums[i]);
 		    }
-		    ProductOption opt = new ProductOption(optionNum, optionNames[i], Integer.parseInt(optionPrices[i]));
+		    ProductOption opt = new ProductOption(optionNum, optionNames[i], Integer.parseInt(optionPrices[i]), Integer.parseInt(optionStocks[i]));
 		    optionList.add(opt);
 		}
 
