@@ -6,7 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.User;
 import dto.buyer.Address;
 import service.buyer.UserService;
 import service.buyer.UserServiceImpl;
@@ -38,19 +40,32 @@ public class InsertAddress extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
+		HttpSession session = request.getSession(false);
+		User sessionUser =null;
+		
+		if(session != null) {
+			sessionUser=(User)session.getAttribute("user");
+		}
+		if(sessionUser == null) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+
+		}
+		
 		UserService service = new UserServiceImpl();
-		String nickname = request.getParameter("nickname");
-		String name = request.getParameter("name");
-		String postCode = request.getParameter("postCode");
-		String addr1 = request.getParameter("addr1");
-		String addr2 = request.getParameter("addr2");
-		String phone = request.getParameter("phone");
-		
-		Address address = new Address(nickname,name,phone,postCode,addr1,addr2);
-		System.out.println(address);
-		
+
 		try {
-			service.insertUserAddress(address, "gogogo");
+			Long userNum = service.selectUserNumByUserId(sessionUser.getUserId());
+
+			String nickname = request.getParameter("nickname");
+			String name = request.getParameter("name");
+			String postCode = request.getParameter("postCode");
+			String addr1 = request.getParameter("addr1");
+			String addr2 = request.getParameter("addr2");
+			String phone = request.getParameter("phone");
+			
+			Address address = new Address(nickname,name,phone,postCode,addr1,addr2);
+			address.setUserNum(userNum);
+			service.insertUserAddress(address);
 			response.sendRedirect("addressList");
 
 			

@@ -32,9 +32,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void insertAddress(Address address,String userId) throws Exception {
-		Long userNum = selectUserNumById(userId);
-		address.setUserNum(userNum);
+	public void insertAddress(Address address) throws Exception {
 		sqlSession.insert("mapper.user.insertAddress",address);
 		sqlSession.commit();
 		

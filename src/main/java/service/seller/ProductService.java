@@ -5,6 +5,7 @@ import java.util.Map;
 
 import dto.seller.Product;
 import dto.seller.ProductOption;
+import vo.ProductVO;
 
 public interface ProductService {
 	void addProduct(Product product, List<ProductOption> options) throws Exception;
@@ -16,9 +17,10 @@ public interface ProductService {
 	void updateProductOption(ProductOption productOption) throws Exception;
 
 	//product List
-	List<Product> selectSellerProductList(Long sellerNum) throws Exception;
+	List<ProductVO> selectSellerProductList(Long sellerNum,int offset, int pageSize,String sort, String sellStat) throws Exception;
 	void updateProductStock(Long productNum, Integer stock) throws Exception;
 	void updateSellerProductStatus(List<Map<String, Object>> productList) throws Exception;
+	Integer selectCountSellerProductList(Long sellerNum) throws Exception;
 	
 	void deleteProductOption(Long optionNum) throws Exception;
 	

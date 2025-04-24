@@ -5,6 +5,7 @@ import java.util.Map;
 
 import dto.seller.Product;
 import dto.seller.ProductOption;
+import vo.ProductVO;
 
 public interface ProductDAO {
 	void insertProduct(Product product) throws Exception;
@@ -17,8 +18,8 @@ public interface ProductDAO {
 	void deleteProductOption(Long optionNum) throws Exception;
 	
 	//product List
-	List<Product> selectProductList(Long sellerNum) throws Exception;
+	List<ProductVO> selectProductList(Map<String, Object> param) throws Exception;
 	void updateProductStock(Map<String, Object> param) throws Exception;
 	void updateProductStatusBatch(List<Map<String, Object>> productList) throws Exception;
-
+	Integer countProductList(Long sellerNum) throws Exception;
 }
