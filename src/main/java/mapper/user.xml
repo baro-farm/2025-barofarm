@@ -77,9 +77,21 @@
 	<select id="selectUserList" resultType="user">
 		select * from user order by userNum desc
 	</select>
-	<select id="findId" resultType="String" parameterType="map">
-		select userId from user where email=#{email} and phone=#{phone}
+	<select id="findId" resultType="user" parameterType="map">
+		select userName,userId from user where email=#{email} and phone=#{phone}
 	</select>
- </mapper>
 	
-
+	<select id="findPwd" parameterType="map" resultType="User">
+	  SELECT userNum, userId, userName, email
+	  FROM user
+	  WHERE email = #{email}
+	  AND userId = #{userId}
+	</select>
+	<update id="resetPwdToken" parameterType="map">
+	    UPDATE user
+	    SET resetPwdToken = #{resetPwdToken},
+	        resetPwdTokenExpires = NOW() + INTERVAL 30 MINUTE
+	    WHERE userNum = #{userNum}
+	</update>
+	
+ </mapper>

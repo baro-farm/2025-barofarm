@@ -16,5 +16,7 @@ public interface UserDAO {
 	List<AdminQuestion> selectRecentAdminQA() throws Exception;
 	List<AdminQuestionVO> selectAdminQAListByPage(Integer row) throws Exception;
 	Integer selectAdminQACount() throws Exception;
-	String findId(Map<String, Object> param) throws Exception;
+	User findId(Map<String, Object> param) throws Exception;
+	User findPwd(Map<String, Object> param) throws Exception;
+	void resetPwdToken(Map<String, Object> param) throws Exception;
 }

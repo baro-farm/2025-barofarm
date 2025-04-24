@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import dto.User;
 import service.UserService;
 import service.UserServiceImpl;
 
@@ -50,12 +51,13 @@ public class FindId extends HttpServlet {
 	    UserService service = new UserServiceImpl();
 	    
 	    try {
-	    	String userId = service.findId(email, phone);
+	    	User user = service.findId(email, phone);
 	    	
 	    	Map<String, Object> result = new HashMap<>();
-		    if (userId != null) {
+		    if (user != null) {
 		      result.put("success", true);
-		      result.put("userId", userId);
+		      result.put("userId", user.getUserId());
+		      result.put("userName", user.getUserName());
 		    } else {
 		      result.put("success", false);
 		    }

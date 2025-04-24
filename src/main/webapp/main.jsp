@@ -55,7 +55,7 @@
 			      		<c:forEach var="p" items="${bestProducts}">
 				        	<div class="product">
 					          	<div class="productImgBox">
-					          		<a href=""><img src="${contextPath}/img/fruits1.jpg" alt=""></a>
+					          		<a href=""><img src="${contextPath}${p.imgUrl}" alt=""></a>
 					          	</div>
 						        <p><a href="" class="productName">${p.productName}</a></p>
 						        <p><a href="" class="storeName">${p.storeName}</a></p>
@@ -77,7 +77,7 @@
 		      			<c:forEach var="p" items="${newProducts}">
 			      			<div class="product">
 					          	<div class="productImgBox">
-					          		<a href=""><img src="${contextPath}/img/fruits1.jpg" alt=""></a>
+					          		<a href=""><img src="${contextPath}${p.imgUrl}" alt=""></a>
 					          	</div>
 						        <p><a href="" class="productName">${p.productName}</a></p>
 						        <p><a href="" class="storeName">${p.storeName}</a></p>

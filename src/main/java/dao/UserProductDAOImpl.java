@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import util.MybatisSqlSessionFactory;
+import vo.ProdReviewVO;
 import vo.ProductVO;
 
 public class UserProductDAOImpl implements UserProductDAO{
@@ -49,6 +50,21 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countProductsByKeyword(String keyword) throws Exception {
 		return sqlSession.selectOne("mapper.product.countProductsByKeyword", keyword);
+	}
+
+	@Override
+	public List<ProdReviewVO> selectProdReview(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.productReview.selectProdReview", param);
+	}
+
+	@Override
+	public Integer countProdReview(Integer prodNum) throws Exception {
+		return sqlSession.selectOne("mapper.productReview.countProdReview", prodNum);
+	}
+
+	@Override
+	public List<ProductVO> selectDetailProduct(Integer productNum) throws Exception {
+		 return sqlSession.selectList("product.selectDetailProduct", productNum);
 	}
 
 	

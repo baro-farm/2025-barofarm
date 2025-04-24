@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
+import vo.ProdReviewVO;
 import vo.ProductVO;
 
 public interface UserProductDAO {
@@ -18,6 +19,9 @@ public interface UserProductDAO {
 	List<ProductVO> searchProducts(Map<String, Object> param) throws Exception;
 	Integer countProductsByKeyword(String keyword) throws Exception;
 
-
+	List<ProdReviewVO> selectProdReview(Map<String, Object> param) throws Exception;
+	Integer countProdReview(Integer prodNum) throws Exception;
+	
+	List<ProductVO> selectDetailProduct(Integer productNum) throws Exception;
 
 }
