@@ -16,7 +16,6 @@
 /* 내용 */
 
 #content {
-  width: calc(100vw - 220px);
   max-width: 1280px;
   margin: 40px auto;
   padding-top: 80px;
@@ -59,11 +58,14 @@
 .address-group {
   display: flex;
   gap: 5px;
-  margin-bottom: 16px;
-  margin-left: 100px;
 }
 .address-group input {
   width: auto;
+}
+.address-group2 {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
 }
 .submit-btn {
   background-color: #65b741;

@@ -1,14 +1,20 @@
-package controller.admin;
+package controller.seller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dto.User;
+import service.buyer.UserService;
+import service.buyer.UserServiceImpl;
+import service.seller.SellerService;
+import service.seller.SellerServiceImpl;
+import vo.SellerVO;
+import vo.UserVO;
 
 /**
  * Servlet implementation class DetailStoreInfo
@@ -32,7 +38,21 @@ public class DetailStoreInfo extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		User user = (User) request.getSession().getAttribute("user");
 		
-		request.getRequestDispatcher("/seller/detailStoreInfo.jsp").forward(request, response);
+		SellerService sellerService = new SellerServiceImpl();
+		UserService userService = new UserServiceImpl();
+		
+		
+		try {
+			SellerVO seller = sellerService.getSerllerDetail(user.getUserNum());
+			UserVO userVo = userService.selectUserInfo(user.getUserId());
+			request.setAttribute("seller", seller);
+			request.setAttribute("user", userVo);
+			request.getRequestDispatcher("/seller/detailStoreInfo.jsp").forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("err", "판매자의 스토어정보 획득 실패");
+			request.getRequestDispatcher("error.jsp").forward(request, response);
+		}
 
 	}
 
