@@ -53,7 +53,7 @@
 		            <button class="charge-btn">충전하기</button>
 		            </div>
 		        </div>
-		
+
 		        <div class="history-section">
 		        	<div>
    			            <h3>포인트 내역</h3>
@@ -70,7 +70,7 @@
 						</form>
 		        	</div>
 		            <hr>
-		
+
 		            <table id="point-table" class="display nowrap" >
 		                <thead>
 		                    <tr>
@@ -111,12 +111,12 @@
 				  <c:if test="${pi.startPage > 1}">
 				    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
 				  </c:if>
-				
+
 				  <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
 				    <a href="?page=${p}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}"
 				       class="${p == pi.currentPage ? 'active' : ''}">${p}</a>
 				  </c:forEach>
-				
+
 				  <c:if test="${pi.endPage < pi.maxPage}">
 				    <a href="?page=${pi.endPage + 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&raquo;</a>
 				  </c:if>
@@ -138,7 +138,7 @@
 		    </div>
         </div>
 	</div>
-	
+
 	<!-- 구독 취소 모달 -->
 	<div id="unsubscribeModal" class="modal-wrapper" style="display:none;">
 		<div class="modal">
@@ -212,22 +212,22 @@
 			    }
 		});
 	</script>			
-	
+
 	<div id="chargeModal" class="modal-wrapper" style="display:none;">
 	    <div class="modal">
 	        <div class="modal-header">
 	            <span>포인트 충전</span>
 	            <span class="close-btn" onclick="closeModal()">✖</span>
 	        </div>
-	    
+
 	        <div class="point-box">
 	            <span class="point-icon">💲</span>
 	            <span>보유 포인트</span>
 	            <span>${point }P</span>
 	        </div>
-	    
+
 	        <div class="select-title">충전 금액을 선택하세요.</div>
-	    
+
             <div class="amount-container">
             	<label class="amount">
                     <input type="radio" name="charge_amount" value="0"> 0원
@@ -260,7 +260,7 @@
                     <input type="radio" name="charge_amount" value="40000"> 100,000원
                 </label>
             </div>
-    
+
             <div class="buttons">
                 <button type="submit" class="btn pay">결제</button>
                 <button type="button" class="btn cancel" onclick="closeModal()">취소</button>
@@ -271,7 +271,6 @@
 	document.querySelector('.charge-btn').addEventListener('click', () => {
 	    document.getElementById('chargeModal').style.display = 'flex';
 	});
-
 	function closeModal() {
 	    document.getElementById('chargeModal').style.display = 'none';
 	}
@@ -282,17 +281,15 @@
 	        alert('충전 금액을 선택하세요!');
 	        return;
 	    }
-
 	    const IMP = window.IMP; // 아임포트 객체 가져오기
-	    IMP.init('imp12345147'); // 여기에 본인 가맹점 코드 넣어!
-
+	    IMP.init(''); // 여기에 본인 가맹점 코드 넣어!
 	    IMP.request_pay({
 	        pg: 'kcp', // PG사 선택 (예: kakaopay, tosspayments 등)
 	        pay_method: 'card', // 결제 수단 (card, trans, vbank 등)
 	        merchant_uid: 'order_' + new Date().getTime(), // 주문번호 (고유해야 함)
 	        name: '포인트 충전', // 결제 상품명
 	        amount: amount, // 결제 금액
-	        buyer_email: 'lsyjyh@gmail.com', // 구매자 이메일
+	        buyer_email: '@gmail.com', // 구매자 이메일
 	        buyer_name: '홍길동', // 구매자 이름
 	        buyer_tel: '010-1234-5678' // 구매자 전화번호
 	    }, function (rsp) {
@@ -321,8 +318,6 @@
 	        }
 	    });
 	});
-
-
 	</script>
 </body>
 </html>
