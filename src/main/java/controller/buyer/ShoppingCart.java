@@ -89,7 +89,7 @@ public class ShoppingCart extends HttpServlet {
             request.setAttribute("cartMap", cartMap);
 
             request.getRequestDispatcher("/buyer/shoppingCart.jsp").forward(request, response);
-            System.out.println(cartList);
+         
         } catch (Exception e) {
             e.printStackTrace();
 //            response.sendRedirect("/barofarm/error.jsp");
