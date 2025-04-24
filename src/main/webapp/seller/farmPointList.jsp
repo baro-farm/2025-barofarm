@@ -53,7 +53,11 @@
 		            <button class="charge-btn">충전하기</button>
 		            </div>
 		        </div>
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 		        <div class="history-section">
 		        	<div>
    			            <h3>포인트 내역</h3>
@@ -70,7 +74,11 @@
 						</form>
 		        	</div>
 		            <hr>
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 		            <table id="point-table" class="display nowrap" >
 		                <thead>
 		                    <tr>
@@ -111,12 +119,20 @@
 				  <c:if test="${pi.startPage > 1}">
 				    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
 				  </c:if>
+<<<<<<< HEAD
 
+=======
+				
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 				  <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
 				    <a href="?page=${p}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}"
 				       class="${p == pi.currentPage ? 'active' : ''}">${p}</a>
 				  </c:forEach>
+<<<<<<< HEAD
 
+=======
+				
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 				  <c:if test="${pi.endPage < pi.maxPage}">
 				    <a href="?page=${pi.endPage + 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&raquo;</a>
 				  </c:if>
@@ -138,7 +154,11 @@
 		    </div>
         </div>
 	</div>
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 	<!-- 구독 취소 모달 -->
 	<div id="unsubscribeModal" class="modal-wrapper" style="display:none;">
 		<div class="modal">
@@ -212,22 +232,36 @@
 			    }
 		});
 	</script>			
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 	<div id="chargeModal" class="modal-wrapper" style="display:none;">
 	    <div class="modal">
 	        <div class="modal-header">
 	            <span>포인트 충전</span>
 	            <span class="close-btn" onclick="closeModal()">✖</span>
 	        </div>
+<<<<<<< HEAD
 
+=======
+	    
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 	        <div class="point-box">
 	            <span class="point-icon">💲</span>
 	            <span>보유 포인트</span>
 	            <span>${point }P</span>
 	        </div>
+<<<<<<< HEAD
 
 	        <div class="select-title">충전 금액을 선택하세요.</div>
 
+=======
+	    
+	        <div class="select-title">충전 금액을 선택하세요.</div>
+	    
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
             <div class="amount-container">
             	<label class="amount">
                     <input type="radio" name="charge_amount" value="0"> 0원
@@ -260,7 +294,11 @@
                     <input type="radio" name="charge_amount" value="40000"> 100,000원
                 </label>
             </div>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
             <div class="buttons">
                 <button type="submit" class="btn pay">결제</button>
                 <button type="button" class="btn cancel" onclick="closeModal()">취소</button>
@@ -271,6 +309,10 @@
 	document.querySelector('.charge-btn').addEventListener('click', () => {
 	    document.getElementById('chargeModal').style.display = 'flex';
 	});
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 	function closeModal() {
 	    document.getElementById('chargeModal').style.display = 'none';
 	}
@@ -281,8 +323,15 @@
 	        alert('충전 금액을 선택하세요!');
 	        return;
 	    }
+<<<<<<< HEAD
 	    const IMP = window.IMP; // 아임포트 객체 가져오기
 	    IMP.init(''); // 여기에 본인 가맹점 코드 넣어!
+=======
+
+	    const IMP = window.IMP; // 아임포트 객체 가져오기
+	    IMP.init(''); // 여기에 본인 가맹점 코드 넣어!
+
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
 	    IMP.request_pay({
 	        pg: 'kcp', // PG사 선택 (예: kakaopay, tosspayments 등)
 	        pay_method: 'card', // 결제 수단 (card, trans, vbank 등)
@@ -318,6 +367,14 @@
 	        }
 	    });
 	});
+<<<<<<< HEAD
 	</script>
 </body>
 </html>
+=======
+
+
+	</script>
+</body>
+</html>
+>>>>>>> 3231225a1f0b849f91e196afda7301f9ae619ede
