@@ -4,13 +4,15 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class UsePoint {
-	Long upNum;
-	Long userNum;
-	Integer usedPoint;
-	String type;
-	Integer currPoint;
-	String payInfo;
-	LocalDateTime createdAt;
+	private Long upNum;
+	private Long userNum;
+	private Integer usedPoint;
+	private String type;
+	private Integer currPoint;
+	private String payInfo;
+	private LocalDateTime createdAt;
+	private String merchantUid;
+	private String impUid;
 	
 	Date createdAtDate;
 	public UsePoint() {
@@ -31,12 +33,28 @@ public class UsePoint {
 		this.type = type;
 		this.currPoint = currPoint;
 	}
-	public UsePoint(Long userNum, Integer usedPoint, String type, Integer currPoint, String payInfo) {
+	public UsePoint(Long upNum, Long userNum, Integer usedPoint, String type, Integer currPoint, String payInfo,
+			LocalDateTime createdAt, String merchantUid, String impUid, Date createdAtDate) {
+		this.upNum = upNum;
 		this.userNum = userNum;
 		this.usedPoint = usedPoint;
 		this.type = type;
 		this.currPoint = currPoint;
 		this.payInfo = payInfo;
+		this.createdAt = createdAt;
+		this.merchantUid = merchantUid;
+		this.impUid = impUid;
+		this.createdAtDate = createdAtDate;
+	}
+	public UsePoint(Long userNum, Integer usedPoint, String type, Integer currPoint, String payInfo, String merchantUid,
+			String impUid) {
+		this.userNum = userNum;
+		this.usedPoint = usedPoint;
+		this.type = type;
+		this.currPoint = currPoint;
+		this.payInfo = payInfo;
+		this.merchantUid = merchantUid;
+		this.impUid = impUid;
 	}
 	public Long getUpNum() {
 		return upNum;
@@ -79,6 +97,18 @@ public class UsePoint {
 	}
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+	public String getMerchantUid() {
+		return merchantUid;
+	}
+	public void setMerchantUid(String merchantUid) {
+		this.merchantUid = merchantUid;
+	}
+	public String getImpUid() {
+		return impUid;
+	}
+	public void setImpUid(String impUid) {
+		this.impUid = impUid;
 	}
 	public Date getCreatedAtDate() {
 		return createdAtDate;

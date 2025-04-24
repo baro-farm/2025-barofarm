@@ -72,7 +72,7 @@
 		            <hr>
 
 		            <table id="point-table" class="display nowrap" >
-		                <thead>
+		                <thead >
 		                    <tr>
 		                        <th></th>
 		                        <th>날짜</th>
@@ -98,7 +98,10 @@
 			              		<c:if test="${up.usedPoint < 0 }">				                        
 		                        <td class="minus">${up.usedPoint }P</td>
 		                        </c:if>
-		                        <c:if test="${up.usedPoint > 0 }">				                        
+		                        <c:if test="${up.usedPoint > 0 && up.type eq '광고반려' }">				                        
+		                        <td class="replus">+${up.usedPoint }P</td>
+		                        </c:if>
+		                        <c:if test="${up.usedPoint > 0 && up.type ne '광고반려'  }">				                        
 		                        <td class="plus">+${up.usedPoint }P</td>
 		                        </c:if>
 		                        <td>${up.currPoint }P</td>
@@ -286,12 +289,12 @@
 	    IMP.request_pay({
 	        pg: 'kcp', // PG사 선택 (예: kakaopay, tosspayments 등)
 	        pay_method: 'card', // 결제 수단 (card, trans, vbank 등)
-	        merchant_uid: 'order_' + new Date().getTime(), // 주문번호 (고유해야 함)
-	        name: '포인트 충전', // 결제 상품명
+	        merchant_uid: 'chargePoint_' + new Date().getTime(), // 주문번호 (고유해야 함)
+	        name: '팜포인트 충전', // 결제 상품명
 	        amount: amount, // 결제 금액
 	        buyer_email: '@gmail.com', // 구매자 이메일
-	        buyer_name: '홍길동', // 구매자 이름
-	        buyer_tel: '010-1234-5678' // 구매자 전화번호
+	        buyer_name: '${userName}', // 구매자 이름
+	        buyer_tel: '${phone}' // 구매자 전화번호
 	    }, function (rsp) {
 	        if (rsp.success) {
 	            // ✅ 결제 성공 시 서버에 결제 정보 전달 (imp_uid)
@@ -301,14 +304,16 @@
 	                body: JSON.stringify({
 	                    imp_uid: rsp.imp_uid, // 아임포트 거래 고유번호
 	                    merchant_uid: rsp.merchant_uid,
-	                    amount: amount
+	                    usedPoint: amount,
+	                    type: "팜포인트 충전",
+	                    payInfo: 'KCP-카드'
 	                })
 	            })
 	            .then(res => res.json())
 	            .then(data => {
 	                if (data.success) {
 	                    alert('충전이 완료되었습니다!');
-	                    location.reload(); // 포인트 새로고침
+	                    location.reload();
 	                } else {
 	                    alert('충전 처리에 실패했습니다.');
 	                }

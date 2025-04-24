@@ -14,7 +14,7 @@
             </div>
         </div>
         <ul>
-            <li><a href="#">상품 관리</a></li>
+            <li><a href="${contextPath }/sellerProductList">상품 관리</a></li>
             <li><a href="#">상품 주문관리</a></li>
             <li><a href="#">꾸러미 판매 관리</a></li>
             <li><a href="#">꾸러미 주문 관리</a></li>

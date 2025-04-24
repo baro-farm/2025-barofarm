@@ -230,10 +230,6 @@ th {
     font-weight: bold;
     cursor: pointer !important; /* 정렬 활성화 */
 }
-.point-date{
-    display: flex;
-    align-items: center;
-}
 
 .status {
     padding: 4px 4px;
@@ -271,7 +267,10 @@ th {
     color: #65B741;
     font-weight: bold;
 }
-
+.replus {
+    color: #e6a42f;
+    font-weight: bold;
+}
 /* 페이징 */
 .paging a {
   margin: 0 5px;

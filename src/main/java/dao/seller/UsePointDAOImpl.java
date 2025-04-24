@@ -11,8 +11,8 @@ import util.SearchDtoSoy;
 public class UsePointDAOImpl implements UsePointDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 	@Override
-	public void insertUsePoint(UsePoint usePoint) throws Exception {
-		int result = sqlSession.insert("mapper.usePoint.insertUsePoint",usePoint);
+	public void insertUsePointHistory(UsePoint usePoint) throws Exception {
+		int result = sqlSession.insert("mapper.usePoint.insertUsePointHistory",usePoint);
 		sqlSession.commit();
 		
 	}

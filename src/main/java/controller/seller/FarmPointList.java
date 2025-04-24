@@ -82,6 +82,8 @@ public class FarmPointList extends HttpServlet {
 			request.setAttribute("usePointList", usePointList);
 			request.setAttribute("point", point.getPoint());
 			request.setAttribute("isAlarm", sellerDetail.isAlarm());
+			request.setAttribute("userName", sellerDetail.getUserName());
+			request.setAttribute("phone", sellerDetail.getPhone());
 			request.getRequestDispatcher("/seller/farmPointList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
