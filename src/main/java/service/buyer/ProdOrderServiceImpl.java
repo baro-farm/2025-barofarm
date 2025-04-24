@@ -41,4 +41,10 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 		prodOrderDao.updateDeliveryStatus(pdOrder);		
 	}
 
+	@Override
+	public Integer selectProductOrderCount(Long sellerNum) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
