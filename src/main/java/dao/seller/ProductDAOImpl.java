@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import dto.seller.Product;
 import dto.seller.ProductOption;
 import util.MybatisSqlSessionFactory;
+import vo.ProductVO;
 
 public class ProductDAOImpl implements ProductDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -63,9 +64,11 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 
+	//seller product List
+	
 	@Override
-	public List<Product> selectProductList(Long sellerNum) throws Exception {
-		return sqlSession.selectList("mapper.product.selectProductList",sellerNum);
+	public List<ProductVO> selectProductList(Map<String,Object> param) throws Exception {
+		return sqlSession.selectList("mapper.product.selectProductList",param);
 	}
 
 	@Override
@@ -78,5 +81,10 @@ public class ProductDAOImpl implements ProductDAO {
 	public void updateProductStatusBatch(List<Map<String, Object>> productList) throws Exception {
 		sqlSession.update("mapper.product.updateProductStatusBatch", productList);
 		sqlSession.commit();
+	}
+
+	@Override
+	public Integer countProductList(Long sellerNum) throws Exception {
+		return sqlSession.selectOne("mapper.product.countProductList",sellerNum);
 	}
 }

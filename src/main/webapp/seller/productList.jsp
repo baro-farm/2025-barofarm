@@ -160,14 +160,30 @@
     
     <header id="header">
 			<jsp:include page="/header/adminSellerTop.jsp" />
-
     </header>
     
     <div id="content">
-        <div class="notice-header">
+        <div class="noticeHeader">
             <span id="title">상품 관리</span>
         </div>
-		
+		<div class="filterWrapper">
+		    <form id="sortForm" method="get" action="${contextPath}/sellerProductList">
+		       	<select name="sellStat" id="sellStat" onchange="this.form.submit()">
+		            <option value="all" ${param.sellStat == 'all' ? 'selected' : ''}>전체</option>
+		            <option value="sales" ${param.sellStat == 'sales' ? 'selected' : ''}>판매중</option>
+		            <option value="salesStop" ${param.sellStat == 'salesStop' ? 'selected' : ''}>판매중단</option>
+		        </select>
+		        <select name="sort" id="sortSelect" onchange="this.form.submit()">
+		            <option value="new" ${param.sort == 'new' ? 'selected' : ''}>최신등록순</option>
+		            <option value="lowPrice" ${param.sort == 'lowPrice' ? 'selected' : ''}>낮은가격순</option>
+		            <option value="highPrice" ${param.sort == 'highPrice' ? 'selected' : ''}>높은가격순</option>
+		            <option value="sales" ${param.sort == 'sales' ? 'selected' : ''}>누적판매순</option>
+		            <option value="reviewCount" ${param.sort == 'reviewCount' ? 'selected' : ''}>리뷰많은순</option>
+		            <option value="rating" ${param.sort == 'rating' ? 'selected' : ''}>평점높은순</option>
+		        </select>
+
+		    </form>
+		</div>
 		<div class="table-wrapper">
 		
 		<table id="notice_table" class="table">
@@ -210,7 +226,7 @@
 	                    <td><div class="uiGridCell">${product.createdAt }</div></td>
 	                    <td><div class="uiGridCell"><button class="stockBtn">-</button> <input type='number' min='0'  class="stock" value="${product.stock }"> <button class="stockBtn">+</button><br> <button class="saveBtn">저장</button></div></td>
 	                    <td><div class="uiGridCell">${product.salesVolume }건</div></td>
-	                    <td><div class="uiGridCell">${product.productNum }건</div></td>
+	                    <td><div class="uiGridCell">${product.reviewCount }건</div></td>
 	                    <td>
 	                    	<div class="uiGridCell">
 	                    		<span>${product.avgRating }</span>
@@ -237,6 +253,52 @@
             <button class="btn edit">수정</button>
             <button class="btn add">상품등록</button>
         </div>
+        
+        <c:set var="startPage" value="${page - 2}" />
+		<c:set var="endPage" value="${page + 2}" />
+		
+		<c:if test="${startPage < 1}">
+		    <c:set var="endPage" value="${endPage + (1 - startPage)}" />
+		    <c:set var="startPage" value="1" />
+		</c:if>
+		
+		<c:if test="${endPage > totalPages}">
+		    <c:set var="startPage" value="${startPage - (endPage - totalPages)}" />
+		    <c:set var="endPage" value="${totalPages}" />
+		</c:if>
+		
+		<c:if test="${startPage < 1}">
+		    <c:set var="startPage" value="1" />
+		</c:if>
+		
+		<div class="pagination">		    
+		    <!-- << 현재 페이지 - 5 -->
+			<c:if test="${currentPage > 1}">
+				<a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&laquo;</a>
+			</c:if>
+			
+			<!-- < 이전 페이지 -->
+			<c:if test="${currentPage > 1}">
+				<a href="?page=${currentPage - 1}&sellStat=${param.sellStat}&sort=${param.sort}">&lsaquo;</a>
+			</c:if>
+			
+			<!-- 페이지 번호 -->
+			<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+				<a href="?page=${i}&sellStat=${param.sellStat}&sort=${param.sort}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+			</c:forEach>
+			
+			<!-- > 다음 페이지 -->
+			<c:if test="${currentPage < totalPages}">
+			    <a href="?page=${currentPage + 1}&sellStat=${param.sellStat}&sort=${param.sort}">&rsaquo;</a>
+
+			</c:if>
+			
+			<!-- >> 현재 페이지 + 5 -->
+			<c:if test="${currentPage < totalPages}">
+			    <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&raquo;</a>
+			</c:if>
+		</div>
+		
     </div>
 </body>
 </html>

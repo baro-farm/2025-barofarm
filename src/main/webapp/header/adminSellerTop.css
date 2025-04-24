@@ -8,8 +8,14 @@
 
 #info a{
 	text-decoration:none;
+	color:black
+	
 }
-
+#info a:hover{
+	text-decoration:none;
+	color:#ffb534
+	
+}
 #userId {
   font-size: 16px;
   color: #ffb534;

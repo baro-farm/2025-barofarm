@@ -28,15 +28,37 @@
 	</update>
 	
 	<!-- product List -->
-	<select id="selectProductList" parameterType="long" resultType="productVo">
+	<select id="selectProductList" parameterType="map" resultType="ProductVo">
 		select p.productNum, p.sellerNum, p.productName,p.status, 
 		p.stock, p.price, p.imgUrl, p.createdAt, p.salesVolume,
-		c.name as cateName, COALESCE(AVG(r.pdRating), 0) AS avgRating
+		c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount
 		from product p
 		join category c on p.cateNum = c.cateNum
-		left join prodreview r on p.productNum = r.productNum
+		left join (
+			select productNum,AVG(pdRating) as avgRating, COUNT(*) as reviewCount
+			from prodReview
+			group by productNum		
+		)pr on p.productNum = pr.productNum
 		where p.sellerNum = #{sellerNum}
-		group by p.productNum
+		<if test="sellStat != null and sellStat != ''">
+			<choose>
+				<when test="sellStat == 'sales'">
+					and p.status = true
+				</when>
+				<when test="sellStat == 'salesStop'">
+					and p.status = false
+				</when>
+			</choose>
+		</if>
+		<choose>
+	        <when test="sort == 'lowPrice'">order by p.price asc</when>
+	        <when test="sort == 'highPrice'">order by p.price desc</when>
+	        <when test="sort == 'sales'">order by p.salesVolume desc</when>
+	        <when test="sort == 'reviewCount'">order by pr.reviewCount desc</when>
+	        <when test="sort == 'rating'">order by pr.avgRating desc</when>
+        	<otherwise>order by p.createdAt desc</otherwise> <!-- 기본값: 최신순 -->
+   		</choose>
+    	limit #{offset}, #{pageSize}
 	</select>
 	
 	<update id="updateProductStock" parameterType="map">
@@ -57,6 +79,11 @@
 	    </foreach>
 	</update>
 	
+	<select id="countProductList" parameterType="Long" resultType="Integer">
+		select count(*)
+		from product
+		where sellerNum=#{sellerNum}
+	</select>
 	
 	<!-- end of Product List -->
 	

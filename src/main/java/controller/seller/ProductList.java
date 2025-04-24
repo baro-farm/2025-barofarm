@@ -1,4 +1,4 @@
-package controller.buyer;
+package controller.seller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import service.seller.ProductService;
 import service.seller.ProductServiceImpl;
 import service.seller.SellerDetailService;
 import service.seller.SellerDetailServiceImpl;
+import vo.ProductVO;
 
 /**
  * Servlet implementation class ProductList
@@ -39,6 +40,7 @@ public class ProductList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		
 		HttpSession session = request.getSession(false);
 		User sessionUser =null;
@@ -48,20 +50,69 @@ public class ProductList extends HttpServlet {
 		}
 		if(sessionUser == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
+			return;
 		}
 		
 		
-		List<Product> productList= new ArrayList<>();
+		
+		List<ProductVO> productList= new ArrayList<>();
 		SellerDetailService detailService = new SellerDetailServiceImpl();
 		ProductService service = new ProductServiceImpl();
 		
+		int page=1;
+		int pageSize=10;
+		int totalCount=0;
+		String sort = null;
+		String sellStat=null;
+
 		try {
-			System.out.println(sessionUser.getUserId());
 			Long sellerNum = detailService.selectSellerNumById(sessionUser.getUserId());
-			System.out.println(sellerNum);
-			productList = service.selectSellerProductList(sellerNum);
+			totalCount = service.selectCountSellerProductList(sellerNum);
+			
+			if(request.getParameter("page")!= null) {
+				page=Integer.parseInt(request.getParameter("page"));
+			}
+			
+			int totalPages=(int)Math.ceil((double)totalCount/pageSize);
+			
+			if (page > totalPages && totalPages > 0) {
+		        page = totalPages;
+		    }
+		    if (page <= 0) {
+		        page = 1;  // 페이지가 0 이하일 경우
+		    }
+
+		    int offset = (page - 1) * pageSize;
+			
+		    sort = request.getParameter("sort");
+		    if(sort == null) {
+		    	sort = "new";
+		    }
+		    
+		    sellStat = request.getParameter("sellStat");
+		    if(sellStat == null) {
+		    	sellStat = "all";
+		    }
+		    
+		    System.out.println(sort);
+		    
+			productList = service.selectSellerProductList(sellerNum,offset,pageSize,sort,sellStat);
 			System.out.println(productList);
+			
+			int pageGroupSize = 5;
+			int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
+			int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;
+			int groupEndPage = Math.min(groupStartPage + pageGroupSize - 1, totalPages);
+
 			request.setAttribute("productList", productList);
+
+			request.setAttribute("groupStartPage", groupStartPage);
+			request.setAttribute("groupEndPage", groupEndPage);
+			request.setAttribute("totalPages", totalPages);
+			request.setAttribute("currentPage", page);
+			request.setAttribute("currentGroup", currentGroup);
+			request.setAttribute("pageGroupSize", pageGroupSize);
+			
 			request.getRequestDispatcher("/seller/productList.jsp").forward(request, response);
 
 		}catch (Exception e) {

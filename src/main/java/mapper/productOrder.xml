@@ -35,5 +35,9 @@
 		set deleveryStatus = #{deleveryStatus}
 		where pdOrderNum = #{pdOrderNum}
 	</update>
+	
+	<select id="sellerSelectOrderList" parameterType="map" resultType="prodOrderVo">
+	
+	</select>
 		
 </mapper>

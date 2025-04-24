@@ -10,6 +10,7 @@ import dao.seller.ProductDAOImpl;
 import dao.seller.SellerDAO;
 import dto.seller.Product;
 import dto.seller.ProductOption;
+import vo.ProductVO;
 
 public class ProductServiceImpl implements ProductService {
 	private ProductDAO productDao;
@@ -87,9 +88,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> selectSellerProductList(Long sellerNum) throws Exception {
-		// TODO Auto-generated method stub
-		return productDao.selectProductList(sellerNum);
+	public List<ProductVO> selectSellerProductList(Long sellerNum, int offset, int pageSize,String sort,String sellStat) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("sellerNum", sellerNum);
+		param.put("offset", offset);
+		param.put("pageSize", pageSize);
+		param.put("sort",sort);
+		param.put("sellStat",sellStat);
+		return productDao.selectProductList(param);
 	}
 
 	@Override
@@ -104,5 +110,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateSellerProductStatus(List<Map<String, Object>> productList) throws Exception {
 		productDao.updateProductStatusBatch(productList);
+	}
+
+	@Override
+	public Integer selectCountSellerProductList(Long sellerNum) throws Exception {
+		return productDao.countProductList(sellerNum);
 	}
 }
