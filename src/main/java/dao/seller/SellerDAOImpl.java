@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import dto.seller.SellerDetail;
 import util.MybatisSqlSessionFactory;
+import vo.SellerVO;
 
 public class SellerDAOImpl implements SellerDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -30,4 +31,16 @@ public class SellerDAOImpl implements SellerDAO {
 		SellerDetail seller = sqlSession.selectOne("mapper.seller.selectStoreByName", storeName);
 		return seller != null;
 	}
+
+	@Override
+	public SellerVO selectSerllerDetail(Long userNum) throws Exception {
+		return sqlSession.selectOne("mapper.seller.selectSellerVO",userNum);
+	}
+
+	@Override
+	public void updateIsAlarm(Long userNum) throws Exception {
+		sqlSession.update("mapper.seller.updateIsAlarm",userNum);
+		sqlSession.commit();
+	}
+	
 }

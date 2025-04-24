@@ -7,7 +7,7 @@
 		insert into usepoint (userNum,usedPoint,type,currPoint) VALUE(#{userNum},#{usedPoint},#{type},#{currPoint});
 	</insert>
 	<select id="selectUsePointListBySearchDto" resultType="usePoint" parameterType="searchDtoSoy">
-		SELECT * FROM usePoint 
+		SELECT * FROM usePoint u
 		<where>
 			userNum=#{userNum}
 	            <if test="keyword != null and keyword != ''">
@@ -31,10 +31,10 @@
 		        </if>
 		
 		    <if test="startDateFrom != null and startDateFrom != ''">
-		      AND a.startDate &gt;= #{startDateFrom}
+		      AND Date(createdAt) &gt;= #{startDateFrom}
 		    </if>
 		    <if test="startDateTo != null and startDateTo != ''">
-		      AND a.startDate &lt;= #{startDateTo}
+		      AND Date(createdAt) &lt;= #{startDateTo}
 		    </if>
 		  </where>
 			ORDER BY createdAt DESC
@@ -65,10 +65,10 @@
 		        </if>
 		
 		    <if test="startDateFrom != null and startDateFrom != ''">
-		      AND a.startDate &gt;= #{startDateFrom}
+		      AND Date(createdAt) &gt;= #{startDateFrom}
 		    </if>
 		    <if test="startDateTo != null and startDateTo != ''">
-		      AND a.startDate &lt;= #{startDateTo}
+		      AND Date(createdAt) &lt;= #{startDateTo}
 		    </if>
 		  </where>
 	</select>

@@ -19,8 +19,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 
 	@Override
-	public List<ShoppingCartItem> selectCartOptionsByProduct(Long productNum) throws Exception {
-		return shoppingCartDao.selectCartOptionsByProduct(productNum);
+	public List<ShoppingCartItem> selectCartOptionsByProduct(Long productNum, Long userNum) throws Exception {
+		return shoppingCartDao.selectCartOptionsByProduct(productNum, userNum);
 	}
 
 	@Override
@@ -36,6 +36,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public void deleteCartOption(Long cartNum) throws Exception {
 		shoppingCartDao.deleteCartOption(cartNum);
+	}
+	
+	@Override
+	public List<ShoppingCartItem> selectCartByCartNums(List<Long> cartNums) throws Exception {
+		return shoppingCartDao.selectCartByCartNums(cartNums);
 	}
 
 }

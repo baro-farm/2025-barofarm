@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import dto.buyer.KockFarm;
 import dto.buyer.Matching;
 import util.MybatisSqlSessionFactory;
+import util.SearchDtoSoy;
 import vo.KockCommentVO;
 import vo.KockFarmVO;
 
@@ -40,10 +41,15 @@ public class KockFarmDaoImpl implements KockFarmDao {
 	}
 
 	@Override
-	public List<KockFarm> getKockFarmList() throws Exception {
-		return sqlSession.selectList("mapper.kockFarm.getKockFarmList");
+	public List<KockFarm> selectKFBySearchDto(SearchDtoSoy dto) throws Exception {
+		return sqlSession.selectList("mapper.kockFarm.selectKFBySearchDto",dto);
 	}
 
+	@Override
+	public int countKFBySearchDto(SearchDtoSoy dto) throws Exception {
+		return sqlSession.selectOne("mapper.kockFarm.countKFBySearchDto",dto);
+	}
+	
 	//매칭
 	@Override
 	public void insertMatching(Matching matching) throws Exception {

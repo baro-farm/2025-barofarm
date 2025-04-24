@@ -29,8 +29,10 @@ public class UpdateCartOptions extends HttpServlet {
     try {
         // 수정
         String paramCartNums = request.getParameter("cartNums");
-        String paramQuantities = request.getParameter("quantities");
+        String paramQuantities = request.getParameter("hiddenQuantities");
 
+        System.out.println(paramCartNums);
+        System.out.println(paramQuantities);
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
