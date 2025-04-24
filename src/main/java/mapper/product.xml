@@ -197,13 +197,5 @@
 		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		WHERE p.productNum = #{productNum}
 	</select>
-	<select id="selectProductOptions" parameterType="long" resultType="vo.ProductOptionVO">
-	    SELECT 
-	        optionNum,
-	        option, 
-	        price AS optionPrice
-	    FROM productoption
-	    WHERE productNum = #{productNum}
-	</select>
 	
 </mapper>
