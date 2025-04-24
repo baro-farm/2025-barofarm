@@ -87,6 +87,7 @@
 				<input type="hidden" id="product_content" name="product_content" />
 				<div id="origin_content" style="display: none;">${product.content }</div>
 			</div>
+			<input type="hidden" name="productNum" value="${product.productNum}">
 			<div id="submit">
 				<button type="submit" id="update_btn">수정하기</button>
 				<button type="button" id="toggle_btn"
@@ -97,7 +98,6 @@
 						<c:otherwise>판매 재개하기</c:otherwise>
 					</c:choose>
 				</button>
-
 			</div>
 		</form>
 	</div>
