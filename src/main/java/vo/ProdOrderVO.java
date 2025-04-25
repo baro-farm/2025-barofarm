@@ -21,8 +21,15 @@ public class ProdOrderVO {
 	String productName;
 	String imgUrl;
 	
+	//product option
+	String option; //옵션 이름
+	Integer optionPrice;
+	
 	//seller detail
-	String StoreName;
+	String storeName;
+	
+	//user
+	String userName;
 
 	public Long getPdOrderNum() {
 		return pdOrderNum;
@@ -121,11 +128,36 @@ public class ProdOrderVO {
 	}
 
 	public String getStoreName() {
-		return StoreName;
+		return storeName;
 	}
 
 	public void setStoreName(String storeName) {
-		StoreName = storeName;
+		this.storeName = storeName;
+	}
+
+	public String getOption() {
+		return option;
+	}
+
+	public void setOption(String option) {
+		this.option = option;
+	}
+
+	public Integer getOptionPrice() {
+		return optionPrice;
+	}
+
+	public void setOptionPrice(Integer optionPrice) {
+		this.optionPrice = optionPrice;
+	}
+
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	@Override
@@ -133,9 +165,9 @@ public class ProdOrderVO {
 		return "ProdOrderVO [pdOrderNum=" + pdOrderNum + ", userNum=" + userNum + ", pdTotalPrice=" + pdTotalPrice
 				+ ", orderDate=" + orderDate + ", deleveryStatus=" + deleveryStatus + ", orderStatus=" + orderStatus
 				+ ", productNum=" + productNum + ", amount=" + amount + ", price=" + price + ", sellerNum=" + sellerNum
-				+ ", productName=" + productName + ", imgUrl=" + imgUrl + ", StoreName=" + StoreName + "]";
+				+ ", productName=" + productName + ", imgUrl=" + imgUrl + ", option=" + option + ", optionPrice="
+				+ optionPrice + ", storeName=" + storeName +", userName:"+ userName +"]";
 	}
-	
-	
+
 	
 }

@@ -60,7 +60,7 @@ function loginSubmit() {
     },
     success: function(result) {
       if (result.success) {
-        window.location.href = "main";
+        window.location.href = result.redirectUrl; 
       } else {
         $("#loginErr").text("아이디 또는 비밀번호가 잘못되었습니다.");
       }

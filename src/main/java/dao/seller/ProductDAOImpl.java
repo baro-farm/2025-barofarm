@@ -84,7 +84,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public Integer countProductList(Long sellerNum) throws Exception {
-		return sqlSession.selectOne("mapper.product.countProductList",sellerNum);
+	public Integer countProductList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.product.countProductList",param);
 	}
 }
