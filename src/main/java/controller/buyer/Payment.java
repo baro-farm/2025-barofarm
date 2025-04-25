@@ -1,6 +1,7 @@
 package controller.buyer;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -51,14 +52,16 @@ public class Payment extends HttpServlet {
 		}
 
 		String cartNumsStr = request.getParameter("cartNums");
+		System.out.println(cartNumsStr);
 		if (cartNumsStr == null || cartNumsStr.isEmpty()) {
 			response.sendRedirect("/barofarm/shoppingCart");
+			System.out.println("xxxxx");
 			return;
 		}
 
 		List<Long> cartNums = Arrays.stream(cartNumsStr.split(",")).map(String::trim).filter(s -> !s.isEmpty())
 				.map(Long::parseLong).collect(Collectors.toList());
-
+System.out.println(cartNums);
 		ShoppingCartService cartService = new ShoppingCartServiceImpl();
 		try {
 
@@ -127,7 +130,8 @@ public class Payment extends HttpServlet {
 		String joinedCartNums = String.join(",", cartNumsParam);
 
 		// GET으로 다시 리디렉션
-		response.sendRedirect("/barofarm/payment?cartNums=" + joinedCartNums);
+		response.sendRedirect("/barofarm/payment?cartNums=" + URLEncoder.encode(joinedCartNums, "UTF-8"));
+
 	}
 
 }

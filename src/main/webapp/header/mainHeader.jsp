@@ -68,7 +68,7 @@
 							</c:when>
 							<c:otherwise>
 							    <li class="userli"><a href="myPageMain" class="userBtn">마이페이지</a></li>
-							    <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+							    <li class="userli"><a href="shoppingCart" id="shoppingCart" class="userBtn">장바구니</a></li>
 	                			<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 							</c:otherwise>
 					      </c:choose>
