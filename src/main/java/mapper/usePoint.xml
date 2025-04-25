@@ -3,9 +3,10 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="mapper.usePoint">
-	<insert id="insertUsePoint" parameterType="usePoint" useGeneratedKeys="true" keyProperty="upNum">
-		insert into usepoint (userNum,usedPoint,type,currPoint) VALUE(#{userNum},#{usedPoint},#{type},#{currPoint});
-	</insert>
+	<insert id="insertUsePointHistory" parameterType="usePoint" useGeneratedKeys="true" keyProperty="upNum">
+    	INSERT INTO usePoint (userNum, usedPoint, type, currPoint, payInfo, impUid, merchantUid)
+    	VALUES (#{userNum}, #{usedPoint}, #{type}, #{currPoint}, #{payInfo}, #{impUid}, #{merchantUid})	
+    </insert>
 	<select id="selectUsePointListBySearchDto" resultType="usePoint" parameterType="searchDtoSoy">
 		SELECT * FROM usePoint u
 		<where>

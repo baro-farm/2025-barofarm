@@ -1,0 +1,82 @@
+@charset "UTF-8";
+/*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+/* 내용 */
+
+#content {
+  max-width: 1280px;
+  margin: 40px auto;
+  padding-top: 80px;
+  padding-left: 220px;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+/*제목*/
+.title {
+  color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.subtitle { /* 컨텐츠 부제목*/
+  font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 60px;
+}
+.form-group {
+  display: flex;
+  margin-bottom: 16px;
+  align-items: center;
+}
+.form-group label {
+  width: 100px;
+  font-weight: bold;
+}
+.form-group input {
+  padding: 6px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.readonly-text {
+  padding: 6px 0;
+}
+.address-group {
+  display: flex;
+  gap: 5px;
+}
+.address-group input {
+  width: auto;
+}
+.address-group2 {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+.submit-btn {
+  background-color: #65b741;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 100px;
+}
+.submit-btn:hover {
+    background-color: #579d39;
+}

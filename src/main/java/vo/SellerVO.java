@@ -4,7 +4,8 @@ public class SellerVO {
     // user 테이블 정보
 	private String userNum;
     private String userId;
-    private String userName;
+	private String pwd;
+	private String userName;
     private String phone;
     private String birthDate;
     private String email;
@@ -40,6 +41,12 @@ public class SellerVO {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 	public String getUserName() {
 		return userName;

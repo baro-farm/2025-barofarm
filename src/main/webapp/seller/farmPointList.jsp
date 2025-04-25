@@ -13,117 +13,108 @@
     <link rel="stylesheet" href="${contextPath}/seller/farmPointList.css" />
 </head>
 <body>
-	<div class="container">
-		<div class="wrapper">
-			<div class="inner_body">
-			        <div class="sidebar">
-						<jsp:include page="/header/sellerHeader.jsp" />
-			        </div>
-		    </div>
-		    <header id="header">
-		        <div id="info">
-		            <span id="email">kosta@kosta.com</span>
-		            <span>내 정보</span>
-		            <span>로그아웃</span>
-		        </div>
-		    </header>
-    			<div class="content">
-		        <div class="point-header">
-		            <h1 class="title">팜포인트</h1>
-		            <c:if test="${isAlarm eq false }">
-			            <div class="subscribe-box">
-			                <span class="question-icon">❓</span>
-			                <button class="subscribe-btn">
-			                    콕팜링 구독하기
-			                </button>
-			            </div>
-		            </c:if>
-		            <c:if test="${isAlarm eq true }">
-			            <div class="subscribe-box">
-			                <button class="subscribed-btn">
-			                    ✔ 콕팜링 구독취소
-			                </button>
-			            </div>
-					</c:if>
-		        </div>
-		        <div class="point-box">
-		            <span class="point-label">보유 포인트</span>
-		            <div>
-		            <span class="point-value">💰 ${point }P</span>
-		            <button class="charge-btn">충전하기</button>
+	<jsp:include page="/header/sellerHeader.jsp" />
+    <header id="header">
+		<jsp:include page="/header/adminSellerTop.jsp" />
+    </header>
+		<div id="content">
+	        <div class="point-header">
+	            <h1 class="title">팜포인트</h1>
+	            <c:if test="${isAlarm eq false }">
+		            <div class="subscribe-box">
+		                <span class="question-icon">❓</span>
+		                <button class="subscribe-btn">
+		                    콕팜링 구독하기
+		                </button>
 		            </div>
-		        </div>
+	            </c:if>
+	            <c:if test="${isAlarm eq true }">
+		            <div class="subscribe-box">
+		                <button class="subscribed-btn">
+		                    ✔ 콕팜링 구독취소
+		                </button>
+		            </div>
+				</c:if>
+	        </div>
+	        <div class="point-box">
+	            <span class="point-label">보유 포인트</span>
+	            <div>
+	            <span class="point-value">💰 ${point }P</span>
+	            <button class="charge-btn">충전하기</button>
+	            </div>
+	        </div>
 
-		        <div class="history-section">
-		        	<div>
-   			            <h3>포인트 내역</h3>
-		        		<form method="get" action="${contextPath}/farmPointList" >
-						  <select name="searchType">
-						    <option value="usedPoint" ${param.searchType == 'usedPoint' ? 'selected' : ''}>사용/충전</option>
-						    <option value="type" ${param.searchType == 'type' ? 'selected' : ''}>상세내역</option>
-						  </select>
-						  <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
-						  <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
-						  ~
-						  <input type="date" name="startDateTo" value="${param.startDateTo}" />
-						  <button type="submit">검색</button>
-						</form>
-		        	</div>
-		            <hr>
+	        <div class="history-section">
+	        	<div>
+  			            <h3>포인트 내역</h3>
+	        		<form method="get" action="${contextPath}/farmPointList" >
+					  <select name="searchType">
+					    <option value="usedPoint" ${param.searchType == 'usedPoint' ? 'selected' : ''}>사용/충전</option>
+					    <option value="type" ${param.searchType == 'type' ? 'selected' : ''}>상세내역</option>
+					  </select>
+					  <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
+					  <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
+					  ~
+					  <input type="date" name="startDateTo" value="${param.startDateTo}" />
+					  <button type="submit">검색</button>
+					</form>
+	        	</div>
+	            <hr>
 
-		            <table id="point-table" class="display nowrap" >
-		                <thead>
-		                    <tr>
-		                        <th></th>
-		                        <th>날짜</th>
-		                        <th>상세내역</th>
-		                        <th>포인트</th>
-		                        <th>잔여 포인트</th>
-		                    </tr>
-		                </thead>
-		                <tbody>
-			              <c:forEach var="up" items="${usePointList}" varStatus="status">
-			              	<tr>
-			              		<c:if test="${up.usedPoint < 0 }">
-			              		<td class="point-date"><span class="status use">사용</span></td>
-			              		</c:if>
-			              		<c:if test="${up.usedPoint > 0 && up.type eq '광고반려' }">
-			              		<td class="point-date"><span class="status rere">반환</span></td>
-			              		</c:if>
-			              		<c:if test="${up.usedPoint > 0 && up.type ne '광고반려' }">
-			              		<td class="point-date"><span class="status charge">충전</span></td>
-			              		</c:if>
-		                        <td>${up.createdAt.toLocalDate()}</td>
-		                        <td>${up.type }</td>
-			              		<c:if test="${up.usedPoint < 0 }">				                        
-		                        <td class="minus">${up.usedPoint }P</td>
-		                        </c:if>
-		                        <c:if test="${up.usedPoint > 0 }">				                        
-		                        <td class="plus">+${up.usedPoint }P</td>
-		                        </c:if>
-		                        <td>${up.currPoint }P</td>
-		                    </tr>
-			              </c:forEach>				                    
-		                </tbody>
-		            </table>
-		        </div>
-				<div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
-				  <c:if test="${pi.startPage > 1}">
-				    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
-				  </c:if>
+	            <table id="point-table" class="display nowrap" >
+	                <thead >
+	                    <tr>
+	                        <th></th>
+	                        <th>날짜</th>
+	                        <th>상세내역</th>
+	                        <th>포인트</th>
+	                        <th>잔여 포인트</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+		              <c:forEach var="up" items="${usePointList}" varStatus="status">
+		              	<tr>
+		              		<c:if test="${up.usedPoint < 0 }">
+		              		<td class="point-date"><span class="status use">사용</span></td>
+		              		</c:if>
+		              		<c:if test="${up.usedPoint > 0 && up.type eq '광고반려' }">
+		              		<td class="point-date"><span class="status rere">반환</span></td>
+		              		</c:if>
+		              		<c:if test="${up.usedPoint > 0 && up.type ne '광고반려' }">
+		              		<td class="point-date"><span class="status charge">충전</span></td>
+		              		</c:if>
+	                        <td>${up.createdAt.toLocalDate()}</td>
+	                        <td>${up.type }</td>
+		              		<c:if test="${up.usedPoint < 0 }">				                        
+	                        <td class="minus">${up.usedPoint }P</td>
+	                        </c:if>
+	                        <c:if test="${up.usedPoint > 0 && up.type eq '광고반려' }">				                        
+	                        <td class="replus">+${up.usedPoint }P</td>
+	                        </c:if>
+	                        <c:if test="${up.usedPoint > 0 && up.type ne '광고반려'  }">				                        
+	                        <td class="plus">+${up.usedPoint }P</td>
+	                        </c:if>
+	                        <td>${up.currPoint }P</td>
+	                    </tr>
+		              </c:forEach>				                    
+	                </tbody>
+	            </table>
+	        </div>
+			<div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
+			  <c:if test="${pi.startPage > 1}">
+			    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
+			  </c:if>
 
-				  <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
-				    <a href="?page=${p}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}"
-				       class="${p == pi.currentPage ? 'active' : ''}">${p}</a>
-				  </c:forEach>
+			  <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
+			    <a href="?page=${p}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}"
+			       class="${p == pi.currentPage ? 'active' : ''}">${p}</a>
+			  </c:forEach>
 
-				  <c:if test="${pi.endPage < pi.maxPage}">
-				    <a href="?page=${pi.endPage + 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&raquo;</a>
-				  </c:if>
-				</div>
-		    </div>
-		</div>
-	</div>
+			  <c:if test="${pi.endPage < pi.maxPage}">
+			    <a href="?page=${pi.endPage + 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&raquo;</a>
+			  </c:if>
+			</div>
+	    </div>
 	<!-- 구독 모달 -->
 	<div id="subscribeModal" class="modal-wrapper" style="display:none;">
 		<div class="modal">
@@ -286,12 +277,12 @@
 	    IMP.request_pay({
 	        pg: 'kcp', // PG사 선택 (예: kakaopay, tosspayments 등)
 	        pay_method: 'card', // 결제 수단 (card, trans, vbank 등)
-	        merchant_uid: 'order_' + new Date().getTime(), // 주문번호 (고유해야 함)
-	        name: '포인트 충전', // 결제 상품명
+	        merchant_uid: 'chargePoint_' + new Date().getTime(), // 주문번호 (고유해야 함)
+	        name: '팜포인트 충전', // 결제 상품명
 	        amount: amount, // 결제 금액
 	        buyer_email: '@gmail.com', // 구매자 이메일
-	        buyer_name: '홍길동', // 구매자 이름
-	        buyer_tel: '010-1234-5678' // 구매자 전화번호
+	        buyer_name: '${userName}', // 구매자 이름
+	        buyer_tel: '${phone}' // 구매자 전화번호
 	    }, function (rsp) {
 	        if (rsp.success) {
 	            // ✅ 결제 성공 시 서버에 결제 정보 전달 (imp_uid)
@@ -301,14 +292,16 @@
 	                body: JSON.stringify({
 	                    imp_uid: rsp.imp_uid, // 아임포트 거래 고유번호
 	                    merchant_uid: rsp.merchant_uid,
-	                    amount: amount
+	                    usedPoint: amount,
+	                    type: "팜포인트 충전",
+	                    payInfo: 'KCP-카드'
 	                })
 	            })
 	            .then(res => res.json())
 	            .then(data => {
 	                if (data.success) {
 	                    alert('충전이 완료되었습니다!');
-	                    location.reload(); // 포인트 새로고침
+	                    location.reload();
 	                } else {
 	                    alert('충전 처리에 실패했습니다.');
 	                }

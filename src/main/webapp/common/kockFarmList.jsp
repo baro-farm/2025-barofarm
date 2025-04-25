@@ -40,7 +40,7 @@
 						</form>
 				    </div>
 				        
-			        <table class="table" width="100%">
+			        <table class="table">
 			            <thead>
 			                <tr>
 			                    <th style="font-weight: bold;">순번</th>

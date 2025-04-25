@@ -14,7 +14,7 @@
             </div>
         </div>
         <ul>
-            <li><a href="#">상품 관리</a></li>
+            <li><a href="${contextPath }/sellerProductList">상품 관리</a></li>
             <li><a href="#">상품 주문관리</a></li>
             <li><a href="#">꾸러미 판매 관리</a></li>
             <li><a href="#">꾸러미 주문 관리</a></li>
@@ -25,7 +25,7 @@
             <li><a href="#">알림 내역</a></li>
             <li><a href="#">문의 내역</a></li>
             <li><a href="#">취소 내역</a></li>
-            <li><a href="#">스토어 정보</a></li>
+            <li><a href="${contextPath }/detailStoreInfo">스토어 정보</a></li>
             <li><a href="${contextPath }/sellerAdsList">배너 광고</a></li>
 
         </ul>

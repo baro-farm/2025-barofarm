@@ -32,7 +32,7 @@ public class AdsServiceImpl implements AdsService {
 		//3.usePoint에서 포인트 사용 내역 저장
 		Integer currPoint = pointService.getPoint(ads.getUserNum()).getPoint();
 		UsePoint usePoint = new UsePoint(ads.getUserNum(), -20000, "광고등록", currPoint);
-		usePointService.insertUsePoint(usePoint);
+		usePointService.handlePointByAds(usePoint);
 	}
 	@Override
 	public List<Advertisement> selectAdsByUserNum(Long userNum) throws Exception {
@@ -49,7 +49,7 @@ public class AdsServiceImpl implements AdsService {
 		//3.usePoint에서 포인트 반환 내역 저장
 		Integer currPoint = pointService.getPoint(userNum).getPoint();
 		UsePoint usePoint = new UsePoint(userNum, +20000, "광고취소", currPoint);
-		usePointService.insertUsePoint(usePoint);
+		usePointService.handlePointByAds(usePoint);
 	}
 	
 	@Override
@@ -87,7 +87,7 @@ public class AdsServiceImpl implements AdsService {
 			//포인트 사용 내역
 			Integer currPoint = pointService.getPoint(userNum).getPoint();
 			UsePoint usePoint = new UsePoint(userNum, +20000, "광고반려", currPoint);
-			usePointService.insertUsePoint(usePoint);
+			usePointService.handlePointByAds(usePoint);
 		} else if ("승인".equals(status)) {
 			//배너 삽입
 			Banner banner = new Banner(null, adsNum, ads.getTitle(), ads.getImgUrl(), ads.getProductUrl(), null, null, true, ads.getUserNum());
