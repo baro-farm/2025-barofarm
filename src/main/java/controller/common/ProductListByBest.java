@@ -15,16 +15,16 @@ import util.PageInfo;
 import vo.ProductVO;
 
 /**
- * Servlet implementation class NewProductList
+ * Servlet implementation class BestProductList
  */
-@WebServlet("/newProductList")
-public class NewProductList extends HttpServlet {
+@WebServlet("/bestProductList")
+public class ProductListByBest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewProductList() {
+    public ProductListByBest() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,20 +40,17 @@ public class NewProductList extends HttpServlet {
 		PageInfo pageInfo = new PageInfo(curPage, 20);
 
 		UserProductService service = new UserProductServiceImpl();
-
 		try {
-			List<ProductVO> newList = service.NewProductByPage(pageInfo);
+			List<ProductVO> bestList = service.BestProductByPage(pageInfo);
 
 			request.setAttribute("pageInfo", pageInfo);
-			request.setAttribute("productList", newList);
-			request.setAttribute("cateName", "신상품");
-			request.setAttribute("listType", "new");
-			
+			request.setAttribute("productList", bestList);
+			request.setAttribute("cateName", "베스트");
 
 			request.getRequestDispatcher("productList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "신상품 목록 조회 실패");
+			request.setAttribute("err", "베스트 상품 조회 실패");
 		}
 	}
 

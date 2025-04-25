@@ -4,27 +4,27 @@
 	
 <mapper namespace="mapper.product">
 	<insert id="insertProduct" parameterType="product" useGeneratedKeys="true" keyProperty="productNum">
-		insert into product (sellerNum, cateNum, productName, content, stock, price, imgUrl, status) 
-		values (#{sellerNum}, #{cateNum}, #{productName}, #{content}, #{stock}, #{price}, #{imgUrl}, #{status})
+		insert into product (sellerNum, cateNum, productName, content, price, imgUrl, status) 
+		values (#{sellerNum}, #{cateNum}, #{productName}, #{content}, #{price}, #{imgUrl}, #{status})
 	</insert>
 	<select id="selectProduct" parameterType="Long" resultType="product">
 		select * from product where productNum=#{productNum}
 	</select>
 	<update id="updateProduct" parameterType="product">
 		update product set cateNum=#{cateNum}, productName=#{productName}, content=#{content}, 
-		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status} where productNum=#{productNum} 
+		price=#{price}, imgUrl=#{imgUrl}, status=#{status} where productNum=#{productNum}
 	</update>
 	<update id="stopProduct" parameterType="product">
 		update product set status=#{status} where productNum=#{productNum}
 	</update>
 	<insert id="insertProductOption" parameterType="productOption">
-		insert into productOption (productNum, option, price) values (#{productNum}, #{option}, #{price})
+		insert into productOption (productNum, option, price, stock) values (#{productNum}, #{option}, #{price}, #{stock})
 	</insert>
 	<select id="selectProductOption" parameterType="Long" resultType="productOption">
 		select * from productOption where productNum=#{productNum}
 	</select>
 	<update id="updateProductOption" parameterType="productOption">
-		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where optionNum=#{optionNum}
+		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt}, stock=#{stock} where optionNum=#{optionNum}
 	</update>
 	
 	<!-- product List -->
@@ -254,14 +254,45 @@
 		    p.productName, 
 		    p.price, 
 		    p.imgUrl,
-		    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating, 
-		    COUNT(r.reviewNum) AS reviewCount,
-		    po.option, 
-		    po.price AS optionPrice            
+		    p.content,
+		    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+		    COUNT(r.reviewNum) AS reviewCount
 		FROM product p
-		JOIN sellerDetail s ON p.sellerNum = s.sellerNum   
+		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
 		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		WHERE p.productNum = #{productNum}
+	</select>
+	<select id="selectProductBySellerNum" resultType="ProductVO" parameterType="map">
+	  SELECT 
+	    p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
+	    s.storeName,
+	    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+	    COUNT(r.reviewNum) AS reviewCount
+	  FROM product p
+	  JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	  LEFT JOIN prodreview r ON p.productNum = r.productNum
+	  WHERE p.sellerNum = #{sellerNum}
+	  GROUP BY p.productNum
+	
+	  <choose>
+	    <when test="sort == 'createdAt'">
+	      ORDER BY p.createdAt DESC, p.productName ASC
+	    </when>
+	    <when test="sort == 'priceAsc'">
+	      ORDER BY p.price ASC, p.productName ASC
+	    </when>
+	    <when test="sort == 'priceDesc'">
+	      ORDER BY p.price DESC, p.productName ASC
+	    </when>
+	    <otherwise>
+	      ORDER BY p.productName DESC
+	    </otherwise>
+	  </choose>
+	
+	  LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countProductBySellerNum" resultType="Integer">
+	    SELECT COUNT(*) FROM product WHERE sellerNum = #{sellerNum}
 	</select>
 	
 </mapper>

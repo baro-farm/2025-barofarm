@@ -66,7 +66,6 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("application/json");
-		request.setCharacterEncoding("utf-8");
 		
 		String userId = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
@@ -83,25 +82,33 @@ public class Login extends HttpServlet {
 
 			int cookieTime = 60 * 60 * 24 * 31;
 			
-			Cookie cookieId = new Cookie("userId", (saveId != null || autoLogin != null) ? userId : "");
-			cookieId.setMaxAge((saveId != null || autoLogin != null) ? cookieTime : 0);
-			Cookie cookiePwd = new Cookie("pwd", (autoLogin != null) ? pwd : "");
-			cookiePwd.setMaxAge((autoLogin != null) ? cookieTime : 0);
-			Cookie cookieSaveId = new Cookie("saveId", (saveId != null) ? "on" : "");
-			cookieSaveId.setMaxAge((saveId != null) ? cookieTime : 0);
-			Cookie cookieAutoLogin = new Cookie("autoLogin", (autoLogin != null) ? "on" : "");
-			cookieAutoLogin.setMaxAge((autoLogin != null) ? cookieTime : 0);
+			// 아이디 저장 쿠키
+            Cookie cookieId = new Cookie("userId", (saveId != null || autoLogin != null) ? userId : "");
+            cookieId.setMaxAge((saveId != null || autoLogin != null) ? cookieTime : 0);
+            cookieId.setPath("/");
+            // 아이디 저장 체크 여부 쿠키
+            Cookie cookieSaveId = new Cookie("saveId", (saveId != null) ? "on" : "");
+            cookieSaveId.setMaxAge((saveId != null) ? cookieTime : 0);
+            cookieSaveId.setPath("/");
 
-			for (Cookie c : new Cookie[]{cookieId, cookiePwd, cookieSaveId, cookieAutoLogin}) {
-				c.setPath("/");
-				response.addCookie(c);
-			}
 			
-	        // 🔥 여기 추가
+	        // 이전 페이지 저장 여기 추가
 	        String prevPage = (String) session.getAttribute("prevPage");
 	        session.removeAttribute("prevPage");  // 쓰고 나면 지우기
 	        String redirectUrl = (prevPage != null) ? prevPage : request.getContextPath() + "/main";
 
+			// 자동 로그인 체크 여부 쿠키
+            Cookie cookieAutoLogin = new Cookie("autoLogin", (autoLogin != null) ? "on" : "");
+            cookieAutoLogin.setMaxAge((autoLogin != null) ? cookieTime : 0);
+            cookieAutoLogin.setPath("/");
+
+            // (보안상 비밀번호 쿠키는 저장하지 않음)
+
+            // 쿠키 추가(삭제)
+            response.addCookie(cookieId);
+            response.addCookie(cookieSaveId);
+            response.addCookie(cookieAutoLogin);
+            
 			response.getWriter().write("{\"success\": true, \"redirectUrl\": \"" + redirectUrl + "\"}");
 			
 		}catch(Exception e) {

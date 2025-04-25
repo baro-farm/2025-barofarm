@@ -15,16 +15,16 @@ import util.PageInfo;
 import vo.ProductVO;
 
 /**
- * Servlet implementation class BestProductList
+ * Servlet implementation class StoreProductList
  */
-@WebServlet("/bestProductList")
-public class BestProductList extends HttpServlet {
+@WebServlet("/storeProductList")
+public class ProductListByStore extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BestProductList() {
+    public ProductListByStore() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,24 +34,49 @@ public class BestProductList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
+
+		Long sellerNum = Long.parseLong(request.getParameter("sellerNum"));
+		String storeName = "";
 		String pageStr = request.getParameter("page");
+		String sort = request.getParameter("sort");
+		
+		if (sort == null || sort.trim().equals("")) {
+		    sort = "salesVolume";
+		}
+		
 		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
 		PageInfo pageInfo = new PageInfo(curPage, 20);
-
+		
+		
+		
 		UserProductService service = new UserProductServiceImpl();
+		
 		try {
-			List<ProductVO> bestList = service.BestProductByPage(pageInfo);
+			List<ProductVO> productList = service.ProductBySellerNum(pageInfo, sellerNum, sort);
+			if (productList != null && !productList.isEmpty()) {
+			    storeName = productList.get(0).getStoreName(); // 첫 번째 상품의 storeName!
+			}
 
 			request.setAttribute("pageInfo", pageInfo);
-			request.setAttribute("productList", bestList);
-			request.setAttribute("cateName", "베스트");
+			request.setAttribute("productList", productList);
+			request.setAttribute("sellerNum", sellerNum); 
+			request.setAttribute("storeName", storeName); 
+			request.setAttribute("listType", "store");
+			request.setAttribute("sort", sort);
 
 			request.getRequestDispatcher("productList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "베스트 상품 조회 실패");
+			request.setAttribute("err", "검색 결과 조회 실패");
 		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

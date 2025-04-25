@@ -15,16 +15,16 @@ import util.PageInfo;
 import vo.ProductVO;
 
 /**
- * Servlet implementation class SearchProductList
+ * Servlet implementation class NewProductList
  */
-@WebServlet("/searchProductList")
-public class SearchProductList extends HttpServlet {
+@WebServlet("/newProductList")
+public class ProductListByNew extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchProductList() {
+    public ProductListByNew() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,33 +34,26 @@ public class SearchProductList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-
-		String keyword = request.getParameter("keyword");
+		
 		String pageStr = request.getParameter("page");
-		String sort = request.getParameter("sort");
-		
-		int curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
-		
-		if (sort == null || sort.trim().equals("")) {
-		    sort = "salesVolume";
-		}
-
+		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
 		PageInfo pageInfo = new PageInfo(curPage, 20);
+
 		UserProductService service = new UserProductServiceImpl();
 
 		try {
-			List<ProductVO> productList = service.searchProducts(pageInfo, keyword, sort);
+			List<ProductVO> newList = service.NewProductByPage(pageInfo);
 
 			request.setAttribute("pageInfo", pageInfo);
-			request.setAttribute("productList", productList);
-			request.setAttribute("keyword", keyword); 
-			request.setAttribute("listType", "search");
-			request.setAttribute("sort", sort);
+			request.setAttribute("productList", newList);
+			request.setAttribute("cateName", "신상품");
+			request.setAttribute("listType", "new");
+			
 
 			request.getRequestDispatcher("productList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "검색 결과 조회 실패");
+			request.setAttribute("err", "신상품 목록 조회 실패");
 		}
 	}
 

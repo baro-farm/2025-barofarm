@@ -59,15 +59,23 @@
 			values(#{userNum},#{productNum},#{pdRating},#{pdReviewContent},#{pdReviewImgUrl})
 	</insert>
 	
-	<select id="selectProdReview" parameterType="long" resultType="prodReviewVO">
-		SELECT r.productNum, u.userId, r.pdRating, r.pdReviewContent, r.createdAt,r.pdReviewImgUrl
-	    FROM review r
+	<select id="selectProdReview" parameterType="map" resultType="prodReviewVO">
+		SELECT 
+			r.productNum, 
+	        p.productName,
+	        CONCAT(LEFT(u.userId, CHAR_LENGTH(u.userId) - 3), '***') AS userId,
+	        r.pdRating, 
+	        r.pdReviewContent AS pdContent, 
+	        r.createdAt,
+	        r.pdReviewImgUrl AS imgUrl
+	    FROM prodReview r
+	    JOIN product p ON r.productNum = p.productNum
 	    JOIN user u ON r.userNum = u.userNum
 	    WHERE r.productNum = #{productNum}
 	    ORDER BY r.createdAt DESC
 	    LIMIT #{start}, #{pageSize}
 	</select>
-	<select id="countProdReview" resultType="Integer" parameterType="String">
-	    SELECT COUNT(*) FROM review WHERE productNum = #{productNum}
+	<select id="countProdReview" resultType="Integer" parameterType="long">
+	    SELECT COUNT(*) FROM prodReview WHERE productNum = #{productNum}
 	</select>
 </mapper>

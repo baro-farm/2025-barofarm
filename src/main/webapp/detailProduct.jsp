@@ -8,8 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 상세 페이지</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" href="${contextPath}/reset.css" />
     <link rel="stylesheet" href="${contextPath}/detailProduct.css" /> 
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script defer src="detailProduct.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -21,24 +25,24 @@
 			    <div class="prodInfoBox">
 			            <!-- 이미지 -->
 			            <div class="prodImg">
-			                <img src="${contextPath}/img/fruits1.jpg" alt="상추이미지">
+			                <img src="${contextPath}${product.imgUrl}" alt="상품 이미지">
 			            </div>
 			            <div class="prodInfo">
 			                <!-- 스토어상품정보 -->
-			                <div class="storeName"><a href="">충남부여 강도석 &gt;</a></div>
-			                <div class="prodTitle">[친환경 수정재배] 유럽 샐러드 채소 야채 1kg 유러피안 버터헤드 로메인 상추 쌈채소</div>
+			                <div class="storeName"><a href="${contextPath}/storeProductList?sellerNum=${product.sellerNum}">${product.storeName} &gt;</a></div>
+			                <div class="prodTitle">${product.productName}</div>
 			                <div class="additional">
-			                    <div class="reviewScore">⭐ 4.5 (212)</div>
-			                    <div class="price">7,400원</div>
+			                    <div class="reviewScore">⭐ ${product.avgRating} (${product.reviewCount})</div>
+			                    <div class="price">${product.price }원</div>
 			                </div>
 			          
 			                <!-- 주문옵션전체영역 -->
 			                <div class="orderOption">
 			                    <select id="optionSelect" class="selectBox">
-			                        <option value="">옵션 선택</option>
-			                        <option value="바타비아|7400">바타비아 - 7,400원</option>
-			                        <option value="로메인|7800">로메인 - 7,800원</option>
-			                        <option value="버터헤드|8000">버터헤드 - 8,000원</option>
+			                    	<option value="">옵션 선택</option>
+			                        <c:forEach var="o" items="${option}">
+			                        	<option value="${o.option}|${o.price}">${o.option} - <fmt:formatNumber value="${o.price}" type="number" />원</option>
+			                        </c:forEach>
 			                    </select>
 			                    <div id="selectedOptions"></div>
 			                </div>
@@ -48,7 +52,7 @@
 			                
 			                <!-- 버튼 영역 -->
 			                <div class="actionButtons">
-			                    <a href="#" id="basket">장바구니</a>
+			                    <a href="" id="basket">장바구니</a>
 			                    <a href="#" id="purchase">구매하기</a>
 			                </div>
 			            </div>
@@ -58,64 +62,39 @@
 			        <div class="tabs" id="details">
 			            <ul class="tabList">
 			                <li class="tab focus"><a href="#details">상세정보</a></li>
-			                <li class="tab"><a href="#reviews">리뷰 보기(21)</a></li>
+			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
 			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
 			        <div class="contentDetail">
 			            <div>
-			                <img src="../img/image 4.png" alt="">
+			                ${product.content }
 			            </div>
 			        </div>
 			        <!-- 리뷰 -->
 			        <div class="tabs" id="reviews">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
-			                <li class="tab focus"><a href="#reviews">리뷰 보기(21)</a></li>
+			                <li class="tab focus"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
 			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
-			        <!-- 리뷰 이미지 슬라이더 -->
-			        <div class="imgSlider">
-			            <button class="nav-button prev" onclick="slide(-1)">←</button>
-			            <div class="slider" id="slider">
-			              <div class="slide"><img src="../img/fruits1.jpg" alt="1"></div>
-			              <div class="slide"><img src="../img/fruits2.jpg" alt="2"></div>
-			              <div class="slide"><img src="../img/fruits3.jpg" alt="3"></div>
-			              <div class="slide"><img src="../img/bener1.jpg" alt="4"></div>
-			              <div class="slide"><img src="../img/bener2.jpg" alt="5"></div>
-			              <div class="slide"><img src="../img/bener3.jpg" alt="6"></div>
-			              <div class="slide"><img src="../img/fruits1.jpg" alt="7"></div>
-			              <div class="slide"><img src="../img/fruits2.jpg" alt="8"></div>
-			              <div class="slide"><img src="../img/fruits3.jpg" alt="9"></div>
-			              <div class="slide"><img src="../img/fruits1.jpg" alt="10"></div>
-			            </div>
-			            <button class="nav-button next" onclick="slide(1)">→</button>
-			        </div>
-			        <!-- 리뷰내용  -->
-			            <table class="reviewTable">
-			            </table>     
-			            <div class="paging">
-			                <a href="">&lt;</a>
-			                <a href="" class="pagingBtn">1</a>
-			                <a href="" class="pagingBtn">2</a>
-			                <a href="" class="pagingBtn">3</a>
-			                <a href="">&gt;</a>
-			            </div>
-			
+					<div id="review" class="review">
+						<jsp:include page="/detailReviewSection.jsp" />
+					</div>
 			        <!-- 문의 -->
 			        <div class="tabs" id="qna">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
-			                <li class="tab"><a href="#reviews">리뷰 보기(21)</a></li>
+			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
 			                <li class="tab focus"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
 			        
-			        <table id="notice_table" class="table" width="100%">
+			        <table id="notice_table" class="prodQA">
 			            <thead class="">
 			                <tr>
 			                    <th style="font-weight: bold;">답변상태</th>
@@ -132,12 +111,6 @@
 			                    <td>2025-03-29</td>
 			                </tr>
 			                <tr>
-			                    <td>답변대기</td>
-			                    <td><a href="">발송마감시간 변경안내</a></td>
-			                    <td>id335****</td>
-			                    <td>2025-03-29</td>
-			                </tr>
-			                <tr>
 			                    <td>답변완료</td>
 			                    <td><a href="" class="question">연말연시 배송안내</a></td>
 			                    <td>id877****</td>
@@ -145,21 +118,15 @@
 			                </tr>
 			                <tr class="answerRow">
 			                    <td colspan="4" class="answer">
-			                      <span class="tag">답변</span>
+			                      <span class="answerTitle">답변</span>
 			                      안녕하세요. 고객님~ 저희 유럽 샐러드 채소를 주문해주시면...
-			                      <div class="meta">판매자 | 2025-02-21</div>
+			                      <div class="answerInfo">판매자 | 2025-02-21</div>
 			                    </td>
 			                  </tr>
 			                <tr>
 			                    <td>답변완료</td>
 			                    <td><a href="">2019년 설 연휴 배송안내</a></td>
 			                    <td>id1sssss8****</td>
-			                    <td>2025-03-29</td>
-			                </tr>
-			                <tr>
-			                    <td>답변완료</td>
-			                    <td><a href="">상품을 교환/반품하고 싶어요.</a></td>
-			                    <td>id335****</td>
 			                    <td>2025-03-29</td>
 			                </tr>
 			            </tbody>
@@ -176,7 +143,7 @@
 			        <div class="tabs" id="info">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
-			                <li class="tab"><a href="#reviews">리뷰 보기(21)</a></li>
+			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
 			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab focus"><a href="#info">안내사항</a></li>
 			              </ul>

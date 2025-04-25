@@ -10,7 +10,7 @@ public class ProductOption {
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
 	Integer stock;
-	
+
 	public Long getOptionNum() {
 		return optionNum;
 	}
@@ -72,24 +72,40 @@ public class ProductOption {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductOption(String option, Integer price) {
+	public ProductOption(String option, Integer price, Integer stock) {
 		super();
 		this.option = option;
 		this.price = price;
+		this.stock = stock;
 	}
 
-	public ProductOption(Long optionNum, String option, Integer price) {
+	public ProductOption(Long optionNum, String option, Integer price, Integer stock) {
 		super();
 		this.optionNum = optionNum;
 		this.option = option;
 		this.price = price;
+		this.stock = stock;
 	}
 
-	public ProductOption(Long productNum, String option, Integer price, LocalDateTime updatedAt) {
+	public ProductOption(Long productNum, String option, Integer price, LocalDateTime updatedAt, Integer stock) {
 		super();
 		this.productNum = productNum;
 		this.option = option;
 		this.price = price;
 		this.updatedAt = updatedAt;
+		this.stock = stock;
 	}
+
+	public ProductOption(Long optionNum, Long productNum, String option, Integer price, LocalDateTime createdAt, LocalDateTime updatedAt, Integer stock) {
+		super();
+		this.optionNum = optionNum;
+		this.productNum = productNum;
+		this.option = option;
+		this.price = price;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.stock = stock;
+	}
+
+	
 }
