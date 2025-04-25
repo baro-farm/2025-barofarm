@@ -1,3 +1,6 @@
+.reviewContent {
+  @import "bootstrap/scss/reboot";
+}
 .wrapper {
     display: flex;
     flex-direction: row;
@@ -8,7 +11,7 @@
     align-self: flex-start;
     padding: 30px 0 0 0;
     max-width: 1000px;
-    min-width: 0;
+    min-width: 800px;
     margin-left: 20px;
     margin-right: auto;
   	position: relative;
@@ -29,6 +32,9 @@ a {
     display: flex;
     height: 420px;
 }
+.prodImg {
+	width:400px;
+}
 .prodImg img {
     width: 400px;
     height: 400px;
@@ -37,10 +43,10 @@ a {
 }
 /* 상품정보 상세 */
 .prodInfo{
-  padding: 20px 20px 100px 20px;
+  margin:0 auto;
+  width: 480px;
   line-height: 1.5;
   position: relative;
-  padding-bottom: 100px;
 }
 .prodTitle {
     font-size: 20px;
@@ -52,11 +58,11 @@ a {
 }
 /* 주문 옵션 */
   .selectBox {
-    width: 50%;
+  	width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin: 100px 0 20px 0;
+    margin: 120px 0 20px 0;
     cursor: pointer;
   }
   #selectedOptions {
@@ -67,7 +73,6 @@ a {
     border-bottom: 1px solid #eee;
     width: 100%;
     display: flex;
-    justify-content: space-between;
     padding: 5px 0;
   }
   .selectedOptionItem div:not(:first-child){
@@ -129,6 +134,9 @@ a {
     color: white;
   }
 /* 상품내용 */
+.contentDetail {
+	text-align: center;
+}
 .contentDetail img {
   max-width: 100%;
   height: auto;
@@ -136,55 +144,6 @@ a {
 }
 
 /* 리뷰 */
-.imgSlider {
-  background-color: #65B741;
-  position: relative;
-  width: 890px;
-  overflow: hidden;
-  margin: 20px auto;
-}
-.slider {
-  display: flex;
-  transition: transform 0.3s ease-in-out;
-}
-.slide {
-  width: 140px;
-  height: 140px;
-  margin-right: 10px;
-}
-.slide:last-child {
-  margin-right: 0;
-}
-.slide img {
-  width: 140px;
-  height: 140px;
-  display: block;
-  border-radius: 5px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-
-.nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.prev {
-  left: 0;
-}
-
-.next {
-  right: 0;
-}
-
 .reviewTable {
   margin: 0 auto;
   width: 890px;
@@ -196,7 +155,6 @@ a {
 .reviewTable td {
   vertical-align: top;
   padding: 10px 10px 0 10px;
-  
 }
 .prodName {
   font-size: 14px;
@@ -206,44 +164,37 @@ a {
 .reviewText {
   margin-bottom: 10px;
 }
-.reviewDate {
-  margin-left: auto;
-}
-.reviewImage {
+.reviewImg {
   position: relative;
 }
-.reviewImage img {
+.reviewImg img {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 4px;
 }
-
-.table {
+/* 문의하기  */
+.prodQA {
   margin: 20px auto;
   width: 95%;
   border-collapse: collapse;
 }
-
-.table th, .table td {
+.prodQA th, .prodQA td {
   border-bottom: 1px solid #ddd;
   padding: 15px 0;
   font-size: 14px;
   text-align: left;
 }
-
-.table th:nth-child(1),.table td:nth-child(1) {
+.prodQA th:nth-child(1),.prodQA td:nth-child(1) {
   width: 100px;
   padding: 0 10px;
 }
-
-.table th:nth-child(3),.table th:nth-child(4),
-.table td:nth-child(3),.table td:nth-child(4) {
+.prodQA th:nth-child(3),.prodQA th:nth-child(4),
+.prodQA td:nth-child(3),.prodQA td:nth-child(4) {
   text-align: right;
   width: 100px;
   padding-right: 10px;
 }
-
 .answerRow {
   display: none;
   background-color: #f9f9f9;
@@ -256,7 +207,7 @@ a {
   font-size: 14px;
   line-height: 1.6;
 }
-.tag {
+.answerTitle {
   background-color: #B0E57C;
   color: #fff;
   padding: 4px 8px;
@@ -264,7 +215,7 @@ a {
   margin-right: 10px;
   font-weight: bold;
 }
-.meta {
+.answerInfo {
   text-align: right;
   margin-top: 10px;
   color: #888;
@@ -283,4 +234,12 @@ a {
 .infoContent div p:not(:first-child) {
   padding: 0 10px;
   line-height: 1.6em;
+}
+/* 페이징 */
+#paging {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
+    margin-top: 20px;
 }

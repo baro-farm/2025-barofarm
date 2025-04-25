@@ -9,6 +9,7 @@ public class ProductOption {
 	Integer price;
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
+	String stock;
 
 	public Long getOptionNum() {
 		return optionNum;
@@ -58,6 +59,14 @@ public class ProductOption {
 		this.updatedAt = updatedAt;
 	}
 
+	public String getStock() {
+		return stock;
+	}
+
+	public void setStock(String stock) {
+		this.stock = stock;
+	}
+
 	public ProductOption() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -83,4 +92,13 @@ public class ProductOption {
 		this.price = price;
 		this.updatedAt = updatedAt;
 	}
+
+	public ProductOption(Long optionNum, String option, Integer price, String stock) {
+		super();
+		this.optionNum = optionNum;
+		this.option = option;
+		this.price = price;
+		this.stock = stock;
+	}
+	
 }
