@@ -79,7 +79,7 @@ document.querySelectorAll('.open-modal').forEach(btn => {
       const div = document.createElement('div');
       div.classList.add('option-row');
       div.innerHTML = `
-        <span>${opt.option} (${opt.price}원)</span>
+        <span>${opt.option} (${opt.price.toLocaleString()}원)</span>
         <input type="number" class="number-input" name="quantities" value="${opt.quantity}" min="1" data-cart="${opt.cartNum}">
         <button type="button" class="delete-option-btn" data-cart="${opt.cartNum}">삭제</button>
       `;
@@ -95,7 +95,7 @@ document.querySelectorAll('.open-modal').forEach(btn => {
     addOptions.forEach(opt => {
       const optionEl = document.createElement('option');
       optionEl.value = opt.optionNum;
-      optionEl.textContent = `${opt.option} (${opt.price}원)`;
+      optionEl.textContent = `${opt.option} (${opt.price.toLocaleString()}원)`;
       addSelect.appendChild(optionEl);
     });
 

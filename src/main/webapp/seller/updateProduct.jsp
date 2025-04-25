@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -16,10 +17,8 @@
 <body>
 	<jsp:include page="/header/sellerHeader.jsp" />
 	<header id="header">
-		<div id="info">
-			<span id="email">kosta@kosta.com</span> <span>마이스토어</span> <span>로그아웃</span>
-		</div>
-	</header>
+			<jsp:include page="/header/adminSellerTop.jsp" />
+    </header>
 	<div id="content">
 		<span id="title">상품 수정</span>
 		<!-- 상품명,가격,재고, 카테고리,옵션,배송비,상품이미지 -->
@@ -59,13 +58,15 @@
 			</div>
 			<ul id="option_list">
 				<c:forEach var="opt" items="${productOption}">
-					<li><span>${opt.option} (${opt.price}원, 재고: ${opt.stock}개)</span> <input
-						type="hidden" name="option_name" value="${opt.option}" /> <input
-						type="hidden" name="option_price" value="${opt.price}" /> <input
-						type="hidden" name="option_stock" value="${opt.stock}" /><input
-						type="hidden" name="option_num" value="${opt.optionNum}" />
+					<li>									
+						<span>${opt.option} (<fmt:formatNumber value="${opt.price}" type="number" />원, 재고: <fmt:formatNumber value="${opt.stock}" type="number" />개)</span> 
+						<input type="hidden" name="option_name" value="${opt.option}" />
+						<input type="hidden" name="option_price" value="${opt.price}" />
+						<input type="hidden" name="option_stock" value="${opt.stock}" />
+						<input type="hidden" name="option_num" value="${opt.optionNum}" />
 						<button type="button" class="edit-option-btn">수정</button>
-						<button type="button" class="delete-option-btn">삭제</button></li>
+						<button type="button" class="delete-option-btn">삭제</button>
+					</li>
 				</c:forEach>
 			</ul>
 			<div class="input_div">
@@ -77,8 +78,6 @@
 					<img src="${contextPath}${product.imgUrl}" alt="현재 이미지" />
 				</div>
 			</c:if>
-
-			<!-- <div id="preview"></div> -->
 			<div id="editor_div">
 				<span id="product_content_title">상품 상세설명</span>
 				<div id="editor"></div>

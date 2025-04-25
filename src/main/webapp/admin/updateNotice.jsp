@@ -15,11 +15,7 @@
 <body>
 	<jsp:include page="/header/adminHeader.jsp" />
 	<header id="header">
-      <div id="info">
-        <span id="email">kosta@kosta.com</span>
-        <span>내 정보</span>
-        <span>로그아웃</span>
-      </div>
+			<jsp:include page="/header/adminSellerTop.jsp" />
     </header>
     <div id="content">
     <div id="wrapper">

@@ -78,12 +78,13 @@ addBtn.addEventListener('click', () => {
     return;
   }
 
-  const formattedPrice = Math.abs(price).toLocaleString(); 
+  const formattedPrice = Math.abs(price).toLocaleString();
+  const formattedStock = Math.abs(stock).toLocaleString();
   const sign = price >= 0 ? `+${formattedPrice}` : `-${formattedPrice}`;
 
   const li = document.createElement('li');
   li.innerHTML = `
-    <span>${name} (${sign}원, 재고: ${stock}개)</span>
+    <span>${name} (${sign}원, 재고: ${formattedStock}개)</span>
     <input type="hidden" name="option_name" value="${name}">
     <input type="hidden" name="option_price" value="${price}">
     <input type="hidden" name="option_stock" value="${stock}">

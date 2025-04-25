@@ -16,10 +16,8 @@
 <body>
 	<jsp:include page="/header/sellerHeader.jsp" />
 	<header id="header">
-		<div id="info">
-			<span id="email">${user.getUserId()}</span> <span>마이스토어</span> <span>로그아웃</span>
-		</div>
-	</header>
+			<jsp:include page="/header/adminSellerTop.jsp" />
+    </header>
 	
 	<div id="content">
 		<span id="title">꾸러미 상품 수정</span>
