@@ -29,14 +29,15 @@ public class Logout extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-        if (session != null) session.invalidate();
+		if (session != null) session.invalidate();
+		
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
-            for (Cookie c : cookies) {
-            	String name = c.getName();
-            	
-            	if ("pwd".equals(name) || "autoLogin".equals(name)) {
+        	for (Cookie c : cookies) {
+                if (c.getName().equals("userId") || 
+                    c.getName().equals("saveId") || 
+                    c.getName().equals("autoLogin")) {
                     c.setValue("");
                     c.setMaxAge(0);
                     c.setPath("/");
@@ -44,7 +45,7 @@ public class Logout extends HttpServlet {
                 }
             }
         }
-        response.sendRedirect("main");
+        response.sendRedirect(request.getContextPath() + "/main");
 	}
 
 }

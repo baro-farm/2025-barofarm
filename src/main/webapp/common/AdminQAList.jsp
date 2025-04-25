@@ -38,7 +38,7 @@
 						          <span>답변 완료</span>
 						        </c:when>
 						        <c:otherwise>
-						          <span>답변 대기</span>
+						          <span style="color: #ccc;">답변 대기</span>
 						        </c:otherwise>
 					      	</c:choose>
 		          		</td>

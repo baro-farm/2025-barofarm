@@ -13,4 +13,52 @@
 	<update id="updatePackageProduct" parameterType="packageProduct">
 		update package set cateNum=#{cateNum}, packageName=#{packageName}, content=#{content}, packagePrice=#{packagePrice}, stock=#{stock}, startDate=#{startDate}, endDate=#{endDate}, packageUnit=#{packageUnit}, updatedAt=#{updatedAt}, imgUrl=#{imgUrl} where packageNum=#{packageNum}
 	</update>
+	<select id="selectDetailPackage" parameterType="long" resultType="PackageVO">
+		SELECT 
+		    p.packageNum, 
+		    p.sellerNum, 
+		    s.storeName,                       
+		    p.packageName, 
+		    p.packageprice, 
+		    p.imgUrl,
+		    p.content,
+		    IFNULL(ROUND(AVG(r.pkRating), 1), 0) AS avgRating,
+		    COUNT(r.pkreviewNum) AS reviewCount
+		FROM package p
+		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+		LEFT JOIN packreview r ON p.packageNum = r.packageNum
+		WHERE p.packageNum = #{packageNum}
+	</select>
+	<select id="selectPackageByCategory" resultType="PackageVO" parameterType="map">
+	  SELECT 
+	    p.packageNum, p.packageName, p.packageprice, p.imgUrl, p.salesVolume,
+	    s.storeName, p.startDate,
+	    IFNULL(ROUND(AVG(r.pkRating), 1), 0) AS avgRating,
+	    COUNT(r.pkreviewNum) AS reviewCount
+	  FROM package p
+	  JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	  LEFT JOIN packreview r ON p.packageNum = r.packageNum
+	  WHERE p.cateNum = #{cateNum}
+	  GROUP BY p.packageNum
+	
+	  <choose>
+	    <when test="sort == 'createdAt'">
+	      ORDER BY p.createdAt DESC, p.packageName ASC
+	    </when>
+	    <when test="sort == 'priceAsc'">
+	      ORDER BY p.packageprice ASC, p.packageName ASC
+	    </when>
+	    <when test="sort == 'priceDesc'">
+	      ORDER BY p.packageprice DESC, p.packageName ASC
+	    </when>
+	    <otherwise>
+	      ORDER BY p.packageName DESC
+	    </otherwise>
+	  </choose>
+	
+	  LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countPackageByCategory" resultType="Integer">
+	    SELECT COUNT(*) FROM package WHERE cateNum = #{cateNum}
+	</select>
 </mapper>

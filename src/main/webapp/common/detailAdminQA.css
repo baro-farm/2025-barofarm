@@ -29,25 +29,47 @@
   color: #4d4d4d;
   margin-bottom: 60px;
 }
-label {
-    display: inline-block;
-    width: 70px;
-    margin-bottom: 20px;
+.table {
+	width: 100%;
+	max-width:1000px;
 }
-
+.a td:first-child {
+    margin-left: 5px;
+    font-weight: bold;
+    width: 70px;
+    margin-bottom: 10px;
+}
+.date span {
+	margin-left: 30px;
+	 text-align: right;
+}
+td {    
+    display: inline-block;
+}
+.text {
+	max-width: 960px;
+	overflow-wrap: break-word;
+	line-height: 1.6;
+	padding: 20px;
+}
 .question {
     border: 1px solid #ccc;
     border-radius: 8px 8px 0 0;
     height: 200px;
-    width: 100%;
-    line-height: 1.6;
     
 }
 .answer{
     border: 1px solid #ccc;
     border-radius: 0 0 8px 8px;
     height: 100px;
-    line-height: 1.6;
-    margin-top: 8px;
-    
+}
+
+.backBtn{
+	font-size: 14px;
+	color: white;
+	padding: 3px 9px;
+  	border-radius: 8px;
+ 	background-color: #FFB534;
+  	text-decoration: none;
+  	border: none;
 }

@@ -83,15 +83,14 @@ public class Login extends HttpServlet {
 			int cookieTime = 60 * 60 * 24 * 31;
 			
 			// 아이디 저장 쿠키
-            Cookie cookieId = new Cookie("userId", (saveId != null || autoLogin != null) ? userId : "");
-            cookieId.setMaxAge((saveId != null || autoLogin != null) ? cookieTime : 0);
+            Cookie cookieId = new Cookie("userId", (saveId != null) ? userId : "");
+            cookieId.setMaxAge((saveId != null) ? cookieTime : 0);
             cookieId.setPath("/");
             // 아이디 저장 체크 여부 쿠키
             Cookie cookieSaveId = new Cookie("saveId", (saveId != null) ? "on" : "");
             cookieSaveId.setMaxAge((saveId != null) ? cookieTime : 0);
             cookieSaveId.setPath("/");
 
-			
 	        // 이전 페이지 저장 여기 추가
 	        String prevPage = (String) session.getAttribute("prevPage");
 	        session.removeAttribute("prevPage");  // 쓰고 나면 지우기
@@ -105,6 +104,8 @@ public class Login extends HttpServlet {
             // (보안상 비밀번호 쿠키는 저장하지 않음)
 
             // 쿠키 추가(삭제)
+            request.setAttribute("saveId", cookieSaveId);
+            request.setAttribute("autoLogin", cookieAutoLogin);
             response.addCookie(cookieId);
             response.addCookie(cookieSaveId);
             response.addCookie(cookieAutoLogin);

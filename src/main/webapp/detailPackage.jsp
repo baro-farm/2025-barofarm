@@ -7,16 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 상세 페이지</title>
+<title>꾸러미 상세 페이지</title>
 	<!-- 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	 -->
-	 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css">
-	
 	<link rel="stylesheet" href="${contextPath}/reset.css" />
-    <link rel="stylesheet" href="${contextPath}/detailProduct.css" /> 
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/detailPackage.css" /> 
     <script defer src="detailProduct.js"></script>
 </head>
 <body>
@@ -26,37 +23,24 @@
 			<jsp:include page="/header/sideMenu.jsp" />
 			<div class="content">
 				<!-- 상품정보 -->
-			    <div class="prodInfoBox">
+			    <div class="packInfoBox">
 			            <!-- 이미지 -->
-			            <div class="prodImg">
-			                <img src="${contextPath}${product.imgUrl}" alt="상품 이미지">
+			            <div class="packImg">
+			                <img src="${contextPath}${pack.imgUrl}" alt="상품 이미지">
 			            </div>
-			            <div class="prodInfo">
+			            <div class="packInfo">
 			                <!-- 스토어상품정보 -->
-			                <div class="storeName"><a href="${contextPath}/storeProductList?sellerNum=${product.sellerNum}">${product.storeName} &gt;</a></div>
-			                <div class="prodTitle">${product.productName}</div>
+			                <div class="storeName"><a href="${contextPath}/storeProductList?sellerNum=${pack.sellerNum}">${pack.storeName} &gt;</a></div>
+			                <div class="packTitle">${pack.packageName}</div>
 			                <div class="additional">
-			                    <div class="reviewScore">⭐ ${product.avgRating} (${product.reviewCount})</div>
-			                    <div class="price"><fmt:formatNumber value="${product.price }" type="number" />원</div>
+			                    <div class="reviewScore">⭐ ${pack.avgRating} (${pack.reviewCount})</div>
 			                </div>
-			          
-			                <!-- 주문옵션전체영역 -->
-			                <div class="orderOption">
-			                    <select id="optionSelect" class="selectBox">
-			                    	<option value="">옵션 선택</option>
-			                        <c:forEach var="o" items="${option}">
-			                        	<option value="${o.option}|${o.price}">${o.option} - <fmt:formatNumber value="${o.price}" type="number" />원</option>
-			                        </c:forEach>
-			                    </select>
-			                    <div id="selectedOptions"></div>
-			                </div>
-			
+
 			                 <!-- 총 가격 -->
-			                <div class="totalPrice"><span id="totalPrice">0</span>원</div>
+			                <div class="totalPrice"><fmt:formatNumber value="${pack.packagePrice }" type="number" />원</div>
 			                
 			                <!-- 버튼 영역 -->
 			                <div class="actionButtons">
-			                    <a href="" id="basket">장바구니</a>
 			                    <a href="#" id="purchase">구매하기</a>
 			                </div>
 			            </div>
@@ -66,19 +50,21 @@
 			        <div class="tabs" id="details">
 			            <ul class="tabList">
 			                <li class="tab focus"><a href="#details">상세정보</a></li>
-			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
+			                <li class="tab"><a href="#reviews">리뷰 보기(${pack.reviewCount})</a></li>
 			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
 			        <div class="contentDetail">
-			            <div id="viewer"></div>
+			            <div>
+			                ${pack.content }
+			            </div>
 			        </div>
 			        <!-- 리뷰 -->
 			        <div class="tabs" id="reviews">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
-			                <li class="tab focus"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
+			                <li class="tab focus"><a href="#reviews">리뷰 보기(${pack.reviewCount})</a></li>
 			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
@@ -90,13 +76,13 @@
 			        <div class="tabs" id="qna">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
-			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
+			                <li class="tab"><a href="#reviews">리뷰 보기(${pack.reviewCount})</a></li>
 			                <li class="tab focus"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
 			        
-			        <table id="notice_table" class="prodQA">
+			        <table id="notice_table" class="packQA">
 			            <thead class="">
 			                <tr>
 			                    <th style="font-weight: bold;">답변상태</th>
@@ -145,7 +131,7 @@
 			        <div class="tabs" id="info">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
-			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
+			                <li class="tab"><a href="#reviews">리뷰 보기(${pack.reviewCount})</a></li>
 			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab focus"><a href="#info">안내사항</a></li>
 			              </ul>
@@ -171,14 +157,5 @@
     	</div>
     	<jsp:include page="/header/footer.jsp" />
     </div>
-   <!-- All-in-one 버전으로 변경 -->
-	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-	<script>
-	const viewer = toastui.Editor.factory({
-		  el: document.querySelector('#viewer'),
-		  viewer: true, // 이 옵션 필수!
-		  initialValue: `${product.content}`
-		});
-	</script>
 </body>
 </html>

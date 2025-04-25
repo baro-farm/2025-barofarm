@@ -18,7 +18,7 @@
 			<div class="content">
         		<h1 class="title">공지사항</h1>
         		<p class="subtitle">관리자가 쓰는 서비스 관련 공지</p>
-		            <table>
+		            <table class="table">
 		                <tr class="a">
 		                    <td class=""><label>제목</label></td>
 		                    <td class=""><span>${notice.title}</span></td>
@@ -33,7 +33,7 @@
 		                </tr>
 		            </table>
         		<br>
-        		<a href="noticeListView" class="yellowBtnSb">목록으로</a>
+        		<a href="userNoticeList" class="backBtn">목록으로</a>
          	</div>
     	</div>
 		<jsp:include page="/header/footer.jsp" />
