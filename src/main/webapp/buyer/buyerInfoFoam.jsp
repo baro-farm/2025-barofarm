@@ -29,7 +29,7 @@ UserVO user = (UserVO)request.getAttribute("user");
 		</div>
 		<div class="content">
 		    <div class="header">내 정보 수정</div>
-		
+			<div class="infoContent" style="width:500px; margin:0 auto; margin-top:50px;">
 		    <form action="${pageContext.request.contextPath}/updateInfo" method="POST">
 		        <div class="formGroup">
 		            <label>아이디</label>
@@ -74,6 +74,7 @@ UserVO user = (UserVO)request.getAttribute("user");
 		            <button type="button" class="btn btn-delete">회원탈퇴</button>
 		        </div>
 		    </form>
+		    </div>
 	    </div><!-- end of content -->
     </div><!-- end of warraper -->
 </div>

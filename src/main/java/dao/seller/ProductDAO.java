@@ -21,5 +21,5 @@ public interface ProductDAO {
 	List<ProductVO> selectProductList(Map<String, Object> param) throws Exception;
 	void updateProductStock(Map<String, Object> param) throws Exception;
 	void updateProductStatusBatch(List<Map<String, Object>> productList) throws Exception;
-	Integer countProductList(Long sellerNum) throws Exception;
+	Integer countProductList(Map<String, Object> param) throws Exception;
 }

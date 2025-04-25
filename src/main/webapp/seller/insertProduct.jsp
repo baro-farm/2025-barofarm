@@ -35,10 +35,6 @@
           <input type="number" id="product_price" name="product_price"/>
         </div>
         <div class="input_div">
-          <label for="product_stock">재고</label>
-          <input type="number" id="product_stock" name="product_stock"/>
-        </div>
-        <div class="input_div">
           <label for="product_category">카테고리</label>
           <select name="product_category" id="product_category">
             <option value="1">배추/무/대파/부추</option>
@@ -60,6 +56,7 @@
               id="option_price"
               placeholder="추가 가격 (원) 또는 기본 가격 0(원)"
             />
+            <input type="number" id="option_stock" placeholder="재고 (개수)" />
             <button type="button" id="add_option_btn">추가</button>
           </div>
         </div>

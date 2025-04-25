@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.seller.ProductOption;
 import util.MybatisSqlSessionFactory;
 import vo.ProdReviewVO;
 import vo.ProductVO;
@@ -54,17 +55,32 @@ public class UserProductDAOImpl implements UserProductDAO{
 
 	@Override
 	public List<ProdReviewVO> selectProdReview(Map<String, Object> param) throws Exception {
-		return sqlSession.selectList("mapper.productReview.selectProdReview", param);
+		return sqlSession.selectList("mapper.prodReview.selectProdReview", param);
 	}
 
 	@Override
-	public Integer countProdReview(Integer prodNum) throws Exception {
-		return sqlSession.selectOne("mapper.productReview.countProdReview", prodNum);
+	public Integer countProdReview(Long prodNum) throws Exception {
+		return sqlSession.selectOne("mapper.prodReview.countProdReview", prodNum);
 	}
 
 	@Override
-	public List<ProductVO> selectDetailProduct(Integer productNum) throws Exception {
-		 return sqlSession.selectList("product.selectDetailProduct", productNum);
+	public ProductVO selectDetailProduct(Long productNum) throws Exception {
+		 return sqlSession.selectOne("mapper.product.selectDetailProduct", productNum);
+	}
+
+	@Override
+	public List<ProductOption> selectProductOption(Long productNum) throws Exception {
+		return sqlSession.selectList("mapper.product.selectProductOption", productNum);
+	}
+
+	@Override
+	public List<ProductVO> selectProductBySellerNum(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.product.selectProductBySellerNum", param);
+	}
+
+	@Override
+	public Integer countProductBySellerNum(Long sellerNum) throws Exception {
+		return sqlSession.selectOne("mapper.product.countProductBySellerNum", sellerNum);
 	}
 
 	

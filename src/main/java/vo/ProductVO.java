@@ -1,6 +1,9 @@
 package vo;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import dto.seller.ProductOption;
 
 public class ProductVO {
     private Long productNum;
@@ -11,8 +14,11 @@ public class ProductVO {
     private String imgUrl;
     private Boolean status;
     private Integer stock;
-    
+    private LocalDate updatedAt;
 
+    //옵션 리스트
+    private List<ProductOption> optionList;
+    
     // 리뷰 정보
     private Double avgRating;
     private Integer reviewCount;
@@ -27,7 +33,9 @@ public class ProductVO {
     
     //상세 조회용
     private String option;
-    private int optionPrice;
+    private Integer optionPrice;
+
+    String content;
     
 	public Long getProductNum() {
 		return productNum;
@@ -119,14 +127,32 @@ public class ProductVO {
 	public void setOption(String option) {
 		this.option = option;
 	}
-	public int getOptionPrice() {
+	public Integer getOptionPrice() {
 		return optionPrice;
 	}
-	public void setOptionPrice(int optionPrice) {
+	public void setOptionPrice(Integer optionPrice) {
 		this.optionPrice = optionPrice;
 	}
 	
-    
-    
-    
+	public List<ProductOption> getOptionList() {
+		return optionList;
+	}
+	public void setOptionList(List<ProductOption> optionList) {
+		this.optionList = optionList;
+	}
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	    
 }

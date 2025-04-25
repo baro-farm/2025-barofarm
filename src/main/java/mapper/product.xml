@@ -4,34 +4,62 @@
 	
 <mapper namespace="mapper.product">
 	<insert id="insertProduct" parameterType="product" useGeneratedKeys="true" keyProperty="productNum">
-		insert into product (sellerNum, cateNum, productName, content, stock, price, imgUrl, status) 
-		values (#{sellerNum}, #{cateNum}, #{productName}, #{content}, #{stock}, #{price}, #{imgUrl}, #{status})
+		insert into product (sellerNum, cateNum, productName, content, price, imgUrl, status) 
+		values (#{sellerNum}, #{cateNum}, #{productName}, #{content}, #{price}, #{imgUrl}, #{status})
 	</insert>
 	<select id="selectProduct" parameterType="Long" resultType="product">
 		select * from product where productNum=#{productNum}
 	</select>
 	<update id="updateProduct" parameterType="product">
 		update product set cateNum=#{cateNum}, productName=#{productName}, content=#{content}, 
-		stock=#{stock}, price=#{price}, imgUrl=#{imgUrl}, status=#{status} where productNum=#{productNum} 
+		price=#{price}, imgUrl=#{imgUrl}, status=#{status} where productNum=#{productNum}
 	</update>
 	<update id="stopProduct" parameterType="product">
 		update product set status=#{status} where productNum=#{productNum}
 	</update>
 	<insert id="insertProductOption" parameterType="productOption">
-		insert into productOption (productNum, option, price) values (#{productNum}, #{option}, #{price})
+		insert into productOption (productNum, option, price, stock) values (#{productNum}, #{option}, #{price}, #{stock})
 	</insert>
 	<select id="selectProductOption" parameterType="Long" resultType="productOption">
 		select * from productOption where productNum=#{productNum}
 	</select>
 	<update id="updateProductOption" parameterType="productOption">
-		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt} where optionNum=#{optionNum}
+		update productOption set option=#{option}, price=#{price}, updatedAt=#{updatedAt}, stock=#{stock} where optionNum=#{optionNum}
 	</update>
 	
 	<!-- product List -->
-	<select id="selectProductList" parameterType="map" resultType="ProductVo">
+	<resultMap id="productWithOptionResultMap" type="ProductVO">
+	    <id property="productNum" column="productNum"/>
+	    <result property="sellerNum" column="sellerNum"/>
+	    <result property="productName" column="productName"/>
+	    <result property="status" column="status"/>
+	    <result property="price" column="price"/>
+	    <result property="imgUrl" column="imgUrl"/>
+	    <result property="createdAt" column="createdAt"/>
+	    <result property="salesVolume" column="salesVolume"/>
+	    <result property="cateName" column="cateName"/>
+	    <result property="avgRating" column="avgRating"/>
+	    <result property="reviewCount" column="reviewCount"/>
+	    
+	    <collection property="optionList" ofType="productOption">
+		    <id property="optionNum" column="optionNum"/>
+		    <result property="productNum" column="productNum"/>
+		    <result property="option" column="option"/>
+		    <result property="price" column="price"/>  <!-- alias 줬으니까 -->
+		    <result property="stock" column="stock"/>
+		    <result property="createdAt" column="createdAt"/> <!-- alias 줬으니까 -->
+		    <result property="updatedAt" column="updatedAt"/>
+	    </collection>	
+	
+	</resultMap>
+	
+	<select id="selectProductList" parameterType="map" resultMap="productWithOptionResultMap">
 		select p.productNum, p.sellerNum, p.productName,p.status, 
-		p.stock, p.price, p.imgUrl, p.createdAt, p.salesVolume,
-		c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount
+		p.price, p.imgUrl, p.createdAt, p.salesVolume,
+		c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount,
+		po.option,po.price,po.stock,po.createdAt,po.updatedAt
+		
+		
 		from product p
 		join category c on p.cateNum = c.cateNum
 		left join (
@@ -39,6 +67,7 @@
 			from prodReview
 			group by productNum		
 		)pr on p.productNum = pr.productNum
+		left join productOption po on p.productNum = po.productNum
 		where p.sellerNum = #{sellerNum}
 		<if test="sellStat != null and sellStat != ''">
 			<choose>
@@ -79,10 +108,20 @@
 	    </foreach>
 	</update>
 	
-	<select id="countProductList" parameterType="Long" resultType="Integer">
+	<select id="countProductList" parameterType="map" resultType="Integer">
 		select count(*)
 		from product
 		where sellerNum=#{sellerNum}
+		<if test="sellStat != null and sellStat!= ''">
+			<choose>
+				<when test="sellStat == 'sales'">
+					and status = true
+				</when>
+				<when test="sellStat == 'salesStop'">
+					and status = false
+				</when>
+			</choose>
+		</if>
 	</select>
 	
 	<!-- end of Product List -->
@@ -215,14 +254,45 @@
 		    p.productName, 
 		    p.price, 
 		    p.imgUrl,
-		    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating, 
-		    COUNT(r.reviewNum) AS reviewCount,
-		    po.option, 
-		    po.price AS optionPrice            
+		    p.content,
+		    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+		    COUNT(r.reviewNum) AS reviewCount
 		FROM product p
-		JOIN sellerDetail s ON p.sellerNum = s.sellerNum   
+		JOIN sellerDetail s ON p.sellerNum = s.sellerNum
 		LEFT JOIN prodreview r ON p.productNum = r.productNum
 		WHERE p.productNum = #{productNum}
+	</select>
+	<select id="selectProductBySellerNum" resultType="ProductVO" parameterType="map">
+	  SELECT 
+	    p.productNum, p.productName, p.price, p.imgUrl, p.salesVolume,
+	    s.storeName,
+	    IFNULL(ROUND(AVG(r.pdRating), 1), 0) AS avgRating,
+	    COUNT(r.reviewNum) AS reviewCount
+	  FROM product p
+	  JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	  LEFT JOIN prodreview r ON p.productNum = r.productNum
+	  WHERE p.sellerNum = #{sellerNum}
+	  GROUP BY p.productNum
+	
+	  <choose>
+	    <when test="sort == 'createdAt'">
+	      ORDER BY p.createdAt DESC, p.productName ASC
+	    </when>
+	    <when test="sort == 'priceAsc'">
+	      ORDER BY p.price ASC, p.productName ASC
+	    </when>
+	    <when test="sort == 'priceDesc'">
+	      ORDER BY p.price DESC, p.productName ASC
+	    </when>
+	    <otherwise>
+	      ORDER BY p.productName DESC
+	    </otherwise>
+	  </choose>
+	
+	  LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countProductBySellerNum" resultType="Integer">
+	    SELECT COUNT(*) FROM product WHERE sellerNum = #{sellerNum}
 	</select>
 	
 </mapper>

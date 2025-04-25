@@ -30,12 +30,11 @@
 		
 		        <!-- 요약 정보 -->
 		        <div class="box summary">
-		            <div>> 주문내역 <br><span>${summary.totalOrders }건</span></div>
-		            <div>> 꾸러미 <br><span>${summary.totalPackages }건</span></div>
+		            <div><a href="prodOrderList">> 주문내역 <br><span>${summary.totalOrders }건</a></span></div>
+		            <div><a href="packOrderList">> 꾸러미 <br><span>${summary.totalPackages }건</a></span></div>
 		            <div>> 취소 내역 <br><span>${summary.totalCancels }건</span></div>
-		            <div>> 리뷰내역 <br><span>${summary.totalReviews }건</span></div>
-		            <div>> 상품문의 <br><span>${summary.totalQuestions }건</span></div>
-		            <div>> 쿠팡 내역 <br><span>0건</span></div>
+		            <div><a href="prodWrittenReviewList">> 리뷰내역 <br><span>${summary.totalReviews }건</span></a></div>
+		            <div><a href="questionList">> 상품문의 <br><span>${summary.totalQuestions }건</span></a></div>
 		        </div>
 		        <!-- 배송 진행 상태 -->
 		        <div class="box">
@@ -86,7 +85,7 @@
 		            <div class="contentBox">
 		                <div class="title">
 		                    내 상품 문의 내역
-		                    <span class="add-btn">+</span>
+		                    <span class="add-btn"><a href="questionList">+</a></span>
 		                </div>
 		                <ul>
 		                	<c:forEach var="pdQuestion" items="${prodQuestions }">
@@ -98,7 +97,7 @@
 		            <div class="contentBox">
 		                <div class="title">
 		                    내 리뷰 내역
-		                    <span class="add-btn">+</span>
+		                    <span class="add-btn"><a href="prodWrittenReviewList">+</a></span>
 		                </div>
 		                <ul>
 		                	<c:forEach var="pdQuestion" items="${prodReviews }">

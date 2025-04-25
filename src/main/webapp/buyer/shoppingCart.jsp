@@ -19,15 +19,14 @@
 		<div id="content">
 			<h1 class="title">장바구니</h1>
 			<div class="all-select">
+			<input type="checkbox" id="selectAll">
   <label>
-    <input type="checkbox" id="selectAll"> 전체 선택
+     전체 선택
   </label>
 </div>
 			
 			<c:forEach var="storeEntry" items="${cartMap}">
 				<div class="store-group">
-					<div>
-
 						<h2 class="store_name">
 							<label> <input type="checkbox" class="store-checkbox"
 								data-store="${storeEntry.key }" /></label>${storeEntry.key}
@@ -39,11 +38,8 @@
 									stroke-linejoin="round" />
 </svg>
 						</h2>
-					</div>
-
-					<hr class="hr">
-					<!-- storeName -->
-
+					
+				<div class="wrapper">
 					<c:forEach var="product" items="${storeEntry.value}">
 						<c:set var="sum" value="0" />
 						<c:forEach var="opt" items="${product.options}">
@@ -62,12 +58,22 @@
 								<div class="info-2">
 									<div class="option-list">
 										<c:forEach var="opt" items="${product.options}">
-											<p>${opt.option}/${opt.quantity}개(+${opt.optionPrice}원)</p>
+										    <p>
+										        ${opt.option} / ${opt.quantity}개
+										        <c:choose>
+										            <c:when test="${opt.optionPrice > 0}">
+										                (+${opt.optionPrice}원)
+										            </c:when>
+										            <c:when test="${opt.optionPrice < 0}">
+										                (${opt.optionPrice}원)
+										            </c:when>
+										        </c:choose>
+										    </p>
 										</c:forEach>
 									</div>
 									<button class="open-modal" data-cart="${opt.cartNum}"
 										data-product="${product.productNum}"
-										data-quantity="${opt.quantity}">주문 변경</button>
+										data-quantity="${opt.quantity}">주문수정</button>
 								</div>
 
 								<div class="info-3">
@@ -81,6 +87,7 @@
 						<button class="store-order-btn">${storeEntry.key } 주문하기</button>
 					</div>
 				</div>
+			</div>
 
 			</c:forEach>
 			<div class="all-total-div">

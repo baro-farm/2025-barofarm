@@ -66,9 +66,10 @@ public class ProductList extends HttpServlet {
 		String sellStat=null;
 
 		try {
-			Long sellerNum = detailService.selectSellerNumById(sessionUser.getUserId());
-			totalCount = service.selectCountSellerProductList(sellerNum);
 			
+
+			Long sellerNum = detailService.selectSellerNumById(sessionUser.getUserId());
+			totalCount = service.selectCountSellerProductList(sellerNum,sellStat);
 			if(request.getParameter("page")!= null) {
 				page=Integer.parseInt(request.getParameter("page"));
 			}
@@ -93,7 +94,6 @@ public class ProductList extends HttpServlet {
 		    if(sellStat == null) {
 		    	sellStat = "all";
 		    }
-		    
 		    System.out.println(sort);
 		    
 			productList = service.selectSellerProductList(sellerNum,offset,pageSize,sort,sellStat);

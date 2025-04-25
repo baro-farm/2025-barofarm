@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.seller.ProductOption;
 import service.UserProductService;
 import service.UserProductServiceImpl;
 import util.PageInfo;
@@ -36,25 +37,44 @@ public class DetailProduct extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 request.setCharacterEncoding("utf-8");
 		
-		Integer productNum = Integer.parseInt(request.getParameter("productNum"));
-		String pageStr = request.getParameter("page");
+		Long productNum = Long.parseLong(request.getParameter("productNum"));
+		String reviewPageStr = request.getParameter("reviewPage");
+		String ajaxHeader = request.getHeader("X-Requested-With");
+		boolean isAjax = "XMLHttpRequest".equals(ajaxHeader);
 
 		// 페이징
-		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
-		PageInfo pageInfo = new PageInfo(curPage, 20);
+		Integer curPage = (reviewPageStr == null || reviewPageStr.trim().equals("")) ? 1 : Integer.parseInt(reviewPageStr);
+		PageInfo pageInfo = new PageInfo(curPage, 5);
 		
 		UserProductService service = new UserProductServiceImpl();
 	
 		try {
-			List<ProdReviewVO> reviewList = service.getProdReview(productNum, pageInfo);
-
-	        request.setAttribute("reviewList", reviewList);
-	        request.setAttribute("pageInfo", pageInfo);
-
-	        request.getRequestDispatcher("detailProduct.jsp").forward(request, response);
+			List<ProdReviewVO> reviewList = service.ProdReview(productNum, pageInfo);
+			List<ProductOption> prodOption = service.ProdOption(productNum);
+			ProductVO detailProduct = service.DetailProduct(productNum);
+			
+			if (isAjax) {
+				request.setAttribute("product", detailProduct);
+	            request.setAttribute("review", reviewList);
+	            request.setAttribute("pageInfo", pageInfo);
+	            
+	            request.getRequestDispatcher("detailReviewSection.jsp").forward(request, response);
+	        }	        
+	         else {
+	 			request.setAttribute("product", detailProduct);
+				request.setAttribute("option", prodOption);
+		        request.setAttribute("review", reviewList);
+		        request.setAttribute("pageInfo", pageInfo);
+	 			
+	            request.getRequestDispatcher("detailProduct.jsp").forward(request, response);
+	        }
 		}catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "상품 리뷰 조회를 실패했습니다.");			
+		    if (isAjax) {
+		        request.setAttribute("err", "리뷰 조회 실패");
+		    } else {
+		        request.setAttribute("err", "상품 상세 조회 실패");
+		    }	
 		}
 	}
 

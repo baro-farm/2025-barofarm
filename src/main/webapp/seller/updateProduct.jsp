@@ -35,19 +35,15 @@
 					id="product_price" name="product_price" value="${product.price }" />
 			</div>
 			<div class="input_div">
-				<label for="product_stock">재고</label> <input type="number"
-					id="product_stock" name="product_stock" value="${product.stock }" />
-			</div>
-			<div class="input_div">
-				<label for="product_category">카테고리</label>
-				<select name="product_category" id="product_category">
-				  <option value="1" ${product.cateNum == 1 ? 'selected' : ''}>배추/무/대파/부추</option>
-				  <option value="2" ${product.cateNum == 2 ? 'selected' : ''}>오이/호박/가지</option>
-				  <option value="3" ${product.cateNum == 3 ? 'selected' : ''}>고추/피망/파프리카/열매채소</option>
-				  <option value="4" ${product.cateNum == 4 ? 'selected' : ''}>감자/고구마</option>
-				  <option value="5" ${product.cateNum == 5 ? 'selected' : ''}>양상추/양배추/새싹채소</option>
-				  <option value="6" ${product.cateNum == 6 ? 'selected' : ''}>당근/연근/뿌리채소</option>
-				  <option value="7" ${product.cateNum == 7 ? 'selected' : ''}>마늘/양파/생강/파</option>
+				<label for="product_category">카테고리</label> <select
+					name="product_category" id="product_category">
+					<option value="1" ${product.cateNum == 1 ? 'selected' : ''}>배추/무/대파/부추</option>
+					<option value="2" ${product.cateNum == 2 ? 'selected' : ''}>오이/호박/가지</option>
+					<option value="3" ${product.cateNum == 3 ? 'selected' : ''}>고추/피망/파프리카/열매채소</option>
+					<option value="4" ${product.cateNum == 4 ? 'selected' : ''}>감자/고구마</option>
+					<option value="5" ${product.cateNum == 5 ? 'selected' : ''}>양상추/양배추/새싹채소</option>
+					<option value="6" ${product.cateNum == 6 ? 'selected' : ''}>당근/연근/뿌리채소</option>
+					<option value="7" ${product.cateNum == 7 ? 'selected' : ''}>마늘/양파/생강/파</option>
 				</select>
 			</div>
 			<!-- 옵션 등록 영역 -->
@@ -56,23 +52,25 @@
 				<div class="option-inputs">
 					<input type="text" id="option_name" placeholder="예: 1kg" /> <input
 						type="number" id="option_price"
-						placeholder="추가 가격 (원) 또는 기본 가격 0(원)" />
+						placeholder="추가 가격 (원) 또는 기본 가격 0(원)" /> <input type="number"
+						id="option_stock" placeholder="재고 (개수)" />
 					<button type="button" id="add_option_btn">추가</button>
 				</div>
 			</div>
 			<ul id="option_list">
 				<c:forEach var="opt" items="${productOption}">
-					<li><span>${opt.option} (${opt.price}원)</span> <input
+					<li><span>${opt.option} (${opt.price}원, 재고: ${opt.stock}개)</span> <input
 						type="hidden" name="option_name" value="${opt.option}" /> <input
 						type="hidden" name="option_price" value="${opt.price}" /> <input
+						type="hidden" name="option_stock" value="${opt.stock}" /><input
 						type="hidden" name="option_num" value="${opt.optionNum}" />
 						<button type="button" class="edit-option-btn">수정</button>
 						<button type="button" class="delete-option-btn">삭제</button></li>
 				</c:forEach>
 			</ul>
 			<div class="input_div">
-				<label for="product_image">상품 이미지</label> 
-				<input type="file" id="product_image" name="product_image" accept="image/*" />
+				<label for="product_image">상품 이미지</label> <input type="file"
+					id="product_image" name="product_image" accept="image/*" />
 			</div>
 			<c:if test="${not empty product.imgUrl}">
 				<div id="preview">

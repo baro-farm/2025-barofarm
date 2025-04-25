@@ -113,7 +113,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Integer selectCountSellerProductList(Long sellerNum) throws Exception {
-		return productDao.countProductList(sellerNum);
+	public Integer selectCountSellerProductList(Long sellerNum,String sellStat) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("sellerNum", sellerNum);
+		param.put("sellStat", sellStat);		
+		return productDao.countProductList(param);
 	}
 }

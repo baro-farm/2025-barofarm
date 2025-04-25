@@ -28,7 +28,7 @@
         flex-direction: column;
         gap: 8px;
       }
-      img {
+      #inner img {
       	width:100px;
       }
     </style>

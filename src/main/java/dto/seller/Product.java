@@ -8,7 +8,6 @@ public class Product {
 	Integer cateNum;
 	String productName;
 	String content;
-	Integer stock;
 	Integer price;
 	String imgUrl;
 	boolean status;
@@ -23,7 +22,7 @@ public class Product {
 		super();
 	}
 	
-	public Product(Long productNum, Long sellerNum, Integer cateNum, String productName, String content, Integer stock,
+	public Product(Long productNum, Long sellerNum, Integer cateNum, String productName, String content,
 			Integer price, String imgUrl, Long salesVolume) {
 		super();
 		this.productNum = productNum;
@@ -31,14 +30,12 @@ public class Product {
 		this.cateNum = cateNum;
 		this.productName = productName;
 		this.content = content;
-		this.stock = stock;
 		this.price = price;
 		this.imgUrl = imgUrl;
 		this.salesVolume = salesVolume;
 	}
 	
-
-	public Product(Long productNum, Long sellerNum, Integer cateNum, String productName, String content, Integer stock,
+	public Product(Long productNum, Long sellerNum, Integer cateNum, String productName, String content,
 			Integer price, String imgUrl, boolean status, LocalDateTime createdAt, LocalDateTime updatedAt,
 			Long salesVolume) {
 		super();
@@ -47,7 +44,6 @@ public class Product {
 		this.cateNum = cateNum;
 		this.productName = productName;
 		this.content = content;
-		this.stock = stock;
 		this.price = price;
 		this.imgUrl = imgUrl;
 		this.status = status;
@@ -56,39 +52,36 @@ public class Product {
 		this.salesVolume = salesVolume;
 	}
 
-	public Product(Long sellerNum, Integer cateNum, String productName, String content, Integer stock, Integer price,
-			String imgUrl) {
+	public Product(Long sellerNum, Integer cateNum, String productName, String content, Integer price, String imgUrl) {
 		super();
 		this.sellerNum = sellerNum;
 		this.cateNum = cateNum;
 		this.productName = productName;
 		this.content = content;
-		this.stock = stock;
 		this.price = price;
 		this.imgUrl = imgUrl;
 	}
 
-	public Product(Long sellerNum, Integer cateNum, String productName, String content, Integer stock, Integer price,
-			String imgUrl, boolean status) {
+	public Product(Long sellerNum, Integer cateNum, String productName, String content, Integer price, String imgUrl,
+			boolean status) {
 		super();
 		this.sellerNum = sellerNum;
 		this.cateNum = cateNum;
 		this.productName = productName;
 		this.content = content;
-		this.stock = stock;
 		this.price = price;
 		this.imgUrl = imgUrl;
 		this.status = status;
 	}
-	public Product(Long productNum, Long sellerNum, Integer cateNum, String productName, String content, Integer stock, Integer price,
-			String imgUrl, boolean status, LocalDateTime updatedAt) {
+
+	public Product(Long productNum, Long sellerNum, Integer cateNum, String productName, String content,
+			Integer price, String imgUrl, boolean status, LocalDateTime updatedAt) {
 		super();
 		this.productNum = productNum;
 		this.sellerNum = sellerNum;
 		this.cateNum = cateNum;
 		this.productName = productName;
 		this.content = content;
-		this.stock = stock;
 		this.price = price;
 		this.imgUrl = imgUrl;
 		this.status = status;
@@ -139,14 +132,6 @@ public class Product {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Integer getStock() {
-		return stock;
-	}
-
-	public void setStock(Integer stock) {
-		this.stock = stock;
 	}
 
 	public Integer getPrice() {
@@ -208,7 +193,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [productNum=" + productNum + ", sellerNum=" + sellerNum + ", cateNum=" + cateNum
-				+ ", productName=" + productName + ", content=" + content + ", stock=" + stock + ", price=" + price
+				+ ", productName=" + productName + ", content=" + content + ", price=" + price
 				+ ", imgUrl=" + imgUrl + ", status=" + status + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
 				+ ", salesVolume=" + salesVolume + "]";
 	}

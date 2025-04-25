@@ -86,46 +86,52 @@
             <span id="title">상품 주문 관리</span>
         </div>
         
-		<div class="filterBox">
-		  <div class="filterSection leftSection">
-		    <div class="filterGroup">
-		      <label>조회기간</label>
-		      <select name="dateType">
-		        <option value="paymentDate">결제일</option>
-		        <option value="orderDate">발송처리일</option>
-		      </select>
-		    </div>
-		    <div class="buttonGroup">
-		      <button type="button">오늘</button>
-		      <button type="button">1주일</button>
-		      <button type="button">1개월</button>
-		      <button type="button">3개월</button>
-		    </div>
-		    <div class="dateGroup">
-		      <input type="date" name="startDate"> ~ <input type="date" name="endDate">
-		    </div>
-		  </div>
-		
-		  <div class="filterSection centerSection">
-		    <button type="submit" class="searchBtn">검색</button>
-		  </div>
-		
-		  <div class="filterSection rightSection">
-		    <div class="filterGroup">
-		      <label>상세조건</label>
-		      <select name="searchType">
-		        <option value="all">전체</option>
-		        <option value="buyerName">구매자명</option>
-		        <option value="orderNum">주문번호</option>
-		        <option value="orderNum">상품번호</option>
-		        <option value="orderNum">송장번호</option>
-		        
-		        
-		      </select>
-		    </div>
-		    <input type="text" name="searchKeyword" placeholder="검색어 입력">
-		  </div>
-		</div>
+<div class="filterBox">
+  <form method="get" action="${contextPath}/sellerProductOrderList" style="display: flex; width: 100%; justify-content: space-between;">
+    
+    <!-- 왼쪽: 조회기간 -->
+    <div class="filterSection leftSection">
+      <div class="filterGroup">
+        <label>조회기간</label>
+        <select name="dateType">
+          <option value="paymentDate" ${param.dateType == 'paymentDate' ? 'selected' : ''}>결제일</option>
+          <option value="shippingDate" ${param.dateType == 'shippingDate' ? 'selected' : ''}>발송처리일</option>
+        </select>
+      </div>
+      <div class="buttonGroup">
+        <button type="button" onclick="setDateRange('today')">오늘</button>
+        <button type="button" onclick="setDateRange('1week')">1주일</button>
+        <button type="button" onclick="setDateRange('1month')">1개월</button>
+        <button type="button" onclick="setDateRange('3months')">3개월</button>
+      </div>
+      <div class="dateGroup">
+        <input type="date" name="startDate" value="${param.startDate}"> ~ 
+        <input type="date" name="endDate" value="${param.endDate}">
+      </div>
+    </div>
+    
+    <!-- 가운데: 검색 버튼 -->
+    <div class="filterSection centerSection">
+      <button type="submit" class="searchBtn">검색</button>
+    </div>
+    
+    <!-- 오른쪽: 상세조건 -->
+    <div class="filterSection rightSection">
+      <div class="filterGroup">
+        <label>상세조건</label>
+        <select name="searchType" id="searchType">
+          <option value="all" ${param.searchType == 'all' ? 'selected' : ''}>전체</option>
+          <option value="userName" ${param.searchType == 'userName' ? 'selected' : ''}>구매자명</option>
+          <option value="pdOrderNum" ${param.searchType == 'pdOrderNum' ? 'selected' : ''}>주문번호</option>
+          <option value="productNum" ${param.searchType == 'productNum' ? 'selected' : ''}>상품번호</option>
+          <option value="trackingNum" ${param.searchType == 'trackingNum' ? 'selected' : ''}>송장번호</option>
+        </select>
+      </div>
+      <input type="text" name="searchKeyword" placeholder="검색어 입력" value="${param.searchKeyword}">
+    </div>
+    
+  </form>
+</div>
 		
 		<script>
 		function setDateRange(range) {

@@ -14,6 +14,9 @@
     <c:when test="${listType == 'new'}">
       ${contextPath}/newProductList
     </c:when>
+    <c:when test="${listType == 'store'}">
+      ${contextPath}/storeProductList?sellerNum=${sellerNum}
+    </c:when>
     <c:otherwise>
       ${contextPath}/productList?cateNum=${cateNum}
     </c:otherwise>
@@ -35,11 +38,12 @@
 			<div class="content">
 				<h2 class="title">
 				  <c:choose>
-				    <c:when test="${listType == 'search'}">
+				    <c:when test="${listType eq 'search'}">
 				      검색 결과: <span class="keyword">'${keyword}'</span>
 				    </c:when>
-				    <c:when test="${listType == 'best'}">베스트</c:when>
-				    <c:when test="${listType == 'new'}">신상품</c:when>
+				    <c:when test="${listType eq 'best'}">베스트</c:when>
+				    <c:when test="${listType eq 'new'}">${listType == 'new'}">신상품</c:when>
+				    <c:when test="${listType eq 'store'}">${storeName}</c:when>
 				    <c:otherwise>${cateName}</c:otherwise>
 				  </c:choose>
 				</h2>
@@ -56,10 +60,10 @@
         			<c:forEach var="p" items="${productList}">
 			            <div class="product">
 			                <div class="productImgBox">
-			                    <a href=""><img src="${contextPath}${p.imgUrl}" alt=""></a>
+			                    <a href="${contextPath}/detailProduct?productNum=${p.productNum}"><img src="${contextPath}${p.imgUrl}" alt=""></a>
 			                </div>
-			                <p><a href="" class="productName">${p.productName}</a></p>
-			                <p><a href="" class="storeName">${p.storeName}</a></p>
+			                <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
+			                <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
 			                <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
 			                <p class="reviewScore">⭐ ${p.avgRating} (${p.reviewCount})</p>
 			            </div>
@@ -96,7 +100,6 @@
 					    <a class="disabled">&gt;</a>
 					  </c:otherwise>
 					</c:choose>
-
 				</div>
 				
 			</div> <!-- content -->

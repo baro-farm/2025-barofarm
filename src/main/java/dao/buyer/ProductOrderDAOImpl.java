@@ -1,6 +1,7 @@
 package dao.buyer;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -27,6 +28,19 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 	public void updateDeliveryStatus(ProductOrder pdOrder) throws Exception {
 		sqlSession.update("mapper.prodOrder.updatePdDeliveryStatus", pdOrder);
 		sqlSession.commit();
+	}
+
+	
+	//seller list
+	@Override
+	public List<ProdOrderVO> selectSellerProductOrderList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.prodOrder.selectSellerProdOrderList",param);
+	}
+
+	@Override
+	public Integer countSellerProductOrderList(Map<String, Object> param) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.prodOrder.");
 	}
 
 }
