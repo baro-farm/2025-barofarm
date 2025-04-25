@@ -36,6 +36,12 @@ public class Login extends HttpServlet {
 	    String saveId = "";
 	    String autoLogin = "";
 
+	    // 현재 URL 저장 (Referer를 사용)
+	    String referer = request.getHeader("Referer");
+	    if (referer != null && !referer.contains("/login")) {  // 로그인 페이지는 제외
+	        request.getSession().setAttribute("prevPage", referer);
+	    }
+	    
 	    Cookie[] cookies = request.getCookies();
 	    if (cookies != null) {
 	        for (Cookie c : cookies) {
@@ -85,6 +91,12 @@ public class Login extends HttpServlet {
             cookieSaveId.setMaxAge((saveId != null) ? cookieTime : 0);
             cookieSaveId.setPath("/");
 
+			
+	        // 이전 페이지 저장 여기 추가
+	        String prevPage = (String) session.getAttribute("prevPage");
+	        session.removeAttribute("prevPage");  // 쓰고 나면 지우기
+	        String redirectUrl = (prevPage != null) ? prevPage : request.getContextPath() + "/main";
+
 			// 자동 로그인 체크 여부 쿠키
             Cookie cookieAutoLogin = new Cookie("autoLogin", (autoLogin != null) ? "on" : "");
             cookieAutoLogin.setMaxAge((autoLogin != null) ? cookieTime : 0);
@@ -96,7 +108,8 @@ public class Login extends HttpServlet {
             response.addCookie(cookieId);
             response.addCookie(cookieSaveId);
             response.addCookie(cookieAutoLogin);
-			response.getWriter().write("{\"success\": true}");
+            
+			response.getWriter().write("{\"success\": true, \"redirectUrl\": \"" + redirectUrl + "\"}");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

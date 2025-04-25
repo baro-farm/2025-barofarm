@@ -99,8 +99,11 @@
 		<jsp:include page="/header/mainHeader.jsp"/>
 
 	<div class="container">
-		<!-- 헤더 -->
-		
+		<div class="wrapper">
+			<div class="sideMenu">
+				<jsp:include page="/header/buyerMenu.jsp" />
+			</div>
+		<div class="content">
 			<h2>꾸러미 내역</h2>
 
 		<div class="searchBox">
@@ -167,9 +170,9 @@
 					
 				</div>
 			</c:forEach>
-
 		</div>
-
+		</div>
+		</div><!-- end of wrapper -->
 		<div class="pagination">
 			<a href="#">◀</a> <a href="#" class="active">1</a> <a href="#">2</a>
 			<a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">▶</a>
@@ -183,7 +186,7 @@
 				<button id="confirmNo" class="btn btnRed">취소</button>
 			</div>
 		</div>
-
+	
 	</div>
 
 </body>

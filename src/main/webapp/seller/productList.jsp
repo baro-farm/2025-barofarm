@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -22,7 +23,20 @@
     
 	<script>
 	$(document).ready(function() {
-		
+	    // 마우스 올렸을 때
+	    $('#notice_table').on('mouseenter', 'tr', function() {
+	        const productNum = $(this).data('productnum');
+	        // 같은 productNum 가진 tr들에 hovered 클래스 추가
+	        $(`tr[data-productnum="\${productNum}"]`).addClass('hovered');
+	    });
+
+	    // 마우스 내렸을 때
+	    $('#notice_table').on('mouseleave', 'tr', function() {
+	        const productNum = $(this).data('productnum');
+	        // 같은 productNum 가진 tr들에서 hovered 클래스 제거
+	        $(`tr[data-productnum="\${productNum}"]`).removeClass('hovered');
+	    });
+	    
 		//글쓰기 버튼 눌렀을 때 
 		$('.btn.add').on('click', function() {
 		    window.location.href = '${contextPath}/insertProduct';
@@ -40,7 +54,7 @@
 		            return;
 		        }
 		        const productNum = $checked.closest('tr').find('.productNum a').text().trim();
-		        window.location.href = '${contextPath}/updateProduct?productNum=' + productNum;
+		        window.location.href = `${contextPath}/updateProduct?productNum=\${productNum}`;
 		    });
 		
 		
@@ -184,7 +198,7 @@
 
 		    </form>
 		</div>
-		<div class="table-wrapper">
+		<div class="tableWrapper">
 		
 		<table id="notice_table" class="table">
 		        <thead>
@@ -193,57 +207,69 @@
 		            <th style="font-weight: bold;">상품번호</th>
 		            <th style="font-weight: bold;">상품명</th>
 		            <th style="font-weight: bold;">카테고리</th>
-		            <th style="font-weight: bold;">상품상태</th>
-		            <th style="font-weight: bold;">가격</th>
-		            <th style="font-weight: bold;">썸네일</th>
-		            <th style="font-weight: bold;">등록일자</th>
-		            <th style="font-weight: bold;">상품재고</th>
+		            <th style="font-weight: bold;">가격</th>	            
+		           	<th style="font-weight: bold;">상품상태</th>
+		          	<th style="font-weight: bold;">옵션</th>
+		          	<th style="font-weight: bold;">가격</th>
+		          	<th style="font-weight: bold;">재고</th>
 		            <th style="font-weight: bold;">판매건수</th>
 		            <th style="font-weight: bold;">리뷰건수</th>
 		          	<th style="font-weight: bold;">리뷰평균</th>
+		          	<th style="font-weight: bold;">등록일자</th>
+		          	<th style="font-weight: bold;">수정일자</th>
+		          	
+		          	
 		          </tr>
 		        </thead>
 		        <tbody>
 		          <c:forEach var="product" items="${productList}">
-	                <tr>
-	                    <td><div class="uiGridCell"><input type="checkbox" class="rowCheck"></div></td>
-	                    <td><div class="uiGridCell productNum"><a href="#">${product.productNum }</a></div></td>
-	                    <td><div class="uiGridCell"><a href="#">${product.productName }</a></div></td>
-	                    <td><div class="uiGridCell">${product.cateName }</div></td>
-	                    <td>
-	                    	<c:choose>
-	                    		<c:when test="${product.status == true }">
-	                    			<div class="uiGridCell"><span class="status on-sale">판매중</span></div>
-	                    		</c:when>
-	                    		<c:otherwise>
-	                    			<div class="uiGridCell"><span class="status stopped">판매중단</span></div>
-	                    		</c:otherwise>
-	                    	</c:choose>
-	                    	
-	                    </td>
-	                    <td><div class="uiGridCell">${product.price }원</div></td>
-	                    <td><div class="uiGridCell"><img src="upload/${product.imgUrl}" width="50" alt="상품이미지"></div></td>
-	                    <td><div class="uiGridCell">${product.createdAt }</div></td>
-	                    <td><div class="uiGridCell"><button class="stockBtn">-</button> <input type='number' min='0'  class="stock" value="${product.stock }"> <button class="stockBtn">+</button><br> <button class="saveBtn">저장</button></div></td>
-	                    <td><div class="uiGridCell">${product.salesVolume }건</div></td>
-	                    <td><div class="uiGridCell">${product.reviewCount }건</div></td>
-	                    <td>
-	                    	<div class="uiGridCell">
-	                    		<span>${product.avgRating }</span>
-	                    	
-								<c:forEach var="i" begin="1" end="5">
-								    <c:choose>
-								      <c:when test="${i <= product.avgRating}">
-								        ★
-								      </c:when>
-								      <c:otherwise>
-								        ☆
-								      </c:otherwise>
-								    </c:choose>
-								</c:forEach>
-							</div>
-						</td>
-	                </tr>
+		          	<c:forEach var="option" items="${product.optionList }" varStatus="status">
+		          		<tr data-productnum="${product.productNum }">
+		          			<c:if test="${status.first }">
+					          <td rowspan="${fn:length(product.optionList)}" ><input type="checkbox" class="rowCheck"></td>
+					          <td rowspan="${fn:length(product.optionList)}" class="productNum"><a href="#">${product.productNum}</a></td>
+					          <td rowspan="${fn:length(product.optionList)}"><a href="#">${product.productName}</a></td>
+					          <td rowspan="${fn:length(product.optionList)}">${product.cateName}</td>
+					          <td rowspan="${fn:length(product.optionList)}">${product.price}원</td>
+					          <td rowspan="${fn:length(product.optionList)}">		          			
+							     <c:choose>
+					              <c:when test="${product.status == true}">
+					                <span class="status on-sale">판매중</span>
+					              </c:when>
+					              <c:otherwise>
+					                <span class="status stopped">판매중단</span>
+					              </c:otherwise>
+					            </c:choose>
+					          </td>
+					        </c:if>      			
+					        <!-- 옵션 정보: 항상 출력 -->
+					        <td data-optionnum="${option.optionNum }">${option.option}</td>
+					        <td>${option.price}원</td>
+                       		<td>
+                       			<div class="uiGridCell"><button class="stockBtn">-</button> <input type='number' min='0'  class="stock" value="${option.stock}"> <button class="stockBtn">+</button> <button class="saveBtn">저장</button></div>
+                       		</td>
+                   
+					        <!-- 
+					        <td>${option.stock}개</td>	
+					         -->	          			
+					        <!-- 리뷰, 판매건수 등: 첫 옵션일 때만 출력 -->
+					        <c:if test="${status.first}">
+					          <td rowspan="${fn:length(product.optionList)}">${product.salesVolume}건</td>
+					          <td rowspan="${fn:length(product.optionList)}">${product.reviewCount}건</td>
+					          <td rowspan="${fn:length(product.optionList)}">
+					            <span>${product.avgRating}</span>
+					            <c:forEach var="i" begin="1" end="5">
+					              <c:choose>
+					                <c:when test="${i <= product.avgRating}">★</c:when>
+					                <c:otherwise>☆</c:otherwise>
+					              </c:choose>
+					            </c:forEach>
+					          </td>
+					          <td rowspan="${fn:length(product.optionList)}">${product.createdAt}</td>
+					          <td rowspan="${fn:length(product.optionList)}">${product.updatedAt}</td>
+					        </c:if>		          		
+		          		</tr>
+	                </c:forEach>
 		         </c:forEach>
 		        </tbody>
 		      </table>

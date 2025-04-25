@@ -28,10 +28,38 @@
 	</update>
 	
 	<!-- product List -->
-	<select id="selectProductList" parameterType="map" resultType="ProductVo">
+	<resultMap id="productWithOptionResultMap" type="ProductVO">
+	    <id property="productNum" column="productNum"/>
+	    <result property="sellerNum" column="sellerNum"/>
+	    <result property="productName" column="productName"/>
+	    <result property="status" column="status"/>
+	    <result property="price" column="price"/>
+	    <result property="imgUrl" column="imgUrl"/>
+	    <result property="createdAt" column="createdAt"/>
+	    <result property="salesVolume" column="salesVolume"/>
+	    <result property="cateName" column="cateName"/>
+	    <result property="avgRating" column="avgRating"/>
+	    <result property="reviewCount" column="reviewCount"/>
+	    
+	    <collection property="optionList" ofType="productOption">
+		    <id property="optionNum" column="optionNum"/>
+		    <result property="productNum" column="productNum"/>
+		    <result property="option" column="option"/>
+		    <result property="price" column="price"/>  <!-- alias 줬으니까 -->
+		    <result property="stock" column="stock"/>
+		    <result property="createdAt" column="createdAt"/> <!-- alias 줬으니까 -->
+		    <result property="updatedAt" column="updatedAt"/>
+	    </collection>	
+	
+	</resultMap>
+	
+	<select id="selectProductList" parameterType="map" resultMap="productWithOptionResultMap">
 		select p.productNum, p.sellerNum, p.productName,p.status, 
-		p.stock, p.price, p.imgUrl, p.createdAt, p.salesVolume,
-		c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount
+		p.price, p.imgUrl, p.createdAt, p.salesVolume,
+		c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount,
+		po.option,po.price,po.stock,po.createdAt,po.updatedAt
+		
+		
 		from product p
 		join category c on p.cateNum = c.cateNum
 		left join (
@@ -39,6 +67,7 @@
 			from prodReview
 			group by productNum		
 		)pr on p.productNum = pr.productNum
+		left join productOption po on p.productNum = po.productNum
 		where p.sellerNum = #{sellerNum}
 		<if test="sellStat != null and sellStat != ''">
 			<choose>
@@ -79,10 +108,20 @@
 	    </foreach>
 	</update>
 	
-	<select id="countProductList" parameterType="Long" resultType="Integer">
+	<select id="countProductList" parameterType="map" resultType="Integer">
 		select count(*)
 		from product
 		where sellerNum=#{sellerNum}
+		<if test="sellStat != null and sellStat!= ''">
+			<choose>
+				<when test="sellStat == 'sales'">
+					and status = true
+				</when>
+				<when test="sellStat == 'salesStop'">
+					and status = false
+				</when>
+			</choose>
+		</if>
 	</select>
 	
 	<!-- end of Product List -->

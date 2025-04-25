@@ -20,7 +20,7 @@ public interface ProductService {
 	List<ProductVO> selectSellerProductList(Long sellerNum,int offset, int pageSize,String sort, String sellStat) throws Exception;
 	void updateProductStock(Long productNum, Integer stock) throws Exception;
 	void updateSellerProductStatus(List<Map<String, Object>> productList) throws Exception;
-	Integer selectCountSellerProductList(Long sellerNum) throws Exception;
+	Integer selectCountSellerProductList(Long sellerNum,String sellStat) throws Exception;
 	
 	void deleteProductOption(Long optionNum) throws Exception;
 	

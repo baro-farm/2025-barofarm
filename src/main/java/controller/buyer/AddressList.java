@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.User;
 import dto.buyer.Address;
 import service.buyer.UserService;
 import service.buyer.UserServiceImpl;
@@ -34,10 +36,21 @@ public class AddressList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession(false);
+		User sessionUser =null;
+		
+		if(session != null) {
+			sessionUser=(User)session.getAttribute("user");
+		}
+		if(sessionUser == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+			return;
+		}
+		
 		UserService service = new UserServiceImpl();
 		List<Address> addressList = null;
 		try {
-			addressList = service.selectUserAddressList("gogogo");
+			addressList = service.selectUserAddressList(sessionUser.getUserId());
 			System.out.println(addressList);
 			request.setAttribute("addressList", addressList);
 			request.getRequestDispatcher("/buyer/addressList.jsp").forward(request, response);
