@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import util.MailTest;
 
 /**
  * Servlet implementation class FindPwd
@@ -36,14 +35,14 @@ public class FindPwd extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	        String to = request.getParameter("to");
-	        String subject = request.getParameter("subject");
-	        String content = request.getParameter("content");
-
-	        boolean result = MailTest.sendMail(to, subject, content);
-
-	        request.setAttribute("msg", result ? "메일 전송 성공!" : "메일 전송 실패!");
-	        request.getRequestDispatcher("/result.jsp").forward(request, response);
+//	        String to = request.getParameter("to");
+//	        String subject = request.getParameter("subject");
+//	        String content = request.getParameter("content");
+//
+//	        boolean result = MailTest.sendMail(to, subject, content);
+//
+//	        request.setAttribute("msg", result ? "메일 전송 성공!" : "메일 전송 실패!");
+//	        request.getRequestDispatcher("/result.jsp").forward(request, response);
 	}
 
 }

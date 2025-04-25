@@ -113,7 +113,17 @@ public class UserProductServiceImpl implements UserProductService{
 	}
 
 	@Override
-	public List<ProdReviewVO> getProdReview(Integer prodNum, PageInfo pageInfo) throws Exception {
+	public ProductVO DetailProduct(Long productNum) throws Exception {
+		return userProductDao.selectDetailProduct(productNum);
+	}
+	
+	@Override
+	public List<dto.seller.ProductOption> ProdOption(Long productNum) throws Exception {
+		return userProductDao.selectProductOption(productNum);
+	}
+	
+	@Override
+	public List<ProdReviewVO> ProdReview(Long prodNum, PageInfo pageInfo) throws Exception {
 		Integer prodCnt = userProductDao.countProdReview(prodNum);
 		Integer allPage = (int)Math.ceil((double) prodCnt / 3);
 
@@ -134,9 +144,29 @@ public class UserProductServiceImpl implements UserProductService{
 	}
 
 	@Override
-	public List<ProductVO> selectDetailProduct(Integer productNum) throws Exception {
-		 return userProductDao.selectDetailProduct(productNum);
+	public List<ProductVO> ProductBySellerNum(PageInfo pageInfo, Long sellerNum, String sort) throws Exception {
+		// 1. 전체 상품 수
+		Integer productCnt = userProductDao.countProductBySellerNum(sellerNum);
+		Integer allPage = (int)Math.ceil((double)productCnt/pageInfo.getPageSize());
+		// 2. 페이지 네비게이션 계산
+		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1; // 1,11,21,31 ...
+		Integer endPage = startPage+10-1; 
+		if(endPage>allPage) endPage=allPage;
+				
+		pageInfo.setAllPage(allPage);
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+				
+		Map<String, Object> param = new HashMap<>();
+		param.put("sellerNum", sellerNum);
+		param.put("start", pageInfo.getOffset());
+		param.put("pageSize", pageInfo.getPageSize());
+		param.put("sort", sort);
+				
+		return userProductDao.selectProductBySellerNum(param);
 	}
+
+	
 
 	
 
