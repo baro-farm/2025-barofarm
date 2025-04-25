@@ -47,6 +47,12 @@ public class InsertProduct extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/barofarm/login");
+			return;
+		}
+		
 		request.getRequestDispatcher("/seller/insertProduct.jsp").forward(request, response);
 	}
 
@@ -65,7 +71,6 @@ public class InsertProduct extends HttpServlet {
 		// 옵션 제외한 정보들
 		String productName = request.getParameter("product_name");
 		Integer price = Integer.parseInt(request.getParameter("product_price"));
-		Integer stock = Integer.parseInt(request.getParameter("product_stock"));
 		Integer cateNum = Integer.parseInt(request.getParameter("product_category"));
 		String content = request.getParameter("product_content");
 		
@@ -92,15 +97,16 @@ public class InsertProduct extends HttpServlet {
         	e.printStackTrace();
         }
         
-        Product product = new Product(sellerNum, cateNum, productName, content, stock, price, imageUrl, true);  
+        Product product = new Product(sellerNum, cateNum, productName, content, price, imageUrl, true);  
                
         String[] optionNames = request.getParameterValues("option_name");
         String[] optionPrices = request.getParameterValues("option_price");
+        String[] optionStocks = request.getParameterValues("option_stock");
         
         List<ProductOption> optionList = new ArrayList<>();
         if (optionNames != null && optionPrices != null) {
         	for (int i = 0; i < optionNames.length; i++) {
-        		ProductOption opt = new ProductOption(optionNames[i], Integer.parseInt(optionPrices[i]));
+        		ProductOption opt = new ProductOption(optionNames[i], Integer.parseInt(optionPrices[i]), Integer.parseInt(optionStocks[i]));
         		optionList.add(opt);
         	}
         }
