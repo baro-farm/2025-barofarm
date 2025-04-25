@@ -105,4 +105,13 @@ public class ProductOption {
 		this.updatedAt = updatedAt;
 		this.stock = stock;
 	}
+
+	public ProductOption(Long optionNum, String option, Integer price, String stock) {
+		super();
+		this.optionNum = optionNum;
+		this.option = option;
+		this.price = price;
+		this.stock = stock;
+	}
+	
 }

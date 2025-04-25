@@ -7,11 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Main</title>
+<title>Main</title><!-- 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
 	<link rel="stylesheet" href="${contextPath}/reset.css">
 	<link rel="stylesheet" href="${contextPath}/main.css">
+	<link rel="stylesheet" href="${contextPath}/bootstrap-4.0/carousel.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="${contextPath}/bootstrap-4.0/carousel.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -22,6 +25,9 @@
    				    <c:if test="${empty bannerList}">
 					    <div class="carousel-item active">
 					    	<img src="${contextPath}/img/bener3.jpg" class="d-block w-100" alt="...">
+					    </div>
+					    <div class="carousel-item">
+					    	<img src="${contextPath}/img/bener2.jpg" class="d-block w-100" alt="...">
 					    </div>
 				    </c:if>
 				    <c:if test="${not empty bannerList}">
@@ -128,5 +134,12 @@
 		</div>
 		<jsp:include page="/header/footer.jsp" />
 	</div><!-- 전체 컨테이너  -->
+	<script>
+	  $(function() {
+	    $('.carousel').carousel({
+	      interval: 4000
+	    });
+	  });
+	</script>
 </body>
 </html>

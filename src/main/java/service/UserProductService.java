@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import dto.seller.ProductOption;
 import util.PageInfo;
 import vo.ProdReviewVO;
 import vo.ProductVO;
@@ -14,6 +15,9 @@ public interface UserProductService {
 	List<ProductVO> NewProductByPage(PageInfo pageInfo) throws Exception;
 	List<ProductVO> searchProducts(PageInfo pageInfo, String keyword, String sort) throws Exception;
 	
-	List<ProductVO> selectDetailProduct(Integer productNum) throws Exception;
-	List<ProdReviewVO> getProdReview(Integer prodNum, PageInfo pageInfo) throws Exception;
+	ProductVO DetailProduct(Long productNum) throws Exception;
+	List<ProductOption> ProdOption(Long productNum) throws Exception;
+	List<ProdReviewVO> ProdReview(Long prodNum, PageInfo pageInfo) throws Exception;
+	
+	List<ProductVO> ProductBySellerNum(PageInfo pageInfo,Long sellerNum, String sort) throws Exception;
 }

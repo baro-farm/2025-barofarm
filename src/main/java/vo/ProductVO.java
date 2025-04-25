@@ -27,7 +27,8 @@ public class ProductVO {
     
     //상세 조회용
     private String option;
-    private int optionPrice;
+    private Integer optionPrice;
+    String content;
     
 	public Long getProductNum() {
 		return productNum;
@@ -119,12 +120,19 @@ public class ProductVO {
 	public void setOption(String option) {
 		this.option = option;
 	}
-	public int getOptionPrice() {
+	public Integer getOptionPrice() {
 		return optionPrice;
 	}
-	public void setOptionPrice(int optionPrice) {
+	public void setOptionPrice(Integer optionPrice) {
 		this.optionPrice = optionPrice;
 	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 	
     
     
