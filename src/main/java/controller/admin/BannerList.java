@@ -2,6 +2,7 @@ package controller.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializer;
 
 import dto.admin.Banner;
 import service.admin.BannerService;
@@ -40,7 +44,10 @@ public class BannerList extends HttpServlet {
 			BannerService service= new BannerServiceImpl();
 			List<Banner> bannerList = service.adminBannerList();
 			
-			Gson gson = new Gson();
+	        Gson gson = new GsonBuilder()
+	            .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) 
+	                (src, typeOfSrc, context) -> new JsonPrimitive(src.toString()))
+	            .create();
 			String json = gson.toJson(bannerList);
 			
 			PrintWriter out = response.getWriter();

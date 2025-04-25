@@ -2,9 +2,9 @@ package service.seller;
 
 import java.util.List;
 
-import dao.seller.PointDAOImpl;
 import dao.seller.UsePointDAO;
 import dao.seller.UsePointDAOImpl;
+import dto.seller.Point;
 import dto.seller.UsePoint;
 import util.SearchDtoSoy;
 
@@ -28,11 +28,19 @@ public class UsePointServiceImpl implements UsePointService {
 	}
 	@Override
 	public void chargePointByPayment(UsePoint usePoint) throws Exception {
-		//1. 기존 포인트 업데이트
+		//1. 최신 잔액 얻어오기
 		PointService pointService = new PointServiceImpl();
-		pointService.updatePoint(usePoint.getUsedPoint(), usePoint.getUserNum());
-		//2. 최신 잔액 얻어오기
-		Integer currPoint = pointService.getPoint(usePoint.getUserNum()).getPoint();
+		//2. 기존 포인트 업데이트
+		Point point  = pointService.getPoint(usePoint.getUserNum());
+		Integer currPoint;
+		if (point==null) {
+			Point newPoint = new Point(null, usePoint.getUserNum(), usePoint.getUsedPoint(), null, null);
+			currPoint = usePoint.getUsedPoint();
+			pointService.addPoint(newPoint);
+		} else {
+			currPoint = point.getPoint()+usePoint.getUsedPoint();
+			pointService.updatePoint( usePoint.getUsedPoint(), usePoint.getUserNum());
+		}
 		usePoint.setCurrPoint(currPoint);
 		usePointDAO.insertUsePointHistory(usePoint);
 	}

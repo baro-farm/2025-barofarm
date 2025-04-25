@@ -59,7 +59,7 @@
 	                	<li class="userli"><a href="logout" id="" class="userBtn">로그아웃</a></li>
 	                	<c:choose>
 					        <c:when test="${user.isSeller == true}">
-					          <li class="userli"><a href="sellerAdsList" class="userBtn">마이스토어</a></li>
+					          <li class="userli"><a href="sellerProductList" class="userBtn">마이스토어</a></li>
 					          <li class="userli"><a href="shoppingCart" id="shoppingCart" class="userBtn">장바구니</a></li>
 	                		  <li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 					        </c:when>

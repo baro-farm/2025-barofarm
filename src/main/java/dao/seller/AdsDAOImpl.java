@@ -41,6 +41,10 @@ public class AdsDAOImpl implements AdsDAO {
 		return sqlSession.selectOne("mapper.advertisement.selectAdsByAdsNum", adsNum);
 	}
 	@Override
+	public int countAdsWithPosting() throws Exception {
+		return sqlSession.selectOne("mapper.advertisement.countAdsWithPosting");
+	}
+	@Override
 	public void updateAds(Advertisement ads) throws Exception {
 		sqlSession.update("mapper.advertisement.updateAds",ads);
 		sqlSession.commit();		

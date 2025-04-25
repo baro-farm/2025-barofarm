@@ -27,7 +27,7 @@
 		    </div>
 		    <div class="form-group">
 		      <label>이름</label>
-		      <div class="readonly-text">김당근</div>
+		      <div class="readonly-text">${seller.userName }</div>
 		    </div>
 		    <div class="form-group">
 		      <label>전화번호</label>
@@ -39,7 +39,7 @@
 		    </div>
 		    <div class="form-group">
 				<c:set var="address" value="${user.addresses[0]}"/>
-		      <label>우편변호</label>
+		      <label>우편번호</label>
 		      <div class="address-group">
 		        <input type="text" placeholder="우편번호" style="width: 80px;" id="postCode"  value="${address.postCode }"/>
 		        <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>

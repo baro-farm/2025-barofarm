@@ -4,8 +4,9 @@
 	
 <mapper namespace="mapper.banner">
 	<insert id="insertBannerByAdmin" parameterType="banner"  useGeneratedKeys="true" keyProperty="bannerNum">
-		INSERT INTO banner VALUES (NULL, NULL, #{title}, #{imgUrl}, #{targetUrl} ,NULL, NULL,1,#{userNum}  )
-	</insert>
+		INSERT INTO banner (title, imgUrl, targetUrl, isPosted, userNum, endDate)
+		VALUES (#{title}, #{imgUrl}, #{targetUrl}, 1, #{userNum},NOW());
+ 	</insert>
 	<select id="adminBannerList" resultType="banner">
 		SELECT * FROM banner WHERE adsNum IS NULL AND isPosted=1
 	</select>

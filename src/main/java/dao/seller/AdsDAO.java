@@ -14,6 +14,7 @@ public interface AdsDAO {
 	
 	//관리자
 	List<Advertisement> selectAdsWithPosting() throws Exception;
+	int countAdsWithPosting() throws Exception;
 	List<Advertisement> selectAdsBySearchDto(SearchDtoSoy dto) throws Exception;
 	int countAdsBySearchDtoSoy(SearchDtoSoy dto) throws Exception;
 	void updateExpiredAdsStatus() throws Exception;
