@@ -59,6 +59,7 @@ td {
     
 }
 .answer{
+	background-color: #ccc;
     border: 1px solid #ccc;
     border-radius: 0 0 8px 8px;
     height: 100px;

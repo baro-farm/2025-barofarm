@@ -20,10 +20,8 @@ public class UserProductServiceImpl implements UserProductService{
 
 	@Override
 	public List<ProductVO> ProductByCategory(PageInfo pageInfo,Integer cateNum,String sort) throws Exception {
-		// 1. 전체 상품 수
 		Integer productCnt = userProductDao.countProductByCategory(cateNum);
 		Integer allPage = (int)Math.ceil((double)productCnt/pageInfo.getPageSize());
-		// 2. 페이지 네비게이션 계산
 		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1; // 1,11,21,31 ...
 		Integer endPage = startPage+10-1; 
 		if(endPage>allPage) endPage=allPage;

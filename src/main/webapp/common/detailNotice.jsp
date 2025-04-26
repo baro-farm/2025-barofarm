@@ -6,9 +6,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>DetailNotice</title>
+	<title>공지사항</title>
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css">
 	<link rel="stylesheet" href="${contextPath}/reset.css">
 	<link rel="stylesheet" href="${contextPath}/common/detailNotice.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -29,7 +31,7 @@
 		                    <td class="" style="float: right;"><span>${notice.createdAt}</span></td>
 		                </tr>
 		                <tr>
-		                    <td class=""><div id="" class="text">${notice.content}</div></td>
+		                    <td class=""><div id="viewer" class="text"></div></td>
 		                </tr>
 		            </table>
         		<br>
@@ -38,5 +40,13 @@
     	</div>
 		<jsp:include page="/header/footer.jsp" />
 	</div>
+	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+	<script>
+	const viewer = toastui.Editor.factory({
+		  el: document.querySelector('#viewer'),
+		  viewer: true,
+		  initialValue: `${notice.content}`
+		});
+	</script>
 </body>
 </html>

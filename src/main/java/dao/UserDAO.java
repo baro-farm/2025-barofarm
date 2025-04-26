@@ -14,9 +14,12 @@ public interface UserDAO {
 	void insertAdminQA(AdminQuestion adminQuestion) throws Exception;
 	AdminQuestionVO detailAdminQA(Long questionNum) throws Exception;
 	List<AdminQuestion> selectRecentAdminQA() throws Exception;
-	List<AdminQuestionVO> selectAdminQAListByPage(Integer row) throws Exception;
+	List<AdminQuestionVO> selectAdminQAListByPage(Map<String, Object> param) throws Exception;
 	Integer selectAdminQACount() throws Exception;
 	User findId(Map<String, Object> param) throws Exception;
 	User findPwd(Map<String, Object> param) throws Exception;
 	void resetPwdToken(Map<String, Object> param) throws Exception;
+	
+	public User selectUserById(String userId) throws Exception;
+
 }

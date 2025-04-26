@@ -63,7 +63,7 @@
 	  JOIN user u ON a.userNum = u.userNum
 	  LEFT JOIN adminanswer ans ON a.questionNum = ans.questionNum
 	  order by a.questionNum desc 
-	  limit #{num},10
+	  limit #{start}, #{pageSize}
 	</select>
 	
 	<select id="selectAdminQACount" resultType="Integer">

@@ -87,21 +87,19 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<AdminQuestionVO> adminQAListByPage(PageInfo pageInfo) throws Exception {
 		Integer adminQACnt = userDao.selectAdminQACount();
-		Integer allPage = (int)Math.ceil((double)adminQACnt/10);
-		//startPage : 1~10=<1, 11~20=>11
-		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1; // 1,11,21,31 ...
-		//endPage : 1~10=>10, 11~20=>20
-		Integer endPage = startPage+10-1; // 10,20,30,40 ...
+		Integer allPage = (int)Math.ceil((double)adminQACnt/pageInfo.getPageSize());
+		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
+		Integer endPage = startPage+10-1;
 		if(endPage>allPage) endPage=allPage;
 		
 		pageInfo.setAllPage(allPage);
 		pageInfo.setStartPage(startPage);
 		pageInfo.setEndPage(endPage);
 		
-		Integer row = (pageInfo.getCurPage()-1)*10+1;
-		List<AdminQuestionVO> adminQAList = userDao.selectAdminQAListByPage(row);
-		
-		return adminQAList;
+		Map<String, Object> param = new HashMap<>();
+		param.put("start", pageInfo.getOffset());
+        param.put("pageSize", pageInfo.getPageSize());		
+		return userDao.selectAdminQAListByPage(param);
 	}
 
 	@Override
@@ -135,6 +133,16 @@ public class UserServiceImpl implements UserService{
 		 param.put("resetPwdToken", resetPwdToken);
 		 
 		 userDao.resetPwdToken(param);
+	}
+
+	@Override
+	public User findUserById(String userId) throws Exception {
+		 return userDao.selectUserById(userId);
+	}
+
+	@Override
+	public Integer getAdminQACount() throws Exception {
+		return userDao.selectAdminQACount();
 	}
 	
 

@@ -46,10 +46,14 @@ public class AdminQAList extends HttpServlet {
 			page = Integer.parseInt(pageStr);
 		}
 		
-		PageInfo pageInfo = new PageInfo(page);
 		UserService service = new UserServiceImpl();
-		
 		try {
+
+			PageInfo pageInfo = new PageInfo(page);
+			pageInfo.setPageSize(10);
+			Integer totalCount = service.getAdminQACount();
+			pageInfo.setTotalCount(totalCount); 
+			
 			List<AdminQuestionVO> adminQAList = service.adminQAListByPage(pageInfo);
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("adminQAList", adminQAList);

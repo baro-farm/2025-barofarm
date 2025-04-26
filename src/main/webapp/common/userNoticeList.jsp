@@ -2,11 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="pageSize" value="${pageInfo.pageSize}" />
+<c:set var="totalCount" value="${pageInfo.totalCount}" />
+<c:set var="curPage" value="${pageInfo.curPage}" />
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>NoticeView</title>
+    <title>공지사항</title>
     <link rel="stylesheet" href="${contextPath}/reset.css">
     <link rel="stylesheet" href="${contextPath}/common/userNoticeList.css" />
 </head>
@@ -28,14 +31,22 @@
 		          </tr>
 		        </thead>
 		        <tbody>
-		          <c:forEach var="notice" items="${requestScope.noticeList}" varStatus="status">
+		        	<c:forEach var="n" items="${requestScope.fixList}">
+					  <tr class="fixedList">
+					  	<td><p class="fixed">공지</p></td>
+		          		<td><a href="detailNotice?noticeNum=${n.noticeNum}" class="fixTitle">${n.title}</a></td>
+						<td><p>관리자</p></td>
+		          		<td>${n.createdAt}</td>
+		          	</tr>
+					</c:forEach>
+		          	<c:forEach var="notice" items="${requestScope.noticeList}" varStatus="status">
 		          	<tr>
-		          		<td>${status.count }</td>
-		          		<td><a href="detailNotice?noticeNum=${notice.noticeNum}" class="ellipsis">${notice.title}</a></td>
+		          		<td>${totalCount - ((curPage - 1) * pageSize + status.index)}</td>
+		          		<td><a href="detailNotice?noticeNum=${notice.noticeNum}">${notice.title}</a></td>
 						<td><p>관리자</p></td>
 		          		<td>${notice.createdAt}</td>
 		          	</tr>
-		         </c:forEach>
+		         	</c:forEach>
 		        </tbody>
 		      </table>
 		      <div id="paging">

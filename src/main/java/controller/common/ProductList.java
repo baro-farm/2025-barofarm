@@ -60,8 +60,6 @@ public class ProductList extends HttpServlet {
 		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
 		PageInfo pageInfo = new PageInfo(curPage, 20);
 		System.out.println("curPage: " + curPage);
-
-
 		
 		UserProductService service = new UserProductServiceImpl();
 		try {

@@ -50,8 +50,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public List<AdminQuestionVO> selectAdminQAListByPage(Integer row) throws Exception {
-		return sqlSession.selectList("mapper.adminQuestion.selectAdminQAListByPage", row);
+	public List<AdminQuestionVO> selectAdminQAListByPage(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.adminQuestion.selectAdminQAListByPage", param);
 	}
 
 	@Override
@@ -73,6 +73,11 @@ public class UserDAOImpl implements UserDAO {
 	public void resetPwdToken(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.user.resetPwdToken", param);
 		sqlSession.commit();
+	}
+
+	@Override
+	public User selectUserById(String userId) throws Exception {
+		return sqlSession.selectOne("mapper.user.selectUser", userId);
 	}
 
 	

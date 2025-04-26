@@ -6,7 +6,7 @@
   const contextPath = "${contextPath}";
 </script>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
     <!-- 로그인버튼 hover할떄 다른 디자인이 움직임 / 종버튼 알람올때 변경할지 / 종에 알림 수 입력하는거-->
  <head>
     <meta charset="UTF-8">
@@ -95,7 +95,7 @@
             </div>
             <div class="searchBox">
                 <input type="text" name="keyword" id="headerSearchInput" value="${keyword}" placeholder="검색어 입력">
-                <button id="headerSearchBtn">
+                <button id="headerSearchBtn" aria-label="상품 검색바">
                     <i class="bi bi-search"></i>
                 </button>
             </div>

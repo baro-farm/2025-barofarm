@@ -13,4 +13,6 @@ public interface NoticeService {
 	void updateNotice(Notice notice) throws Exception;
 	List<Notice> recentNotices() throws Exception;
 	List<Notice> NoticeListByPage(PageInfo pageInfo) throws Exception;
+	List<Notice> getFixNoticeList() throws Exception;
+	Integer getNoticeCount() throws Exception;
 }

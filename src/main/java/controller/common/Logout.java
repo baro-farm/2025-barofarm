@@ -35,13 +35,18 @@ public class Logout extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
         	for (Cookie c : cookies) {
-                if (c.getName().equals("userId") || 
-                    c.getName().equals("saveId") || 
-                    c.getName().equals("autoLogin")) {
+                if (c.getName().equals("autoLogin")) {
                     c.setValue("");
                     c.setMaxAge(0);
                     c.setPath("/");
                     response.addCookie(c);
+                }
+                // saveId가 "on"이 아니면 userId도 삭제
+                if (c.getName().equals("saveId") && !c.getValue().equals("on")) {
+                    Cookie userIdCookie = new Cookie("userId", "");
+                    userIdCookie.setMaxAge(0);
+                    userIdCookie.setPath("/");
+                    response.addCookie(userIdCookie);
                 }
             }
         }
