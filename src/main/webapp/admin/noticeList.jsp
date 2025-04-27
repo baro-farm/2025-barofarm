@@ -30,29 +30,29 @@
       </div>
       <table id="notice_table" class="table display nowrap">
         <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>내용</th>
-            <th>작성일자</th>
-            <th>수정일자</th>
-            <th>고정</th>
-            <th>수정</th>
-            <th>삭제</th>
+          <tr class="tr">
+            <th class="th">번호</th>
+            <th class="th">제목</th>
+            <th class="th">내용</th>
+            <th class="th">작성일자</th>
+            <th class="th">수정일자</th>
+            <th class="th">고정</th>
+            <th class="th">수정</th>
+            <th class="th">삭제</th>
           </tr>
         </thead>
         
         <tbody>
           <c:forEach var="notice" items="${requestScope.noticeList}" varStatus="status">
-          	<tr>
-          		<td>${notice.noticeNum}</td>
-          		<td><div class="ellipsis">${notice.title}</div></td>
-				<td><div class="ellipsis">${notice.previewContent}</div></td>
-          		<td>${notice.createdAt}</td>
-          		<td>${notice.updatedAt}</td>
-          		<td>${notice.fixed}</td>
-	            <td><button class="updateBtn" value="${notice.noticeNum}" onclick="location.href='updateNotice?noticeNum=${notice.noticeNum}'">수정</button></td>
-	            <td><button class="deleteBtn" value="${notice.noticeNum}" data-num="${notice.noticeNum}">삭제</button></td>
+          	<tr class="tr">
+          		<td class="td">${notice.noticeNum}</td>
+          		<td class="td"><div class="ellipsis">${notice.title}</div></td>
+				<td class="td"><div class="ellipsis">${notice.previewContent}</div></td>
+          		<td class="td">${notice.createdAt}</td>
+          		<td class="td">${notice.updatedAt}</td>
+          		<td class="td">${notice.fixed}</td>
+	            <td class="td"><button class="updateBtn" value="${notice.noticeNum}" onclick="location.href='updateNotice?noticeNum=${notice.noticeNum}'">수정</button></td>
+	            <td class="td"><button class="deleteBtn" value="${notice.noticeNum}" data-num="${notice.noticeNum}">삭제</button></td>
           	</tr>
          </c:forEach>
         </tbody>
