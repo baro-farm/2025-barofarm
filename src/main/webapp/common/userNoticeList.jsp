@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="pageSize" value="${pageInfo.pageSize}" />
-<c:set var="totalCount" value="${pageInfo.totalCount}" />
-<c:set var="curPage" value="${pageInfo.curPage}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +18,8 @@
 			<div class="content">
 		    <h1 class="title">공지사항</h1>
         	<p class="subtitle">관리자가 쓰는 서비스 관련 공지</p>
+        	totalCount: ${pageInfo.totalCount}, allPage: ${pageInfo.allPage}, startPage: ${pageInfo.startPage}, endPage: ${pageInfo.endPage}
+        	
 		    <table id="notice_table" class="table">
 		        <thead>
 		          <tr>
@@ -41,7 +40,7 @@
 					</c:forEach>
 		          	<c:forEach var="notice" items="${requestScope.noticeList}" varStatus="status">
 		          	<tr>
-		          		<td>${totalCount - ((curPage - 1) * pageSize + status.index)}</td>
+		          		<td>${pageInfo.totalCount - ((pageInfo.curPage - 1) * pageInfo.pageSize + status.index)}</td>
 		          		<td><a href="detailNotice?noticeNum=${notice.noticeNum}">${notice.title}</a></td>
 						<td><p>관리자</p></td>
 		          		<td>${notice.createdAt}</td>

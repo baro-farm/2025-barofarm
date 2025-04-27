@@ -50,10 +50,9 @@ public class UserNoticeList extends HttpServlet {
 			Integer pageSize = 10;
 			Integer normalPageSize = pageSize - fixCount;
 			
-			PageInfo pageInfo = new PageInfo(page);
-			pageInfo.setPageSize(normalPageSize);
 			Integer totalCount = service.getNoticeCount();
-			pageInfo.setTotalCount(totalCount); 
+			PageInfo pageInfo = new PageInfo(page, normalPageSize, totalCount);
+			
 			
 			List<Notice> noticeList = service.NoticeListByPage(pageInfo);
 

@@ -48,16 +48,6 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Override
 	public List<Notice> NoticeListByPage(PageInfo pageInfo) throws Exception {
-		Integer noticeCnt = noticeDao.selectNoticeCount();
-		Integer allPage = (int)Math.ceil((double)noticeCnt/pageInfo.getPageSize());
-		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
-		Integer endPage = startPage+10-1;
-		if(endPage>allPage) endPage=allPage;
-		
-		pageInfo.setAllPage(allPage);
-		pageInfo.setStartPage(startPage);
-		pageInfo.setEndPage(endPage);
-		
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", pageInfo.getOffset());
         param.put("pageSize", pageInfo.getPageSize());
