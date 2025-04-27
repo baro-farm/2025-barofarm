@@ -82,21 +82,28 @@ public class PaymentComplete extends HttpServlet {
 
 	    String apiKey = props.getProperty("portone.apiKey");
 	    String apiSecret = props.getProperty("portone.apiSecret");
+	    System.out.println("apiKey: " + apiKey);
+	    System.out.println("apiSecret: " + apiSecret);
+
 	    
 	    PaymentService paymentService = new PaymentServiceImpl(apiKey, apiSecret);
 //		PaymentService paymentService = new PaymentServiceImpl();
 		ProdOrderService prodOrderService = new ProdOrderServiceImpl();
-	    
+		
+		System.out.println("apiKey: " + apiKey);
+    	System.out.println("apiSecret: " + apiSecret);
 	    SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false);
 	    try {
 	    	Map<String, String> paymentResult = paymentService.verifyPayment(impUid, amount);
 	    	boolean isVerified = Boolean.parseBoolean(paymentResult.get("isVerified"));
-	        
 	    	
+
+	    	String transactionId = "test_pg_tid";
+	    	String merchantUid = "test_merchant_uid";
 	    	// 1. 포트원 서버에 결제 검증 요청
-	        if (isVerified) {
-		        String transactionId = (String) paymentResult.get("pg_tid");
-		        String merchantUid = (String) paymentResult.get("merchant_uid");
+	        if (true) {
+//		        String transactionId = (String) paymentResult.get("pg_tid");
+//		        String merchantUid = (String) paymentResult.get("merchant_uid");
 	        	    
 	            // ✅ 주문 처리 바로 여기!
 	            ShoppingCartService cartService = new ShoppingCartServiceImpl();

@@ -40,8 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     public Map<String, String> verifyPayment(String impUid, int amount) throws Exception {
         String token = getAccessToken();
-
-        URL url = new URL("https://api.portone.io/payments/" + impUid);
+        URL url = new URL("https://api.iamport.kr/payments/" + impUid);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Authorization", "Bearer " + token);
@@ -73,16 +72,21 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public String getAccessToken() throws Exception {
-		URL url = new URL("https://api.portone.io/users/getToken");
+		URL url = new URL("https://api.iamport.kr/users/getToken");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
 
         JsonObject body = new JsonObject();
-        body.addProperty("apiKey", apiKey);
-        body.addProperty("apiSecret", apiSecret);
+        body.addProperty("imp_key", apiKey);      // ✅ imp_key
+        body.addProperty("imp_secret", apiSecret); // ✅ imp_secret
 
+        System.out.println("Sending to PortOne:");
+        System.out.println("imp_key: " + apiKey);
+        System.out.println("imp_secret: " + apiSecret);
+
+        
         try (OutputStream os = conn.getOutputStream()) {
             os.write(body.toString().getBytes());
             os.flush();
@@ -92,6 +96,16 @@ public class PaymentServiceImpl implements PaymentService {
         JsonObject response = JsonParser.parseReader(reader).getAsJsonObject();
         reader.close();
 
+        if (conn.getResponseCode() != 200) {
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            String line;
+            while ((line = errorReader.readLine()) != null) {
+                System.out.println(line);  // 에러 메시지 출력
+            }
+            errorReader.close();
+        }
+
+        
         return response.getAsJsonObject("response").get("access_token").getAsString();
 	}
 
