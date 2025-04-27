@@ -43,4 +43,15 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 		return sqlSession.selectOne("mapper.prodOrder.");
 	}
 
+	@Override
+	public Long insertProductOrder(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+		sqlSession.insert("mapper.prodOrder.insertProductOrder", param);
+        return (Long) param.get("pdOrderNum");
+	}
+	
+	@Override
+	public void insertProductOrderItem(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+        sqlSession.insert("mapper.prodOrder.insertProductOrderItem", param);
+		
+	}
 }

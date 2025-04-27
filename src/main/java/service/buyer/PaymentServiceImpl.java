@@ -5,13 +5,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import dao.buyer.ShoppingCartDAO;
-import dao.buyer.ShoppingCartDAOImpl;
+import dao.buyer.PaymentDAO;
+import dao.buyer.PaymentDAOImpl;
 
 public class PaymentServiceImpl implements PaymentService {
 
@@ -21,29 +24,52 @@ public class PaymentServiceImpl implements PaymentService {
 //    String apiKey = bundle.getString("portone.apiKey");
 //    String apiSecret = bundle.getString("portone.apiSecret");
     
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("config");
-    private static final String API_KEY = bundle.getString("portone.apiKey");
-    private static final String API_SECRET = bundle.getString("portone.apiSecret");
+//    private static final ResourceBundle bundle = ResourceBundle.getBundle("config");
+//    private static final String API_KEY = bundle.getString("portone.apiKey");
+//    private static final String API_SECRET = bundle.getString("portone.apiSecret");
 
+	private final String apiKey;
+    private final String apiSecret;
+    private PaymentDAO paymentDao;
+    
+    public PaymentServiceImpl(String apiKey, String apiSecret) {
+        this.apiKey = apiKey;
+        this.apiSecret = apiSecret;
+        paymentDao = new PaymentDAOImpl();
+    }
 
-	@Override
-	public boolean verifyPayment(String impUid, int amount) throws Exception {
-		String token = getAccessToken();
+    public Map<String, String> verifyPayment(String impUid, int amount) throws Exception {
+        String token = getAccessToken();
 
         URL url = new URL("https://api.portone.io/payments/" + impUid);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
-        conn.setRequestProperty("Authorization", token);
+        conn.setRequestProperty("Authorization", "Bearer " + token);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         JsonObject response = JsonParser.parseReader(reader).getAsJsonObject();
         reader.close();
 
         JsonObject paymentData = response.getAsJsonObject("response");
-        int paidAmount = paymentData.get("amount").getAsInt();
+        if (paymentData == null) {
+            throw new Exception("결제 정보 조회 실패!");
+        }
 
-        return paidAmount == amount;
-	}
+        int paidAmount = paymentData.get("amount").getAsInt();
+        String pgTid = paymentData.get("pg_tid").getAsString();          // ✅ transactionId
+        String merchantUid = paymentData.get("merchant_uid").getAsString(); // ✅ merchantUid
+
+        if (paidAmount != amount) {
+            throw new Exception("결제 금액 불일치!");
+        }
+
+        Map<String, String> result = new HashMap<>();
+        result.put("isVerified", String.valueOf(paidAmount == amount));
+        result.put("pg_tid", pgTid);
+        result.put("merchant_uid", merchantUid);
+        return result;
+    }
+
 
 	@Override
 	public String getAccessToken() throws Exception {
@@ -54,8 +80,8 @@ public class PaymentServiceImpl implements PaymentService {
         conn.setDoOutput(true);
 
         JsonObject body = new JsonObject();
-        body.addProperty("apiKey", API_KEY);
-        body.addProperty("apiSecret", API_SECRET);
+        body.addProperty("apiKey", apiKey);
+        body.addProperty("apiSecret", apiSecret);
 
         try (OutputStream os = conn.getOutputStream()) {
             os.write(body.toString().getBytes());
@@ -70,17 +96,15 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public void processOrder(String impUid, Long[] cartNums) throws Exception {
-		// 주문 생성 및 장바구니 비우기 로직 (DAO 사용)
-        OrderDAO orderDAO = new OrderDAOImpl();
-        ShoppingCartDAO cartDAO = new ShoppingCartDAOImpl();
+    public void insertPayment(SqlSession sqlSession, Long pdOrderNum, int price, String transactionId, String pay, String impUid, String merchantUid) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("pdOrderNum", pdOrderNum);
+        param.put("price", price);
+        param.put("transactionId", transactionId);
+        param.put("pay", pay);
+        param.put("impUid", impUid);
+        param.put("merchantUid", merchantUid);
 
-        // 주문 생성 (예: 주문 테이블에 insert)
-        orderDAO.insertOrder(impUid, cartNums);
-
-        // 장바구니 비우기
-        cartDAO.deleteCartItems(cartNums);
-
-	}
-
+        paymentDao.insertPayment(sqlSession, param);
+    }
 }

@@ -78,5 +78,6 @@
 		<mapper resource="mapper/banner.xml" />
 		<mapper resource="mapper/packageProduct.xml" />
 		<mapper resource="mapper/shoppingCart.xml" />
+		<mapper resource="mapper/payment.xml" />
 	</mappers>
 </configuration>

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dao.seller.ProductDAO;
 import dao.seller.ProductDAOImpl;
 import dao.seller.SellerDAO;
@@ -119,4 +121,20 @@ public class ProductServiceImpl implements ProductService {
 		param.put("sellStat", sellStat);		
 		return productDao.countProductList(param);
 	}
+	
+	@Override
+	public void adjustStock(SqlSession sqlSession, Long optionNum, int quantityDiff) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("optionNum", optionNum);
+        param.put("quantityDiff", quantityDiff);
+        productDao.adjustStock(sqlSession, param);
+	}
+	
+	@Override
+    public void adjustSalesVolume(SqlSession sqlSession, Long productNum, int quantityDiff) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("productNum", productNum);
+        param.put("quantityDiff", quantityDiff);
+        productDao.adjustSalesVolume(sqlSession, param);
+    }
 }

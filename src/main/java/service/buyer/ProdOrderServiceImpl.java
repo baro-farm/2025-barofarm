@@ -1,11 +1,14 @@
 package service.buyer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 
 import dao.buyer.ProductOrderDAO;
 import dao.buyer.ProductOrderDAOImpl;
-import dto.buyer.PackageOrder;
 import dto.buyer.ProductOrder;
 import vo.ProdOrderVO;
 
@@ -47,4 +50,28 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 		return null;
 	}
 
+	@Override
+	public Long insertProductOrder(SqlSession sqlSession, Long userNum, int totalPrice, String address) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+	    param.put("userNum", userNum);
+	    param.put("pdTotalPrice", totalPrice);
+	    param.put("address", address);
+	    param.put("deleveryStatus", "배송준비");  // 기본값
+	    param.put("orderStatus", "결제완료");    // 기본값
+
+	    return prodOrderDao.insertProductOrder(sqlSession, param);
+	}
+	
+	@Override
+	public void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum,
+			int amount, int price) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+        param.put("pdOrderNum", pdOrderNum);
+        param.put("productNum", productNum);
+        param.put("optionNum", optionNum);
+        param.put("amount", amount);
+        param.put("price", price);
+
+		prodOrderDao.insertProductOrderItem(sqlSession, param);
+	}
 }

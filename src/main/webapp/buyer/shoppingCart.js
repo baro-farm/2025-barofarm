@@ -258,6 +258,8 @@ document.querySelectorAll('.store-order-btn').forEach(btn => {
         document.open();
         document.write(html);
         document.close();
+		window.location.href = '/barofarm/payment';
+		window.location.href = '/barofarm/payment?cartNums=' + cartNums.join(',');
       });
   });
 });
@@ -282,10 +284,13 @@ document.getElementById('all-order-btn').addEventListener('click', () => {
     .then(html => {
 	//console.log('받아온 HTML:', html);  // 여기서 HTML 내용 확인
     // 받아온 HTML을 새로운 페이지로 열기
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+    //const parser = new DOMParser();
+    //const doc = parser.parseFromString(html, 'text/html');
     document.open();
-    document.write(doc.documentElement.innerHTML);
+    //document.write(doc.documentElement.innerHTML);
+    document.write(html);
     document.close();
+    window.location.href = '/barofarm/payment';
+    window.location.href = '/barofarm/payment?cartNums=' + cartNums.join(',');
   });
 });

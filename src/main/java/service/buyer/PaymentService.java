@@ -1,7 +1,11 @@
 package service.buyer;
 
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
 public interface PaymentService {
-	boolean verifyPayment(String impUid, int amount) throws Exception;
+	Map<String, String> verifyPayment(String impUid, int amount) throws Exception;
 	String getAccessToken() throws Exception;
-	void processOrder(String impUid, Long[] cartNums) throws Exception;
+	void insertPayment(SqlSession sqlSession, Long pdOrderNum, int price, String transactionId, String pay, String impUid, String merchantUid) throws Exception;
 }
