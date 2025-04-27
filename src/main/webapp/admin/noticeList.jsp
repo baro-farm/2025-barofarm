@@ -41,6 +41,7 @@
             <th>삭제</th>
           </tr>
         </thead>
+        
         <tbody>
           <c:forEach var="notice" items="${requestScope.noticeList}" varStatus="status">
           	<tr>
@@ -56,6 +57,20 @@
          </c:forEach>
         </tbody>
       </table>
+      <c:set var="totalPages" value="${(totalNotices div 10) + (totalNotices mod 10 > 0 ? 1 : 0)}" />
+      
+	<div class="pagination">
+		<c:if test="${currentPage > 1}">
+			<a href="?page=${currentPage - 1}">이전</a>
+		</c:if>
+		<c:forEach begin="1" end="${totalPages}" var="page">
+			<a href="?page=${page}" class="${page == currentPage ? 'active' : ''}">${page}</a>
+		</c:forEach>
+		<c:if test="${currentPage < totalPages}">
+			<a href="?page=${currentPage + 1}">다음</a>
+		</c:if>
+	</div>
+      
     </div>
     </div>
     <div id="deleteModal" class="modal">
