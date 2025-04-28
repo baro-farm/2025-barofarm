@@ -87,4 +87,14 @@ public class ProductDAOImpl implements ProductDAO {
 	public Integer countProductList(Map<String, Object> param) throws Exception {
 		return sqlSession.selectOne("mapper.product.countProductList",param);
 	}
+	
+	@Override
+	public void adjustStock(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.product.adjustStock", param);
+	}
+	
+	@Override
+    public void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+        sqlSession.update("mapper.product.adjustSalesVolume", param);
+    }
 }

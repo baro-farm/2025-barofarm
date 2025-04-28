@@ -294,5 +294,15 @@
 	<select id="countProductBySellerNum" resultType="Integer">
 	    SELECT COUNT(*) FROM product WHERE sellerNum = #{sellerNum}
 	</select>
+	<update id="adjustStock" parameterType="map">
+	    UPDATE productOption
+	    SET stock = stock + #{quantityDiff}
+	    WHERE optionNum = #{optionNum}
+	</update>
+	<update id="adjustSalesVolume" parameterType="map">
+	    UPDATE product
+	    SET salesVolume = salesVolume + #{quantityDiff}
+	    WHERE productNum = #{productNum}
+	</update>
 	
 </mapper>

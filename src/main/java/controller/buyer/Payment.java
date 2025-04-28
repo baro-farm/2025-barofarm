@@ -1,11 +1,14 @@
 package controller.buyer;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -50,15 +53,36 @@ public class Payment extends HttpServlet {
 			return;
 		}
 
-		String cartNumsStr = request.getParameter("cartNums");
-		if (cartNumsStr == null || cartNumsStr.isEmpty()) {
-			response.sendRedirect("/barofarm/shoppingCart");
-			return;
+		Properties props = new Properties();
+//		try (InputStream input = getServletContext().getResourceAsStream("/WEB-INF/config/config.properties")) {
+//		    props.load(input);
+//		}
+//		InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties");
+		InputStream input = getServletContext().getResourceAsStream("/WEB-INF/config/config.properties");
+
+//		InputStream input = getServletContext().getResourceAsStream("/WEB-INF/classes/config.properties");
+		if (input == null) {
+		    System.out.println("❌ properties 파일 경로 잘못됨!");
+		} else {
+		    props.load(input);
+		    System.out.println("✅ properties 파일 로드 성공!");
 		}
+		String impKey = props.getProperty("imp.key");
+		System.out.println("impKey: " + impKey); // ✅ 값 나오는지 확인!
+//		request.setAttribute("impKey", props.getProperty("imp.key"));
+		request.setAttribute("impKey", impKey);
+
+		String cartNumsStr = request.getParameter("cartNums");
+		System.out.println(cartNumsStr);
+//		if (cartNumsStr == null || cartNumsStr.isEmpty()) {
+//			response.sendRedirect("/barofarm/shoppingCart");
+//			System.out.println("xxxxx");
+//			return;
+//		}
 
 		List<Long> cartNums = Arrays.stream(cartNumsStr.split(",")).map(String::trim).filter(s -> !s.isEmpty())
 				.map(Long::parseLong).collect(Collectors.toList());
-
+System.out.println(cartNums);
 		ShoppingCartService cartService = new ShoppingCartServiceImpl();
 		try {
 
@@ -95,7 +119,9 @@ public class Payment extends HttpServlet {
 				existingProduct.getOptions().add(item);
 			}
 			request.setAttribute("paymentCartMap", paymentCartMap);
-			request.setAttribute("paymentCartMap", paymentCartMap);
+			request.setAttribute("cartNums", cartNums);
+			session.setAttribute("userName", user.getUserName());
+			session.setAttribute("userPhone", user.getPhone());
 
 			request.getRequestDispatcher("/buyer/payment.jsp").forward(request, response);
 		} catch (Exception e) {
@@ -116,18 +142,25 @@ public class Payment extends HttpServlet {
 			response.sendRedirect("/barofarm/login");
 			return;
 		}
+		
+		request.setAttribute("userName", user.getUserName());
+		request.setAttribute("userPhone", user.getPhone());
 
 		String[] cartNumsParam = request.getParameterValues("cartNums[]");
-		if (cartNumsParam == null || cartNumsParam.length == 0) {
-			response.sendRedirect("/barofarm/shoppingCart");
-			return;
-		}
+//		if (cartNumsParam == null || cartNumsParam.length == 0) {
+//			response.sendRedirect("/barofarm/shoppingCart");
+//			return;
+//		}
 
 		// cartNums를 다시 조합
 		String joinedCartNums = String.join(",", cartNumsParam);
 
 		// GET으로 다시 리디렉션
-		response.sendRedirect("/barofarm/payment?cartNums=" + joinedCartNums);
+//		request.setAttribute("cartNums", cartNums);
+		// 이건 됨..
+		response.sendRedirect("/barofarm/payment?cartNums=" + URLEncoder.encode(joinedCartNums, "UTF-8"));
+//		request.getRequestDispatcher("/barofarm/payment?cartNums=" + URLEncoder.encode(joinedCartNums, "UTF-8")).forward(request, response);
+//		request.getRequestDispatcher("/barofarm/payment").forward(request, response);
 	}
 
 }

@@ -118,4 +118,13 @@
 		        </if>
 		    </where>	
 	</select>
+	<insert id="insertProductOrder" parameterType="map" useGeneratedKeys="true" keyProperty="pdOrderNum">
+	    INSERT INTO productorder (userNum, pdTotalPrice, address, deleveryStatus, orderStatus)
+	    VALUES (#{userNum}, #{pdTotalPrice}, #{address}, #{deleveryStatus}, #{orderStatus})
+	</insert>
+	<insert id="insertProductOrderItem" parameterType="map">
+        INSERT INTO productorderitem (pdOrderNum, productNum, optionNum, amount, price)
+        VALUES (#{pdOrderNum}, #{productNum}, #{optionNum}, #{amount}, #{price})
+    </insert>
+
 </mapper>

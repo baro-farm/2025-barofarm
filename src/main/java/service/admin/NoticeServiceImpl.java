@@ -50,7 +50,7 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Notice> NoticeListByPage(PageInfo pageInfo) throws Exception {
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", pageInfo.getOffset());
-        param.put("pageSize", pageInfo.getPageSize());
+    param.put("pageSize", pageInfo.getPageSize());
         
 		return noticeDao.selectNoticeListByPage(param);
 	}

@@ -121,24 +121,11 @@ public class InsertProduct extends HttpServlet {
         }
 
         if (result) {
-            response.sendRedirect("/barofarm/insertProduct?success=true");
+        	Long productNum = product.getProductNum();
+        	response.sendRedirect("/barofarm/detailProduct?productNum=" + productNum);
         } else {
-            response.sendRedirect("/barofarm/insertProduct?success=false");
+            response.sendRedirect("/barofarm/sellerProductList");
         }
-
-        // 혹시 모를 출력값
-//        System.out.println("상품명: " + request.getParameter("product_name"));
-//        System.out.println("가격: " + request.getParameter("product_price"));
-//        System.out.println("재고: " + request.getParameter("product_stock"));
-//        System.out.println("카테고리: " + request.getParameter("product_category"));
-//        System.out.println("상세설명: " + request.getParameter("product_content"));
-//        System.out.println("userNum: "+ userNum);
-//        
-//        System.out.println("상품명: " + productName);
-//        System.out.println("상품 등록 결과 productNum = " + product.getProductNum());
-//        System.out.println(product.getSellerNum());
-//        System.out.println(product.toString());
-//        System.out.println("옵션 수 = " + optionNames.length);
 	}
 
 }

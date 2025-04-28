@@ -1,6 +1,9 @@
 package dao.buyer;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ShoppingCartItem;
 
@@ -11,4 +14,5 @@ public interface ShoppingCartDAO {
 	void insertCartOption(Long userNum, Long optionNum, Integer quantity) throws Exception;
 	void deleteCartOption(Long cartNum) throws Exception;
 	List<ShoppingCartItem> selectCartByCartNums(List<Long> cartNums) throws Exception;
+	void deleteCartItems(SqlSession sqlSession, Map<String, Object> param) throws Exception;
 }

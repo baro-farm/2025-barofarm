@@ -1,6 +1,10 @@
 package service.buyer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 
 import dao.buyer.ShoppingCartDAO;
 import dao.buyer.ShoppingCartDAOImpl;
@@ -43,4 +47,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		return shoppingCartDao.selectCartByCartNums(cartNums);
 	}
 
+	@Override
+    public void deleteCartItems(SqlSession sqlSession, List<Long> cartNums) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("cartNums", cartNums);
+        shoppingCartDao.deleteCartItems(sqlSession, param);
+    }
+	
+	
 }
