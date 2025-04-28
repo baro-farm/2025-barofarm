@@ -73,18 +73,19 @@ document.querySelectorAll('.open-modal').forEach(btn => {
     const optionList = await res.json();
 
     const optionListArea = document.getElementById('optionListArea');
-    optionListArea.innerHTML = '';
+    optionListArea.innerHTML = '';  // 초기화
 
-    optionList.forEach(opt => {
-      const div = document.createElement('div');
-      div.classList.add('option-row');
-      div.innerHTML = `
-        <span>${opt.option} (${opt.price.toLocaleString()}원)</span>
-        <input type="number" class="number-input" name="quantities" value="${opt.quantity}" min="1" data-cart="${opt.cartNum}">
-        <button type="button" class="delete-option-btn" data-cart="${opt.cartNum}">삭제</button>
-      `;
-      optionListArea.appendChild(div);
-    });
+	optionList.forEach(opt => {
+	  const tr = document.createElement('tr');
+	  tr.classList.add('option-row');
+	  tr.innerHTML = `
+	    <td>${opt.option} (${opt.price.toLocaleString()}원)</td>
+	    <td><input type="number" class="number-input" name="quantities" value="${opt.quantity}" min="1" data-cart="${opt.cartNum}"></td>
+	    <td><button type="button" class="delete-option-btn" data-cart="${opt.cartNum}">삭제</button></td>
+	  `;
+	  optionListArea.appendChild(tr);
+	});
+
 
     // 추가 옵션 목록 초기화
     const addRes = await fetch(`/barofarm/getOptions?productNum=${productNum}`);
@@ -96,6 +97,7 @@ document.querySelectorAll('.open-modal').forEach(btn => {
     // 🟢 1. 이미 장바구니에 담긴 옵션들 번호 뽑기
 	const existingOptionNums = optionList.map(opt => opt.optionNum);
 	
+	let isOptionExist = false;
 	// 🟢 2. 전체 옵션 중에서 기존에 없는 옵션만 select에 추가
 	addOptions.forEach(opt => {
 	  if (!existingOptionNums.includes(opt.optionNum)) {  // 담긴 옵션 제외!
@@ -103,15 +105,11 @@ document.querySelectorAll('.open-modal').forEach(btn => {
 	    optionEl.value = opt.optionNum;
 	    optionEl.textContent = `${opt.option} (${opt.price.toLocaleString()}원)`;
 	    addSelect.appendChild(optionEl);
+	    isOptionExist = true;
 	  }
 	})
-    /*addOptions.forEach(opt => {
-      const optionEl = document.createElement('option');
-      optionEl.value = opt.optionNum;
-      optionEl.textContent = `${opt.option} (${opt.price.toLocaleString()}원)`;
-      addSelect.appendChild(optionEl);
-    });*/
-
+    
+  	if (!isOptionExist) document.getElementById('optionAdd').style.display = 'none';
     document.getElementById('optionModal').style.display = 'block';
     document.getElementById('modalOverlay').style.display = 'block';
   });
@@ -119,17 +117,18 @@ document.querySelectorAll('.open-modal').forEach(btn => {
 
 // 옵션 추가
 document.getElementById('addOptionBtn').addEventListener('click', () => {
-  const select = document.getElementById('addOptionSelect');
-  const quantity = document.getElementById('addOptionQuantity').value;
+	const select = document.getElementById('addOptionSelect');
+	const quantity = document.getElementById('addOptionQuantity').value;
+	
+	const tr = document.createElement('tr');
+	tr.classList.add('option-row');
+	tr.innerHTML = `
+	  <td>${select.options[select.selectedIndex].text}</td>
+	  <td><input type="number" class="number-input" name="newQuantities" value="${quantity}" min="1" data-option="${select.value}"></td>
+	  <td><button type="button" class="remove-temp-option-btn">취소</button></td>
+	`;
+	optionListArea.appendChild(tr);
 
-  const div = document.createElement('div');
-  div.classList.add('option-row');
-  div.innerHTML = `
-    <span>${select.options[select.selectedIndex].text}</span>
-    <input type="number" name="newQuantities" value="${quantity}" min="1" data-option="${select.value}">
-    <button type="button" class="remove-temp-option-btn">취소</button>
-  `;
-  document.getElementById('optionListArea').appendChild(div);
 });
 
 // 옵션 삭제 및 취소

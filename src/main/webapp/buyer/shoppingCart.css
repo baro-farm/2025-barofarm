@@ -40,10 +40,6 @@
 	text-align: center;
 }
 
-/* .hr {
-	margin-top: 16px;
-} */
-
 .wrapper{
 	margin-top: 16px;
 	border-top: #333 solid 2px;
@@ -128,19 +124,122 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 360px;
+  width: 480px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   z-index: 9999;
   padding: 20px;
   display: none;
+  font-size: 14px; /* 전체 폰트 조금 줄이기 */
+}
+
+.option-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.option-table th, .option-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.option-table th {
+  background-color: #f4f4f4;
+}
+
+/* 버튼 크기 균일하게 */
+.option-table button {
+  padding: 5px 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;  /* 줄바꿈 방지 */
+}
+
+/* 수량 input (테이블 셀 안에서) */
+.option-table .number-input {
+  width: 30px;
+  padding: 4px;
+  margin:4px;
+  text-align: center;
+}
+
+.option-table tfoot td {
+  text-align: center; /* 추가 버튼 영역 가운데 정렬 */
+  padding-top: 12px;
+}
+
+.option-table tfoot select,
+.option-table tfoot .number-input,
+.option-table tfoot button {
+  margin: 0 4px; /* 각 요소 간격 */
+}
+
+/* 옵션 추가 테이블 */
+.option-add-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.option-add-table th, 
+.option-add-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.option-add-table th {
+  background-color: #f4f4f4;
+}
+
+/* select, input 크기 맞추기 */
+.option-add-table select {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.option-add-table .number-input {
+  width: 60px;
+  padding: 6px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 추가 버튼 스타일 */
+.option-add-table button {
+  background-color: #65B741;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.option-add-table button:hover {
+  background-color: #4d8d31;
+}
+
+
+.modal-content > div:last-child {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 .modal-content {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.modal-content > div:last-child {
+  margin-top: 12px;
 }
 
 .modal h3 {
@@ -180,26 +279,29 @@
   z-index: 9998;
 }
 
-#optionListArea {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
+
+/* 기존 option-row (flex) 삭제하거나 적용 제외 */
+#optionListArea .option-row {
+  display: table-row;  /* flex 대신 테이블 행으로 설정 */
+}
+.delete-option-btn, .remove-temp-option-btn {
+	background-color: #c1212f !important;
+	color: white;
+	padding: 5px 8px;
+	border: none;
+	border-radius: 4px;
+	font-size: 12px;
+	cursor: pointer;
 }
 
-.option-row {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-}
-
-.number-input {
-	width: 50px;	
+.delete-option-btn:hover, .remove-temp-option-btn:hover {
+	background-color: #d72638 !important;
 }
 
 #addOptionSelect {
-	width: 80%;
-
+	width: 200px;
 }
+
 
 .store-total-div {
 	width: 100%;
@@ -225,6 +327,16 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.modalBtn {
+	width: 160px;
+}
+
+.close {
+	background-color: white !important;
+	color: black !important;
+	border: 1px solid #ddd !important;
 }
 
 /* 체크박스 숨기기 */
@@ -263,13 +375,4 @@ input[type="checkbox"]::after {
 /* 체크됐을 때 체크 표시 보이게 */
 input[type="checkbox"]:checked::after {
     opacity: 1;
-}
-
-.delete-option-btn, .remove-temp-option-btn {
-	background-color: #c1212f;
-	
-}
-
-.delete-option-btn:hoverm, .remove-temp-option-btn:hover {
-	background-color: #d72638;
 }
