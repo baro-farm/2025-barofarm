@@ -71,6 +71,10 @@ public class Login extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		String saveId = request.getParameter("saveId");
 		String autoLogin = request.getParameter("autoLogin");
+		System.out.println("saveId 상태: " + 
+			    (saveId == null ? "null" : (saveId.equals("") ? "빈 문자열" : saveId)));
+
+
 		
 		UserService service = new UserServiceImpl();
 		try {
@@ -81,33 +85,45 @@ public class Login extends HttpServlet {
 			session.setAttribute("user", user);
 
 			int cookieTime = 60 * 60 * 24 * 31;
-			
-			// 아이디 저장 쿠키
-            Cookie cookieId = new Cookie("userId", (saveId != null || autoLogin != null) ? userId : "");
-            cookieId.setMaxAge((saveId != null || autoLogin != null) ? cookieTime : 0);
-            cookieId.setPath("/");
-            // 아이디 저장 체크 여부 쿠키
-            Cookie cookieSaveId = new Cookie("saveId", (saveId != null) ? "on" : "");
-            cookieSaveId.setMaxAge((saveId != null) ? cookieTime : 0);
-            cookieSaveId.setPath("/");
+			// saveId 처리
+            if (saveId != null && !saveId.equals("")) {
+                Cookie cookieSaveId = new Cookie("saveId", "on");
+                cookieSaveId.setMaxAge(cookieTime);
+                cookieSaveId.setPath("/");
+                response.addCookie(cookieSaveId);
+                
+                Cookie cookieUserId = new Cookie("userId", userId);
+                cookieUserId.setMaxAge(cookieTime);
+                cookieUserId.setPath("/");
+                response.addCookie(cookieUserId);
+            } else {
+                Cookie cookieSaveId = new Cookie("saveId", "");
+                cookieSaveId.setMaxAge(0);
+                cookieSaveId.setPath("/");
+                response.addCookie(cookieSaveId);
+                
+                Cookie cookieUserId = new Cookie("saveId", userId);
+                cookieUserId.setMaxAge(0);
+                cookieUserId.setPath("/");
+                response.addCookie(cookieUserId);
+            }
+            // autoLogin 처리
+            if (autoLogin != null && !autoLogin.equals("")) {
+                Cookie cookieAutoLogin = new Cookie("autoLogin", "on");
+                cookieAutoLogin.setMaxAge(cookieTime);
+                cookieAutoLogin.setPath("/");
+                response.addCookie(cookieAutoLogin);
+            } else {
+                Cookie cookieAutoLogin = new Cookie("autoLogin", "");
+                cookieAutoLogin.setMaxAge(0);
+                cookieAutoLogin.setPath("/");
+                response.addCookie(cookieAutoLogin);
+            }
 
-			
 	        // 이전 페이지 저장 여기 추가
 	        String prevPage = (String) session.getAttribute("prevPage");
 	        session.removeAttribute("prevPage");  // 쓰고 나면 지우기
 	        String redirectUrl = (prevPage != null) ? prevPage : request.getContextPath() + "/main";
-
-			// 자동 로그인 체크 여부 쿠키
-            Cookie cookieAutoLogin = new Cookie("autoLogin", (autoLogin != null) ? "on" : "");
-            cookieAutoLogin.setMaxAge((autoLogin != null) ? cookieTime : 0);
-            cookieAutoLogin.setPath("/");
-
-            // (보안상 비밀번호 쿠키는 저장하지 않음)
-
-            // 쿠키 추가(삭제)
-            response.addCookie(cookieId);
-            response.addCookie(cookieSaveId);
-            response.addCookie(cookieAutoLogin);
             
 			response.getWriter().write("{\"success\": true, \"redirectUrl\": \"" + redirectUrl + "\"}");
 			

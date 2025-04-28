@@ -1,0 +1,245 @@
+.reviewContent {
+  @import "bootstrap/scss/reboot";
+}
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+    flex: 1;
+    align-self: flex-start;
+    padding: 30px 0 0 0;
+    max-width: 1000px;
+    min-width: 800px;
+    margin-left: 20px;
+    margin-right: auto;
+  	position: relative;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+html {
+    scroll-behavior: smooth;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+/* 상품 정보 */
+.packInfoBox {
+    display: flex;
+    height: 420px;
+}
+.packImg {
+	width:400px;
+}
+.packImg img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+/* 상품정보 상세 */
+.packInfo{
+  margin:0 auto;
+  width: 480px;
+  line-height: 1.5;
+  position: relative;
+}
+.packTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+.additional {
+    display: flex;
+    justify-content: space-between;
+}
+/* 주문 옵션 */
+  .selectBox {
+  	width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 120px 0 20px 0;
+    cursor: pointer;
+  }
+  #selectedOptions {
+    padding: 5px 0;
+    font-size: 15px;
+  }
+  .selectedOptionItem {
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    display: flex;
+    padding: 5px 0;
+  }
+  .selectedOptionItem div:not(:first-child){
+    margin-left: auto;
+  }
+  /* 총 가격 */
+  .totalPrice {
+    text-align: right;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  /* 버튼 영역 */
+  .actionButtons {
+    display: flex; /* 버튼을 가로로 배치 */
+    justify-content: space-between; /* 양 끝으로 벌리기 */
+    align-items: center; /* 수직 가운데 정렬 */
+    gap: 10px; /* 버튼 사이 여백 */
+  }
+  
+  .actionButtons a {
+    flex: 1;
+    height: 40px;
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid #FFB534;
+    cursor: pointer;
+    line-height: 40px; 
+    transition: background-color 0.2s ease; /* 부드러운 전환 효과 */
+  }
+
+  .actionButtons a:last-child {
+    background-color: #FFB534;
+    color: white;
+  }
+
+  .tabs {
+    border-bottom: 2px solid #65B741;
+    margin: 50px 0;
+  }
+  .tabList {
+    display: flex;
+    justify-content: space-between;
+  }
+  .tab {
+    flex: 1; /* 동일한 너비 */
+    text-align: center;
+  }
+  .tab a {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+  }
+  .focus {
+    background-color: #65B741;
+    border-radius: 5px 5px 0 0;
+  }
+  .focus a {
+    color: white;
+  }
+/* 상품내용 */
+.contentDetail {
+	text-align: center;
+}
+.contentDetail img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* 리뷰 */
+.reviewTable {
+  margin: 0 auto;
+  width: 890px;
+  line-height: 1.2em;
+}
+.reviewTable tr {
+  border-bottom: 1px solid #ccc;
+}
+.reviewTable td {
+  vertical-align: top;
+  padding: 10px 10px 0 10px;
+}
+.packName {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 8px;
+}
+.reviewText {
+  margin-bottom: 10px;
+}
+.reviewImg {
+  position: relative;
+}
+.reviewImg img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+/* 문의하기  */
+.packQA {
+  margin: 20px auto;
+  width: 95%;
+  border-collapse: collapse;
+}
+.packQA th, .packQA td {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+  font-size: 14px;
+  text-align: left;
+}
+.packQA th:nth-child(1),.packQA td:nth-child(1) {
+  width: 100px;
+  padding: 0 10px;
+}
+.packQA th:nth-child(3),.packQA th:nth-child(4),
+.packQA td:nth-child(3),.packQA td:nth-child(4) {
+  text-align: right;
+  width: 100px;
+  padding-right: 10px;
+}
+.answerRow {
+  display: none;
+  background-color: #f9f9f9;
+}
+.answerRow.active {
+  display: table-row;
+}
+.answer {
+  padding: 15px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.answerTitle {
+  background-color: #B0E57C;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.answerInfo {
+  text-align: right;
+  margin-top: 10px;
+  color: #888;
+  font-size: 13px;
+}
+
+/* 안내사항 */
+.infoContent {
+  margin: 10px;
+}
+.infoContent div p:first-child {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 2em;
+}
+.infoContent div p:not(:first-child) {
+  padding: 0 10px;
+  line-height: 1.6em;
+}
+/* 페이징 */
+#paging {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
+    margin-top: 20px;
+}

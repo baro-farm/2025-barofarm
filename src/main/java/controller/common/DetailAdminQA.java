@@ -6,7 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.User;
 import service.UserService;
 import service.UserServiceImpl;
 import vo.AdminQuestionVO;
@@ -31,18 +33,34 @@ public class DetailAdminQA extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		Long qNum = Long.parseLong(request.getParameter("questionNum"));
-		
-		UserService service = new UserServiceImpl();
-		try {
-			 AdminQuestionVO adminq = service.detailAdminQA(qNum);
-			
-			request.setAttribute("adminq", adminq);
-			request.getRequestDispatcher("/common/detailAdminQA.jsp").forward(request, response);
-		}catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("err", "게시글 조회에 실패했습니다.");
-		}
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
+        User loginUser = (User) session.getAttribute("user");
+        String loginUserId = loginUser.getUserId();
+        System.out.println("loginUserId :"+loginUserId);
+
+        Long qNum = Long.parseLong(request.getParameter("questionNum"));
+        
+        UserService service = new UserServiceImpl();
+        try {
+            AdminQuestionVO adminq = service.detailAdminQA(qNum);
+            System.out.println("adminqUserId :"+ adminq.getUserId());
+            
+            if (!loginUserId.equals(adminq.getUserId())) {
+            	response.sendRedirect(request.getContextPath() + "/adminQAList?error=notAuthor");
+                return;
+            }
+            
+            request.setAttribute("adminq", adminq);
+            request.getRequestDispatcher("/common/detailAdminQA.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/adminQAList?error=fail");
+        }
 	}
 
 }

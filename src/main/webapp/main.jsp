@@ -61,10 +61,17 @@
 			      		<c:forEach var="p" items="${bestProducts}">
 				        	<div class="product">
 					          	<div class="productImgBox">
-					          		<a href=""><img src="${contextPath}${p.imgUrl}" alt=""></a>
+					          		<a href="${contextPath}/detailProduct?productNum=${p.productNum}">
+						          		<c:if test="${empty p.imgUrl}">
+							    			<img src="${contextPath}/img/fruits1.jpg" alt="">
+						    			</c:if>
+						    			<c:if test="${not empty p.imgUrl}">
+				                    		<img src="${contextPath}/${p.imgUrl}" alt="">
+				                    	</c:if>
+					          		</a>
 					          	</div>
-						        <p><a href="" class="productName">${p.productName}</a></p>
-						        <p><a href="" class="storeName">${p.storeName}</a></p>
+						        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
+						        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
 						        <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
 						        <p class="reviewScore">
 						        	⭐ <fmt:formatNumber value="${p.avgRating}" type="number" maxFractionDigits="1" />
@@ -83,10 +90,17 @@
 		      			<c:forEach var="p" items="${newProducts}">
 			      			<div class="product">
 					          	<div class="productImgBox">
-					          		<a href=""><img src="${contextPath}${p.imgUrl}" alt=""></a>
+					          		<a href="${contextPath}/detailProduct?productNum=${p.productNum}">
+						          		<c:if test="${empty p.imgUrl}">
+							    			<img src="${contextPath}/img/fruits2.jpg" alt="">
+						    			</c:if>
+						    			<c:if test="${not empty p.imgUrl}">
+				                    		<img src="${contextPath}${p.imgUrl}" alt="">
+				                    	</c:if>
+					          		</a>
 					          	</div>
-						        <p><a href="" class="productName">${p.productName}</a></p>
-						        <p><a href="" class="storeName">${p.storeName}</a></p>
+						        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
+						        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
 						        <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
 						        <p class="reviewScore">
 						        	⭐ <fmt:formatNumber value="${p.avgRating}" type="number" maxFractionDigits="1" /> 

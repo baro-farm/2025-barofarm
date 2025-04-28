@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import dto.seller.ProductOption;
+import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
 
@@ -28,4 +29,8 @@ public interface UserProductDAO {
 	
 	List<ProductVO> selectProductBySellerNum(Map<String, Object> param) throws Exception;
 	Integer countProductBySellerNum(Long sellerNum) throws Exception;
+	
+	PackageVO selectDetailPackage(Long packageNum) throws Exception;
+	List<PackageVO> selectPackageByCategory(Map<String, Object> param) throws Exception;
+	Integer countPackageByCategory(Integer packNum) throws Exception;
 }
