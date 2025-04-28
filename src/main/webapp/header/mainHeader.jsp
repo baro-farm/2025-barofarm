@@ -80,7 +80,7 @@
         <header class="headerMenu">
             <div class="headerlogo">
                 <a href="main">
-                    <img src="https://i.ibb.co/zH5kPJNt/barologo1.png" alt="barologo1" border="0" class="logo">
+                    <img src="${contextPath }/img/barologo1.png" alt="barologo1" border="0" class="logo">
                 </a>
             </div>
             <div class="navMenu">

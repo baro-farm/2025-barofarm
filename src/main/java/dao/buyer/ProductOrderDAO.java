@@ -13,6 +13,6 @@ public interface ProductOrderDAO {
 	
 	//seller product order list
 	List<ProdOrderVO> selectSellerProductOrderList(Map<String,Object> param) throws Exception;
-	Integer countSellerProductOrderList(Map<String,Object> param) throws Exception;
+	Integer sellectCountSellerProductOrderList(Map<String,Object> param) throws Exception;
 
 }

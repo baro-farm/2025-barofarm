@@ -37,17 +37,38 @@
 	</update>
 	
 	<select id="selectSellerProdOrderList" parameterType="map" resultType="prodOrderVo">
-		select
-			po.pdOrderNum, po.userNum, po.orderDate,po.address, po.orderStatus, po.deleveryStatus, po.trackingNum 
-			poi.productNum, poi.optionNum, poi.amount, poi.price * poi.amount as totalProductPrice,
-			u.userId, u.userName,u.phone,
-			opt.option
-		from productOrder po
-		join productOrderItem poi on po.pdOrderNum = poi.pdOrderNum
-		join productOption opt on poi.optionNum = opt.optionNum
-		join user u on po.userNum = u.userNum
-		where po.sellerNum = #{sellerNum}
-		<if test="dateType != null and dateType != ''">
+		SELECT 
+		    po.pdOrderNum,              
+		    poi.orderItem,              
+		    poi.productNum,            
+		    pOpt.option,  
+		    pOpt.price AS optionPrice,  
+		    poi.amount,                 
+		    (pOpt.price * poi.amount) AS totalPrice,
+		    po.orderDate,             
+		    CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
+		    u.userName, 
+		    po.address,
+		    u.phone,
+		    po.orderStatus, 
+		    po.deleveryStatus
+		FROM 
+		    productorder po
+		JOIN 
+		    productorderitem poi ON po.pdOrderNum = poi.pdOrderNum
+		JOIN 
+		    productoption pOpt ON poi.optionNum = pOpt.optionNum
+		JOIN 
+		    product p ON poi.productNum = p.productNum
+		JOIN 
+		    user u ON po.userNum = u.userNum
+		WHERE 
+		    p.sellerNum = #{sellerNum}
+		<if test="startDate != null and endDate != null">
 		  <if test="dateType == 'paymentDate'">
 		    AND DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
 		  </if>
@@ -77,45 +98,51 @@
 	</select>
 	
 	<select id="sellectCountSellerProdOrderList" parameterType="map" resultType="Integer">
-		  SELECT COUNT(*)
-		    FROM productOrder po
-		    JOIN user u ON po.userNum = u.userNum
-		    <where>
-		        po.sellerNum = #{sellerNum}
-		        
-		        <if test="dateType != null and startDate != null and endDate != null">
-		            AND 
-		            <choose>
-		                <when test="dateType == 'paymentDate'">
-		                    DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
-		                </when>
-		                <when test="dateType == 'orderDate'">
-		                    DATE(po.orderedAt) BETWEEN #{startDate} AND #{endDate}
-		                </when>
-		            </choose>
-		        </if>
-		        
-		        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
-		            <choose>
-		                <when test="searchType == 'userName'">
-		                    AND u.userName LIKE CONCAT('%', #{searchKeyword}, '%')
-		                </when>
-		                <when test="searchType == 'pdOrderNum'">
-		                    AND po.pdOrderNum = #{searchKeyword}
-		                </when>
-		                <when test="searchType == 'productNum'">
-		                    AND EXISTS (
-		                        SELECT 1 
-		                        FROM productOrderItem poi 
-		                        WHERE poi.pdOrderNum = po.pdOrderNum 
-		                        AND poi.productNum = #{searchKeyword}
-		                    )
-		                </when>
-		                <when test="searchType == 'trackingNum'">
-		                    AND po.trackingNum = #{searchKeyword}
-		                </when>
-		            </choose>
-		        </if>
-		    </where>	
+	    SELECT 
+	        COUNT(DISTINCT po.pdOrderNum)
+	    FROM 
+	        productorder po
+	    JOIN 
+	        productorderitem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN 
+	    	productoption pOpt ON poi.optionNum = pOpt.optionNum
+	    JOIN 
+	        product p ON poi.productNum = p.productNum
+	        
+	    JOIN 
+	        user u ON po.userNum = u.userNum
+	    WHERE 
+	        p.sellerNum = #{sellerNum}
+		<choose>
+		  <when test="startDate != null and endDate != null">
+		    <choose>
+		      <when test="dateType == 'paymentDate'">
+		        AND DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
+		      </when>
+		      <when test="dateType == 'orderDate'">
+		        AND DATE(po.orderedAt) BETWEEN #{startDate} AND #{endDate}
+		      </when>
+		    </choose>
+		  </when>
+		  <otherwise>
+		    <!-- 날짜 조건 없음 -->
+		  </otherwise>
+		</choose>
+	    <if test="searchType != null and searchType != '' and searchType != 'all' and searchKeyword != null and searchKeyword != ''">
+	        <choose>
+	            <when test="searchType == 'userName'">
+	                AND u.userName LIKE CONCAT('%', #{searchKeyword}, '%')
+	            </when>
+	            <when test="searchType == 'pdOrderNum'">
+	                AND po.pdOrderNum = #{searchKeyword}
+	            </when>
+	            <when test="searchType == 'productNum'">
+	                AND poi.productNum = #{searchKeyword}
+	            </when>
+	            <when test="searchType == 'trackingNum'">
+	                AND po.trackingNum = #{searchKeyword}
+	            </when>
+	        </choose>
+	    </if>	
 	</select>
 </mapper>

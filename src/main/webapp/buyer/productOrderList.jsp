@@ -106,8 +106,8 @@
 				<jsp:include page="/header/buyerMenu.jsp" />
 			</div>
 			<div class="content">
-		        <h2>주문 내역</h2>
-		
+				<div class="header">주문 내역</div>
+				
 		        <div class="searchBox">
 		            <label for="searchStartDate">조회 기간:</label>
 		            <input type="date" id="searchStartDate" name="searchStartDate">
@@ -117,6 +117,10 @@
 		        </div>
 	
 		        <div class="orderList">
+		            <!-- 주문 내역이 없을 때 -->
+				    <c:if test="${empty prodOrderList}">
+				        <div class="emptyMessage">주문 내역이 없습니다.</div>
+				    </c:if>
 		
 					<!-- 주문 내역 반복 -->
 					<c:forEach var="prodOrder" items="${prodOrderList }">
@@ -127,7 +131,7 @@
 			                    <div class="orderLeft">
 			                    	<div class="orderStatus orderReady">${prodOrder.deleveryStatus } </div>
 			                    
-			                        <img src="${prodOrder.imgUrl }" alt="상품 이미지">
+			                        <img src="${contextPath}${prodOrder.imgUrl }" alt="">
 			                    </div>
 			                    <div class="orderRight">
 			                        <div>

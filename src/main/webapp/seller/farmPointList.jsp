@@ -280,7 +280,7 @@
 	        merchant_uid: 'chargePoint_' + new Date().getTime(), // 주문번호 (고유해야 함)
 	        name: '팜포인트 충전', // 결제 상품명
 	        amount: amount, // 결제 금액
-	        buyer_email: '@gmail.com', // 구매자 이메일
+	        buyer_email: 'luluka11@naver.com', // 구매자 이메일
 	        buyer_name: '${userName}', // 구매자 이름
 	        buyer_tel: '${phone}' // 구매자 전화번호
 	    }, function (rsp) {

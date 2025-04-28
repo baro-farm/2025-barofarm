@@ -24,7 +24,13 @@ body {
 	flex-direction: row;
 	min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
 }
-
+.emptyMessage {
+    text-align: center;
+    padding: 50px 0;
+    color: #888;
+    font-size: 1.2em;
+    min-height: 450px;
+}
 .content {
 	flex: 1;
 	align-self: flex-start;
@@ -45,6 +51,7 @@ body {
     font-weight: bold;
     font-size: 28px;
     margin-bottom: 20px;
+    border-bottom:2px solid black;
 }
 
 .commentBox {

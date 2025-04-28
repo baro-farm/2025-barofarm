@@ -1,7 +1,9 @@
 package service.buyer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.buyer.ProductOrderDAO;
 import dao.buyer.ProductOrderDAOImpl;
@@ -41,10 +43,41 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 		prodOrderDao.updateDeliveryStatus(pdOrder);		
 	}
 
+	
+	
 	@Override
 	public Integer selectProductOrderCount(Long sellerNum) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<ProdOrderVO> selectProductOrderList(Long sellerNum, int offset, int pageSize, String dateType,
+			String startDate, String endDate, String searchType, String searchKeyword) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("sellerNum", sellerNum);
+        param.put("offset", offset);
+        param.put("pageSize", pageSize);
+        param.put("dateType", dateType);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        param.put("searchType", searchType);
+        param.put("searchKeyword", searchKeyword);
+      
+		return prodOrderDao.selectSellerProductOrderList(param);
+	}
+
+	@Override
+	public Integer countProductOrderList(Long sellerNum, String dateType, String startDate, String endDate,
+			String searchType, String searchKeyword) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("sellerNum", sellerNum);
+        param.put("dateType", dateType);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        param.put("searchType", searchType);
+        param.put("searchKeyword", searchKeyword);
+        return prodOrderDao.sellectCountSellerProductOrderList(param);
 	}
 
 }

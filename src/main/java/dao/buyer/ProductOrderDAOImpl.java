@@ -38,9 +38,9 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 	}
 
 	@Override
-	public Integer countSellerProductOrderList(Map<String, Object> param) throws Exception {
+	public Integer sellectCountSellerProductOrderList(Map<String, Object> param) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.prodOrder.");
+		return sqlSession.selectOne("mapper.prodOrder.sellectCountSellerProdOrderList",param);
 	}
 
 }

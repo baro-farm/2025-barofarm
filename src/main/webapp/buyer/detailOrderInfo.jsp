@@ -35,7 +35,7 @@
     	<c:forEach var="prodOrder" items="${prodOrderList }">
     	
 	        <div class="orderItem">
-	            <img src="${prodOrder.imgUrl }" alt="상품 이미지" class="productImage">
+	            <img src="${contextPath}/${prodOrder.imgUrl }" alt="상품 이미지" class="productImage">
 	            <div class="productInfo">
 	                <div id="productName">${prodOrder.productName }</div>
 	                <div id="productAmount">수량: ${prodOrder.amount} 개</div>

@@ -53,7 +53,7 @@
 					<div class="header">리뷰 작성</div>
 		
 				    <div class="productInfo">
-				        <img src="${imgUrl }" alt="고구마" class="productImage">
+				        <img src="${contextPath }${imgUrl }" alt="고구마" class="productImage">
 				        <div class="productDetails">
 				        	<div>${storeName }</div>
 				            <div>${productName }</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="dto.User" %>
 <%@ page import="vo.UserVO" %>
 
@@ -48,7 +49,13 @@ UserVO user = (UserVO)request.getAttribute("user");
 		
 		        <div class="formGroup">
 		            <label>전화번호</label>
-		            <input type="text" value="${user.phone}" name="phone">
+		            <div class="phone-wrapper">
+				        <input type="text" id="phone1" name="phone1" maxlength="3" value="${fn:substring(user.phone, 0, 3)}" pattern="\d*" inputmode="numeric" required>
+				        -
+				        <input type="text" id="phone2" name="phone2" maxlength="4" value="${fn:substring(user.phone, 3, 7)}" pattern="\d*" inputmode="numeric" required>
+				        -
+				        <input type="text" id="phone3" name="phone3" maxlength="4" value="${fn:substring(user.phone, 7, 11)}" pattern="\d*" inputmode="numeric" required>
+				    </div>
 		        </div>
 		
 		        <div class="formGroup">
@@ -69,7 +76,7 @@ UserVO user = (UserVO)request.getAttribute("user");
 		        </div>
 				
 		        <div class="btn-group">
-		            <button type="submit" class="btn btn-save">수정</button>
+		            <button type="submit" class="btn btn-save">저장</button>
 		            <button type="button" class="btn btn-cancel">취소</button>
 		            <button type="button" class="btn btn-delete">회원탈퇴</button>
 		        </div>
@@ -78,6 +85,26 @@ UserVO user = (UserVO)request.getAttribute("user");
 	    </div><!-- end of content -->
     </div><!-- end of warraper -->
 </div>
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const phone1 = document.getElementById('phone1').value.trim();
+        const phone2 = document.getElementById('phone2').value.trim();
+        const phone3 = document.getElementById('phone3').value.trim();
+
+        const fullPhone = phone1 + phone2 + phone3;
+
+        // hidden input 추가
+        let hiddenPhone = document.getElementById('phone');
+        if (!hiddenPhone) {
+            hiddenPhone = document.createElement('input');
+            hiddenPhone.type = 'hidden';
+            hiddenPhone.name = 'phone';
+            hiddenPhone.id = 'phone';
+            this.appendChild(hiddenPhone);
+        }
+        hiddenPhone.value = fullPhone;
+    });
+</script>
 <script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
