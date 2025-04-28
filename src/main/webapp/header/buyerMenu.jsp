@@ -44,24 +44,24 @@
         <li class="dropdown">
             <a style="text-decoration: none;">리뷰</a>
             <ul class="submenu">
-                <li><a href="prodWritableReviewList">작성 가능한 리뷰</a></li>
-                <li><a href="prodWrittenReviewList">내가 작성한 리뷰</a></li>
+                <li><a href="prodWritableReviewList">&gt; 작성 가능한 리뷰</a></li>
+                <li><a href="prodWrittenReviewList">&gt; 내가 작성한 리뷰</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a style="text-decoration: none;">꾸러미</a>
             <ul class="submenu">
-                <li><a href="packOrderList">주문내역 및 배송조회</a></li>
-            	<li><a href="#">리뷰</a></li>
-            	<li><a href="packQuestionList">상품 문의</a></li>
-                <li><a href="#">구독 관리</a></li>
+                <li><a href="packOrderList">&gt;주문내역 및 배송조회</a></li>
+            	<li><a href="#">&gt;리뷰</a></li>
+            	<li><a href="packQuestionList">&gt;상품 문의</a></li>
+                <li><a href="#">&gt;구독 관리</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a style="text-decoration: none;">콕팜</a>
             <ul class="submenu">
-                <li><a href="kockFarmPostList">내 게시글</a></li>
-                <li><a href="kockCommentList">내 댓글</a></li>
+                <li><a href="kockFarmPostList">&gt;내 게시글</a></li>
+                <li><a href="kockCommentList">&gt;내 댓글</a></li>
             </ul>
         </li>
 
