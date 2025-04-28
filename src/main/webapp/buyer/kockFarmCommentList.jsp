@@ -21,8 +21,10 @@
 			</div>
 			<div class="content">    
 		        <div class="title">콕팜 작성 댓글</div>
-		
-		        <form id="commentForm" name="commentForm">
+			    <c:if test="${empty kockCommentList}">
+			        <div class="emptyMessage">작성한 콕팜 댓글이 없습니다.</div>
+			    </c:if>		
+		        <form id="commentForm" name="commentForm" >
 		        
 		        	<c:forEach var="comment" items="${kockCommentList}">
 			        	 <div class="commentBox" data-kocknum="${comment.kockNum }">
@@ -53,7 +55,7 @@
 		                </div>
 		            </div>
 		            <script type="text/javascript">
-						const contextPath= '${contextPath}'
+						
 
 			            document.addEventListener("DOMContentLoaded", function () {
 			                const selectAllCheck = document.getElementById("selectAllCheck");
@@ -73,7 +75,7 @@
 			                		const kockNum=this.dataset.kocknum;
 			                		if(kockNum){
 			                			console.log();
-			                			window.location.href = `${contextPath}/detailKockFarm?kockNum=` + kockNum;
+			                			window.location.href = `${contextPath}/detailKockFarm?kockNum=\${kockNum}`;
 			                			console.log(window.location.href);
 			                		
 			                		}
@@ -84,7 +86,8 @@
 			                const writeButton = document.getElementById("writeButton");
 			                if(writeButton){
 			                	writeButton.addEventListener("click", function(){
-			                		window.location.href = `${contextPath}/insertKockFarm`;
+			                		console.log("click");
+			                		window.location.href = `\${contextPath}/insertKockFarm`;
 			                	});
 			                }
 			                

@@ -9,15 +9,15 @@
         <div class="logo">
             <div>
             	<a href="${contextPath}/main">
- 	               <img src="https://i.ibb.co/B5ssbkwV/barologo2.png" alt="barologo1" border="0" width="100">
+ 	               <img src="${contextPath }/img/barologo2.png" alt="barologo1" border="0" width="100">
 				</a>
             </div>
         </div>
         <ul>
             <li><a href="${contextPath }/sellerProductList">상품 관리</a></li>
             <li><a href="#">상품 주문관리</a></li>
-            <li><a href="#">꾸러미 판매 관리</a></li>
-            <li><a href="#">꾸러미 주문 관리</a></li>
+            <li><a href="${contextPath}/sellerPackageList">꾸러미 판매 관리</a></li>
+            <li><a href="${contextPath}/sellerPackageOrderList">꾸러미 주문 관리</a></li>
             <li><a href="#">꾸러미 구독 관리</a></li>
             <li><a href="#">리뷰</a></li>
             <li><a href="#">콕팜</a></li>

@@ -6,7 +6,7 @@
   const contextPath = "${contextPath}";
 </script>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
     <!-- 로그인버튼 hover할떄 다른 디자인이 움직임 / 종버튼 알람올때 변경할지 / 종에 알림 수 입력하는거-->
  <head>
     <meta charset="UTF-8">
@@ -68,7 +68,7 @@
 							</c:when>
 							<c:otherwise>
 							    <li class="userli"><a href="myPageMain" class="userBtn">마이페이지</a></li>
-							    <li class="userli"><a href="#" id="shoppingCart" class="userBtn">장바구니</a></li>
+							    <li class="userli"><a href="shoppingCart" id="shoppingCart" class="userBtn">장바구니</a></li>
 	                			<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 							</c:otherwise>
 					      </c:choose>
@@ -80,7 +80,7 @@
         <header class="headerMenu">
             <div class="headerlogo">
                 <a href="main">
-                    <img src="https://i.ibb.co/zH5kPJNt/barologo1.png" alt="barologo1" border="0" class="logo">
+                    <img src="${contextPath }/img/barologo1.png" alt="barologo1" border="0" class="logo">
                 </a>
             </div>
             <div class="navMenu">
@@ -95,7 +95,7 @@
             </div>
             <div class="searchBox">
                 <input type="text" name="keyword" id="headerSearchInput" value="${keyword}" placeholder="검색어 입력">
-                <button id="headerSearchBtn">
+                <button id="headerSearchBtn" aria-label="상품 검색바">
                     <i class="bi bi-search"></i>
                 </button>
             </div>

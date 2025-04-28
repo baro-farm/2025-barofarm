@@ -1,6 +1,8 @@
 package service.admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.admin.NoticeDAO;
 import dao.admin.NoticeDAOImpl;
@@ -46,22 +48,21 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Override
 	public List<Notice> NoticeListByPage(PageInfo pageInfo) throws Exception {
-		Integer noticeCnt = noticeDao.selectNoticeCount();
-		Integer allPage = (int)Math.ceil((double)noticeCnt/10);
-		//startPage : 1~10=<1, 11~20=>11
-		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1; // 1,11,21,31 ...
-		//endPage : 1~10=>10, 11~20=>20
-		Integer endPage = startPage+10-1; // 10,20,30,40 ...
-		if(endPage>allPage) endPage=allPage;
-		
-		pageInfo.setAllPage(allPage);
-		pageInfo.setStartPage(startPage);
-		pageInfo.setEndPage(endPage);
-		
-		Integer row = (pageInfo.getCurPage()-1)*10+1;
-		List<Notice> noticeList = noticeDao.selectNoticeListByPage(row);
-		
-		return noticeList;
+		Map<String, Object> param = new HashMap<>();
+		param.put("start", pageInfo.getOffset());
+    param.put("pageSize", pageInfo.getPageSize());
+        
+		return noticeDao.selectNoticeListByPage(param);
+	}
+
+	@Override
+	public List<Notice> getFixNoticeList() throws Exception {
+		return noticeDao.selectFixNoticeList();
+	}
+
+	@Override
+	public Integer getNoticeCount() throws Exception {
+		return noticeDao.selectNoticeCount();
 	}
 
 	

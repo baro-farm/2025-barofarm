@@ -3,6 +3,8 @@ package service.seller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dto.seller.Product;
 import dto.seller.ProductOption;
 import vo.ProductVO;
@@ -23,7 +25,7 @@ public interface ProductService {
 	Integer selectCountSellerProductList(Long sellerNum,String sellStat) throws Exception;
 	
 	void deleteProductOption(Long optionNum) throws Exception;
-	
-
+	void adjustStock(SqlSession sqlSession, Long optionNum, int quantityDiff) throws Exception;
+	void adjustSalesVolume(SqlSession sqlSession, Long productNum, int quantityDiff) throws Exception;
 
 }

@@ -13,13 +13,11 @@
 		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 	</head>
 <body>
+
 	<jsp:include page="/header/sellerHeader.jsp" />
-	<header id="header">
-      <div id="info">
-        <span id="email">kosta@kosta.com</span>
-        <span>마이스토어</span>
-        <span>로그아웃</span>
-      </div>
+    
+    <header id="header">
+			<jsp:include page="/header/adminSellerTop.jsp" />
     </header>
 
     <div id="content">

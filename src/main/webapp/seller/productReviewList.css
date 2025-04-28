@@ -1,0 +1,208 @@
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: SUIT-Regular, sans-serif;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+/* 내용 */
+
+#content {
+  width: calc(100vw - 220px);
+  max-width: 1280px;
+  margin: 40px auto;
+  padding-top: 80px;
+  gap: 20px;
+  padding-left: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+}
+
+.content {
+    width: 1000px;
+}
+
+
+#notie_table th,
+#notie_table td {
+    vertical-align: top;
+    /* 텍스트를 위쪽 정렬 */
+    padding-top: 5px;
+    /* 위쪽 여백 최소화 */
+}
+#title{
+    font-size:30px;
+    color:#65B741;
+    font-weight: bold;
+}
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+tbody tr.hovered td {
+    background-color: #FBF6EE;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.table th:nth-child(1),.table td:nth-child(1){
+    width: 10px;
+    padding: 0 20px;
+}
+
+.table th:nth-child(2) .table td:nth-child(2){
+    width: 70px;
+}
+
+.table th:nth-child(3),.table td:nth-child(3){
+   width: 75px;
+}
+
+.table th:nth-child(4),.table td:nth-child(4),
+.table th:nth-child(7),.table td:nth-child(7),
+.table th:nth-child(10),.table td:nth-child(10),
+.table th:nth-child(11),.table td:nth-child(11),
+.table th:nth-child(12),.table td:nth-child(12)
+{
+	width: 160px;
+	
+}
+.table th:nth-child(5),.table td:nth-child(5) {
+    width: 80px;
+}
+.table th:nth-child(6),.table td:nth-child(6),
+.table th:nth-child(9),.table td:nth-child(9) {
+    width: 90px;
+}
+
+/* 오버플로우 방지 */
+.table td:nth-child(3) {
+    max-width: 200px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+  
+.table td:nth-child(3) a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.on-sale {
+    background-color: #65B741;
+    color: white;
+}
+
+.stopped {
+    background-color: #D72638;
+    color: white;
+}
+
+.comment {
+    width:1200px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+.actions button {
+    margin-left: 10px; /* 버튼 간격 추가 */
+}
+.btn {
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.commentAdd, .addBtn {
+    background-color: #65B741;
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background-color: white;
+    width: 50%;
+    height: auto;
+    padding: 40px;
+    border-radius: 16px;
+    position: relative;
+    overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
+    overflow-x: hidden; /* 가로 스크롤은 막기 */
+}
+.close{
+    position:absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover{
+    color:#FFB534;
+}
+
+body.modal-open {
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+body:not(.modal-open) {
+    background-color: white; /* 원래 배경색으로 복원 */
+}

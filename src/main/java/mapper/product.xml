@@ -18,7 +18,7 @@
 		update product set status=#{status} where productNum=#{productNum}
 	</update>
 	<insert id="insertProductOption" parameterType="productOption">
-		insert into productOption (productNum, option, price, stock) values (#{productNum}, #{option}, #{price}, #{stock})
+		insert into productOption (productNum, `option`, price, stock) values (#{productNum}, #{option}, #{price}, #{stock})
 	</insert>
 	<select id="selectProductOption" parameterType="Long" resultType="productOption">
 		select * from productOption where productNum=#{productNum}
@@ -294,5 +294,15 @@
 	<select id="countProductBySellerNum" resultType="Integer">
 	    SELECT COUNT(*) FROM product WHERE sellerNum = #{sellerNum}
 	</select>
+	<update id="adjustStock" parameterType="map">
+	    UPDATE productOption
+	    SET stock = stock + #{quantityDiff}
+	    WHERE optionNum = #{optionNum}
+	</update>
+	<update id="adjustSalesVolume" parameterType="map">
+	    UPDATE product
+	    SET salesVolume = salesVolume + #{quantityDiff}
+	    WHERE productNum = #{productNum}
+	</update>
 	
 </mapper>

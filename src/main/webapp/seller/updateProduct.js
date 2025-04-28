@@ -185,8 +185,9 @@ document.getElementById('option_list').addEventListener('click', function (e) {
 	
     // 내용 복구
     const formattedPrice = Math.abs(price).toLocaleString();
+    const formattedStock = Math.abs(stock).toLocaleString();
     const sign = price >= 0 ? `+${formattedPrice}` : `-${formattedPrice}`;
-    li.querySelector('span').innerText = `${name} (${sign}원, 재고: ${stock}개)`;
+    li.querySelector('span').innerText = `${name} (${sign}원, 재고: ${formattedStock}개)`;
 
     // 버튼 복구
     li.querySelector('.edit-option-btn').style.display = '';

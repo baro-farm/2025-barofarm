@@ -8,8 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 상세 페이지</title>
+	<!-- 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	 -->
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css">
+	
 	<link rel="stylesheet" href="${contextPath}/reset.css" />
     <link rel="stylesheet" href="${contextPath}/detailProduct.css" /> 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -33,7 +37,7 @@
 			                <div class="prodTitle">${product.productName}</div>
 			                <div class="additional">
 			                    <div class="reviewScore">⭐ ${product.avgRating} (${product.reviewCount})</div>
-			                    <div class="price">${product.price }원</div>
+			                    <div class="price"><fmt:formatNumber value="${product.price }" type="number" />원</div>
 			                </div>
 			          
 			                <!-- 주문옵션전체영역 -->
@@ -68,9 +72,7 @@
 			              </ul>
 			        </div>
 			        <div class="contentDetail">
-			            <div>
-			                ${product.content }
-			            </div>
+			            <div id="viewer"></div>
 			        </div>
 			        <!-- 리뷰 -->
 			        <div class="tabs" id="reviews">
@@ -169,5 +171,14 @@
     	</div>
     	<jsp:include page="/header/footer.jsp" />
     </div>
+   <!-- All-in-one 버전으로 변경 -->
+	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+	<script>
+	const viewer = toastui.Editor.factory({
+		  el: document.querySelector('#viewer'),
+		  viewer: true,
+		  initialValue: `${product.content}`
+		});
+	</script>
 </body>
 </html>

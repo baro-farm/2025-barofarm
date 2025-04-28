@@ -47,4 +47,10 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 	public List<ShoppingCartItem> selectCartByCartNums(List<Long> cartNums) throws Exception {
 		return sqlSession.selectList("mapper.shoppingCart.selectCartByCartNums", cartNums);
 	}
+	
+	@Override
+    public void deleteCartItems(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+//        ShoppingCartMapper mapper = sqlSession.getMapper(ShoppingCartMapper.class);
+        sqlSession.delete("mapper.shoppingCart.deleteCartItems", param);
+    }
 }

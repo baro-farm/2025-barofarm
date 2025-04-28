@@ -35,7 +35,11 @@
 			            <option value="전체">전체</option>
 			        </select>
 			    </div>
-			
+			    
+			    <c:if test="${empty prodReviewList}">
+			        <div class="emptyMessage">작성한 리뷰내역이 없습니다.</div>
+			    </c:if>
+			    			
 				<c:forEach var="prodReview" items="${prodReviewList }">
 			
 				    <!-- 리뷰 리스트 -->

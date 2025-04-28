@@ -1,0 +1,174 @@
+@media (max-width: 1200px) {
+    .table {
+        width: 1200px;  /* ✅ 1024px에서 멈춤 */
+    }
+}
+
+.table {
+    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
+}
+
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: SUIT-Regular, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+}
+
+/* 조회 기간 박스 스타일 */
+.searchBox {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    /* 세로 정렬 */
+    gap: 10px;
+    /* 간격 조정 */
+}
+
+.searchBox label {
+    font-size: 14px;
+}
+
+.searchBox input {
+    width: 80px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.filterButtons {
+    display: flex;
+    gap: 5px;
+    /* 버튼 사이 간격 */
+    float: right;
+}
+
+.filterButtons button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+.filterButtons .active {
+    background-color: orange;
+    color: white;
+    border: none;
+}
+
+.searchBtn {
+    background-color: green;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.resultInfo {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.orderCard {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.orderCard .orderInfo {
+    display: flex;
+    align-items: center;
+}
+
+.orderCard img {
+    width: 150px;
+    height: 150px;
+    margin-right: 15px;
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.orderDetails {
+    font-size: 14px;
+}
+
+.orderDetails .status {
+    font-weight: bold;
+}
+
+.orderDetails .price {
+    color: green;
+    font-weight: bold;
+}
+
+.orderActions {
+    text-align: right;
+}
+
+.orderActions button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.reviewBtn {
+    border: 1px solid green;
+    color: green;
+    background: none;
+}
+
+.cancelBtn {
+    border: 1px solid black;
+    background: none;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: black;
+    border-radius: 8px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    color: white;
+    background-color:  #65B741;
+}

@@ -66,7 +66,7 @@
         </li>
 
         <li><a href="addressList">배송지 주소관리</a></li>
-        <li><a href="userNoticeList">고객센터</a></li>
+        <li><a href="adminQAList">고객센터</a></li>
     </ul>
 </div>
 

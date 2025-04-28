@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -25,6 +27,7 @@
             const modal = $("#modal");
             const closeBtn = $(".close");
             const modalContent = $("#modal .modalContent");
+            console.log("page load");
            
             //테이블 체크 박스 눌렀을때 전체 체크박스 선택
             $("thead input[type='checkbox']").on("click", function () {
@@ -87,7 +90,7 @@
         </div>
         
 <div class="filterBox">
-  <form method="get" action="${contextPath}/sellerProductOrderList" style="display: flex; width: 100%; justify-content: space-between;">
+  <form method="get" action="${contextPath}/sellerProdOrderList" style="display: flex; width: 100%; justify-content: space-between;">
     
     <!-- 왼쪽: 조회기간 -->
     <div class="filterSection leftSection">
@@ -158,71 +161,66 @@
 	        <table id="notie_table" class="table">
 	            <thead>
 	            	<tr>
-		            <th><input type="checkbox" class="selectAll"></th>
-		            <th style="font-weight: bold;">주문번호</th>
+		            <th style="font-weight: bold;">총<br>주문번호</th>
+		            <th style="font-weight: bold;">제품<br>주문번호</th>
 		            <th style="font-weight: bold;">제품번호</th>
+		            <th style="font-weight: bold;">옵션</th>
+		            <th style="font-weight: bold;">단가</th>
+		            <th style="font-weight: bold;">수량</th>
 		            <th style="font-weight: bold;">총가격</th>
-		            <th style="font-weight: bold;">결제일</th>
+		            <th style="font-weight: bold;">결제일</th>		            
 		            <th style="font-weight: bold;">구매자ID</th>
-		            <th style="font-weight: bold;">배송지이름</th>
+		            <th style="font-weight: bold;">수령인</th>
 		            <th style="font-weight: bold;">주소</th>
 		            <th style="font-weight: bold;">전화번호</th>
 		            <th style="font-weight: bold;">주문상태</th>
 		            <th style="font-weight: bold;">배송상태</th>
 		          	<th style="font-weight: bold;">적용</th>
-		          	<th style="font-weight: bold;"></th>
-		          	<th style="font-weight: bold;"></th>
+
 		          	
 		          </tr>
 	            </thead>
 	            <tbody>
 					<c:forEach var="order" items ="${prodOrderList }">
 					
-						<tr>
-		                    <td>
-		                        <div class="uiGridCell orderNum"><a href="#">2025030415668</a></div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell productNum"><a href="#">2025030415668</a></div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell">10,000원</div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell">2025.03.28</div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell id" name="id">hong</div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell">홍길동</div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell">서울특별시 강남구</div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell">010-1234-5678</div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell">구매확정</div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell">
-		                            <select class="status-select">
-		                                <option>준비중</option>
-		                                <option>배송중</option>
-		                                <option>배송완료</option>
-		                            </select>
-		                        </div>
-		                    </td>
-		                    <td>
-		                        <div class="uiGridCell"><button class="apply-btn">적용</button></div>
-		                    </td>
-		                </tr>
-					</c:forEach>
-	
-	                
-	
+					    <tr>
+				        <td><div class="uiGridCell orderNum"><a href="#">${order.pdOrderNum}</a></div></td>
+				        <td><div class="uiGridCell"><a href="#">${order.orderItem}</a></div></td>
+				        <td><div class="uiGridCell">${order.productNum}</div></td>
+				        <td><div class="uiGridCell">${order.option}</div></td>
+				        <td><div class="uiGridCell">${order.optionPrice}원</div></td>
+				        <td><div class="uiGridCell">${order.amount}</div></td>
+				        <td><div class="uiGridCell">${order.totalPrice}원</div></td>
+
+
+				        <td><div class="uiGridCell">${order.orderDate}</div></td>
+				        <td><div class="uiGridCell id">${order.userId}</div></td>
+
+				        <td><div class="uiGridCell id">${order.userName}</div></td>
+				        <td><div class="uiGridCell">${order.address}</div></td>
+				        <c:set var="rawPhone" value="${order.phone}" />
+							<c:if test="${not empty rawPhone and fn:length(rawPhone) == 11}">
+							  <td><div class="uiGridCell id">
+							    ${fn:substring(rawPhone, 0, 3)}-${fn:substring(rawPhone, 3, 7)}-${fn:substring(rawPhone, 7, 11)}
+							  </div></td>
+							</c:if>
+							<c:if test="${empty rawPhone or fn:length(rawPhone) != 11}">
+							  <td><div class="uiGridCell id">${order.phone}</div></td>
+							</c:if> 
+				        <td><div class="uiGridCell">${order.orderStatus}</div></td>
+				        <td>
+				            <div class="uiGridCell">
+				                <select class="status-select">
+				                    <option ${order.deleveryStatus == '준비중' ? 'selected' : ''}>준비중</option>
+				                    <option ${order.deleveryStatus == '배송중' ? 'selected' : ''}>배송중</option>
+				                    <option ${order.deleveryStatus == '배송완료' ? 'selected' : ''}>배송완료</option>
+				                </select>
+				            </div>
+				        </td>
+				        <td><div class="uiGridCell"><button class="apply-btn">적용</button></div></td>
+				    </tr>
+				</c:forEach>
+
 	            </tbody>
 	
 	        </table>
@@ -246,32 +244,62 @@
 		
 		<div class="pagination">		    
 		    <!-- << 현재 페이지 - 5 -->
-			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&laquo;</a>
-			</c:if>
-			
-			<!-- < 이전 페이지 -->
-			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - 1}&sellStat=${param.sellStat}&sort=${param.sort}">&lsaquo;</a>
-			</c:if>
-			
-			<!-- 페이지 번호 -->
-			<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
-				<a href="?page=${i}&sellStat=${param.sellStat}&sort=${param.sort}" class="${currentPage == i ? 'active' : ''}">${i}</a>
-			</c:forEach>
-			
-			<!-- > 다음 페이지 -->
-			<c:if test="${currentPage < totalPages}">
-			    <a href="?page=${currentPage + 1}&sellStat=${param.sellStat}&sort=${param.sort}">&rsaquo;</a>
-
-			</c:if>
-			
-			<!-- >> 현재 페이지 + 5 -->
-			<c:if test="${currentPage < totalPages}">
-			    <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&raquo;</a>
-			</c:if>
+		    <c:if test="${currentPage > 1}">
+		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}
+		        &dateType=${param.dateType}
+		        &startDate=${param.startDate}
+		        &endDate=${param.endDate}
+		        &searchType=${param.searchType}
+		        &searchKeyword=${param.searchKeyword}">&laquo;</a>
+		    </c:if>
+		    
+		    <!-- < 이전 페이지 -->
+		    <c:if test="${currentPage > 1}">
+		        <a href="?page=${currentPage - 1}
+		        &dateType=${param.dateType}
+		        &startDate=${param.startDate}
+		        &endDate=${param.endDate}
+		        &searchType=${param.searchType}
+		        &searchKeyword=${param.searchKeyword}">&lsaquo;</a>
+		    </c:if>
+		    
+		    <!-- 페이지 번호 -->
+		    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+			    <a href="?page=${i}
+			    &dateType=${empty param.dateType ? '' : param.dateType}
+			    &startDate=${empty param.startDate ? '' : param.startDate}
+			    &endDate=${empty param.endDate ? '' : param.endDate}
+			    &searchType=${empty param.searchType ? '' : param.searchType}
+			    &searchKeyword=${empty param.searchKeyword ? '' : param.searchKeyword}"
+			   class="${currentPage == i ? 'active' : ''}">${i}</a>
+		    </c:forEach>
+		    
+		    <!-- > 다음 페이지 -->
+		    <c:if test="${currentPage < totalPages}">
+		        <a href="?page=${currentPage + 1}
+		        &dateType=${param.dateType}
+		        &startDate=${param.startDate}
+		        &endDate=${param.endDate}
+		        &searchType=${param.searchType}
+		        &searchKeyword=${param.searchKeyword}">&rsaquo;</a>
+		    </c:if>
+		    
+		    <!-- >> 현재 페이지 + 5 -->
+		    <c:if test="${currentPage < totalPages}">
+		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}
+		        &dateType=${param.dateType}
+		        &startDate=${param.startDate}
+		        &endDate=${param.endDate}
+		        &searchType=${param.searchType}
+		        &searchKeyword=${param.searchKeyword}">&raquo;</a>
+		    </c:if>
 		</div>
     </div>
+    
+    
+
+   
+</a>
 
     <div id="modal" class="modal">
         <div id="modalContent" class="modalContent">

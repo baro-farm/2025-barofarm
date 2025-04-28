@@ -89,7 +89,7 @@
 		                </div>
 		                <ul>
 		                	<c:forEach var="pdQuestion" items="${prodQuestions }">
-		                    <li><a href="#">${pdQuestion.title }</a></li>
+		                    <li><a href="#">[${pdQuestion.title }] ${pdQuestion.content}</a></li>
 							</c:forEach>
 		                </ul>
 		            </div>
@@ -100,8 +100,8 @@
 		                    <span class="add-btn"><a href="prodWrittenReviewList">+</a></span>
 		                </div>
 		                <ul>
-		                	<c:forEach var="pdQuestion" items="${prodReviews }">
-		                    <li><a href="#">${pdQuestion.pdReviewContent}</a></li>
+		                	<c:forEach var="pdReview" items="${prodReviews }">
+		                    <li><a href="#"><span>[${pdReview.storeName}]</span><span>${pdReview.productName}</span>${pdReview.pdReviewContent}</a></li>
 							</c:forEach>
 		                </ul>
 		            </div>

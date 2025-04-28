@@ -52,7 +52,7 @@ public class ProductOrderList extends HttpServlet {
 			return;
 		}	
 		
-		List<ProdOrderVO> orderList = new ArrayList<>();
+		List<ProdOrderVO> prodOrderList = new ArrayList<>();
 		SellerDetailService detailService = new SellerDetailServiceImpl();
 		ProdOrderService service = new ProdOrderServiceImpl();
 		
@@ -61,8 +61,61 @@ public class ProductOrderList extends HttpServlet {
 		int totalCount=0;
 		
 		try {
-			Long sellerNum = detailService.selectSellerNumById(sessionUser.getUserId());
 			
+            String dateType = request.getParameter("dateType") != null ? request.getParameter("dateType") : "paymentDate";
+            String startDate = request.getParameter("startDate");
+            String endDate = request.getParameter("endDate");
+            String searchType = request.getParameter("searchType") != null ? request.getParameter("searchType") : "all";
+            String searchKeyword = request.getParameter("searchKeyword");
+            if (request.getParameter("page") != null) {
+                page = Integer.parseInt(request.getParameter("page"));
+            }
+            
+
+			Long sellerNum = detailService.selectSellerNumById(sessionUser.getUserId());
+			System.out.println(sellerNum);
+			totalCount =  service.countProductOrderList(sellerNum,dateType,startDate,endDate,searchType,searchKeyword);
+			
+			int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+			
+			if (page > totalPages && totalPages > 0) {
+		        page = totalPages;
+		    }
+		    if (page <= 0) {
+		        page = 1;  // 페이지가 0 이하일 경우
+		    }
+			
+			int offset = (page - 1) * pageSize;
+			
+			System.out.println("totalCount = " + totalCount);
+			System.out.println("totalPages = " + totalPages);
+			System.out.println("startDate: " + startDate);
+			System.out.println("endDate: " + endDate);			
+			prodOrderList = service.selectProductOrderList(sellerNum, offset, pageSize, dateType, startDate, endDate, searchType, searchKeyword);
+            
+            // 페이지 그룹 계산
+            int pageGroupSize = 5;
+            int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
+            int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;
+            int groupEndPage = Math.min(groupStartPage + pageGroupSize - 1, totalPages);
+
+            request.setAttribute("prodOrderList", prodOrderList);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("currentPage", page);
+            request.setAttribute("pageGroupSize", pageGroupSize);
+            request.setAttribute("groupStartPage", groupStartPage);
+            request.setAttribute("groupEndPage", groupEndPage);
+
+            // 검색 조건 유지용
+            request.setAttribute("dateType", dateType);
+            request.setAttribute("startDate", startDate);
+            request.setAttribute("endDate", endDate);
+            request.setAttribute("searchType", searchType);
+            request.setAttribute("searchKeyword", searchKeyword);
+
+            request.getRequestDispatcher("/seller/productOrderList.jsp").forward(request, response);
+
+            
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

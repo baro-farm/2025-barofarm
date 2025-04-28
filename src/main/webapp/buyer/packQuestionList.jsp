@@ -82,6 +82,9 @@
 		            <option>답변 미완료</option>
 		        </select>
 		    </div>
+			    <c:if test="${empty questionList}">
+			        <div class="emptyMessage">작성한 문의 내역이 없습니다.</div>
+			    </c:if>
 	
 		    <!-- 문의 내역 반복 -->
 		    <c:forEach var="question" items="${questionList }">

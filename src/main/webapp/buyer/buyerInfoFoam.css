@@ -53,7 +53,18 @@ body {
 .formGroup {
 	margin-bottom: 10px;
 }
+.phone-wrapper {
+    display: flex;
+    align-items: center;
+     gap: 5px;
+     width:50%;
+}
 
+.phone-wrapper input {
+    width: 30px;
+    margin-right: 5px;
+    text-align: center;
+}
 label {
 	display: block;
 	font-size: 14px;
@@ -66,6 +77,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	font-size: 14px;
+	margin-bottom:10px;
 }
 
 .address-container {

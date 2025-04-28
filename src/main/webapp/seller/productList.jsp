@@ -227,8 +227,8 @@
 		          		<tr data-productnum="${product.productNum }">
 		          			<c:if test="${status.first }">
 					          <td rowspan="${fn:length(product.optionList)}" ><input type="checkbox" class="rowCheck"></td>
-					          <td rowspan="${fn:length(product.optionList)}" class="productNum"><a href="#">${product.productNum}</a></td>
-					          <td rowspan="${fn:length(product.optionList)}"><a href="#">${product.productName}</a></td>
+					          <td rowspan="${fn:length(product.optionList)}" class="productNum"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productNum}</a></td>
+					          <td rowspan="${fn:length(product.optionList)}"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productName}</a></td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.cateName}</td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.price}원</td>
 					          <td rowspan="${fn:length(product.optionList)}">		          			

@@ -2,6 +2,8 @@ package service.buyer;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import vo.ProdOrderVO;
 
 public interface ProdOrderService {
@@ -11,4 +13,13 @@ public interface ProdOrderService {
 
 	Integer selectProductOrderCount(Long sellerNum) throws Exception;
 	
+    // 주문 리스트
+    List<ProdOrderVO> selectProductOrderList(Long sellerNum, int offset, int pageSize, String dateType, 
+                                             String startDate, String endDate, 
+                                             String searchType, String searchKeyword) throws Exception;
+ // 주문 수 (페이징용)
+    Integer countProductOrderList(Long sellerNum, String dateType, String startDate, 
+                                  String endDate, String searchType, String searchKeyword) throws Exception;
+	Long insertProductOrder(SqlSession sqlSession, Long userNum, int totalPrice, String address) throws Exception;
+	void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum, int amount, int price) throws Exception;
 }

@@ -38,9 +38,33 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 	}
 
 	@Override
-	public Integer countSellerProductOrderList(Map<String, Object> param) throws Exception {
+	public Integer sellectCountSellerProductOrderList(Map<String, Object> param) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.prodOrder.");
+		return sqlSession.selectOne("mapper.prodOrder.sellectCountSellerProdOrderList",param);
 	}
 
+	@Override
+	public Long insertProductOrder(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+		sqlSession.insert("mapper.prodOrder.insertProductOrder", param);
+        return (Long) param.get("pdOrderNum");
+	}
+	
+	@Override
+	public void insertProductOrderItem(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+        sqlSession.insert("mapper.prodOrder.insertProductOrderItem", param);
+		
+	}
+
+	@Override
+	public Integer countSellerProductOrderList(Map<String, Object> param) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum,
+			int amount, int price) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
