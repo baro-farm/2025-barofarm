@@ -17,5 +17,9 @@ public class PointServiceImpl implements PointService {
 	public void updatePoint(Integer point, Long userNum) throws Exception {
 		pointDAO.updatePoint(point, userNum);
 	}
+	@Override
+	public void addPoint(Point point) throws Exception {
+		pointDAO.insertPoint(point);
+	}
 
 }

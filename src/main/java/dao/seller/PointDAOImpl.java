@@ -22,5 +22,10 @@ public class PointDAOImpl implements PointDAO {
 		sqlSession.update("mapper.point.updatePoint",param);
 		sqlSession.commit();
 	}
+	@Override
+	public void insertPoint(Point point) throws Exception {
+		sqlSession.insert("mapper.point.insertPoint",point);
+		sqlSession.commit();
+	}
 
 }

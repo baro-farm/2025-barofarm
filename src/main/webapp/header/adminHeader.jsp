@@ -8,8 +8,9 @@
     <div class="sidebar">
         <div class="logo">
             <div>
-                <img src="${contextPath }/img/barologo2.png" alt="barologo1" border="0" width="100">
-
+               	<a href="${contextPath}/main">
+                	<img src="${contextPath }/img/barologo2.png" alt="barologo1" border="0" width="100">
+				</a>
             </div>
         </div>
         <ul>

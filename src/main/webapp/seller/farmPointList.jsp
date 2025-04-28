@@ -245,10 +245,10 @@
                     <input type="radio" name="charge_amount" value="40000"> 50,000원
                 </label>
                 <label class="amount">
-                    <input type="radio" name="charge_amount" value="30000"> 70,000원
+                    <input type="radio" name="charge_amount" value="70000"> 70,000원
                 </label>
                 <label class="amount">
-                    <input type="radio" name="charge_amount" value="40000"> 100,000원
+                    <input type="radio" name="charge_amount" value="100000"> 100,000원
                 </label>
             </div>
 

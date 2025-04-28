@@ -63,7 +63,7 @@
 							    <td>${post.storeName}</td>
 							    <td>${post.productName}</td>
 							    <td><img src="kockImg?imgUrl=${post.imgUrl }" alt="이미지" width="50" /></td>
-							    <td><a href="${post.productUrl}" target="_blank">${ad.productUrl}</a></td>
+							    <td><a href="${post.productUrl}" >${post.productUrl}</a></td>
 			                    <fmt:parseDate value="${post.startDate}" pattern="yyyy-MM-dd" var="startDate"/>
 			                    <fmt:parseDate value="${post.endDate}" pattern="yyyy-MM-dd" var="endDate"/>
 			                    <td class="startD"><fmt:formatDate value="${startDate }" pattern="yyyy-MM-dd"/></td>		                    

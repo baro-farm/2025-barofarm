@@ -38,6 +38,10 @@
 			SELECT a.*, s.storeName  FROM advertisement a
 	  JOIN sellerdetail s ON s.userNum=a.userNum WHERE STATUS='승인' or STATUS='승인대기'
 	</select>
+	<select id="countAdsWithPosting" resultType="int">
+		SELECT COUNT(*) FROM advertisement a
+		  JOIN sellerdetail s ON s.userNum=a.userNum WHERE STATUS='승인' or STATUS='승인대기'
+	</select>
 	<select id="selectAdsBySearchDto" resultType="advertisement" parameterType="searchDtoSoy">
 		SELECT a.*, s.storeName  FROM advertisement a
 	  JOIN sellerdetail s ON s.userNum=a.userNum

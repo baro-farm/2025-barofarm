@@ -4,21 +4,21 @@ import java.time.LocalDateTime;
 
 public class Point {
 	Long pointNum;
-	Long uerNum;
+	Long userNum;
 	Integer Point;
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
 	public Point() {
 	}
-	public Point(Long pointNum, Long uerNum, Integer point, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public Point(Long pointNum, Long userNum, Integer point, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		this.pointNum = pointNum;
-		this.uerNum = uerNum;
+		this.userNum = userNum;
 		Point = point;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
-	public Point(Long uerNum, Integer point) {
-		this.uerNum = uerNum;
+	public Point(Long userNum, Integer point) {
+		this.userNum = userNum;
 		Point = point;
 	}
 	public Long getPointNum() {
@@ -27,11 +27,11 @@ public class Point {
 	public void setPointNum(Long pointNum) {
 		this.pointNum = pointNum;
 	}
-	public Long getUerNum() {
-		return uerNum;
+	public Long getUserNum() {
+		return userNum;
 	}
-	public void setUerNum(Long uerNum) {
-		this.uerNum = uerNum;
+	public void setUserNum(Long userNum) {
+		this.userNum = userNum;
 	}
 	public Integer getPoint() {
 		return Point;

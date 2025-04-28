@@ -54,10 +54,9 @@ public class AdsList extends HttpServlet {
 		dto.setUserNum(user.getUserNum());
 		
 		AdsService service = new AdsServiceImpl();
-		BannerService bs = new BannerServiceImpl();
 		try {
 			List<Advertisement> adsList = service.selectAdsBySearchDto(dto);
-			int bannerCnt = bs.countSellerBanner();
+			int bannerCnt = service.countAdsWithPosting();
 			int cnt = service.countAdsBySearchDtoSoy(dto);
 			PageInfoSoy pageInfo = new PageInfoSoy(dto.getPage(), cnt, 5, dto.getRecordSize());
 

@@ -67,6 +67,10 @@ public class AdsServiceImpl implements AdsService {
 		return adsDAO.selectAdsWithPosting();
 	}
 	@Override
+	public int countAdsWithPosting() throws Exception {
+		return adsDAO.countAdsWithPosting();
+	}
+	@Override
 	public List<Advertisement> selectAdsBySearchDto(SearchDtoSoy dto) throws Exception {
 		return adsDAO.selectAdsBySearchDto(dto);
 	}
@@ -95,5 +99,4 @@ public class AdsServiceImpl implements AdsService {
 		}
 		return true;
 	}
-
 }

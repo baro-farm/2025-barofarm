@@ -8,30 +8,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    
     <title>바로팜 마이페이지</title>
-    <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
-            let links = document.querySelectorAll(".menu-list li a");
-            let currentURL = window.location.pathname;
-
-            // 모든 링크에서 active 제거 후 현재 페이지와 일치하는 링크에 active 추가
-            links.forEach(link => {
-                link.classList.remove("active");
-
-                if (link.getAttribute("href") === currentURL) {
-                    link.classList.add("active");
-                }
-
-                // 클릭 이벤트 추가
-                link.addEventListener("click", function () {
-                    links.forEach(l => l.classList.remove("active")); // 모든 메뉴에서 active 제거
-                    this.classList.add("active"); // 클릭한 메뉴에 active 추가
-                });
-            });
-        });
-    </script>
-    <link rel="stylesheet" href="${contextPath}/header/buyerMenu.css">
+        <link rel="stylesheet" href="${contextPath}/header/buyerMenu.css">
 
 </head>
 <body>
@@ -64,24 +44,24 @@
         <li class="dropdown">
             <a style="text-decoration: none;">리뷰</a>
             <ul class="submenu">
-                <li><a href="prodWritableReviewList">작성 가능한 리뷰</a></li>
-                <li><a href="prodWrittenReviewList">내가 작성한 리뷰</a></li>
+                <li><a href="prodWritableReviewList">&gt; 작성 가능한 리뷰</a></li>
+                <li><a href="prodWrittenReviewList">&gt; 내가 작성한 리뷰</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a style="text-decoration: none;">꾸러미</a>
             <ul class="submenu">
-                <li><a href="packOrderList">주문내역 및 배송조회</a></li>
-            	<li><a href="#">리뷰</a></li>
-            	<li><a href="packQuestionList">상품 문의</a></li>
-                <li><a href="#">구독 관리</a></li>
+                <li><a href="packOrderList">&gt;주문내역 및 배송조회</a></li>
+            	<li><a href="#">&gt;리뷰</a></li>
+            	<li><a href="packQuestionList">&gt;상품 문의</a></li>
+                <li><a href="#">&gt;구독 관리</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a style="text-decoration: none;">콕팜</a>
             <ul class="submenu">
-                <li><a href="kockFarmPostList">내 게시글</a></li>
-                <li><a href="kockCommentList">내 댓글</a></li>
+                <li><a href="kockFarmPostList">&gt;내 게시글</a></li>
+                <li><a href="kockCommentList">&gt;내 댓글</a></li>
             </ul>
         </li>
 
@@ -90,6 +70,24 @@
     </ul>
 </div>
 
+<script>
+let links = document.querySelectorAll(".sidebar a");
+let currentURL = window.location.pathname;
 
+
+links.forEach(link => {
+    let linkHref = link.getAttribute("href");
+    if (!linkHref || linkHref === "#") return;
+
+    let fullHref = linkHref.startsWith("/") 
+        ? `\${contextPath}\${linkHref}` 
+        : `\${contextPath}/\${linkHref}`;
+
+    if (currentURL === fullHref) {
+        link.classList.add("active");
+    }
+});
+
+</script>
 </body>
 </html>

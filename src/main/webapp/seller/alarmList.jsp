@@ -22,21 +22,14 @@
 	</header>	    
     <div id="content">
      <div class="container-header">
-         <h2 class="title">배너 광고</h2>
+         <h2 class="title">알림 내역</h2>
          <div class="subscribe-box">
-             <span class="question-icon">❓</span>
-             <c:if test="${bannerCnt <5 }">
-   	                <button class="btn-apply" onclick="location.href='${contextPath}/insertAdsBySeller'">📢 광고 신청하기</button>
-             </c:if>
-             <c:if test="${bannerCnt >=5 }">
-             	<p class="interruption">광고 마감입니다.</p>
-             </c:if>
+         	당신의 알람을 확인하세용~
           </div>
       </div>
-		<form method="get" action="${contextPath}/sellerAdsList" class="searchForm" >
+		<form method="get" action="${contextPath}/sellerAlarmList" class="searchForm" >
 		 <select name="searchType">
-		   <option value="status" ${param.searchType == 'status' ? 'selected' : ''}>신청현황</option>
-		   <option value="product" ${param.searchType == 'product' ? 'selected' : ''}>상품명</option>
+		   <option value="content" ${param.searchType == 'content' ? 'selected' : ''}>내용</option>
 		 </select>
 		 <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
 		 <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
@@ -45,49 +38,29 @@
 		  <button type="submit">검색</button>
 		</form>
       <div class="history-section">
-          <h3>광고 신청 내역</h3>
+          <h3>알림 내역</h3>
       <table id="banner-table" class="table">
           <thead>
               <tr>
-	                    <th style="font-weight: bold;">순번</th>
-                 <th style="font-weight: bold;">신청 현황</th>
-                 <th style="font-weight: bold;">이미지파일</th>
-                 <th style="font-weight: bold;">상품명</th>
-                 <th style="font-weight: bold;">상품링크</th>
-                 <th style="font-weight: bold;">광고시작일</th>
-                 <th style="font-weight: bold;">광고종료일</th>
-                 <th style="font-weight: bold;">승인 여부</th>
+                 <th style="font-weight: bold;">순번</th>
+                 <th style="font-weight: bold;">보낸 사람</th>
+                 <th style="font-weight: bold;">알림 제목</th>
+                 <th style="font-weight: bold;">알림 내용</th>
+                 <th style="font-weight: bold;">유형</th>
+                 <th style="font-weight: bold;">날짜</th>
+                 <th style="font-weight: bold;">확인 여부</th>
              </tr>
          </thead>
          <tbody>
-            	<c:forEach var="ads" items="${adsList }" varStatus="status">
               <tr>
-                  <td>${status.count }</td>		                
-                  <td>${ads.status }</td>
-                  <td><img src="kockImg?imgUrl=${ads.imgUrl }"  width="100px" alt="광고배너" class="product-img"></td>
-                  <td>${ads.productName }</td>
-                  <td><a href="${ads.productUrl }" target="_blank">${ads.productUrl }</a></td>
-                  <td>${ads.startDate }</td>
-                  <td>${ads.endDate }</td>
-                  <td>
-			  <c:choose>
-			    <c:when test="${ads.status == '승인대기'}">
-			      <button class="btn-cancel" data-adsnum="${ads.adsNum }">취소</button>
-			      <button class="btn-edit" onclick="location.href='${contextPath}/updateAdsBySeller?adsNum=${ads.adsNum }'" >수정</button>							      
-			    </c:when>
-			    <c:when test="${ads.status == '이미지부적격' or ads.status == '상품링크오류'}">
-					N							
-			    </c:when>
-			    <c:when test="${ads.status == '승인'}">
-					Y						
-			    </c:when>
-			    <c:otherwise>
-			      <!-- 게시중 / 종료 상태일 때는 버튼 없음 -->
-			    </c:otherwise>
-			  </c:choose>
-			</td>
+                  <td>1</td>		                
+                  <td>김당근</td>
+                  <td>콕팜 제안글</td>
+                  <td>고구마 제안 글 도착!</td>
+                  <td>콕팜링</td>
+                  <td>2025.04.25</td>
+                  <td><button>확인</button></td>
               </tr>
-             </c:forEach>
          </tbody>
      </table>
      </div>

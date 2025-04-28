@@ -52,7 +52,7 @@ public class InsertBanner extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		Long userNum = user.getUserNum();
 		
-		Banner banner = new Banner(null, null, title, imgUrl, "http://localhost:8080/barofarm/main.jsp", null, null, true, userNum);
+		Banner banner = new Banner(null, null, title, imgUrl, "http://localhost:8080/barofarm/main", null, null, true, userNum);
 
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();

@@ -9,4 +9,7 @@
 	<update id="updatePoint" parameterType="map">
 		update point set point = point + #{point}, updatedAt = NOW() where userNum = #{userNum}
 	</update>
+	<insert id="insertPoint" parameterType="point">
+		INSERT INTO point (userNum,point) VALUES(#{userNum}, #{point})
+	</insert>
 </mapper>

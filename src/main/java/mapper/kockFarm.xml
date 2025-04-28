@@ -82,8 +82,7 @@
 	</select>
 	<!-- 콕팜 댓글 -->
 	<insert id="insertKockComment" parameterType="kockComment" useGeneratedKeys="true" keyProperty="kcNum">
-		INSERT INTO kockcomment VALUES(NULL,#{kockNum},#{userNum},NULL,#{content});
-	</insert>
+		INSERT INTO kockcomment (kockNum,userNum,content) VALUES(#{kockNum},#{userNum},#{content})	</insert>
 	<select id="kockCommentList" parameterType="Long" resultType="kockComment">
 		SELECT kc.*, u.userName, s.storeName FROM 
 		kockComment kc JOIN user u ON kc.userNum=u.userNum
@@ -100,8 +99,7 @@
 	
 	<!-- 아기 댓글 -->
 	<insert id="insertBabyComment" parameterType="babyComment" useGeneratedKeys="true" keyProperty="reNum">
-		INSERT INTO babyComment VALUES(NULL,#{kcNum},#{userNum},#{content},NULL);
-	</insert>
+		INSERT INTO babycomment (kcNum,userNum,content) VALUES(#{kcNum},#{userNum},#{content})	</insert>
 	<select id="babyCommentList" parameterType="Long" resultType="babyComment">
 		SELECT bc.*, u.userName, s.storeName FROM 
 		babyComment bc JOIN user u ON bc.userNum=u.userNum
@@ -120,8 +118,7 @@
 		UPDATE kockFarm SET isMatched=1, updatedAt = NOW() WHERE kockNum=#{kockNum};
 	</update>
 	<insert id="insertMatching" parameterType="matching">
-		INSERT INTO matching VALUES(NULL,#{kockNum},#{kcNum},#{buyerNum},#{sellerNum},NULL);		
-	</insert>
+		INSERT INTO matching (kockNum,kcNum,buyerNum,sellerNum) VALUES(#{kockNum},#{kcNum},#{buyerNum},#{sellerNum})	</insert>
 	<update id="updateKockMatched" parameterType="long">
 	  UPDATE kockfarm
 	  SET isMatched = 1, updatedAt = NOW()
