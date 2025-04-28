@@ -85,19 +85,25 @@ tbody tr.hovered td {
 
 .table th:nth-child(2) .table td:nth-child(2){
     width: 70px;
+    padding: 0 20px;
+    
 }
 
 .table th:nth-child(3),.table td:nth-child(3){
    width: 75px;
+   padding: 0 20px;
+   
 }
 
 .table th:nth-child(4),.table td:nth-child(4),
 .table th:nth-child(7),.table td:nth-child(7),
 .table th:nth-child(10),.table td:nth-child(10),
 .table th:nth-child(11),.table td:nth-child(11),
-.table th:nth-child(12),.table td:nth-child(12)
+.table th:nth-child(12),.table td:nth-child(12),
+.table th:nth-child(13),.table td:nth-child(13)
 {
-	width: 160px;
+	width: 250px;
+	
 	
 }
 .table th:nth-child(5),.table td:nth-child(5) {

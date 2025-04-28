@@ -36,6 +36,12 @@
 		where pdOrderNum = #{pdOrderNum}
 	</update>
 	
+	<update id="updatePdTrackingNum" parameterType="map">
+		update productOrder
+		set trackingNum =#{trackingNum}
+		where pdOrderNum = #{pdOrderNum}
+	</update>
+	
 	<select id="selectSellerProdOrderList" parameterType="map" resultType="prodOrderVo">
 		SELECT 
 		    po.pdOrderNum,              
@@ -55,7 +61,8 @@
 		    po.address,
 		    u.phone,
 		    po.orderStatus, 
-		    po.deleveryStatus
+		    po.deleveryStatus,
+		    po.trackingNum
 		FROM 
 		    productorder po
 		JOIN 

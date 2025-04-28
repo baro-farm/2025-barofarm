@@ -10,6 +10,7 @@ public class ProdOrderVO {
 	LocalDate orderDate;
 	String deleveryStatus;
 	String orderStatus;
+	Integer trackingNum;
 	
 	//product order item
 	Long orderItem;
@@ -194,6 +195,14 @@ public class ProdOrderVO {
 
 	public void setOrderItem(Long orderItem) {
 		this.orderItem = orderItem;
+	}
+
+	public Integer getTrackingNum() {
+		return trackingNum;
+	}
+
+	public void setTrackingNum(Integer trackingNum) {
+		this.trackingNum = trackingNum;
 	}
 
 	@Override

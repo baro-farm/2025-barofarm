@@ -1,7 +1,9 @@
 package service.buyer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.buyer.PackageOrderDAO;
 import dao.buyer.PackageOrderDAOImpl;
@@ -31,6 +33,51 @@ public class PackOrderServiceImpl implements PackOrderService {
 		pkOrder.setDeleveryStatus(deliveryStatus);
 		
 		packOrderDao.updateDeliveryStatus(pkOrder);
+	}
+
+	//seller List
+	@Override
+	public List<PackOrderVO> selectSellerPackOrderList(Long sellerNum, int offset, int pageSize, String dateType,
+			String startDate, String endDate, String deliveryDay, String searchType, String searchKeyword)
+			throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("sellerNum", sellerNum);
+		param.put("offset",offset);
+		param.put("pageSize",pageSize);
+		param.put("dateType",dateType);
+		param.put("startDate",startDate);
+		param.put("endDate",endDate);
+		param.put("deliveryDay",deliveryDay);
+		param.put("searchType",searchType);
+		param.put("searchKeyword",searchKeyword);
+		
+		return packOrderDao.selectSellerPackOrderList(param);
+	}
+
+	@Override
+	public Integer selectCountSellerPackOrderList(Long sellerNum, String dateType, String startDate, String endDate,
+			String deliveryDay, String searchType, String searchKeyword) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("sellerNum", sellerNum);
+		param.put("dateType",dateType);
+		param.put("startDate",startDate);
+		param.put("endDate",endDate);
+		param.put("deliveryDay",deliveryDay);
+		param.put("searchType",searchType);
+		param.put("searchKeyword",searchKeyword);	
+
+		return packOrderDao.selectCountSellerPackOrderList(param);
+	}
+
+	@Override
+	public void updateSellerPackTrackingNum(Long pkOrderNum, Integer trackingNum) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("pkOrderNum", pkOrderNum);
+		param.put("trackingNum", trackingNum);
+		
+		packOrderDao.updatePackTrackingNum(param);
+
+		
 	}
 
 }

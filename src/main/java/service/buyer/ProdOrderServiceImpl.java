@@ -80,6 +80,15 @@ public class ProdOrderServiceImpl implements ProdOrderService {
         param.put("searchKeyword", searchKeyword);
         return prodOrderDao.sellectCountSellerProductOrderList(param);
 	}
+	
+	@Override
+	public void updateSellerProdTrackingNum(Long pdOrderNum, Integer trackingNum) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("pdOrderNum", pdOrderNum);
+		param.put("trackingNum", trackingNum);
+		prodOrderDao.updateProdTrackingNum(param);
+	}
+	
 
 	public Long insertProductOrder(SqlSession sqlSession, Long userNum, int totalPrice, String address) throws Exception {
 		Map<String, Object> param = new HashMap<>();
@@ -104,4 +113,6 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 
 		prodOrderDao.insertProductOrderItem(sqlSession, param);
 	}
+
+
 }
