@@ -10,6 +10,7 @@ public class SearchDtoSoy {
 	private String startDateFrom; //검색 시작일
 	private String startDateTo; //검색 종료일
 	
+    private String status;  // 매칭 상태
 	private Long userNum;
 	
 	public int getOffset() {
@@ -70,5 +71,13 @@ public class SearchDtoSoy {
 
 	public int getPageSize() {
 		return pageSize;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

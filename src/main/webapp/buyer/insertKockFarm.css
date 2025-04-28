@@ -73,18 +73,20 @@ textarea {
 }
 
 .button-group {
-  margin-top: 20px;
+  margin: 20px auto;
   float: right;
 }
 
 .btn {
-  padding: 10px 22px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
-
 .btn-submit {
   background-color: #65B741;
   color: white;
