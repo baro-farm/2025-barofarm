@@ -19,6 +19,9 @@ public interface UserDAO {
 	User findId(Map<String, Object> param) throws Exception;
 	User findPwd(Map<String, Object> param) throws Exception;
 	void resetPwdToken(Map<String, Object> param) throws Exception;
+	void resetPwd(Map<String, Object> param) throws Exception;
+	User existingPwd(String resetPwdToken) throws Exception;
+	String getPasswordByUserNum(Long userNum);
 	
 	public User selectUserById(String userId) throws Exception;
 

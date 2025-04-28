@@ -93,5 +93,19 @@
 	        resetPwdTokenExpires = NOW() + INTERVAL 30 MINUTE
 	    WHERE userNum = #{userNum}
 	</update>
-	
+	<update id="resetPwd" parameterType="map">
+		Update user
+		SET pwd = #{pwd},
+			resetPwdToken = NULL,
+        	resetPwdTokenExpires = NULL
+		WHERE userNum = #{userNum}
+	</update>
+	<select id="existingPwd" parameterType="map" resultType="User">
+	  SELECT *
+	  FROM user
+	  WHERE resetPwdToken = #{resetPwdToken}
+	</select>
+	<select id="getPasswordByUserNum" parameterType="long" resultType="String">
+    SELECT pwd FROM user WHERE userNum = #{userNum}
+</select>
  </mapper>
