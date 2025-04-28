@@ -79,8 +79,10 @@ public class PaymentServiceImpl implements PaymentService {
         conn.setDoOutput(true);
 
         JsonObject body = new JsonObject();
-        body.addProperty("imp_key", apiKey);      // ✅ imp_key
-        body.addProperty("imp_secret", apiSecret); // ✅ imp_secret
+//        body.addProperty("imp_key", apiKey);      // ✅ imp_key
+//        body.addProperty("imp_secret", apiSecret); // ✅ imp_secret
+        body.addProperty("imp_key", apiKey.trim());
+        body.addProperty("imp_secret", apiSecret.trim());
 
         System.out.println("Sending to PortOne:");
         System.out.println("imp_key: " + apiKey);
@@ -92,10 +94,6 @@ public class PaymentServiceImpl implements PaymentService {
             os.flush();
         }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        JsonObject response = JsonParser.parseReader(reader).getAsJsonObject();
-        reader.close();
-
         if (conn.getResponseCode() != 200) {
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
             String line;
@@ -105,6 +103,10 @@ public class PaymentServiceImpl implements PaymentService {
             errorReader.close();
         }
 
+        
+        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        JsonObject response = JsonParser.parseReader(reader).getAsJsonObject();
+        reader.close();
         
         return response.getAsJsonObject("response").get("access_token").getAsString();
 	}
