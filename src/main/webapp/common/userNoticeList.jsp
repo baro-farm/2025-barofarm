@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>NoticeView</title>
+    <title>공지사항</title>
     <link rel="stylesheet" href="${contextPath}/reset.css">
     <link rel="stylesheet" href="${contextPath}/common/userNoticeList.css" />
 </head>
@@ -18,6 +18,8 @@
 			<div class="content">
 		    <h1 class="title">공지사항</h1>
         	<p class="subtitle">관리자가 쓰는 서비스 관련 공지</p>
+        	totalCount: ${pageInfo.totalCount}, allPage: ${pageInfo.allPage}, startPage: ${pageInfo.startPage}, endPage: ${pageInfo.endPage}
+        	
 		    <table id="notice_table" class="table">
 		        <thead>
 		          <tr>
@@ -28,14 +30,22 @@
 		          </tr>
 		        </thead>
 		        <tbody>
-		          <c:forEach var="notice" items="${requestScope.noticeList}" varStatus="status">
+		        	<c:forEach var="n" items="${requestScope.fixList}">
+					  <tr class="fixedList">
+					  	<td><p class="fixed">공지</p></td>
+		          		<td><a href="detailNotice?noticeNum=${n.noticeNum}" class="fixTitle">${n.title}</a></td>
+						<td><p>관리자</p></td>
+		          		<td>${n.createdAt}</td>
+		          	</tr>
+					</c:forEach>
+		          	<c:forEach var="notice" items="${requestScope.noticeList}" varStatus="status">
 		          	<tr>
-		          		<td>${status.count }</td>
-		          		<td><a href="detailNotice?noticeNum=${notice.noticeNum}" class="ellipsis">${notice.title}</a></td>
+		          		<td>${pageInfo.totalCount - ((pageInfo.curPage - 1) * pageInfo.pageSize + status.index)}</td>
+		          		<td><a href="detailNotice?noticeNum=${notice.noticeNum}">${notice.title}</a></td>
 						<td><p>관리자</p></td>
 		          		<td>${notice.createdAt}</td>
 		          	</tr>
-		         </c:forEach>
+		         	</c:forEach>
 		        </tbody>
 		      </table>
 		      <div id="paging">

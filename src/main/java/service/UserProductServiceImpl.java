@@ -7,6 +7,7 @@ import java.util.Map;
 import dao.UserProductDAO;
 import dao.UserProductDAOImpl;
 import util.PageInfo;
+import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
 
@@ -19,25 +20,18 @@ public class UserProductServiceImpl implements UserProductService{
 
 	@Override
 	public List<ProductVO> ProductByCategory(PageInfo pageInfo,Integer cateNum,String sort) throws Exception {
-		// 1. 전체 상품 수
-		Integer productCnt = userProductDao.countProductByCategory(cateNum);
-		Integer allPage = (int)Math.ceil((double)productCnt/pageInfo.getPageSize());
-		// 2. 페이지 네비게이션 계산
-		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1; // 1,11,21,31 ...
-		Integer endPage = startPage+10-1; 
-		if(endPage>allPage) endPage=allPage;
-		
-		pageInfo.setAllPage(allPage);
-		pageInfo.setStartPage(startPage);
-		pageInfo.setEndPage(endPage);
-		
 		Map<String, Object> param = new HashMap<>();
 		param.put("cateNum", cateNum);
-		param.put("start", pageInfo.getOffset());
-        param.put("pageSize", pageInfo.getPageSize());
 	    param.put("sort", sort);
+	    param.put("start", pageInfo.getOffset());
+        param.put("pageSize", pageInfo.getPageSize());
 		
 		return userProductDao.selectProductByCategory(param);
+	}
+	
+	@Override
+	public Integer ProductCount(Integer cateNum) throws Exception {
+		return userProductDao.countProductByCategory(cateNum);
 	}
 
 	@Override
@@ -165,6 +159,41 @@ public class UserProductServiceImpl implements UserProductService{
 				
 		return userProductDao.selectProductBySellerNum(param);
 	}
+
+	@Override
+	public PackageVO DetailPackage(Long packageNum) throws Exception {
+		return userProductDao.selectDetailPackage(packageNum);
+	}
+
+	@Override
+	public List<PackageVO> PackageByCategory(PageInfo pageInfo, Integer cateNum, String sort) throws Exception {
+		// 1. 전체 상품 수
+		Integer packageCnt = userProductDao.countPackageByCategory(cateNum);
+		Integer allPage = (int)Math.ceil((double)packageCnt/pageInfo.getPageSize());
+		// 2. 페이지 네비게이션 계산
+		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1; // 1,11,21,31 ...
+		Integer endPage = startPage+10-1; 
+		if(endPage>allPage) endPage=allPage;
+				
+		pageInfo.setAllPage(allPage);
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+				
+		Map<String, Object> param = new HashMap<>();
+		param.put("cateNum", cateNum);
+		param.put("start", pageInfo.getOffset());
+		param.put("pageSize", pageInfo.getPageSize());
+		param.put("sort", sort);
+				
+		return userProductDao.selectPackageByCategory(param);
+	}
+
+	@Override
+	public Integer PackageCount(Integer cateNum) throws Exception {
+		return userProductDao.countPackageByCategory(cateNum);
+	}
+
+	
 
 	
 

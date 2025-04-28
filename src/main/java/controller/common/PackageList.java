@@ -18,14 +18,14 @@ import vo.ProductVO;
 /**
  * Servlet implementation class ProductList
  */
-@WebServlet("/productList")
-public class ProductList extends HttpServlet {
+@WebServlet("/packageList")
+public class PackageList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductList() {
+    public PackageList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,13 +43,6 @@ public class ProductList extends HttpServlet {
 		//카테고리
 		String cateName = null;
 		switch (cateNum) {
-		    case 1: cateName = "배추/무/대파/부추"; break;
-		    case 2: cateName = "오이/호박/가지"; break;
-		    case 3: cateName = "고추/피망/파프리카/열매채소"; break;
-		    case 4: cateName = "감자/고구마"; break;
-		    case 5: cateName = "양상추/양배추/새싹채소"; break;
-		    case 6: cateName = "당근/연근/뿌리채소"; break;
-		    case 7: cateName = "마늘/양파/생강/파"; break;
 		    case 8: cateName = "1인 꾸러미"; break;
 		    case 9: cateName = "2인 꾸러미"; break;
 		    case 10: cateName = "3인 꾸러미"; break;
@@ -63,16 +56,11 @@ public class ProductList extends HttpServlet {
 		try {
 			Integer totalCount = service.ProductCount(cateNum);
 			PageInfo pageInfo = new PageInfo(curPage, 20,totalCount);
-			
-			if(cateNum >= 8) {
-				List<PackageVO> packageList = service.PackageByCategory(pageInfo, cateNum, sort);
-				request.setAttribute("packageList", packageList);
-			}else {
-				List<ProductVO> productList = service.ProductByCategory(pageInfo, cateNum, sort);
-				request.setAttribute("productList", productList);
-			}
 
-			request.setAttribute("pageInfo", pageInfo);
+			List<PackageVO> packageList = service.PackageByCategory(pageInfo, cateNum, sort);
+
+			request.setAttribute("packageList", packageList);
+			request.setAttribute("productPageInfo", pageInfo);
 			request.setAttribute("cateNum", cateNum);
 			request.setAttribute("cateName", cateName);
 			request.setAttribute("sort", sort);

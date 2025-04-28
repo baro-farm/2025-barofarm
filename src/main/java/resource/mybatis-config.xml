@@ -43,6 +43,7 @@
 		<typeAlias type="dto.buyer.ShoppingCartItem" alias="shoppingCartItem" />
 		<typeAlias type="vo.ProductVO" alias="ProductVO" />
 		<typeAlias type="vo.SellerVO" alias="sellerVO" />
+		<typeAlias type="vo.PackageVO" alias="PackageVO" />
 	</typeAliases>
 
 	<environments default="development">

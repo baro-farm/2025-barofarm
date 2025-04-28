@@ -53,10 +53,10 @@
         <span>꾸러미</span>
     </div>
     <ul class="menu-list">
-        <li><a href="#">1인 꾸러미</a></li>
-        <li><a href="#">2인 꾸러미</a></li>
-        <li><a href="#">3인 꾸러미</a></li>
-        <li><a href="#">4인 꾸러미</a></li>
+        <li><a href="productList?cateNum=8">1인 꾸러미</a></li>
+        <li><a href="productList?cateNum=9">2인 꾸러미</a></li>
+        <li><a href="productList?cateNum=10">3인 꾸러미</a></li>
+        <li><a href="productList?cateNum=11">4인 꾸러미</a></li>
     </ul>
 </div>
 

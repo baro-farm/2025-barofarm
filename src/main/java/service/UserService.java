@@ -21,11 +21,13 @@ public interface UserService {
 	void writeAdminQA(AdminQuestion adminQuestion) throws Exception;
 	AdminQuestionVO detailAdminQA(Long qNum) throws Exception;
 	List<AdminQuestionVO> adminQAListByPage(PageInfo pageInfo) throws Exception;
+	Integer getAdminQACount() throws Exception;
 	List<AdminQuestion> recentAdminQA() throws Exception;
 	
 	User findId(String email, String phone) throws Exception;
 	User findPwd(String email, String userId) throws Exception;
 	void updateResetPwdToken(Long userNum, String resetPwdToken) throws Exception;
 	
+	public User findUserById(String userId) throws Exception;
 
 }

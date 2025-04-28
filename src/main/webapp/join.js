@@ -33,12 +33,6 @@ $(function() {
 			}	
 		})
 	})
-	
-	$("#userId").on("input", function () {
-    	isIdChecked = false;
-    	$("#idCheckResult").text("중복확인을 다시 해주세요.");
-  	});
-  	
   	/* 스토어명 중복 확인 */
   	$("#doubleStoreName").click(function(e) {
 			e.preventDefault();
@@ -71,29 +65,23 @@ $(function() {
 				}
 			})
 	})
-	
-	$("#storeName").on("input", function () {
-    	isStoreChecked = false;
-    	$("#storeNameCheckResult").text("중복확인을 다시 해주세요.");
-  	});
 })
 
-// 가입 시 검증 함수
-function validateJoin() {
-  const isSeller = $("input[name='isSeller']:checked").val() === "true";
-
+$('#joinForm').submit(function (e) {
   if (!isIdChecked) {
     alert("아이디 중복확인을 해주세요.");
+    e.preventDefault();
     return false;
   }
-
+  const isSeller = $("input[name='isSeller']:checked").val() === "true";
   if (isSeller && !isStoreChecked) {
     alert("스토어명 중복확인을 해주세요.");
+    e.preventDefault();
     return false;
   }
-
   return true;
-}
+});
+
 
 /* 판매자 가입 시 스토어명, 사업자번호 필수 입력 */
 document.addEventListener("DOMContentLoaded", function () {

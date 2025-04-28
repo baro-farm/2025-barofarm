@@ -29,22 +29,28 @@ public class Logout extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-        if (session != null) session.invalidate();
+		if (session != null) session.invalidate();
+		
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
-            for (Cookie c : cookies) {
-            	String name = c.getName();
-            	
-            	if ("pwd".equals(name) || "autoLogin".equals(name)) {
+        	for (Cookie c : cookies) {
+                if (c.getName().equals("autoLogin")) {
                     c.setValue("");
                     c.setMaxAge(0);
                     c.setPath("/");
                     response.addCookie(c);
                 }
+                // saveId가 "on"이 아니면 userId도 삭제
+                if (c.getName().equals("saveId") && !c.getValue().equals("on")) {
+                    Cookie userIdCookie = new Cookie("userId", "");
+                    userIdCookie.setMaxAge(0);
+                    userIdCookie.setPath("/");
+                    response.addCookie(userIdCookie);
+                }
             }
         }
-        response.sendRedirect("main");
+        response.sendRedirect(request.getContextPath() + "/main");
 	}
 
 }
