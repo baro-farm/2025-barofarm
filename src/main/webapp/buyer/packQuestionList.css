@@ -18,7 +18,12 @@
 	flex-direction: row;
 	min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
 }
-
+.emptyMessage {
+    text-align: center;
+    padding: 50px 0;
+    color: #888;
+    font-size: 1.2em;
+}
 .content {
 	flex: 1;
 	align-self: flex-start;

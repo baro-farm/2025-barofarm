@@ -1,11 +1,11 @@
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
     .table {
-        width: 1200px;  /* ✅ 1024px에서 멈춤 */
+        width: 1280px;  
     }
 }
 
 .table {
-    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
+    min-width: 1280px;  
 }
 
 @font-face {
@@ -185,37 +185,39 @@ tbody tr:hover {
 }
 
 .table th, .table td {
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
     padding: 5px;
     font-size: 14px;
     text-align: center;
 }
 
-.table th:nth-child(1),.table td:nth-child(1){
-    width: 10px;
+.table th:nth-child(1),.table td:nth-child(1),
+.table th:nth-child(2), .table td:nth-child(2),
+.table th:nth-child(3),.table td:nth-child(3){
+    width: 50px;    
     padding: 0 20px;
 }
 
-.table th:nth-child(2) .table td:nth-child(2){
-    width: 70px;
-}
-
-.table th:nth-child(3),.table td:nth-child(3){
-   width: 75px;
-}
-
 .table th:nth-child(4),.table td:nth-child(4),
+.table th:nth-child(7),.table td:nth-child(7),
 .table th:nth-child(9),.table td:nth-child(9){
-	width: 160px;
+	width:60px;
+	padding: 0 20px;
+}
+.table th:nth-child(6),.table td:nth-child(6){
+	width:25px;
+	padding: 0 20px;
 	
 }
-.table th:nth-child(5),.table td:nth-child(5) {
-    width: 80px;
-}
-.table th:nth-child(6),.table td:nth-child(6) {
-    width: 90px;
-}
 
+.table th:nth-child(5),.table td:nth-child(5){
+    width: 50px;
+    padding: 0 20px;
+}
+.table th:nth-child(10),.table td:nth-child(10){
+    width: 40px;
+    padding: 0 20px;	
+}
 /* 오버플로우 방지 */
 .table td:nth-child(3) {
     max-width: 200px; 

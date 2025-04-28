@@ -17,7 +17,11 @@
 	</select>
 	
 	<select id="selectRecentQuestions" parameterType="long" resultType="prodQuestion">
-		select q.title, p.productNum, p.productName, q.createdAt
+		select q.title, p.productNum, p.productName, q.createdAt,
+		CASE 
+      			WHEN CHAR_LENGTH(q.content) > 30 THEN CONCAT(LEFT(q.content, 30), '...')
+      			ELSE q.content
+    			END AS content
 		from prodQuestion q
 		join product p on q.productNum = p.productNum
 		where q.userNum = #{userNum}
@@ -27,14 +31,16 @@
 	
 	<select id="selectRecentReviews" parameterType="long" resultType="prodReview">
 		select 
-			reviewNum, userNum,  
+			r.reviewNum, r.userNum, p.productName, s.storeName,
 			CASE 
-      			WHEN CHAR_LENGTH(pdReviewContent) > 30 THEN CONCAT(LEFT(pdReviewContent, 30), '...')
-      			ELSE pdReviewContent
+      			WHEN CHAR_LENGTH(r.pdReviewContent) > 30 THEN CONCAT(LEFT(r.pdReviewContent, 30), '...')
+      			ELSE r.pdReviewContent
     			END AS pdReviewContent
-    	from prodReview
-    	where userNum=#{userNum}
-    	order by createdAt DESC
+    	from prodReview r
+    	join product p on p.productNum = r.productNum
+    	join sellerDetail s on p.sellerNum = s.sellerNum
+    	where r.userNum=#{userNum}
+    	order by r.createdAt DESC
     	Limit 5
 	</select>
 </mapper>

@@ -25,12 +25,15 @@
 			<div class="title">작성 가능한 리뷰</div>
 			
 			<div class="reviewList">
-				
+	           <!-- 주문 내역이 없을 때 -->
+			    <c:if test="${empty prodReviewList}">
+			        <div class="emptyMessage">작성 가능한 리뷰내역이 없습니다.</div>
+			    </c:if>				
 				<!-- 작성 가능한 리뷰 반복 -->
 				<c:forEach var="prodReview" items="${prodReviewList }">
 				
 					<div class="reviewBox">
-						<img class="reviewImage" src="${prodReview.imgUrl }" alt="img">
+						<img class="reviewImage" src="${contextPath}${prodReview.imgUrl }" alt="img">
 						<div class="reviewContent">
 							<div class="storeName">[${prodReview.storeName }]</div>
 							<div class="productName" style="margin-top:10px">${prodReview.productName }</div>

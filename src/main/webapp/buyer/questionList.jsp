@@ -82,7 +82,12 @@
 		            <option>답변 미완료</option>
 		        </select>
 		    </div>
-	
+		    
+           <!-- 주문 내역이 없을 때 -->
+		    <c:if test="${empty questionList}">
+		        <div class="emptyMessage">문의 내역이 없습니다.</div>
+		    </c:if>
+		    
 		    <!-- 문의 내역 반복 -->
 		    <c:forEach var="question" items="${questionList }">
 			    <div class="question">

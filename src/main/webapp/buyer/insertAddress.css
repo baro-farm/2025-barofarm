@@ -51,7 +51,18 @@ body {
 .formGroup {
     margin-bottom: 10px;
 }
+.phone-wrapper {
+    display: flex;
+    align-items: center;
+     gap: 5px;
+     width:50%;
+}
 
+.phone-wrapper input {
+    width: 30px;
+    margin-right: 5px;
+    text-align: center;
+}
 label {
     display: block;
     font-size: 14px;

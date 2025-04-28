@@ -51,6 +51,10 @@
 			    matchedSelect.addEventListener("change", () => form.submit());
 			  });
 			</script>
+			    <c:if test="${empty kockPostList}">
+			        <div class="emptyMessage">작성한 콕팜이 없습니다.</div>
+			    </c:if>
+			
 		    <!-- 게시글 개수만큼 반복 -->
 		    <c:forEach var="kcPost" items="${kockPostList }">
 		    	<div class="post">
@@ -61,7 +65,7 @@
 			        <div class="category">${kcPost.name }</div>
 			        <div class="answer">
 			            <div class="tag apply">
-			                <a href="#"><span>제안></span><span class="answerNum">${kcPost.kcCommentCount }</span></a>
+			                <a href="detailKockFarm?kockNum=${kcPost.kockNum }"><span>제안></span><span class="answerNum">${kcPost.kcCommentCount }</span></a>
 			            </div>
 			            <c:choose>
 			            	<c:when test="${kcPost.isMatched }">

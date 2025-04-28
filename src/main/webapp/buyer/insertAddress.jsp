@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -25,7 +26,7 @@
 		<div class="content">
 		
 		    <div class="header">배송지 주소 관리</div>
-			
+			<div class="addrContent" style="width:500px; margin:0 auto; margin-top:50px;">
 		    <form action="${pageContext.request.contextPath}/insertAddress" method="POST">
 		        <div class="formGroup">
 		            <label>배송지 명칭</label>
@@ -50,11 +51,13 @@
 		        
 		        <div class="formGroup">
 		            <label>수령인 전화번호</label>
-		            <input type="text" value="" name="phone"  
-		            	maxlength="11" 
-       					pattern="\d*" 
-       					inputmode="numeric" 
-       					placeholder="숫자만 입력 (최대 11자리)">
+		            <div class="phone-wrapper">
+				        <input type="text" id="phone1" name="phone1" maxlength="3" value="${fn:substring(user.phone, 0, 3)}" pattern="\d*" inputmode="numeric" required>
+				        -
+				        <input type="text" id="phone2" name="phone2" maxlength="4" value="${fn:substring(user.phone, 3, 7)}" pattern="\d*" inputmode="numeric" required>
+				        -
+				        <input type="text" id="phone3" name="phone3" maxlength="4" value="${fn:substring(user.phone, 7, 11)}" pattern="\d*" inputmode="numeric" required>
+				    </div>
 		        </div>
 				
 		        <div class="btn-group">
@@ -62,6 +65,7 @@
 		            <button type="button" class="btn btn-cancel">취소</button>
 		        </div>
 		    </form>
+		    </div>
 		</div>
     </div>
 </div>
@@ -110,6 +114,35 @@
             }
         }).open();
     }
+</script>
+<script>
+const cancelBtn = document.querySelector('.btn-cancel');
+if (cancelBtn) {
+    cancelBtn.addEventListener('click', function() {
+        window.location.href = '${contextPath}/addressList';
+    });
+}
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const phone1 = document.getElementById('phone1').value.trim();
+        const phone2 = document.getElementById('phone2').value.trim();
+        const phone3 = document.getElementById('phone3').value.trim();
+
+        const fullPhone = phone1 + phone2 + phone3;
+
+        // hidden input 추가
+        let hiddenPhone = document.getElementById('phone');
+        if (!hiddenPhone) {
+            hiddenPhone = document.createElement('input');
+            hiddenPhone.type = 'hidden';
+            hiddenPhone.name = 'phone';
+            hiddenPhone.id = 'phone';
+            this.appendChild(hiddenPhone);
+        }
+        hiddenPhone.value = fullPhone;
+        
+
+    });
 </script>
 </body>
 </html>

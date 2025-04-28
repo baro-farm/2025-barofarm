@@ -106,15 +106,10 @@
 		<div class="content">
 			<h2>꾸러미 내역</h2>
 
-		<div class="searchBox">
-			<label for="searchStartDate">조회 기간:</label> <input type="date"
-				id="searchStartDate" name="searchStartDate"> <span>~</span>
-			<input type="date" id="searchEndDate" name="searchEndDate">
-			<button type="button">검색</button>
-		</div>
-
 		<div class="orderList">
-
+			    <c:if test="${empty packOrderList}">
+			        <div class="emptyMessage">작성한 리뷰내역이 없습니다.</div>
+			    </c:if>
 			<!-- 주문 내역 반복 -->
 			<c:forEach var="packOrder" items="${packOrderList }">
 				<div class="orderItem" data-pk-order-num="${packOrder.pkOrderNum}">

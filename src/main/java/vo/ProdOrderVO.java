@@ -12,9 +12,10 @@ public class ProdOrderVO {
 	String orderStatus;
 	
 	//product order item
+	Long orderItem;
 	Long productNum;
 	Integer amount;
-	Integer price;
+	Integer totalPrice;
 	
 	//product
 	Long sellerNum;
@@ -30,6 +31,9 @@ public class ProdOrderVO {
 	
 	//user
 	String userName;
+	String userId;
+	String address;
+	String phone;
 
 	public Long getPdOrderNum() {
 		return pdOrderNum;
@@ -95,12 +99,12 @@ public class ProdOrderVO {
 		this.amount = amount;
 	}
 
-	public Integer getPrice() {
-		return price;
+	public Integer getTotalPrice() {
+		return totalPrice;
 	}
 
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setTotalPrice(Integer totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public Long getSellerNum() {
@@ -158,13 +162,45 @@ public class ProdOrderVO {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}	
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Long getOrderItem() {
+		return orderItem;
+	}
+
+	public void setOrderItem(Long orderItem) {
+		this.orderItem = orderItem;
 	}
 
 	@Override
 	public String toString() {
 		return "ProdOrderVO [pdOrderNum=" + pdOrderNum + ", userNum=" + userNum + ", pdTotalPrice=" + pdTotalPrice
 				+ ", orderDate=" + orderDate + ", deleveryStatus=" + deleveryStatus + ", orderStatus=" + orderStatus
-				+ ", productNum=" + productNum + ", amount=" + amount + ", price=" + price + ", sellerNum=" + sellerNum
+				+ ", productNum=" + productNum + ", amount=" + amount + ", totalPrice=" + totalPrice + ", sellerNum=" + sellerNum
 				+ ", productName=" + productName + ", imgUrl=" + imgUrl + ", option=" + option + ", optionPrice="
 				+ optionPrice + ", storeName=" + storeName +", userName:"+ userName +"]";
 	}

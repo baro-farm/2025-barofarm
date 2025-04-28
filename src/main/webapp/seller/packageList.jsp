@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>판매자|상품관리</title>
+    <title>판매자|꾸러미관리</title>
     <link rel="stylesheet" href="${contextPath }/seller/productList.css" />
 
     <link href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css" rel="stylesheet"
@@ -39,7 +39,7 @@
 	    
 		//글쓰기 버튼 눌렀을 때 
 		$('.btn.add').on('click', function() {
-		    window.location.href = '${contextPath}/insertProduct';
+		    window.location.href = '${contextPath}/insertPackage';
 		});
 		
 		//수정버튼 눌렀을 때. 체크박스는 1개만 가능
@@ -178,7 +178,7 @@
     
     <div id="content">
         <div class="noticeHeader">
-            <span id="title">상품 관리</span>
+            <span id="title">꾸러미 관리</span>
         </div>
 		<div class="filterWrapper">
 		    <form id="sortForm" method="get" action="${contextPath}/sellerProductList">
