@@ -1,8 +1,14 @@
 package service.seller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import dao.seller.PackageDAO;
 import dao.seller.PackageDAOImpl;
 import dto.seller.PackageProduct;
+import vo.PackageVO;
+import vo.ProductVO;
 
 public class PackageServiceImpl implements PackageService {
 	private PackageDAO packageDao;
@@ -25,4 +31,26 @@ public class PackageServiceImpl implements PackageService {
 	public void updatePackageProduct(PackageProduct packageProduct) throws Exception {
 		packageDao.updatePackageProduct(packageProduct);		
 	}
+	
+	@Override
+	public List<PackageVO> selectSellerPackageList(Long sellerNum, int offset, int pageSize, String sort,
+			String sellStat) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("sellerNum", sellerNum);
+		param.put("offset", offset);
+		param.put("pageSize", pageSize);
+		param.put("sort",sort);
+		param.put("sellStat",sellStat);
+		return packageDao.selectPackageList(param);
+	}
+
+	@Override
+	public Integer selectCountSellerPackageList(Long sellerNum, String sellStat) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("sellerNum", sellerNum);
+		param.put("sellStat", sellStat);		
+		return packageDao.countPackageList(param);
+	}
+
+	
 }

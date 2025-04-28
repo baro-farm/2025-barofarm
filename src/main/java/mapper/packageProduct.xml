@@ -61,4 +61,64 @@
 	<select id="countPackageByCategory" resultType="Integer">
 	    SELECT COUNT(*) FROM package WHERE cateNum = #{cateNum}
 	</select>
+	<!-- package List -->
+	<resultMap id="packageWithOptionResultMap" type="PackageVO">
+	    <id property="packageNum" column="packageNum"/>
+	    <result property="sellerNum" column="sellerNum"/>
+	    <result property="packageName" column="packageName"/>
+	    <result property="pkStatus" column="pkStatus"/>
+	    <result property="packagePrice" column="packagePrice"/>
+	    <result property="imgUrl" column="imgUrl"/>
+	    <result property="createdAt" column="createdAt"/>
+	    <result property="salesVolume" column="salesVolume"/>
+	    <result property="avgRating" column="avgRating"/>
+	    <result property="reviewCount" column="reviewCount"/>
+	</resultMap>
+	<select id="selectPackageList" parameterType="map" resultMap="packageWithOptionResultMap">
+		select p.packageNum, p.sellerNum, p.packageName,p.packageUnit, 
+			p.packagePrice, p.imgUrl, p.createdAt, p.salesVolume,
+			c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount
+		from package p
+		join category c on p.cateNum = c.cateNum
+		left join (
+			select packageNum,AVG(pkRating) as avgRating, COUNT(*) as reviewCount
+			from packReview
+			group by packageNum		
+		)pr on p.packageNum = pr.packageNum
+		where p.sellerNum = #{sellerNum}
+		<if test="sellStat != null and sellStat != ''">
+			<choose>
+				<when test="sellStat == 'sales'">
+					and p.status = true
+				</when>
+				<when test="sellStat == 'salesStop'">
+					and p.status = false
+				</when>
+			</choose>
+		</if>
+		<choose>
+	        <when test="sort == 'lowPrice'">order by p.price asc</when>
+	        <when test="sort == 'highPrice'">order by p.price desc</when>
+	        <when test="sort == 'sales'">order by p.salesVolume desc</when>
+	        <when test="sort == 'reviewCount'">order by pr.reviewCount desc</when>
+	        <when test="sort == 'rating'">order by pr.avgRating desc</when>
+        	<otherwise>order by p.createdAt desc</otherwise> <!-- 기본값: 최신순 -->
+   		</choose>
+    	limit #{offset}, #{pageSize}
+	</select>
+	<select id="countPackageList" parameterType="map" resultType="Integer">
+		select count(*)
+		from package
+		where sellerNum=#{sellerNum}
+		<if test="sellStat != null and sellStat!= ''">
+			<choose>
+				<when test="sellStat == 'sales'">
+					and status = true
+				</when>
+				<when test="sellStat == 'salesStop'">
+					and status = false
+				</when>
+			</choose>
+		</if>
+	</select>
 </mapper>
