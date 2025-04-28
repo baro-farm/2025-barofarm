@@ -92,12 +92,25 @@ document.querySelectorAll('.open-modal').forEach(btn => {
 
     const addSelect = document.getElementById('addOptionSelect');
     addSelect.innerHTML = '';
-    addOptions.forEach(opt => {
+    
+    // 🟢 1. 이미 장바구니에 담긴 옵션들 번호 뽑기
+	const existingOptionNums = optionList.map(opt => opt.optionNum);
+	
+	// 🟢 2. 전체 옵션 중에서 기존에 없는 옵션만 select에 추가
+	addOptions.forEach(opt => {
+	  if (!existingOptionNums.includes(opt.optionNum)) {  // 담긴 옵션 제외!
+	    const optionEl = document.createElement('option');
+	    optionEl.value = opt.optionNum;
+	    optionEl.textContent = `${opt.option} (${opt.price.toLocaleString()}원)`;
+	    addSelect.appendChild(optionEl);
+	  }
+	})
+    /*addOptions.forEach(opt => {
       const optionEl = document.createElement('option');
       optionEl.value = opt.optionNum;
       optionEl.textContent = `${opt.option} (${opt.price.toLocaleString()}원)`;
       addSelect.appendChild(optionEl);
-    });
+    });*/
 
     document.getElementById('optionModal').style.display = 'block';
     document.getElementById('modalOverlay').style.display = 'block';
