@@ -2,6 +2,8 @@ package service.buyer;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dto.buyer.ShoppingCartItem;
 
 public interface ShoppingCartService {
@@ -11,4 +13,5 @@ public interface ShoppingCartService {
 	void addCartOption(Long userNum, Long optionNum, Integer quantity) throws Exception;
 	void deleteCartOption(Long cartNum) throws Exception;
 	List <ShoppingCartItem> selectCartByCartNums(List<Long> cartNums) throws Exception;
+	void deleteCartItems(SqlSession sqlSession, List<Long> cartNums) throws Exception;
 }

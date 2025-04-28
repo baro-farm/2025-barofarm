@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import dto.seller.ProductOption;
 import util.MybatisSqlSessionFactory;
+import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
 
@@ -16,6 +17,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<ProductVO> selectProductByCategory(Map<String, Object> param) throws Exception {
 		return sqlSession.selectList("mapper.product.selectProductByCategory", param);
+		
 	}
 
 	@Override
@@ -81,6 +83,21 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countProductBySellerNum(Long sellerNum) throws Exception {
 		return sqlSession.selectOne("mapper.product.countProductBySellerNum", sellerNum);
+	}
+
+	@Override
+	public PackageVO selectDetailPackage(Long packageNum) throws Exception {
+		return sqlSession.selectOne("mapper.packageProduct.selectDetailPackage", packageNum);
+	}
+
+	@Override
+	public List<PackageVO> selectPackageByCategory(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.packageProduct.selectPackageByCategory", param);
+	}
+
+	@Override
+	public Integer countPackageByCategory(Integer packNum) throws Exception {
+		return sqlSession.selectOne("mapper.packageProduct.countPackageByCategory", packNum);
 	}
 
 	

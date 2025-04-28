@@ -1,6 +1,7 @@
 package dao.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -43,13 +44,18 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 	
 	@Override
-	public List<Notice> selectNoticeListByPage(Integer row) throws Exception {
-		return sqlSession.selectList("mapper.notice.selectNoticeListByPage", row);
+	public List<Notice> selectNoticeListByPage(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.notice.selectNoticeListByPage", param);
 	}
 
 	@Override
 	public Integer selectNoticeCount() throws Exception {
 		return sqlSession.selectOne("mapper.notice.selectNoticeCount");
+	}
+
+	@Override
+	public List<Notice> selectFixNoticeList() throws Exception {
+		return sqlSession.selectList("mapper.notice.selectFixNoticeList");
 	}
 	
 }

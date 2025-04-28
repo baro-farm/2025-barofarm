@@ -43,6 +43,7 @@
 		<typeAlias type="dto.buyer.ShoppingCartItem" alias="shoppingCartItem" />
 		<typeAlias type="vo.ProductVO" alias="ProductVO" />
 		<typeAlias type="vo.SellerVO" alias="sellerVO" />
+		<typeAlias type="vo.PackageVO" alias="PackageVO" />
 	</typeAliases>
 
 	<environments default="development">
@@ -78,5 +79,6 @@
 		<mapper resource="mapper/banner.xml" />
 		<mapper resource="mapper/packageProduct.xml" />
 		<mapper resource="mapper/shoppingCart.xml" />
+		<mapper resource="mapper/payment.xml" />
 	</mappers>
 </configuration>

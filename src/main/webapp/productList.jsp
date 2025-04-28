@@ -42,7 +42,7 @@
 				      검색 결과: <span class="keyword">'${keyword}'</span>
 				    </c:when>
 				    <c:when test="${listType eq 'best'}">베스트</c:when>
-				    <c:when test="${listType eq 'new'}">${listType == 'new'}">신상품</c:when>
+				    <c:when test="${listType eq 'new'}">신상품</c:when>
 				    <c:when test="${listType eq 'store'}">${storeName}</c:when>
 				    <c:otherwise>${cateName}</c:otherwise>
 				  </c:choose>
@@ -60,11 +60,41 @@
         			<c:forEach var="p" items="${productList}">
 			            <div class="product">
 			                <div class="productImgBox">
-			                    <a href="${contextPath}/detailProduct?productNum=${p.productNum}"><img src="${contextPath}${p.imgUrl}" alt=""></a>
+			                    <a href="${contextPath}/detailProduct?productNum=${p.productNum}">
+				                    <c:if test="${empty p.imgUrl}">
+						    			<img src="${contextPath}/img/fruits1.jpg" alt="">
+					    			</c:if>
+					    			<c:if test="${not empty p.imgUrl}">
+			                    		<img src="${contextPath}${p.imgUrl}" alt="">
+			                    	</c:if>
+			                    </a>
 			                </div>
 			                <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
 			                <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
 			                <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
+			                <p class="reviewScore">⭐ ${p.avgRating} (${p.reviewCount})</p>
+			            </div>
+		            </c:forEach>
+		            <c:forEach var="p" items="${packageList}">
+			            <div class="product">
+			                <div class="productImgBox">
+			                    <a href="${contextPath}/detailPackage?packageNum=${p.packageNum}">
+				                    <c:if test="${empty p.imgUrl}">
+						    			<img src="${contextPath}/img/fruits1.jpg" alt="">
+					    			</c:if>
+					    			<c:if test="${not empty p.imgUrl}">
+			                    		<img src="${contextPath}${p.imgUrl}" alt="">
+			                    	</c:if>
+			                    </a>
+			                </div>
+			                <p class="dateStr" hidden>${p.startDate}</p>
+			                <p class="name-row">
+			                	<a href="${contextPath}/detailPackage?packageNum=${p.packageNum}" class="packageName">${p.packageName}</a>
+			                	<span class="weekday"></span>
+			                </p>
+			                
+			                <p><a href="${contextPath}/detailPackage?packageNum=${p.packageNum}" class="storeName">${p.storeName}</a></p>
+			                <p class="price"><fmt:formatNumber value="${p.packagePrice}" type="number" />원</p>
 			                <p class="reviewScore">⭐ ${p.avgRating} (${p.reviewCount})</p>
 			            </div>
 		            </c:forEach>
@@ -106,6 +136,20 @@
 		</div> <!-- wrapper -->
 		<jsp:include page="/header/footer.jsp" />
 	</div> <!-- container -->
-			
 </body>
+<script>
+	function getDayOfWeek(dateStr) {
+	    const days = ['일요팜', '월요팜', '화요팜', '수요팜', '목요팜', '금요팜', '토요팜'];
+	    const date = new Date(dateStr);
+	    return days[date.getDay()];
+	}
+	
+	document.querySelectorAll('.dateStr').forEach(function(dateElem, idx) {
+	    const dateText = dateElem.innerText.trim();
+	    const weekElem = document.querySelectorAll('.weekday')[idx];
+	    if (weekElem) {
+	        weekElem.innerHTML = getDayOfWeek(dateText);
+	    }
+	});
+</script>
 </html>

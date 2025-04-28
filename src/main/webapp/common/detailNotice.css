@@ -24,6 +24,9 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
+td {    
+    display: inline-block;
+}
 .subtitle { /* 컨텐츠 부제목*/
   font-size: 16px;
   color: #4d4d4d;
@@ -32,24 +35,32 @@
 .a td:first-child {
     margin-left: 5px;
     font-weight: bold;
-}
-
-td {    
-    display: inline-block;
-}
-
-label {
     display: inline-block;
     width: 70px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+.table {
+	width: 100%;
+	max-width:1000px;
 }
 
 .text {
     border: 1px solid #ccc;
     border-radius: 8px;
-    height: 200px;
-    width: 100%;
+    height: auto;
+    width: 960px;
     line-height: 1.6;
     padding: 20px;
+    margin: 10px auto;
+    overflow-wrap: break-word;
 
+}
+.backBtn{
+	font-size: 14px;
+	color: white;
+	padding: 3px 9px;
+  	border-radius: 8px;
+ 	background-color: #FFB534;
+  	text-decoration: none;
+  	border: none;
 }

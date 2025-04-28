@@ -37,23 +37,30 @@ public class UserNoticeList extends HttpServlet {
 		
 		String pageStr = request.getParameter("page");
 		Integer page = null;
-		
 		if(pageStr==null) {
 			page = 1;
 		} else {
 			page = Integer.parseInt(pageStr);
 		}
 		
-		PageInfo pageInfo = new PageInfo(page);
 		NoticeService service = new NoticeServiceImpl();
-		
 		try {
+			List<Notice> fnoticeList = service.getFixNoticeList();
+			Integer fixCount = fnoticeList.size();
+			Integer pageSize = 10;
+			Integer normalPageSize = pageSize - fixCount;
+			
+			Integer totalCount = service.getNoticeCount();
+			PageInfo pageInfo = new PageInfo(page, normalPageSize, totalCount);
+			
+			
 			List<Notice> noticeList = service.NoticeListByPage(pageInfo);
+
 			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("fixList", fnoticeList);
 			request.setAttribute("noticeList", noticeList);
 			
 			request.getRequestDispatcher("/common/userNoticeList.jsp").forward(request, response);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("err", "게시판 목록조회를 실패했습니다.");

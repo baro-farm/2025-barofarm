@@ -25,10 +25,20 @@
 	  ORDER BY createdAt DESC
 	  LIMIT 3
 	</select>
+	<select id="selectFixNoticeList" resultType="notice">
+		SELECT * 
+		FROM notice 
+		WHERE fixed = 1 
+		ORDER BY noticeNum DESC
+	</select>
 	<select id="selectNoticeListByPage" resultType="notice">
-		select * from notice order by noticeNum desc limit #{num},10
+		 SELECT * 
+	    FROM notice 
+	    WHERE fixed = 0
+	    ORDER BY noticeNum DESC
+	    LIMIT #{start}, #{pageSize}
 	</select>
 	<select id="selectNoticeCount" resultType="Integer">
-		select count(*) from notice
+		select count(*) from notice WHERE fixed = 0
 	</select>
 </mapper>

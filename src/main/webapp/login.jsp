@@ -24,15 +24,12 @@
 		        <input type="password" id="pwd" class="inputField" name="pwd" placeholder="비밀번호" required>  
 		        <!-- 아이디 저장 & 자동 로그인 -->
 		        <div class="loginOptions">
-		        	<label><input type="checkbox" id="saveId" name="saveId" value="on" ${saveId eq 'on' ? 'checked' : ''}> 아이디 저장</label>
-		        	<label><input type="checkbox" id="autoLogin" name="autoLogin" value="on" ${autoLogin eq 'on' ? 'checked' : ''}> 자동 로그인</label>
+		        	<label><input type="checkbox" id="saveId" name="saveId" value="on" ${cookie.saveId.value eq 'on' ? 'checked' : ''}> 아이디 저장</label>
+		        	<label><input type="checkbox" id="autoLogin" name="autoLogin" value="on" ${cookie.autoLogin.value eq 'on' ? 'checked' : ''}> 자동 로그인</label>
 		        </div>
 		        <p id="loginErr" style="color:red;"></p>
 		        <!-- 로그인 버튼 -->
 		        <button type="button" onclick="loginSubmit()" class="loginBtn">로그인</button>
-		        <a href="" class="kakaoLoginBtn">
-		        	<img src="${contextPath}/img/kakao_login_large_wide.png" alt="카카오 로그인">
-		        </a>
 		   	</form>
 		    <hr>
 		    <!-- 하단 메뉴 -->

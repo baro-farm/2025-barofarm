@@ -96,5 +96,12 @@
 			#{cartNum}
 		</foreach>
 	</select>
-
+	<delete id="deleteCartItems" parameterType="map">
+	    DELETE FROM shoppingcart
+	    WHERE cartNum IN
+	    <foreach item="cartNum" collection="cartNums" open="(" separator="," close=")">
+	        #{cartNum}
+	    </foreach>
+	</delete>
+	
 </mapper>

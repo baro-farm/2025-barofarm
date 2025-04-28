@@ -2,11 +2,26 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="pageSize" value="${pageInfo.pageSize}" />
+<c:set var="totalCount" value="${pageInfo.totalCount}" />
+<c:set var="curPage" value="${pageInfo.curPage}" />
+<c:if test="${not empty param.error}">
+    <script>
+        <c:choose>
+            <c:when test="${param.error == 'notAuthor'}">
+                alert("작성자만 조회가 가능합니다.");
+            </c:when>
+            <c:when test="${param.error == 'fail'}">
+                alert("오류가 발생했습니다.");
+            </c:when>
+        </c:choose>
+    </script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>문의하기 리스트 조회</title>
+	<title>문의하기</title>
 	<link rel="stylesheet" href="${contextPath}/reset.css" />
     <link rel="stylesheet" href="${contextPath}/common/AdminQAList.css" /> 
 </head>
@@ -31,19 +46,19 @@
 		        <tbody>
 		          <c:forEach var="q" items="${requestScope.adminQAList}" varStatus="status">
 		          	<tr>
-		          		<td>${status.count }</td>
+		          		<td>${totalCount - ((curPage - 1) * pageSize + status.index)}</td>
 		          		<td>
 		          			<c:choose>
 						        <c:when test="${q.answerStatus}">
-						          <span>답변 완료</span>
+						          <span class="statusA">답변 완료</span>
 						        </c:when>
 						        <c:otherwise>
-						          <span>답변 대기</span>
+						          <span class="statusB">답변 대기</span>
 						        </c:otherwise>
 					      	</c:choose>
 		          		</td>
 		          		<td>
-		          			<a href="detailAdminQA?questionNum=${q.questionNum}" class="qtitle">[ ${q.type} ] ${q.title}</a>
+				        	<a href="detailAdminQA?questionNum=${q.questionNum}" class="qtitle">[${q.type}] ${q.title}</a>
 		          		</td>
 						<td><p>${q.userId}</p></td>
 		          		<td>${q.createdAt}</td>
@@ -88,6 +103,5 @@
 		</div> <!-- wrapper -->
 		<jsp:include page="/header/footer.jsp" />
     </div> <!-- container -->
-	
 </body>
 </html>

@@ -1,12 +1,3 @@
-$(document).ready(function () {
-  $('#notice_table').DataTable({
-    colReorder: true,
-    responsive: true,
-    scrollX: true,
-  });
-});
-
-
 document.addEventListener('DOMContentLoaded', () => {	 
   const deleteModal = document.getElementById('deleteModal');
   const deleteButtons = document.querySelectorAll('.deleteBtn');

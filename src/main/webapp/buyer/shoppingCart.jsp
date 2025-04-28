@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -45,6 +46,7 @@
 						<c:forEach var="opt" items="${product.options}">
 							<c:set var="sum" value="${sum + opt.totalPrice}" />
 						</c:forEach>
+							
 						<div class="cart-item">
 							<input type="checkbox" class="product-checkbox"
 								data-total-price="${sum}" data-cart-nums="<c:forEach var='opt' items='${product.options}' varStatus='status'>${opt.cartNum}<c:if test='${!status.last}'>,</c:if></c:forEach>">
@@ -52,9 +54,9 @@
 							<div class="cart-item-info">
 								<div class="info-1">
 									<p class="product-title">${product.productName}</p>
-									<p class="price">${product.basePrice}원</p>
+									<p class="price"><fmt:formatNumber value="${product.basePrice}" type="number" />원</p>
+									
 								</div>
-
 								<div class="info-2">
 									<div class="option-list">
 										<c:forEach var="opt" items="${product.options}">
@@ -62,10 +64,10 @@
 										        ${opt.option} / ${opt.quantity}개
 										        <c:choose>
 										            <c:when test="${opt.optionPrice > 0}">
-										                (+${opt.optionPrice}원)
+										                (+<fmt:formatNumber value="${opt.optionPrice}" type="number" />원)
 										            </c:when>
 										            <c:when test="${opt.optionPrice < 0}">
-										                (${opt.optionPrice}원)
+										                (<fmt:formatNumber value="${opt.optionPrice}" type="number" />원)
 										            </c:when>
 										        </c:choose>
 										    </p>
@@ -75,9 +77,8 @@
 										data-product="${product.productNum}"
 										data-quantity="${opt.quantity}">주문수정</button>
 								</div>
-
 								<div class="info-3">
-									<p class="total">${sum}원</p>
+									<p class="total"><fmt:formatNumber value="${sum}" type="number" />원</p>
 								</div>
 							</div>
 						</div>
@@ -113,25 +114,21 @@
 
 				<!-- 옵션 추가 -->
 				<div style="margin-top: 20px;">
-					<label>옵션 추가 </label> <select id="addOptionSelect"></select> <label>수량
-					</label><input type="number" class="number-input" id="addOptionQuantity"
-						min="1" value="1" />
+					<label>옵션 추가 </label>
+					<select id="addOptionSelect"></select>
+					<label>수량</label>
+					<input type="number" class="number-input" id="addOptionQuantity" min="1" value="1" />
 					<button type="button" id="addOptionBtn">추가</button>
 				</div>
-
-				<div
-					style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
-					<div
-						style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
-						<input type="hidden" name="productNum" id="modalProductNum" /> <input
-							type="hidden" id="hiddenCartNums" name="cartNums" value="">
-						<input type="hidden" id="hiddenQuantities" name="hiddenQuantities"
-							value=""> <input type="hidden" id="hiddenNewOptionNums"
-							name="newOptionNums" value=""> <input type="hidden"
-							id="hiddenNewQuantities" name="newQuantities" value=""> <input
-							type="hidden" id="hiddenDeleteCartNums" name="deleteCartNums"
-							value="">
-
+				<div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+					<div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+						<input type="hidden" name="productNum" id="modalProductNum" />
+						<input type="hidden" id="hiddenCartNums" name="cartNums" value="">
+						<input type="hidden" id="hiddenQuantities" name="hiddenQuantities" value=""> 
+						<input type="hidden" id="hiddenNewOptionNums"
+							name="newOptionNums" value=""> 
+						<input type="hidden" id="hiddenNewQuantities" name="newQuantities" value="">
+						<input type="hidden" id="hiddenDeleteCartNums" name="deleteCartNums" value="">
 						<button type="submit">저장</button>
 						<button type="button" class="close" onclick="closeModal()">닫기</button>
 					</div>

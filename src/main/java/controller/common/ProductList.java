@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.UserProductService;
 import service.UserProductServiceImpl;
 import util.PageInfo;
+import vo.PackageVO;
 import vo.ProductVO;
 
 /**
@@ -49,18 +50,28 @@ public class ProductList extends HttpServlet {
 		    case 5: cateName = "양상추/양배추/새싹채소"; break;
 		    case 6: cateName = "당근/연근/뿌리채소"; break;
 		    case 7: cateName = "마늘/양파/생강/파"; break;
+		    case 8: cateName = "1인 꾸러미"; break;
+		    case 9: cateName = "2인 꾸러미"; break;
+		    case 10: cateName = "3인 꾸러미"; break;
+		    case 11: cateName = "4인 꾸러미"; break;
 		}
 		
 		// 페이징
 		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
-		PageInfo pageInfo = new PageInfo(curPage, 20);
-		
 		
 		UserProductService service = new UserProductServiceImpl();
 		try {
-			List<ProductVO> productList = service.ProductByCategory(pageInfo, cateNum, sort);
+			Integer totalCount = service.ProductCount(cateNum);
+			PageInfo pageInfo = new PageInfo(curPage, 20,totalCount);
 			
-			request.setAttribute("productList", productList);
+			if(cateNum >= 8) {
+				List<PackageVO> packageList = service.PackageByCategory(pageInfo, cateNum, sort);
+				request.setAttribute("packageList", packageList);
+			}else {
+				List<ProductVO> productList = service.ProductByCategory(pageInfo, cateNum, sort);
+				request.setAttribute("productList", productList);
+			}
+
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("cateNum", cateNum);
 			request.setAttribute("cateName", cateName);
