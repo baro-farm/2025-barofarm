@@ -54,5 +54,38 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCartDao.deleteCartItems(sqlSession, param);
     }
 	
+	@Override
+	public Long getCartNum(Long userNum, Long optionNum) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("userNum", userNum);
+		param.put("optionNum", optionNum);
+		return shoppingCartDao.getCartNum(param);
+	}
 	
+	@Override
+	public void addToCart(Long sellerNum, Long userNum, Long productNum, Long optionNum, Integer quantity) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("sellerNum", sellerNum);
+        param.put("optionNum", optionNum);
+        param.put("quantity", quantity);
+		shoppingCartDao.insertCart(param);
+	}
+	
+	@Override
+	public Boolean isProductInCart(Long userNum, Long optionNum) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("userNum", userNum);
+		param.put("optionNum", optionNum);
+		return shoppingCartDao.isProductInCart(param);
+	}
+	
+	@Override
+	public void updateCartQuantityIncrease(Long userNum, Long cartNum, Integer quantity) throws Exception {
+		Map<String, Object> param = new HashMap<>(); 
+		param.put("userNum", userNum);
+		param.put("cartNum", cartNum);
+		param.put("quantity", quantity);
+		shoppingCartDao.updateCartQuantityIncrease(param);
+	}
 }

@@ -15,4 +15,8 @@ public interface ShoppingCartDAO {
 	void deleteCartOption(Long cartNum) throws Exception;
 	List<ShoppingCartItem> selectCartByCartNums(List<Long> cartNums) throws Exception;
 	void deleteCartItems(SqlSession sqlSession, Map<String, Object> param) throws Exception;
+	Long getCartNum(Map<String, Object> param) throws Exception;
+	void insertCart(Map<String, Object> param) throws Exception;
+	Boolean isProductInCart(Map<String, Object> param) throws Exception;
+	void updateCartQuantityIncrease(Map<String, Object> param) throws Exception;
 }

@@ -53,4 +53,26 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 //        ShoppingCartMapper mapper = sqlSession.getMapper(ShoppingCartMapper.class);
         sqlSession.delete("mapper.shoppingCart.deleteCartItems", param);
     }
+	
+	@Override
+	public Long getCartNum(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.shoppingCart.getCartNum", param);
+	}
+	
+	@Override
+	public void insertCart(Map<String, Object> param) throws Exception {
+		sqlSession.insert("mapper.shoppingCart.insertCart", param);
+		sqlSession.commit();
+	}
+	
+	@Override
+	public Boolean isProductInCart(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.shoppingCart.isProductInCart", param);
+	}
+	
+	@Override
+	public void updateCartQuantityIncrease(Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.shoppingCart.updateCartQuantityIncrease", param);
+		sqlSession.commit();
+	}
 }

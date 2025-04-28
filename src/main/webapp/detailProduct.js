@@ -42,11 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!selectedValue) return;
 
         const [name, priceStr] = selectedValue.split('|');
+        const selectedOptionElement = selectBox.selectedOptions[0];
+        const optionNum = parseInt(selectedOptionElement.dataset.optionnum, 10);
+        
         const key = name;
         const price = parseInt(priceStr, 10);
 
         if (!selectedOptions[key]) {
-            selectedOptions[key] = { name, price, qty: 1 };
+            selectedOptions[key] = { name, price, qty: 1, optionNum: optionNum };
         } else {
             selectedOptions[key].qty += 1;
         }
@@ -77,6 +80,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
         renderOptions();
         });
+        
+        const basketBtn = document.getElementById('basket');
+  
+  basketBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    // 선택된 옵션이 있는지 확인
+    const selectedKeys = Object.keys(selectedOptions);
+    if (selectedKeys.length === 0) {
+      alert('옵션을 선택하세요!');
+      return;
+    }
+
+    // 선택된 옵션들 하나씩 담기
+    for (const key of selectedKeys) {
+      const option = selectedOptions[key];
+      const optionNum = option.optionNum;  // optionNum은 어디에 저장해두는지 확인!
+      const quantity = option.qty;
+      
+      
+	  const productNum = basketBtn.dataset.productnum;
+	  console.log(productNum)
+      const payload = {
+        productNum: parseInt(productNum),
+        optionNum: optionNum,
+        quantity: quantity
+      };
+
+      console.log('보낼 데이터:', payload);  // 확인용
+
+      try {
+        const response = await fetch('/barofarm/insertCart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          console.log('장바구니에 담김:', result);
+          alert(result.message);
+        } else {
+          alert(result.message || '오류가 발생했습니다.');
+        }
+      } catch (error) {
+        console.error('Fetch Error:', error);
+        alert('네트워크 오류가 발생했습니다.');
+      }
+    }
+});
 });
 
 /* 리뷰 페이징 */

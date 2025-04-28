@@ -103,5 +103,24 @@
 	        #{cartNum}
 	    </foreach>
 	</delete>
-	
+	<select id="getCartNum" parameterType="map" resultType="long">
+        SELECT cartNum
+        FROM shoppingcart
+        WHERE userNum = #{userNum} AND optionNum = #{optionNum}
+        LIMIT 1
+    </select>
+	<insert id="insertCart" parameterType="map">
+        INSERT INTO shoppingcart (sellerNum, userNum, optionNum, quantity)
+        VALUES (#{sellerNum}, #{userNum}, #{optionNum}, #{quantity})
+    </insert>
+    <select id="isProductInCart" resultType="boolean" parameterType="map">
+        SELECT COUNT(*) > 0 
+        FROM shoppingcart
+        WHERE userNum = #{userNum} AND optionNum = #{optionNum}
+    </select>
+    <update id="updateCartQuantityIncrease" parameterType="map">
+        UPDATE shoppingcart
+        SET quantity = quantity + #{quantity}
+        WHERE cartNum=#{cartNum}
+    </update>
 </mapper>
