@@ -13,7 +13,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	 -->
 	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css">
-	
 	<link rel="stylesheet" href="${contextPath}/reset.css" />
     <link rel="stylesheet" href="${contextPath}/detailProduct.css" /> 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -95,52 +94,9 @@
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
-			        
-			        <table id="notice_table" class="prodQA">
-			            <thead class="">
-			                <tr>
-			                    <th style="font-weight: bold;">답변상태</th>
-			                    <th style="font-weight: bold;">제목</th>
-			                    <th style="font-weight: bold;">작성자</th>
-			                    <th style="font-weight: bold;">작성일</th>
-			                </tr>
-			            </thead>
-			            <tbody>
-			                <tr>
-			                    <td>답변대기</td>
-			                    <td><a href="">고객센터 전화번호 변경안내</a></td>
-			                    <td>id18****</td>
-			                    <td>2025-03-29</td>
-			                </tr>
-			                <tr>
-			                    <td>답변완료</td>
-			                    <td><a href="" class="question">연말연시 배송안내</a></td>
-			                    <td>id877****</td>
-			                    <td>2025-02-21</td>
-			                </tr>
-			                <tr class="answerRow">
-			                    <td colspan="4" class="answer">
-			                      <span class="answerTitle">답변</span>
-			                      안녕하세요. 고객님~ 저희 유럽 샐러드 채소를 주문해주시면...
-			                      <div class="answerInfo">판매자 | 2025-02-21</div>
-			                    </td>
-			                  </tr>
-			                <tr>
-			                    <td>답변완료</td>
-			                    <td><a href="">2019년 설 연휴 배송안내</a></td>
-			                    <td>id1sssss8****</td>
-			                    <td>2025-03-29</td>
-			                </tr>
-			            </tbody>
-			        </table>
-			
-			        <div class="paging">
-			            <a href="">&lt;</a>
-			            <a href="" class="pagingBtn">1</a>
-			            <a href="" class="pagingBtn">2</a>
-			            <a href="" class="pagingBtn">3</a>
-			            <a href="">&gt;</a>
-			        </div>
+					<div id="prodQA" class="prodQA">
+						<jsp:include page="/detailQASection.jsp" />
+					</div>
 			        <!-- 안내사항 -->
 			        <div class="tabs" id="info">
 			            <ul class="tabList">
@@ -171,7 +127,7 @@
     	</div>
     	<jsp:include page="/header/footer.jsp" />
     </div>
-   <!-- All-in-one 버전으로 변경 -->
+
 	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 	<script>
 	const viewer = toastui.Editor.factory({

@@ -50,16 +50,21 @@ public class DetailKockFarm extends HttpServlet {
 			List<KockComment> commentList = kcService.kockCommentListWithBaby(kockNum);
 			
 			boolean hasComment =false;
-			for (KockComment cm : commentList) {
-				if (cm.getUserNum()==user.getUserNum()) {
-					hasComment = true;
-					break;
-				}
+			
+			if(kock.getUserNum()==user.getUserNum()) {
+				request.setAttribute("isWriter", true);
 			}
+			else {
+				for (KockComment cm : commentList) {
+					if (cm.getUserNum()==user.getUserNum()) {
+						hasComment = true;
+						break;
+					}
+				}
+			}		
 
 			request.setAttribute("isMatched", kock.isMatched());
 			request.setAttribute("hasComment", hasComment);
-			if(kock.getUserNum()==user.getUserNum()) request.setAttribute("isWriter", true);
 			request.setAttribute("user", user);
 			request.setAttribute("kock", kock);
 			request.setAttribute("commentList", commentList);

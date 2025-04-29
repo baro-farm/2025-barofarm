@@ -74,11 +74,31 @@ public class UserDAOImpl implements UserDAO {
 		sqlSession.update("mapper.user.resetPwdToken", param);
 		sqlSession.commit();
 	}
+	
+	@Override
+	public void resetPwd(Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.user.resetPwd", param);
+		sqlSession.commit();		
+	}
 
+	@Override
+	public User existingPwd(String resetPwdToken) throws Exception {
+		return sqlSession.selectOne("mapper.user.existingPwd", resetPwdToken);
+	}
+	
 	@Override
 	public User selectUserById(String userId) throws Exception {
 		return sqlSession.selectOne("mapper.user.selectUser", userId);
 	}
+
+	@Override
+	public String getPasswordByUserNum(Long userNum) {
+		return sqlSession.selectOne("mapper.user.getPasswordByUserNum", userNum);
+	}
+
+	
+
+	
 
 	
 }

@@ -10,6 +10,7 @@ import util.MybatisSqlSessionFactory;
 import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
+import vo.QuestionVO;
 
 public class UserProductDAOImpl implements UserProductDAO{
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -98,6 +99,16 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countPackageByCategory(Integer packNum) throws Exception {
 		return sqlSession.selectOne("mapper.packageProduct.countPackageByCategory", packNum);
+	}
+
+	@Override
+	public List<QuestionVO> selectProdQA(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.prodQuestion.selectProdQA", param);
+	}
+
+	@Override
+	public Integer countProdQA(Long prodNum) throws Exception {
+		return sqlSession.selectOne("mapper.prodQuestion.countProdQA", prodNum);
 	}
 
 	

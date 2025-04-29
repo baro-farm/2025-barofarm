@@ -50,6 +50,7 @@ public class KockFarmList extends HttpServlet {
 		dto.setSearchType(request.getParameter("searchType"));
 		dto.setStartDateFrom(request.getParameter("startDateFrom"));
 		dto.setStartDateTo(request.getParameter("startDateTo"));
+		dto.setStatus(request.getParameter("status"));
 		
 		try {
 			request.setAttribute("kocks", service.selectKFBySearchDto(dto));

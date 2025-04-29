@@ -41,13 +41,14 @@
 	                    	var comment = "";
 	                    	comment += "<div class='comments' id='comment-" + kcNum + "'>";
 	                    	comment +=    "<div class='message-box seller'>";
-	                    	comment +=        "<div class='icon'>판매자</div>";
-	                    	comment +=        "<div class='text-box'>";
+	                    	comment +=        "<div class='sell-com'>";
+	                    	comment +=        	"<div class='text-box'>";
 	                    	comment +=            "<div class='user-info'>" + storeName + "</div>";
 	                    	comment +=            "<div class='message'>" + content + "</div>";
-	                    	comment +=        "</div>";
+	                    	comment +=       	 "</div>";
 	                    	comment +=        "<div>";
 	                    	comment +=            "<button class='btn-reply' data-comment-id='" + kcNum + "'>답글</button>";
+	                    	comment +=        "</div>";
 	                    	comment +=        "</div>";
 	                    	comment +=    "</div>";
 	                    	comment +=    "<div id='babyList-" + kcNum + "'></div>";
@@ -104,7 +105,6 @@ $(document).on("submit", ".babyForm", function (e) {
                     comment += "<div class='comments' id='comment-" + reNum + "'>";
                     comment += "<div class='message-box buyer-sec reply'>";
                     comment += "<div class='re-icon'>↪</div>";
-                    comment += "<div class='icon'>구매자</div>";
                     comment += "<div class='text-box'>";
                     comment += "<div class='user-info'>" + userName + "</div>";
                     comment += "<div class='message'>" + content + "</div>";
@@ -119,7 +119,6 @@ $(document).on("submit", ".babyForm", function (e) {
                     comment += "<div class='comments' id='comment-" + reNum + "'>";
                     comment += "<div class='message-box seller-sec reply'>";
                     comment += "<div class='re-icon'>↪</div>";
-                    comment += "<div class='icon'>판매자</div>";
                     comment += "<div class='text-box'>";
                     comment += "<div class='user-info'>" + storeName + "</div>";
                     comment += "<div class='message'>" + content + "</div>";
@@ -145,155 +144,136 @@ $(document).on("submit", ".babyForm", function (e) {
 	</script>
 </head>
 <body>
-<div class="main">
-	<c:import url="/header/mainHeader.jsp" />
+	<div class="main">
+		<jsp:include page="/header/mainHeader.jsp" />
+			<div class="wrapper">
+			<jsp:include page="/header/sideMenu.jsp" />
 	
-	<div class="container">
-	    <div class="title_head">
-	        <div class="title">콕팜</div>
-	        <p>거래를 제안하세요!</p>
-	    </div>
-	
-	    <div class="post-info">
-	        <p><strong class="p-strong">제목</strong>${kock.title } </p>
-	        <p><strong class="p-strong">카테고리</strong>${kock.name }</p>
-	        <p><strong class="p-strong">수량</strong>${kock.quantity } </p>
-	        <p><strong class="p-strong">희망 배송일자</strong>${kock.shipDate }</p>
-	        <p><strong class="p-strong">가격</strong>${kock.price }원</p>
-  	        <p><strong class="p-strong">이미지</strong>  
-        	<c:if test="${kock.imgUrl ne null}">
-				<img src="kockImg?imgUrl=${kock.imgUrl }" width="100px" />
-			</c:if>
-			</p>     
-	    </div>
-	
-	    <div class="content-box">
-	        ${kock.content }
-	    </div>
-	
-	    <div class="buttons">
-	        <button class="btn btn-list" onclick="location.href='kockFarmList'">글 목록</button>
-	        <c:if test="${isWriter && fn:length(commentList) == 0 }">
-	        <button class="btn btn-edit" onclick="location.href='updateKockFarm?kockNum=${kock.kockNum }'">글 수정</button>
-	        <form action="deleteKockFarm" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-	            <input type="hidden" name="kockNum" value="${kock.kockNum }">
-	        	<button class="btn btn-delete" type="submit">글 삭제</button>
-	        </form>
-	        </c:if>
-	    </div>
-	
-	    <!-- 댓글 목록 -->
-		<div id="commentList">
-       	<c:forEach var="comment" items="${commentList }" varStatus="status">
-   			<div class="comments" id="comment-${comment.kcNum}">
-		        <div class="message-box seller" >
-		            <div class="icon">판매자</div>
-		            <div class="text-box">
-		                <div class="user-info">${comment.storeName }</div>
-		                <div class="message">${comment.content }</div>
-		            </div>
-		            <div>
-		            	<c:if test="${user.userNum eq comment.userNum || isWriter  }">
-		            	<button class="btn-reply" data-comment-id="${comment.kcNum}">답글</button>
-		            	</c:if>
-		            	<c:if test="${!isMatched and isWriter }">
-		            	<button 
-						  class="btn-match" 
-						  data-kock-num="${comment.kockNum}" 
-						  data-kc-num="${comment.kcNum}" 
-						  data-seller-num="${comment.userNum}"
-						  data-store-name="${comment.storeName}" 
-						  data-buyer-num="1">
-						  매칭
-						</button>
-						</c:if>
-		            </div>		            
-		        </div>
-				<div id="babyList-${comment.kcNum }">
-			       <c:forEach var="baby" items="${comment.babyComments }">
-			       <c:if test="${baby.storeName eq null }">
-				       <div class="comments" id="comment-${baby.reNum}">
-		                    <div class="message-box buyer-sec reply">
-		                        <div class="re-icon">↪</div>
-		                        <div class="icon">구매자</div>
-		                        <div class="text-box">
-		                            <div class="user-info">${baby.userName}</div>
-		                            <div class="message">${baby.content}</div>
-		                        </div>
-		                    </div>
-		                </div>
-	                </c:if>
-	                <c:if test="${baby.storeName ne null }">
-				       <div class="comments" id="comment-${baby.reNum}">
-		                    <div class="message-box seller-sec reply">
-		                        <div class="re-icon">↪</div>
-		                        <div class="icon">판매자</div>
-		                        <div class="text-box">
-		                            <div class="user-info">${baby.storeName}</div>
-		                            <div class="message">${baby.content}</div>
-		                        </div>
-		                    </div>
-		                </div>
-	                </c:if>
-			       </c:forEach>
-		        </div>
-		    </div>
-		</c:forEach>
-	    </div>
-	    <!-- 구매자의 댓글 폼 => 무조건 아기댓글 -->
-	    <div id="reply-form-template"  style="display: none;">
-	    	<div class="babyDiv">
-		    <form id="babyForm" method="post" class="reply-form comment-box">
-		        <input type="hidden" name="userNum" value="${user.userNum }" />
-		        <input type="hidden" name="kcNum" value="" />
-		        <input type="text" name="content" class="comment-input2" placeholder="대댓글을 입력해주세요." required="required">
-		        <button type="submit" class="btn-submit">등록</button>
-		    </form>
-		    </div>
-		</div>
-		
-    	<!-- 판매자의 첫번째 댓글 폼 => 무조건 부모댓글 -->
-    	<c:if test="${!isMatched and user.isSeller and not hasComment }">
-	    <div>
-		    <form id="commentForm" method="post" class="reply-form comment-box">
-		        <input type="hidden" name="userNum" value="${user.userNum }" />
-		        <input type="hidden" name="kockNum" value="${kock.kockNum}" />
-		        <input type="hidden" name="parentCommentNum" value="" />
-		        <input type="text" name="content" class="comment-input" placeholder="댓글을 입력해주세요." required="required">
-		        <button type="submit" class="btn-submit">등록</button>
-		    </form>
-		</div>
-		</c:if>
+			<div class="content">
+			    <div>
+			        <h1 class="title">콕팜</h1>
+			        <p class="subtitle">거래를 제안하세요!</p>
+			    </div>
+			
+			    <div class="post-info">
+			        <p class="p-value"><strong class="p-strong">제목</strong>${kock.title } </p>
+			        <p class="p-value"><strong class="p-strong">카테고리</strong>${kock.name }</p>
+			        <p class="p-value"><strong class="p-strong">수량</strong>${kock.quantity } </p>
+			        <p class="p-value"><strong class="p-strong">희망 배송일자</strong>${kock.shipDate }</p>
+			        <p class="p-value"><strong class="p-strong">가격</strong>${kock.price }원</p>
+		  	        <p class="image"><strong class="p-strong">이미지</strong>  
+		        	<c:if test="${kock.imgUrl ne null}">
+						<img src="kockImg?imgUrl=${kock.imgUrl }" width="100px" />
+					</c:if>
+					</p>     
+			    </div>
+			
+			    <div class="content-box">
+			        ${kock.content }
+			    </div>
+			
+			    <div class="buttons">
+			        <button class="btn btn-list" onclick="location.href='kockFarmList'">글 목록</button>
+			        <c:if test="${isWriter && fn:length(commentList) == 0 }">
+			        <button class="btn btn-edit" onclick="location.href='updateKockFarm?kockNum=${kock.kockNum }'">글 수정</button>
+			        <form action="deleteKockFarm" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+			            <input type="hidden" name="kockNum" value="${kock.kockNum }">
+			        	<button class="btn btn-delete" type="submit">글 삭제</button>
+			        </form>
+			        </c:if>
+			    </div>
+			
+			    <!-- 댓글 목록 -->
+				<div id="commentList">
+		       	<c:forEach var="comment" items="${commentList }" varStatus="status">
+		   			<div class="comments" id="comment-${comment.kcNum}">
+				        <div class="message-box seller" >
+				            <div class="sell-com">
+				            	<div class="text-box">
+				                	<div class="user-info">${comment.storeName }</div>
+				                	<div class="message">${comment.content }</div>
+					            </div>
+					            <div>
+					            	<c:if test="${user.userNum eq comment.userNum || isWriter  }">
+					            	<button class="btn-reply" data-comment-id="${comment.kcNum}">답글</button>
+					            	</c:if>
+					            	<c:if test="${!isMatched and isWriter}">
+					            	<button 
+									  class="btn-match" 
+									  data-kock-num="${comment.kockNum}" 
+									  data-kc-num="${comment.kcNum}" 
+									  data-seller-num="${comment.userNum}"
+									  data-store-name="${comment.storeName}" 
+									  data-buyer-num="1">
+									  매칭
+									</button>
+									</c:if>
+									<c:if test="${isMatched}">
+					            	<button class="btn-matched"  disabled="disabled">
+									  매칭 완료
+									</button>
+									</c:if>
+					            </div>		
+				            </div>
+				        </div>
+						<div id="babyList-${comment.kcNum }">
+					       <c:forEach var="baby" items="${comment.babyComments }">
+					       <c:if test="${baby.storeName eq null }">
+						       <div class="comments" id="comment-${baby.reNum}">
+				                    <div class="message-box buyer-sec reply">
+				                        <div class="re-icon">↪</div>
+				                        <div class="text-box">
+				                            <div class="user-info">${baby.userName}</div>
+				                            <div class="message">${baby.content}</div>
+				                        </div>
+				                    </div>
+				                </div>
+			                </c:if>
+			                <c:if test="${baby.storeName ne null }">
+						       <div class="comments" id="comment-${baby.reNum}">
+				                    <div class="message-box seller-sec reply">
+				                        <div class="re-icon">↪</div>
+				                        <div class="text-box">
+				                            <div class="user-info">${baby.storeName}</div>
+				                            <div class="message">${baby.content}</div>
+				                        </div>
+				                    </div>
+				                </div>
+			                </c:if>
+					       </c:forEach>
+				        </div>
+				    </div>
+				</c:forEach>
+			    </div>
+			    <!-- 구매자의 댓글 폼 => 무조건 아기댓글 -->
+			    <div id="reply-form-template"  style="display: none;">
+			    	<div class="babyDiv">
+				    <form id="babyForm" method="post" class="reply-form comment-box">
+				        <input type="hidden" name="userNum" value="${user.userNum }" />
+				        <input type="hidden" name="kcNum" value="" />
+				        <input type="text" name="content" class="comment-input2" placeholder="대댓글을 입력해주세요." required="required">
+				        <button type="submit" class="btn-submit">등록</button>
+				    </form>
+				    </div>
+				</div>
+				
+		    	<!-- 판매자의 첫번째 댓글 폼 => 무조건 부모댓글 -->
+		    	<c:if test="${!isMatched and user.isSeller and not hasComment }">
+			    <div>
+				    <form id="commentForm" method="post" class="reply-form comment-box">
+				        <input type="hidden" name="userNum" value="${user.userNum }" />
+				        <input type="hidden" name="kockNum" value="${kock.kockNum}" />
+				        <input type="hidden" name="parentCommentNum" value="" />
+				        <input type="text" name="content" class="comment-input" placeholder="댓글을 입력해주세요." required="required">
+				        <button type="submit" class="btn-submit">등록</button>
+				    </form>
+				</div>
+				</c:if>
+			</div>
+			</div>
+		<jsp:include page="/header/footer.jsp" />
 	</div>
-</div>
 <script>
-/* document.addEventListener("DOMContentLoaded", function () {
-    const replyFormTemplate = document.querySelector("#reply-form-template");
-    let activeForm = null;
-
-    // 이벤트 위임 사용
-    document.addEventListener("click", function (e) {
-        if (e.target && e.target.classList.contains("btn-reply")) {
-            const kcNum = e.target.dataset.commentId;
-            const targetDiv = document.querySelector("#comment-" + kcNum);
-
-            // 기존 폼 제거
-            if (activeForm) {
-                activeForm.remove();
-            }
-
-            // 템플릿 복제
-            const newForm = replyFormTemplate.firstElementChild.cloneNode(true);
-            newForm.querySelector("input[name='kcNum']").value = kcNum;
-            newForm.querySelector("form").classList.add("babyForm");
-
-            targetDiv.appendChild(newForm);
-            activeForm = newForm;
-        }
-    });
-});
- */
- 
  document.addEventListener("DOMContentLoaded", function () {
 	    const replyFormTemplate = document.querySelector("#reply-form-template");
 	    let activeForm = null;
@@ -369,7 +349,7 @@ document.querySelectorAll('.btn-match').forEach(btn => {
     // 텍스트가 잘 나오는지 최종 확인
     const modalMessageElement = document.getElementById('modalMessageMain');
 	if (modalMessageElement) {
-	  modalMessageElement.textContent = `${selectedMatchInfo.storeName.trim()}님과 매칭하시겠습니까?`;
+	  modalMessageElement.textContent = `\${selectedMatchInfo.storeName.trim()}님과 매칭하시겠습니까?`;
 	}
 	
 	// form의 hidden input 요소들에 값 세팅

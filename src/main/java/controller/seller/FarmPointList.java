@@ -1,10 +1,12 @@
 package controller.seller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,12 +65,21 @@ public class FarmPointList extends HttpServlet {
 		UsePointService uservice = new UsePointServiceImpl();
 		PointService pservice = new PointServiceImpl();
 		SellerService sservice = new SellerServiceImpl();
-		
+		Properties props = new Properties();
+		InputStream input = getServletContext().getResourceAsStream("/WEB-INF/config/config.properties");
+		if (input == null) {
+		    System.out.println("properties 파일 경로 이상");
+		} else {
+		    props.load(input);
+		}
+		String impKey = props.getProperty("imp.key.soy");
+
 		try {
 			Point point = pservice.getPoint(user.getUserNum());
 			List<UsePoint> usePointList = uservice.selectUsePointListBySearchDto(dto);
 			SellerVO sellerDetail = sservice.getSerllerDetail(user.getUserNum());
-			
+			request.setAttribute("impKey", impKey);
+
 			for (UsePoint u:usePointList) {
 				LocalDateTime ldt = u.getCreatedAt();
 				Date date = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());

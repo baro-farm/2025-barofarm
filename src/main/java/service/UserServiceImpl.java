@@ -134,16 +134,42 @@ public class UserServiceImpl implements UserService{
 		 
 		 userDao.resetPwdToken(param);
 	}
+	
+	@Override
+	public void resetPwd(String pwd, Long userNum) throws Exception {
+		 Map<String, Object> param = new HashMap<>();
+		 param.put("pwd", pwd);
+		 param.put("userNum", userNum);
+		 
+		 userDao.resetPwd(param);
+		
+	}
 
 	@Override
 	public User findUserById(String userId) throws Exception {
 		 return userDao.selectUserById(userId);
 	}
+	
+	
 
 	@Override
 	public Integer getAdminQACount() throws Exception {
 		return userDao.selectAdminQACount();
 	}
+
+	@Override
+	public User existingPwd(String resetPwdToken) throws Exception {
+		return userDao.existingPwd(resetPwdToken);
+		
+	}
+
+	@Override
+	public boolean isSamePassword(Long userNum, String pwd) throws Exception {
+		String currentPwd = userDao.getPasswordByUserNum(userNum);
+        return currentPwd.equals(pwd);
+	}
+
+	
 	
 
 }
