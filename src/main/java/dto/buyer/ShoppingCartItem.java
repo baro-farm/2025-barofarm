@@ -7,6 +7,7 @@ public class ShoppingCartItem {
 	private String productName;
 	private String imgUrl;
 	private Integer price;
+	private Integer basePrice;  // 안되서 일단 추가
 	
 	private Long optionNum;
 	private String option;
@@ -62,6 +63,15 @@ public class ShoppingCartItem {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	
+	public Integer getBasePrice() {
+		return basePrice;
+	}
+
+	public void setBasePrice(Integer basePrice) {
+		this.basePrice = basePrice;
 	}
 
 	public Long getOptionNum() {

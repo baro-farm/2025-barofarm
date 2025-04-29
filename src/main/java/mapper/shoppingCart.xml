@@ -129,7 +129,7 @@
 	        p.productNum,
 	        p.productName,
 	        p.imgUrl,
-	        p.price AS price,
+	        p.price as basePrice,
 	        po.optionNum,
 	        po.option,
 	        <!-- po.price AS optionPrice,

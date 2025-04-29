@@ -181,6 +181,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				const result = await res.json();
 				console.log("✅ 응답 결과:", result);
 
+				if (result.success) {
+				  window.location.href = '/barofarm/buyNow';
+				}
 				if (!result.success) {
 					alert(result.message || '바로구매 요청 처리 실패');
 				}

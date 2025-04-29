@@ -126,7 +126,14 @@ public class BuyNow extends HttpServlet {
 			request.setAttribute("addressList", addressList);
 	
 			request.setAttribute("isBuyNow", true);  // JSP에서 플래그 확인
-			request.getRequestDispatcher("/buyer/buyNow.jsp").forward(request, response);
+//			request.getRequestDispatcher("/buyer/buyNow.jsp").forward(request, response);
+			
+			JsonObject result = new JsonObject();
+			result.addProperty("success", true);
+			result.addProperty("redirectUrl", request.getContextPath() + "/buyer/buyNow.jsp");
+
+			response.setContentType("application/json");
+			response.getWriter().write(result.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("/barofarm/error.jsp");
