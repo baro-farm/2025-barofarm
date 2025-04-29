@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -11,7 +12,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>판매자|꾸러미관리</title>
-    <link rel="stylesheet" href="${contextPath }/seller/productList.css" />
+    <link rel="stylesheet" href="${contextPath }/seller/packageList.css" />
 
     <link href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css" rel="stylesheet"
         integrity="sha384-jFvlDSY24z+oXMByOoX2Z1gM+M5NMd0uG7sDa4skv2mHXPuS0/RYXwPGLK0+Mgdc" crossorigin="anonymous" />
@@ -24,17 +25,17 @@
 	<script>
 	$(document).ready(function() {
 	    // 마우스 올렸을 때
-	    $('#notice_table').on('mouseenter', 'tr', function() {
-	        const productNum = $(this).data('productnum');
-	        // 같은 productNum 가진 tr들에 hovered 클래스 추가
-	        $(`tr[data-productnum="\${productNum}"]`).addClass('hovered');
+	    $('#package_table').on('mouseenter', 'tr', function() {
+	        const packageNum = $(this).data('packagenum');
+	        // 같은 packageNum 가진 tr들에 hovered 클래스 추가
+	        $(`tr[data-packagenum="\${packageNum}"]`).addClass('hovered');
 	    });
 
 	    // 마우스 내렸을 때
-	    $('#notice_table').on('mouseleave', 'tr', function() {
-	        const productNum = $(this).data('productnum');
-	        // 같은 productNum 가진 tr들에서 hovered 클래스 제거
-	        $(`tr[data-productnum="\${productNum}"]`).removeClass('hovered');
+	    $('#package_table').on('mouseleave', 'tr', function() {
+	        const packageNum = $(this).data('packagenum');
+	        // 같은 packageNum 가진 tr들에서 hovered 클래스 제거
+	        $(`tr[data-packagenum="\${packageNum}"]`).removeClass('hovered');
 	    });
 	    
 		//글쓰기 버튼 눌렀을 때 
@@ -44,7 +45,7 @@
 		
 		//수정버튼 눌렀을 때. 체크박스는 1개만 가능
 		 $('.btn.edit').on('click', function() {
-		        const $checked = $('#notice_table tbody input[type="checkbox"]:checked');
+		        const $checked = $('#package_table tbody input[type="checkbox"]:checked');
 		        if ($checked.length === 0) {
 		            alert('수정할 상품을 선택해주세요.');
 		            return;
@@ -53,13 +54,13 @@
 		            alert('하나의 상품만 선택해주세요.');
 		            return;
 		        }
-		        const productNum = $checked.closest('tr').find('.productNum a').text().trim();
-		        window.location.href = `${contextPath}/updateProduct?productNum=\${productNum}`;
+		        const packageNum = $checked.closest('tr').find('.packageNum a').text().trim();
+		        window.location.href = `${contextPath}/updatePackage?packageNum=\${packageNum}`;
 		    });
 		
 		
 	    // +, - 버튼 클릭 이벤트
-	    $('#notice_table').on('click', 'button', function() {
+	    $('#package_table').on('click', 'button', function() {
 	        const $button = $(this);
 	        const $row = $button.closest('tr');
 	        const $stockInputBox = $row.find('.stock');
@@ -74,9 +75,9 @@
 	    });
 	
 	    // 저장 버튼 클릭
-	    $('#notice_table').on('click', 'button:contains("저장")', function() {
+	    $('#package_table').on('click', 'button:contains("저장")', function() {
 	        const $row = $(this).closest('tr');
-	        const productNum = $row.find('.productNum a').text().trim();
+	        const packageNum = $row.find('.packageNum a').text().trim();
 	        const $stockInputBox = $row.find('.stock');
 	        let stock = parseInt($stockInputBox.val());
 	      
@@ -89,7 +90,7 @@
 	        $.ajax({
 	            url: '${contextPath}/updateStock',
 	            method: 'POST',
-	            data: { productNum: productNum, stock: stock },
+	            data: { packageNum: packageNum, stock: stock },
 	            success: function(response) {
 	                if (response ==='success') {
 	                    alert('재고가 성공적으로 저장되었습니다!');
@@ -105,24 +106,24 @@
 	    
 	 // 상태변경 버튼 클릭(여러개 선택 가능)
 	    $('.btn.delete').on('click', function() {
-	        const $checked = $('#notice_table tbody input[type="checkbox"]:checked');
+	        const $checked = $('#package_table tbody input[type="checkbox"]:checked');
 	        if ($checked.length === 0) {
 	            alert('상태를 변경할 상품을 선택해주세요.');
 	            return;
 	        }
 
-	        // 선택된 상품들의 productNum과 status 수집
-	        let products = [];
+	        // 선택된 상품들의 packageNum과 status 수집
+	        let packages = [];
 	        $checked.each(function() {
 	            const $row = $(this).closest('tr');
-	            const productNum = $row.find('.productNum a').text().trim();
+	            const packageNum = $row.find('.packageNum a').text().trim();
 	            const statusText = $row.find('.status').text().trim();
 	            const currentStatus = (statusText === '판매중') ? true : false;
 
 	            // ✅ 상태 반전 (true → false, false → true)
 	            const newStatus = !currentStatus;
 
-	            products.push({ productNum: productNum, status: newStatus });
+	            packages.push({ packageNum: packageNum, status: newStatus });
 	        });
 
 	        // 서버로 전송 (JSON)
@@ -130,7 +131,7 @@
 	            url: '${contextPath}/updateProdStatus',
 	            method: 'POST',
 	            contentType: 'application/json',
-	            data: JSON.stringify(products),
+	            data: JSON.stringify(packages),
 	            success: function(response) {
 	                if (response === 'success') {
 	                    alert('상태가 변경되었습니다');
@@ -153,7 +154,7 @@
 	    });
 
 	    // 2️ 하위 체크박스 클릭 시 → 헤더 체크박스 상태 갱신
-	    $('#notice_table').on('change', '.rowCheck', function() {
+	    $('#package_table').on('change', '.rowCheck', function() {
 	        const total = $('.rowCheck').length;
 	        const checked = $('.rowCheck:checked').length;
 
@@ -181,7 +182,7 @@
             <span id="title">꾸러미 관리</span>
         </div>
 		<div class="filterWrapper">
-		    <form id="sortForm" method="get" action="${contextPath}/sellerProductList">
+		    <form id="sortForm" method="get" action="${contextPath}/sellerpackageList">
 		       	<select name="sellStat" id="sellStat" onchange="this.form.submit()">
 		            <option value="all" ${param.sellStat == 'all' ? 'selected' : ''}>전체</option>
 		            <option value="sales" ${param.sellStat == 'sales' ? 'selected' : ''}>판매중</option>
@@ -200,82 +201,43 @@
 		</div>
 		<div class="tableWrapper">
 		
-		<table id="notice_table" class="table">
+		<table id="package_table" class="table">
 		        <thead>
 		          <tr>
 		            <th><input type="checkbox" class="selectAll"></th>
-		            <th style="font-weight: bold;">상품번호</th>
+		            <th style="font-weight: bold;">품번</th>
 		            <th style="font-weight: bold;">상품명</th>
 		            <th style="font-weight: bold;">카테고리</th>
 		            <th style="font-weight: bold;">가격</th>	            
-		           	<th style="font-weight: bold;">상품상태</th>
-		          	<th style="font-weight: bold;">옵션</th>
-		          	<th style="font-weight: bold;">가격</th>
 		          	<th style="font-weight: bold;">재고</th>
 		            <th style="font-weight: bold;">판매건수</th>
 		            <th style="font-weight: bold;">리뷰건수</th>
-		          	<th style="font-weight: bold;">리뷰평균</th>
 		          	<th style="font-weight: bold;">등록일자</th>
 		          	<th style="font-weight: bold;">수정일자</th>
-		          	
-		          	
 		          </tr>
 		        </thead>
 		        <tbody>
-		          <c:forEach var="product" items="${productList}">
-		          	<c:forEach var="option" items="${product.optionList }" varStatus="status">
-		          		<tr data-productnum="${product.productNum }">
-		          			<c:if test="${status.first }">
-					          <td rowspan="${fn:length(product.optionList)}" ><input type="checkbox" class="rowCheck"></td>
-					          <td rowspan="${fn:length(product.optionList)}" class="productNum"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productNum}</a></td>
-					          <td rowspan="${fn:length(product.optionList)}"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productName}</a></td>
-					          <td rowspan="${fn:length(product.optionList)}">${product.cateName}</td>
-					          <td rowspan="${fn:length(product.optionList)}">${product.price}원</td>
-					          <td rowspan="${fn:length(product.optionList)}">		          			
-							     <c:choose>
-					              <c:when test="${product.status == true}">
-					                <span class="status on-sale">판매중</span>
-					              </c:when>
-					              <c:otherwise>
-					                <span class="status stopped">판매중단</span>
-					              </c:otherwise>
-					            </c:choose>
-					          </td>
-					        </c:if>      			
-					        <!-- 옵션 정보: 항상 출력 -->
-					        <td data-optionnum="${option.optionNum }">${option.option}</td>
-					        <td>${option.price}원</td>
-                       		<td>
-                       			<div class="uiGridCell"><button class="stockBtn">-</button> <input type='number' min='0'  class="stock" value="${option.stock}"> <button class="stockBtn">+</button> <button class="saveBtn">저장</button></div>
+		          <c:forEach var="p" items="${packageList}">
+		          		<tr data-packagenum="${p.packageNum }">
+					    	<td><input type="checkbox" class="rowCheck"></td>
+					        <td class="packageNum"><a href="${contextPath }/detailpackage?packageNum=${p.packageNum}">${p.packageNum}</a></td>
+					        <td><a href="${contextPath }/detailpackage?packageNum=${p.packageNum}">${p.packageName}</a></td>
+					        <td>${p.cateName}</td>
+					        <td><fmt:formatNumber value="${p.packagePrice}" type="number" />원</td>     
+					        
+					       <td>
+                       			<div class="uiGridCell"><button class="stockBtn">-</button> <input type='number' min='0'  class="stock" value="${p.stock}"> <button class="stockBtn">+</button> <button class="saveBtn">저장</button></div>
                        		</td>
-                   
-					        <!-- 
-					        <td>${option.stock}개</td>	
-					         -->	          			
-					        <!-- 리뷰, 판매건수 등: 첫 옵션일 때만 출력 -->
-					        <c:if test="${status.first}">
-					          <td rowspan="${fn:length(product.optionList)}">${product.salesVolume}건</td>
-					          <td rowspan="${fn:length(product.optionList)}">${product.reviewCount}건</td>
-					          <td rowspan="${fn:length(product.optionList)}">
-					            <span>${product.avgRating}</span>
-					            <c:forEach var="i" begin="1" end="5">
-					              <c:choose>
-					                <c:when test="${i <= product.avgRating}">★</c:when>
-					                <c:otherwise>☆</c:otherwise>
-					              </c:choose>
-					            </c:forEach>
-					          </td>
-					          <td rowspan="${fn:length(product.optionList)}">${product.createdAt}</td>
-					          <td rowspan="${fn:length(product.optionList)}">${product.updatedAt}</td>
-					        </c:if>		          		
+					        <td>${p.salesVolume}건</td>
+					        <td>★ ${p.avgRating}(${p.reviewCount})</td>
+					        <td>${p.createdAt}</td>
+					        <td>${p.updatedAt}</td>         		
 		          		</tr>
-	                </c:forEach>
 		         </c:forEach>
 		        </tbody>
 		      </table>
       		</div>
         <div class="actions">
-            <button class="btn delete">상태변경</button>
             <button class="btn edit">수정</button>
             <button class="btn add">상품등록</button>
         </div>
