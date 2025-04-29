@@ -10,6 +10,7 @@ import util.PageInfo;
 import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
+import vo.QuestionVO;
 
 public class UserProductServiceImpl implements UserProductService{
 	private UserProductDAO userProductDao;
@@ -118,23 +119,17 @@ public class UserProductServiceImpl implements UserProductService{
 	
 	@Override
 	public List<ProdReviewVO> ProdReview(Long prodNum, PageInfo pageInfo) throws Exception {
-		Integer prodCnt = userProductDao.countProdReview(prodNum);
-		Integer allPage = (int)Math.ceil((double) prodCnt / 3);
-
-		Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
-	    Integer endPage = startPage+10-1;
-	    if(endPage>allPage) endPage=allPage;
-
-	    pageInfo.setAllPage(allPage);
-	    pageInfo.setStartPage(startPage);
-	    pageInfo.setEndPage(endPage);
-
 	    Map<String, Object> param = new HashMap<>();
 	    param.put("productNum", prodNum);
 	    param.put("start", pageInfo.getOffset());
 	    param.put("pageSize", pageInfo.getPageSize());
 
 	    return userProductDao.selectProdReview(param);
+	}
+	
+	@Override
+	public Integer CountReview(Long prodNum) throws Exception {
+		return userProductDao.countProdReview(prodNum);
 	}
 
 	@Override
@@ -192,6 +187,23 @@ public class UserProductServiceImpl implements UserProductService{
 	public Integer PackageCount(Integer cateNum) throws Exception {
 		return userProductDao.countPackageByCategory(cateNum);
 	}
+
+	@Override
+	public List<QuestionVO> ProdQA(Long prodNum, PageInfo pageInfo) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("prodNum", prodNum);
+	    param.put("start", pageInfo.getOffset());
+        param.put("pageSize", pageInfo.getPageSize());
+		
+		return userProductDao.selectProdQA(param);
+	}
+
+	@Override
+	public Integer CountProdQA(Long prodNum) throws Exception {
+		return userProductDao.countProdQA(prodNum);
+	}
+
+	
 
 	
 

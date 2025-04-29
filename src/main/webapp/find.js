@@ -27,7 +27,7 @@ $(document).ready(function() {
 		        $("#resultBox")
 		            .removeClass('success')
 		            .addClass('fail')
-		            .html(`<span> 해당 정보로 등록된 아이디를 찾을 수 없습니다.</span>`)
+		            .html(`<span style="color: red;"> 해당 정보로 등록된 아이디를 찾을 수 없습니다.</span>`)
 		            .fadeIn();
 		    }
 		},
@@ -36,7 +36,7 @@ $(document).ready(function() {
 		}
 		});
 	});
-	
+	/* 비밀번호 찾기 */
     $("#findPwdBtn").click(function() {
         const userId = $("#idInput").val().trim();
         const email = $("#emailInput").val().trim();
@@ -55,14 +55,14 @@ $(document).ready(function() {
                 if (data.success) {
                     $("#resultBox").html(`
                         <div class="successBox">
-                            ✉️ 메일이 발송되었습니다!<br>
+                            ✉️ 비밀번호 변경 메일이 발송되었습니다!<br>
                             메일함을 확인해 주세요.
                         </div>
                     `).fadeIn();
                 } else {
                     $("#resultBox").html(`
                         <div class="failBox">
-                            <span> 해당 정보로 등록된 회원을 찾을 수 없습니다.</span>
+                            <span style="color: red;"> 해당 정보로 등록된 회원을 찾을 수 없습니다.</span>
                         </div>
                     `).fadeIn();
                 }
@@ -78,3 +78,46 @@ $(document).ready(function() {
         });
     });
 });
+
+$(document).ready(function() {
+    // URL에서 resetPwdToken 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const resetPwdToken = urlParams.get('token');
+    
+
+    if (!resetPwdToken) {
+        $('#resultBox').text('유효하지 않은 접근입니다.').css('color', 'red');
+        $('#resetPwdForm').hide();
+        return;
+    }
+
+	$('#resetPwdBtn').click(function() {
+	        const changePwd = $('#changePwd').val().trim();
+	        const checkPwd = $('#checkPwd').val().trim();
+	        const resetPwdToken = urlParams.get('token');
+			console.log("find.js/",changePwd,"/",checkPwd,"/",resetPwdToken);
+			
+	        $.ajax({
+	            url: `${contextPath}/resetPwd`,
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify({ 
+		            changePwd: changePwd, 
+		            checkPwd: checkPwd,
+		            resetPwdToken: resetPwdToken 
+		        }),
+	            success: function(response) {
+	                $('#resultBox').text(response.message).css('color', response.success ? 'green' : 'red');
+	                if (response.success) {
+	                    setTimeout(function() {
+	                        window.location.href = `${contextPath}/login`;  // 성공 시 로그인 페이지로 이동
+	                    }, 2000);
+	                }
+	            },
+	            error: function() {
+	                $('#resultBox').text('서버 오류가 발생했습니다.').css('color', 'red');
+	            }
+	        });
+	    });
+});
+
