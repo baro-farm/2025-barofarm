@@ -10,7 +10,8 @@ public class SellerVO {
     private String birthDate;
     private String email;
     private boolean isSeller;
-    private boolean deleted;
+    private boolean isDeleted;
+    private String fcmToken;
 
     // sellerDetail 테이블 정보
     private String sellerNum;
@@ -79,10 +80,16 @@ public class SellerVO {
 		this.isSeller = isSeller;
 	}
 	public boolean isDeleted() {
-		return deleted;
+		return isDeleted;
 	}
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+	public String getFcmToken() {
+		return fcmToken;
+	}
+	public void setFcmToken(String fcmToken) {
+		this.fcmToken = fcmToken;
 	}
 	public String getSellerNum() {
 		return sellerNum;

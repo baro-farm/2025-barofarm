@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="${contextPath}/header/reset.css">
     <link rel="stylesheet" href="${contextPath}/header/mainHeader.css">
     <title>Document</title>
+      <c:if test="${user != null}">
+	    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+	    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js"></script>
+	  </c:if>
  </head>
  <script>
  window.onload = function () {
@@ -52,7 +56,6 @@
 	            		<li class="userli"><a href="login" id="login" class="userBtn">로그인</a></li>
 		                <li class="userli"><a href="join" id="join" class="userBtn">회원가입</a></li>
 		                <li class="userli"><a href="shoppingCart" id="shoppingCart" class="userBtn">장바구니</a></li>
-	                	<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
 	                </c:when>
 	                <c:otherwise>
 	                	<li class="userli"><p>${user.userId}</p></li>
@@ -102,5 +105,31 @@
         </header>
         <hr>
         </div>
+<c:if test="${user != null}">
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAMTyM_wgDLIGSRbXOec448CKNRcnlggRY",
+    authDomain: "kosta-1213b.firebaseapp.com",
+    projectId: "kosta-1213b",
+    messagingSenderId: "798921087749",
+    appId: "1:798921087749:web:8e5e43ff0c566e08d1356c"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const messaging = firebase.messaging();
+
+  messaging.getToken({ vapidKey: "BE3AHxHgnALTTVtwcKYkxQOqktkJQ3aDHKlG2x-N85cdNXX_NS6ePIHjZuwqvivLYPjMMYaw4ytzg4hjUeFYZWk" })
+    .then((token) => {
+      console.log("FCM 토큰:", token);
+
+      fetch(contextPath + '/updateFcmToken', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fcmToken: token })
+      });
+    })
+    .catch(err => console.error('토큰 가져오기 실패:', err));
+</script>
+</c:if>
+        
  </body>
 </html>

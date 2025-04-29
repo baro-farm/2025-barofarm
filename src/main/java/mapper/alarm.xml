@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.alarm">
+    <select id="selectSellerListByCate" parameterType="long" resultType="sellerVO">
+        SELECT u.userNum, u.fcmToken
+        FROM sellerdetail sd
+        JOIN product p ON sd.sellerNum = p.sellerNum
+        JOIN user u ON sd.userNum = u.userNum
+        WHERE sd.isAlarm = 1
+          AND p.cateNum = #{cateNum}
+          AND p.status = 1
+          AND u.fcmToken IS NOT NULL
+        GROUP BY u.userNum
+    </select>
+    <update id="insertAlarm" parameterType="alarm">
+        INSERT INTO alarm (reNum, seNum, content1, content2, type)
+        VALUES (#{reNum}, #{seNum}, #{content1}, #{content2}, #{type})
+    </update>
+</mapper>

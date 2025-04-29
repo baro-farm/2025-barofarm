@@ -33,4 +33,6 @@ public interface UserService {
 	
 	public User findUserById(String userId) throws Exception;
 
+	//fcm
+	void updateFcmTokenIfChanged(Long userNum, String newFcmToken) throws Exception;
 }
