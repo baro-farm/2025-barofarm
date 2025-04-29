@@ -180,6 +180,10 @@
         <div class="noticeHeader">
             <span id="title">상품 관리</span>
         </div>
+               <div class="actions">
+            <button class="btn add">상품등록</button>
+        </div>
+        
 		<div class="filterWrapper">
 		    <form id="sortForm" method="get" action="${contextPath}/sellerProductList">
 		       	<select name="sellStat" id="sellStat" onchange="this.form.submit()">
@@ -203,7 +207,6 @@
 		<table id="notice_table" class="table">
 		        <thead>
 		          <tr>
-		            <th><input type="checkbox" class="selectAll"></th>
 		            <th style="font-weight: bold;">상품번호</th>
 		            <th style="font-weight: bold;">상품명</th>
 		            <th style="font-weight: bold;">카테고리</th>
@@ -217,6 +220,7 @@
 		          	<th style="font-weight: bold;">리뷰평균</th>
 		          	<th style="font-weight: bold;">등록일자</th>
 		          	<th style="font-weight: bold;">수정일자</th>
+		          	<th style="font-weight: bold;"></th>
 		          	
 		          	
 		          </tr>
@@ -226,7 +230,6 @@
 		          	<c:forEach var="option" items="${product.optionList }" varStatus="status">
 		          		<tr data-productnum="${product.productNum }">
 		          			<c:if test="${status.first }">
-					          <td rowspan="${fn:length(product.optionList)}" ><input type="checkbox" class="rowCheck"></td>
 					          <td rowspan="${fn:length(product.optionList)}" class="productNum"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productNum}</a></td>
 					          <td rowspan="${fn:length(product.optionList)}"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productName}</a></td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.cateName}</td>
@@ -257,29 +260,28 @@
 					          <td rowspan="${fn:length(product.optionList)}">${product.salesVolume}건</td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.reviewCount}건</td>
 					          <td rowspan="${fn:length(product.optionList)}">
-					            <span>${product.avgRating}</span>
+					           
 					            <c:forEach var="i" begin="1" end="5">
 					              <c:choose>
 					                <c:when test="${i <= product.avgRating}">★</c:when>
 					                <c:otherwise>☆</c:otherwise>
 					              </c:choose>
 					            </c:forEach>
+					            <br> <span>${product.avgRating}</span>
 					          </td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.createdAt}</td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.updatedAt}</td>
-					        </c:if>		          		
+					        </c:if>
+					        <c:if test="${status.first }">
+					          <td rowspan="${fn:length(product.optionList)}" ><button class="btn edit">수정</button></td>		          		
+		          			</c:if>
 		          		</tr>
 	                </c:forEach>
 		         </c:forEach>
 		        </tbody>
 		      </table>
       		</div>
-        <div class="actions">
-            <button class="btn delete">상태변경</button>
-            <button class="btn edit">수정</button>
-            <button class="btn add">상품등록</button>
-        </div>
-        
+ 
         <c:set var="startPage" value="${page - 2}" />
 		<c:set var="endPage" value="${page + 2}" />
 		

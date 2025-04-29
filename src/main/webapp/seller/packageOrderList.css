@@ -1,13 +1,12 @@
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
     .table {
-        width: 1200px;  /* ✅ 1024px에서 멈춤 */
+        width: 1500px;  
     }
 }
 
 .table {
-    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
+    min-width: 1500px;  
 }
-
 
 @font-face {
     font-family: 'SUIT-Regular';
@@ -20,155 +19,328 @@
     font-family: SUIT-Regular, sans-serif;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
+/*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
 }
 
-.header {
-    font-size: 18px;
+/* 내용 */
+
+#content {
+  width: calc(100vw - 220px);
+  max-width: 1500px;
+  margin: 40px auto;
+  padding-top: 80px;
+  gap: 20px;
+  padding-left: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+}
+.noticeHeader {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;  /* ✅ 왼쪽 정렬 */
+}
+
+#title{
+    font-size:30px;
+    color:#65B741;
     font-weight: bold;
+    align-self: flex-start;
+}
+
+.filterWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;  /* 우측 정렬 */
     margin-bottom: 10px;
-    border-bottom: 2px solid black;
-    padding-bottom: 5px;
 }
 
-/* 조회 기간 박스 스타일 */
-.searchBox {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    /* 세로 정렬 */
-    gap: 10px;
-    /* 간격 조정 */
-}
-
-.searchBox label {
-    font-size: 14px;
-}
-
-.searchBox input {
-    width: 80px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
-}
-
-.filterButtons {
-    display: flex;
-    gap: 5px;
-    /* 버튼 사이 간격 */
-    float: right;
-}
-
-.filterButtons button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
+.filterWrapper select {
+    padding: 6px 12px;
+    border: 1px solid #ccc;  /* 은은한 테두리 */
+    border-radius: 5px;       /* 살짝 둥글게 */
     background-color: white;
-    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;              /* 글씨는 살짝 어두운 톤 */
+    margin-right: 10px;
 }
 
-.filterButtons .active {
-    background-color: orange;
-    color: white;
-    border: none;
+/*검색 필터 영역*/
+
+.filterBox {
+  display: flex;
+  justify-content: space-between;  /* ✅ 3등분 */
+  align-items: center;
+  width: 1024px;
+  min-width: 1024px;
+  margin: 0 auto 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leftSection {
+  flex: 1;  /* 왼쪽 넓게 */
+}
+
+.centerSection {
+  flex: 0 0 80px;  /* 가운데 검색 버튼 고정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightSection {
+  flex: 1;  /* 오른쪽 넓게 */
+  align-items: flex-end;
+}
+
+.filterGroup label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.buttonGroup button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.buttonGroup button:hover {
+  background-color: #65B741;
+  color: white;
+  border-color: #65B741;
+}
+
+.dateGroup input[type="date"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.rightSection select, 
+.rightSection input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 180px;
 }
 
 .searchBtn {
-    background-color: green;
-    color: white;
-    padding: 5px 15px;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 8px 25px;
+  background-color: #65B741;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.resultInfo {
-    font-size: 14px;
-    margin-bottom: 10px;
+.searchBtn:hover {
+  background-color: #4e9e32;
+}
+/* 테이블 영역*/
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
 }
 
-.orderCard {
+tbody tr:hover {
+    background-color: #FBF6EE;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
     border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
 }
 
-.orderCard .orderInfo {
-    display: flex;
-    align-items: center;
+.table th:nth-child(1),.table td:nth-child(1),
+.table th:nth-child(2), .table td:nth-child(2),
+.table th:nth-child(3),.table td:nth-child(3){
+    width: 50px;    
+    padding: 0 20px;
 }
 
-.orderCard img {
-    width: 150px;
-    height: 150px;
-    margin-right: 15px;
-    background: #ccc;
+.table th:nth-child(4),.table td:nth-child(4),
+.table th:nth-child(7),.table td:nth-child(7),
+.table th:nth-child(9),.table td:nth-child(9){
+	width:60px;
+	padding: 0 20px;
+}
+.table th:nth-child(6),.table td:nth-child(6){
+	width:25px;
+	padding: 0 20px;
+	
+}
+.table th:nth-child(14),.table td:nth-child(14){
+	width:135px;
+	padding: 0 20px;
+}
+
+.table th:nth-child(15),.table td:nth-child(15){
+	width:150px;
+	padding: 0 20px;
+}
+.table th:nth-child(5),.table td:nth-child(5){
+    width: 50px;
+    padding: 0 20px;
+}
+.table th:nth-child(10),.table td:nth-child(10){
+    width: 40px;
+    padding: 0 20px;	
+}
+/* 오버플로우 방지 */
+.table td:nth-child(3) {
+    max-width: 200px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+  
+.table td:nth-child(3) a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.status-select {
+    padding: 6px;
     border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
-.orderDetails {
+.apply-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
     font-size: 14px;
 }
 
-.orderDetails .status {
+.apply-btn:hover {
+    background-color: #45a049;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background-color: white;
+    width: 50%;
+    height: auto;
+    padding: 40px;
+    border-radius: 16px;
+    position: relative;
+    overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
+    overflow-x: hidden; /* 가로 스크롤은 막기 */
+}
+.close{
+    position:absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
     font-weight: bold;
-}
-
-.orderDetails .price {
-    color: green;
-    font-weight: bold;
-}
-
-.orderActions {
-    text-align: right;
-}
-
-.orderActions button {
-    padding: 5px 10px;
-    margin-left: 5px;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 12px;
+}
+.close:hover{
+    color:#FFB534;
 }
 
-.reviewBtn {
-    border: 1px solid green;
-    color: green;
-    background: none;
+body.modal-open {
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
-.cancelBtn {
-    border: 1px solid black;
-    background: none;
+body:not(.modal-open) {
+    background-color: white; /* 원래 배경색으로 복원 */
 }
 
 .pagination {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
     margin-top: 20px;
 }
 
 .pagination a {
-    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
     text-decoration: none;
-    color: black;
-    border-radius: 8px;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
 }
 
 .pagination a.active {
-    font-weight: bold;
+    background-color: #65B741;  /* ✅ 메인 그린 */
     color: white;
-    background-color:  #65B741;
+}
+
+a{
+	color:black
+}
+a:hover{
+	color:orange;
 }

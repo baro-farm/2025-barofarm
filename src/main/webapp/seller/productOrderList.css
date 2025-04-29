@@ -1,11 +1,11 @@
-@media (max-width: 1280px) {
+@media (max-width: 1500px) {
     .table {
-        width: 1280px;  
+        width: 1500px;  
     }
 }
 
 .table {
-    min-width: 1280px;  
+    min-width: 1500px;  
 }
 
 @font-face {
@@ -37,7 +37,7 @@
 
 #content {
   width: calc(100vw - 220px);
-  max-width: 1280px;
+  max-width: 1500px;
   margin: 40px auto;
   padding-top: 80px;
   gap: 20px;
@@ -209,7 +209,15 @@ tbody tr:hover {
 	padding: 0 20px;
 	
 }
+.table th:nth-child(14),.table td:nth-child(14){
+	width:135px;
+	padding: 0 20px;
+}
 
+.table th:nth-child(15),.table td:nth-child(15){
+	width:150px;
+	padding: 0 20px;
+}
 .table th:nth-child(5),.table td:nth-child(5){
     width: 50px;
     padding: 0 20px;

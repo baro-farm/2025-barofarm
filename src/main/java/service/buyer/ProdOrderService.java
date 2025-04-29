@@ -22,4 +22,8 @@ public interface ProdOrderService {
                                   String endDate, String searchType, String searchKeyword) throws Exception;
 	Long insertProductOrder(SqlSession sqlSession, Long userNum, int totalPrice, String address) throws Exception;
 	void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum, int amount, int price) throws Exception;
+
+	void updateSellerProdTrackingNum(Long pdOrderNum, Integer trackingNum) throws Exception;
+	
+	
 }
