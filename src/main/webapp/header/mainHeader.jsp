@@ -107,27 +107,41 @@
         </div>
 <c:if test="${user != null}">
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAMTyM_wgDLIGSRbXOec448CKNRcnlggRY",
-    authDomain: "kosta-1213b.firebaseapp.com",
-    projectId: "kosta-1213b",
-    messagingSenderId: "798921087749",
-    appId: "1:798921087749:web:8e5e43ff0c566e08d1356c"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const messaging = firebase.messaging();
+const contextPath2 = "${contextPath}";
 
-  messaging.getToken({ vapidKey: "BE3AHxHgnALTTVtwcKYkxQOqktkJQ3aDHKlG2x-N85cdNXX_NS6ePIHjZuwqvivLYPjMMYaw4ytzg4hjUeFYZWk" })
-    .then((token) => {
-      console.log("FCM 토큰:", token);
+const firebaseConfig = {
+  apiKey: "AIzaSyAMTyM_wgDLIGSRbXOec448CKNRcnlggRY",
+  authDomain: "kosta-1213b.firebaseapp.com",
+  projectId: "kosta-1213b",
+  messagingSenderId: "798921087749",
+  appId: "1:798921087749:web:8e5e43ff0c566e08d1356c"
+};
 
-      fetch(contextPath + '/updateFcmToken', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fcmToken: token })
-      });
-    })
-    .catch(err => console.error('토큰 가져오기 실패:', err));
+firebase.initializeApp(firebaseConfig);
+
+const messaging = firebase.messaging();
+
+navigator.serviceWorker.register(contextPath2 + '/firebase-messaging-sw.js')
+  .then((registration) => {
+    console.log('✅ Service Worker 등록 성공:', registration.scope);
+
+    return messaging.getToken({
+      vapidKey: "BE3AHxHgnALTTVtwcKYkxQOqktkJQ3aDHKlG2x-N85cdNXX_NS6ePIHjZuwqvivLYPjMMYaw4ytzg4hjUeFYZWk",
+      serviceWorkerRegistration: registration
+    });
+  })
+  .then((token) => {
+    console.log("✅ FCM 토큰:", token);
+
+    return fetch(contextPath2 + '/updateFcmToken', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fcmToken: token })
+    });
+  })
+  .catch((err) => {
+    console.error("❌ FCM 토큰 가져오기 실패:", err);
+  });
 </script>
 </c:if>
         

@@ -129,18 +129,19 @@ document.getElementById("kockFarmForm").addEventListener("submit", async functio
             const buyerUserNum = "${user.userNum}";
             
             //글 등록 성공했으면 FCM 알림 요청
-            await fetch('sendKockFarmAlarm', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    cateNum: cateNum,
-                    cateName: cateName,
-                    buyerUserNum: buyerUserNum
-                })
-            });
-            if (!alarmResponse.ok) {
-                throw new Error("알림 발송 실패");
-            }
+			const alarmResponse = await fetch('sendKockFarmAlarm', {
+			    method: 'POST',
+			    headers: { 'Content-Type': 'application/json' },
+			    body: JSON.stringify({
+			        cateNum: cateNum,
+			        cateName: cateName,
+			        buyerUserNum: buyerUserNum
+			    })
+			});
+			if (!alarmResponse.ok) {
+			    throw new Error("알림 발송 실패");
+			}
+
             //알림까지 성공하면 목록으로 이동
             alert("콕팜 글 작성 및 알림 발송 완료!");
             location.href = "kockFarmList";
