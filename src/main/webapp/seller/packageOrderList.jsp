@@ -338,53 +338,28 @@
 		<div class="pagination">		    
 		    <!-- << 현재 페이지 - 5 -->
 		    <c:if test="${currentPage > 1}">
-		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}
-		        &dateType=${param.dateType}
-		        &startDate=${param.startDate}
-		        &endDate=${param.endDate}
-		        &searchType=${param.searchType}
-		        &searchKeyword=${param.searchKeyword}">&laquo;</a>
+		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&laquo;</a>
 		    </c:if>
 		    
 		    <!-- < 이전 페이지 -->
 		    <c:if test="${currentPage > 1}">
-		        <a href="?page=${currentPage - 1}
-		        &dateType=${param.dateType}
-		        &startDate=${param.startDate}
-		        &endDate=${param.endDate}
-		        &searchType=${param.searchType}
-		        &searchKeyword=${param.searchKeyword}">&lsaquo;</a>
+		        <a href="?page=${currentPage - 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&lsaquo;</a>
 		    </c:if>
 		    
 		    <!-- 페이지 번호 -->
 		    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
-			    <a href="?page=${i}
-			    &dateType=${empty param.dateType ? '' : param.dateType}
-			    &startDate=${empty param.startDate ? '' : param.startDate}
-			    &endDate=${empty param.endDate ? '' : param.endDate}
-			    &searchType=${empty param.searchType ? '' : param.searchType}
-			    &searchKeyword=${empty param.searchKeyword ? '' : param.searchKeyword}"
-			   class="${currentPage == i ? 'active' : ''}">${i}</a>
+		        <a href="?page=${i}&dateType=${empty param.dateType ? '' : param.dateType}&startDate=${empty param.startDate ? '' : param.startDate}&endDate=${empty param.endDate ? '' : param.endDate}&searchType=${empty param.searchType ? '' : param.searchType}&searchKeyword=${empty param.searchKeyword ? '' : param.searchKeyword}"
+		        class="${currentPage == i ? 'active' : ''}">${i}</a>
 		    </c:forEach>
 		    
 		    <!-- > 다음 페이지 -->
 		    <c:if test="${currentPage < totalPages}">
-		        <a href="?page=${currentPage + 1}
-		        &dateType=${param.dateType}
-		        &startDate=${param.startDate}
-		        &endDate=${param.endDate}
-		        &searchType=${param.searchType}
-		        &searchKeyword=${param.searchKeyword}">&rsaquo;</a>
+		        <a href="?page=${currentPage + 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&rsaquo;</a>
 		    </c:if>
 		    
 		    <!-- >> 현재 페이지 + 5 -->
 		    <c:if test="${currentPage < totalPages}">
-		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}
-		        &dateType=${param.dateType}
-		        &startDate=${param.startDate}
-		        &endDate=${param.endDate}
-		        &searchType=${param.searchType}
-		        &searchKeyword=${param.searchKeyword}">&raquo;</a>
+		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&raquo;</a>
 		    </c:if>
 		</div>
     </div>
