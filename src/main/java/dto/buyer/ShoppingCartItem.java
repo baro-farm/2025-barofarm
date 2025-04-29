@@ -2,6 +2,7 @@ package dto.buyer;
 
 public class ShoppingCartItem {
 	private Long cartNum;
+	private Long sellerNum;
 	private Long productNum;
 	private String productName;
 	private String imgUrl;
@@ -21,6 +22,14 @@ public class ShoppingCartItem {
 
 	public void setCartNum(Long cartNum) {
 		this.cartNum = cartNum;
+	}
+	
+	public Long getSellerNum() {
+		return sellerNum;
+	}
+
+	public void setSellerNum(Long sellerNum) {
+		this.sellerNum = sellerNum;
 	}
 
 	public Long getProductNum() {

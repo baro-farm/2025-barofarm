@@ -9,6 +9,7 @@ public class CartProductGroup {
 	private String imgUrl;
 	private int basePrice;
 	private List<ShoppingCartItem> options; // 같은 상품의 여러 옵션들
+	private Long sellerNum;
 	
 	public String getStoreName() {
 		return storeName;
@@ -56,6 +57,14 @@ public class CartProductGroup {
 
 	public void setOptions(List<ShoppingCartItem> options) {
 		this.options = options;
+	}
+
+	public Long getSellerNum() {
+		return sellerNum;
+	}
+
+	public void setSellerNum(Long sellerNum) {
+		this.sellerNum = sellerNum;
 	}
 
 	public CartProductGroup() {

@@ -8,6 +8,7 @@
 		resultType="shoppingCartItem">
 		SELECT
 		sc.cartNum,
+		sc.sellerNum,
 		p.productNum,
 		p.productName,
 		p.imgUrl,

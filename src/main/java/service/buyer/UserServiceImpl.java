@@ -1,7 +1,9 @@
 package service.buyer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.buyer.UserDAO;
 import dao.buyer.UserDAOImpl;
@@ -42,6 +44,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectAddress(addrNum);
 	}
 
+	@Override
+	public Address selectDefaultAddress(Long userNum) throws Exception {
+		return userDao.selectDefaultAddress(userNum);
+	}
+	
 	@Override
 	public void updateUserAddress(Address address) throws Exception {
 		 userDao.updateAddress(address);

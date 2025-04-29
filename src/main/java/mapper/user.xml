@@ -53,6 +53,9 @@
 	<select id="selectAddress" parameterType="Long" resultType="address">
 		select addrNum,nickname,name,phone,postCode,addr1,addr2,isDefault from address where addrNum=#{addrNum} 
 	</select>
+	<select id="selectDefaultAddress" parameterType="map" resultType="address">
+		select addrNum,nickname,name,phone,postCode,addr1,addr2,isDefault from address where userNum=#{userNum} and isDefault=1
+	</select>
 	<update id="updateAddressByAddrNum" parameterType="address">
 		update address
 		set nickname=#{nickname}, name=#{name},postCode = #{postCode}, addr1=#{addr1}, addr2=#{addr2},phone=#{phone}

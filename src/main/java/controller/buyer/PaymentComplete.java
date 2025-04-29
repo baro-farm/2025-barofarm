@@ -69,7 +69,11 @@ public class PaymentComplete extends HttpServlet {
 	    Gson gson = new Gson();
 	    Long[] cartNums = gson.fromJson(jsonRequest.get("cartNums"), Long[].class);
 	    List<Long> cartNumList = Arrays.asList(cartNums);
-	  
+	    
+	    String rName = jsonRequest.get("rName").getAsString();
+	    String rPhone = jsonRequest.get("rPhone").getAsString();
+	    String rAddress = jsonRequest.get("rAddress").getAsString();
+	    
 	    System.out.println(impUid);
 	    System.out.println(amount);
 	    System.out.println("jsonRequest: " + jsonRequest);
@@ -126,9 +130,8 @@ public class PaymentComplete extends HttpServlet {
 	            HttpSession session = request.getSession();
 	    	    User user = (User) session.getAttribute("user");
 	            Long userNum = user.getUserNum();
-	            String address = "임시 주소";
 	            
-	            ProductOrder productOrder = new ProductOrder(userNum, totalPrice, address, "배송준비", "결제완료");
+	            ProductOrder productOrder = new ProductOrder(userNum, totalPrice, rAddress, "배송준비", "결제완료", rName, rPhone);
 	            prodOrderService.insertProductOrder(sqlSession, productOrder);
 	            Long orderNum = productOrder.getPdOrderNum();
 //	            Long orderNum = prodOrderService.insertProductOrder(sqlSession, userNum, totalPrice, address);
@@ -136,6 +139,7 @@ public class PaymentComplete extends HttpServlet {
 
 	            // 3. 주문 상세 insert (productorderitem)
 	            for (ShoppingCartItem item : cartItems) {
+	            	// 여기도 객체로 어떻게 하긴 해야할듯
 	            	prodOrderService.insertProductOrderItem(sqlSession, orderNum, item.getProductNum(), item.getOptionNum(), item.getQuantity(), item.getTotalPrice());
 	            }
 
@@ -156,12 +160,15 @@ public class PaymentComplete extends HttpServlet {
 	            // 6. 결제 생성
 //	            Map<String, String> paymentResult = paymentService.verifyPayment(impUid, amount);
 	            
-	     
-	            paymentService.insertPayment(sqlSession, orderNum, amount, transactionId, "KCP-카드", impUid, merchantUid);
+	     //객체로.. 안됨?
+	            paymentService.insertPayment(sqlSession, orderNum, null, amount, transactionId, "KCP-카드", impUid, merchantUid);
 	            
 	            // 응답
 	            JsonObject jsonResponse = new JsonObject();
 	            jsonResponse.addProperty("success", true);
+	            jsonResponse.addProperty("transactionId", transactionId);
+	            System.out.println("transactionId = " + transactionId);  // 찍어봐
+
 	            response.getWriter().write(jsonResponse.toString());
 	        } else {
 	            JsonObject jsonResponse = new JsonObject();

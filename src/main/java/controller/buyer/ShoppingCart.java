@@ -75,6 +75,7 @@ public class ShoppingCart extends HttpServlet {
                 if (existingProduct == null) {
                     existingProduct = new CartProductGroup();
                     existingProduct.setProductNum(productNum);
+                    existingProduct.setSellerNum(item.getSellerNum());
                     existingProduct.setProductName(item.getProductName());
                     existingProduct.setImgUrl(item.getImgUrl());
                     existingProduct.setBasePrice(item.getPrice());
