@@ -102,6 +102,7 @@
 	      </div>
 	    </form>
   	</div>
+	<jsp:include page="/header/footer.jsp" />
 </div>
 <script>
 	//브라우저에서 오늘 날짜를 ISO 포맷(YYYY-MM-DD)으로 구하기
