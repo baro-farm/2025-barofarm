@@ -2,9 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ page import="java.time.LocalDate" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<%
+	LocalDate today = LocalDate.now();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -28,11 +30,24 @@
             const closeBtn = $(".close");
             const modalContent = $("#modal .modalContent");
             console.log("page load");
-           
-            //테이블 체크 박스 눌렀을때 전체 체크박스 선택
-            $("thead input[type='checkbox']").on("click", function () {
-                let isChecked = $(this).prop("checked");
-                $("tbody input[type='checkbox']").prop("checked", isChecked);
+            
+            
+            
+            function toggleSearchInput() {
+                const selected = $("#searchType").val();
+                if (selected === "all") {
+                    $("#searchKeyword").prop("disabled", true).val("");  // 전체 선택 시 비활성화 + 값 비움
+                } else {
+                    $("#searchKeyword").prop("disabled", false);
+                }
+            }
+
+            // 페이지 로드 시 초기 체크
+            toggleSearchInput();
+
+            // 셀렉트 박스 값 변경 시
+            $("#searchType").on("change", function() {
+                toggleSearchInput();
             });
             
             // 주문번호 클릭 시 AJAX로 상세 페이지 불러오기
@@ -73,6 +88,67 @@
                     $("body").removeClass("modal-open");
                 }
             });
+            
+         // 배송상태 적용 버튼 클릭 시
+            $(document).on("click", ".apply-btn", function () {
+                const $row = $(this).closest("tr");
+                const pdOrderNum = $row.find(".orderNum").data("pdordernum");
+                console.log(pdOrderNum);
+                const deleveryStatus = $row.find(".status-select").val();
+
+                $.ajax({
+                    url: "${contextPath}/updateProdTrackNum",
+                    method: "POST",
+                    dataType: "json",
+                    data:{
+                        pdOrderNum: pdOrderNum,
+                        deleveryStatus: deleveryStatus
+                    },
+                    success: function (response) {
+                        if (response.success === true) {
+                            alert("배송상태가 변경되었습니다!");
+                            location.reload();  // 새로고침으로 반영
+                        } else {
+                            alert("변경 실패!");
+                        }
+                    },
+                    error: function () {
+                        alert("서버 오류 발생!");
+                    }
+                });
+            });
+         
+            // 송장번호 적용 버튼 클릭 시
+            $(document).on("click", ".trackingBtn", function () {
+                const $row = $(this).closest("tr");
+                const pdOrderNum = $row.find(".orderNum").data("pdordernum");
+                console.log(pdOrderNum);
+                const trackingNum = $row.find(".trackingInput").val();
+
+                $.ajax({
+                    url: "${contextPath}/UpdateProductTrackNum",
+                    method: "POST",
+                    dataType: "json",
+                    data:{
+                        pdOrderNum: pdOrderNum,
+                        trackingNum: trackingNum
+                    },
+                    success: function (response) {
+                        if (response.success === true) {
+                            alert("송장번호가 저장 되었습니다");
+                            location.reload();  // 새로고침으로 반영
+                        } else {
+                            alert("변경 실패");
+                        }
+                    },
+                    error: function () {
+                        alert("서버 오류 발생");
+                    }
+                });
+            });
+            
+         
+            
         });
     </script>
 </head>
@@ -108,8 +184,8 @@
         <button type="button" onclick="setDateRange('3months')">3개월</button>
       </div>
       <div class="dateGroup">
-        <input type="date" name="startDate" value="${param.startDate}"> ~ 
-        <input type="date" name="endDate" value="${param.endDate}">
+        <input type="date" name="startDate" value="${empty param.startDate ? today : param.startDate}"> ~ 
+        <input type="date" name="endDate" value="${empty param.endDate ? today : param.endDate}">
       </div>
     </div>
     
@@ -130,7 +206,7 @@
           <option value="trackingNum" ${param.searchType == 'trackingNum' ? 'selected' : ''}>송장번호</option>
         </select>
       </div>
-      <input type="text" name="searchKeyword" placeholder="검색어 입력" value="${param.searchKeyword}">
+      <input type="text" name="searchKeyword" id="searchKeyword" placeholder="검색어 입력" value="${param.searchKeyword}"   ${param.searchType == 'all' || empty param.searchType ? 'disabled' : ''}>
     </div>
     
   </form>
@@ -175,7 +251,7 @@
 		            <th style="font-weight: bold;">전화번호</th>
 		            <th style="font-weight: bold;">주문상태</th>
 		            <th style="font-weight: bold;">배송상태</th>
-		          	<th style="font-weight: bold;">적용</th>
+		            <th style="font-weight: bold;">송장번호</th>
 
 		          	
 		          </tr>
@@ -184,7 +260,7 @@
 					<c:forEach var="order" items ="${prodOrderList }">
 					
 					    <tr>
-				        <td><div class="uiGridCell orderNum"><a href="#">${order.pdOrderNum}</a></div></td>
+				        <td><div class="uiGridCell orderNum" data-pdordernum="${order.pdOrderNum}"><a href="#">${order.pdOrderNum}</a></div></td>
 				        <td><div class="uiGridCell"><a href="#">${order.orderItem}</a></div></td>
 				        <td><div class="uiGridCell">${order.productNum}</div></td>
 				        <td><div class="uiGridCell">${order.option}</div></td>
@@ -208,16 +284,38 @@
 							  <td><div class="uiGridCell id">${order.phone}</div></td>
 							</c:if> 
 				        <td><div class="uiGridCell">${order.orderStatus}</div></td>
+				        
+				        
 				        <td>
 				            <div class="uiGridCell">
-				                <select class="status-select">
-				                    <option ${order.deleveryStatus == '준비중' ? 'selected' : ''}>준비중</option>
-				                    <option ${order.deleveryStatus == '배송중' ? 'selected' : ''}>배송중</option>
-				                    <option ${order.deleveryStatus == '배송완료' ? 'selected' : ''}>배송완료</option>
-				                </select>
+							 <c:choose>
+							            <c:when test="${order.deleveryStatus == '구매확정'}">
+							                <span>구매확정</span> 
+							            </c:when>
+							            <c:otherwise>
+							                <select class="status-select">
+							                    <option ${order.deleveryStatus == '준비중' ? 'selected' : ''}>준비중</option>
+							                    <option ${order.deleveryStatus == '배송중' ? 'selected' : ''}>배송중</option>
+							                    <option ${order.deleveryStatus == '배송완료' ? 'selected' : ''}>배송완료</option>
+							                </select>
+							                <button class="apply-btn">적용</button>
+							            </c:otherwise>
+							        </c:choose>
+				                
 				            </div>
 				        </td>
-				        <td><div class="uiGridCell"><button class="apply-btn">적용</button></div></td>
+				        <td class="uiGridCell trackingNumCell">
+						  <c:choose>
+						    <c:when test="${order.deleveryStatus == '배송중' && empty order.trackingNum}">
+						      <input type="text" class="trackingInput" maxlength="16" inputmode="numeric" placeholder="송장번호 입력" style="width:130px;">
+						      <button class="trackingBtn">적용</button>
+						      
+						    </c:when>
+						    <c:otherwise>
+						      <span class="trackingNum">${order.trackingNum}</span>
+						    </c:otherwise>
+						  </c:choose>
+						</td>
 				    </tr>
 				</c:forEach>
 
@@ -245,61 +343,35 @@
 		<div class="pagination">		    
 		    <!-- << 현재 페이지 - 5 -->
 		    <c:if test="${currentPage > 1}">
-		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}
-		        &dateType=${param.dateType}
-		        &startDate=${param.startDate}
-		        &endDate=${param.endDate}
-		        &searchType=${param.searchType}
-		        &searchKeyword=${param.searchKeyword}">&laquo;</a>
+		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&laquo;</a>
 		    </c:if>
 		    
 		    <!-- < 이전 페이지 -->
 		    <c:if test="${currentPage > 1}">
-		        <a href="?page=${currentPage - 1}
-		        &dateType=${param.dateType}
-		        &startDate=${param.startDate}
-		        &endDate=${param.endDate}
-		        &searchType=${param.searchType}
-		        &searchKeyword=${param.searchKeyword}">&lsaquo;</a>
+		        <a href="?page=${currentPage - 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&lsaquo;</a>
 		    </c:if>
 		    
 		    <!-- 페이지 번호 -->
 		    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
-			    <a href="?page=${i}
-			    &dateType=${empty param.dateType ? '' : param.dateType}
-			    &startDate=${empty param.startDate ? '' : param.startDate}
-			    &endDate=${empty param.endDate ? '' : param.endDate}
-			    &searchType=${empty param.searchType ? '' : param.searchType}
-			    &searchKeyword=${empty param.searchKeyword ? '' : param.searchKeyword}"
-			   class="${currentPage == i ? 'active' : ''}">${i}</a>
+		        <a href="?page=${i}&dateType=${empty param.dateType ? '' : param.dateType}&startDate=${empty param.startDate ? '' : param.startDate}&endDate=${empty param.endDate ? '' : param.endDate}&searchType=${empty param.searchType ? '' : param.searchType}&searchKeyword=${empty param.searchKeyword ? '' : param.searchKeyword}"
+		        class="${currentPage == i ? 'active' : ''}">${i}</a>
 		    </c:forEach>
 		    
 		    <!-- > 다음 페이지 -->
 		    <c:if test="${currentPage < totalPages}">
-		        <a href="?page=${currentPage + 1}
-		        &dateType=${param.dateType}
-		        &startDate=${param.startDate}
-		        &endDate=${param.endDate}
-		        &searchType=${param.searchType}
-		        &searchKeyword=${param.searchKeyword}">&rsaquo;</a>
+		        <a href="?page=${currentPage + 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&rsaquo;</a>
 		    </c:if>
 		    
 		    <!-- >> 현재 페이지 + 5 -->
 		    <c:if test="${currentPage < totalPages}">
-		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}
-		        &dateType=${param.dateType}
-		        &startDate=${param.startDate}
-		        &endDate=${param.endDate}
-		        &searchType=${param.searchType}
-		        &searchKeyword=${param.searchKeyword}">&raquo;</a>
+		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&raquo;</a>
 		    </c:if>
 		</div>
     </div>
     
     
 
-   
-</a>
+ 
 
     <div id="modal" class="modal">
         <div id="modalContent" class="modalContent">

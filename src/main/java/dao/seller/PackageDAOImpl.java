@@ -1,9 +1,13 @@
 package dao.seller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import dto.seller.PackageProduct;
 import util.MybatisSqlSessionFactory;
+import vo.PackageVO;
 
 public class PackageDAOImpl implements PackageDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -24,4 +28,16 @@ public class PackageDAOImpl implements PackageDAO {
 		sqlSession.update("mapper.packageProduct.updatePackageProduct", packageProduct);
 		sqlSession.commit();
 	}
+
+	@Override
+	public List<PackageVO> selectPackageList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.packageProduct.selectPackageList",param);
+	}
+	
+	@Override
+	public Integer countPackageList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.packageProduct.countPackageList",param);
+	}
+
+	
 }

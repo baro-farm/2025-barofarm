@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -11,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>판매자|꾸러미 주문 관리</title>
 
-    <link rel="stylesheet" href="${contextPath }/seller/productOrderList.css" />
+    <link rel="stylesheet" href="${contextPath }/seller/packageOrderList.css" />
 
     <link href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css" rel="stylesheet"
         integrity="sha384-jFvlDSY24z+oXMByOoX2Z1gM+M5NMd0uG7sDa4skv2mHXPuS0/RYXwPGLK0+Mgdc" crossorigin="anonymous" />
@@ -20,12 +21,19 @@
         integrity="sha384-FcKnveOKVsyQDhaxWTmHPNxY0wtv3QwEmOUwRZ5g+QqTQvSKKmnkT0NiFcDCCIvg"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-     <script>
+    <script>
         $(document).ready(function () {
             const modal = $("#modal");
             const closeBtn = $(".close");
             const modalContent = $("#modal .modalContent");
-
+            console.log("page load");
+           
+            //테이블 체크 박스 눌렀을때 전체 체크박스 선택
+            $("thead input[type='checkbox']").on("click", function () {
+                let isChecked = $(this).prop("checked");
+                $("tbody input[type='checkbox']").prop("checked", isChecked);
+            });
+            
             // 주문번호 클릭 시 AJAX로 상세 페이지 불러오기
             $(document).on("click", ".orderNum", function (event) {
                 event.preventDefault(); // a 태그의 기본 이벤트 방지
@@ -64,6 +72,67 @@
                     $("body").removeClass("modal-open");
                 }
             });
+            
+         // 배송상태 적용 버튼 클릭 시
+            $(document).on("click", ".apply-btn", function () {
+                const $row = $(this).closest("tr");
+                const pkOrderNum = $row.find(".orderNum").data("pkordernum");
+                console.log(pkOrderNum);
+                const deleveryStatus = $row.find(".status-select").val();
+
+                $.ajax({
+                    url: "${contextPath}/updatePkDeliveryStatus",
+                    method: "POST",
+                    dataType: "json",
+                    data:{
+                    	pkOrderNum: pkOrderNum,
+                        deleveryStatus: deleveryStatus
+                    },
+                    success: function (response) {
+                        if (response.success === true) {
+                            alert("배송상태가 변경되었습니다!");
+                            location.reload();  // 새로고침으로 반영
+                        } else {
+                            alert("변경 실패!");
+                        }
+                    },
+                    error: function () {
+                        alert("서버 오류 발생!");
+                    }
+                });
+            });
+         
+            // 송장번호 적용 버튼 클릭 시
+            $(document).on("click", ".trackingBtn", function () {
+                const $row = $(this).closest("tr");
+                const pkOrderNum = $row.find(".orderNum").data("pkordernum");
+                console.log(pkOrderNum);
+                const trackingNum = $row.find(".trackingInput").val();
+
+                $.ajax({
+                    url: "${contextPath}/updatePackTrackNum",
+                    method: "POST",
+                    dataType: "json",
+                    data:{
+                    	pkOrderNum: pkOrderNum,
+                        trackingNum: trackingNum
+                    },
+                    success: function (response) {
+                        if (response.success === true) {
+                            alert("송장번호가 저장 되었습니다");
+                            location.reload();  // 새로고침으로 반영
+                        } else {
+                            alert("변경 실패");
+                        }
+                    },
+                    error: function () {
+                        alert("서버 오류 발생");
+                    }
+                });
+            });
+            
+         
+            
         });
     </script>
 </head>
@@ -81,48 +150,63 @@
         </div>
         
 <div class="filterBox">
-  <form method="get" action="${contextPath}/sellerProductOrderList" style="display: flex; width: 100%; justify-content: space-between;">
-    
-    <!-- 왼쪽: 조회기간 -->
-    <div class="filterSection leftSection">
-      <div class="filterGroup">
-        <label>조회기간</label>
-        <select name="dateType">
-          <option value="paymentDate" ${param.dateType == 'paymentDate' ? 'selected' : ''}>결제일</option>
-          <option value="shippingDate" ${param.dateType == 'shippingDate' ? 'selected' : ''}>발송처리일</option>
-        </select>
-      </div>
-      <div class="buttonGroup">
-        <button type="button" onclick="setDateRange('today')">오늘</button>
-        <button type="button" onclick="setDateRange('1week')">1주일</button>
-        <button type="button" onclick="setDateRange('1month')">1개월</button>
-        <button type="button" onclick="setDateRange('3months')">3개월</button>
-      </div>
-      <div class="dateGroup">
-        <input type="date" name="startDate" value="${param.startDate}"> ~ 
-        <input type="date" name="endDate" value="${param.endDate}">
-      </div>
-    </div>
-    
-    <!-- 가운데: 검색 버튼 -->
-    <div class="filterSection centerSection">
-      <button type="submit" class="searchBtn">검색</button>
-    </div>
-    
-    <!-- 오른쪽: 상세조건 -->
-    <div class="filterSection rightSection">
-      <div class="filterGroup">
-        <label>상세조건</label>
-        <select name="searchType" id="searchType">
-          <option value="all" ${param.searchType == 'all' ? 'selected' : ''}>전체</option>
-          <option value="userName" ${param.searchType == 'userName' ? 'selected' : ''}>구매자명</option>
-          <option value="pdOrderNum" ${param.searchType == 'pdOrderNum' ? 'selected' : ''}>주문번호</option>
-          <option value="productNum" ${param.searchType == 'productNum' ? 'selected' : ''}>상품번호</option>
-          <option value="trackingNum" ${param.searchType == 'trackingNum' ? 'selected' : ''}>송장번호</option>
-        </select>
-      </div>
-      <input type="text" name="searchKeyword" placeholder="검색어 입력" value="${param.searchKeyword}">
-    </div>
+  <form method="get" action="${contextPath}/sellerPackOrderList" style="display: flex; width: 100%; justify-content: space-between;">
+	 <!-- 왼쪽: 조회기간 -->
+	  <div class="filterSection leftSection">
+	    <div class="filterGroup">
+	      <label>조회기간</label>
+	      <select name="dateType">
+	        <option value="paymentDate" ${param.dateType == 'paymentDate' ? 'selected' : ''}>결제일</option>
+	        <option value="shippingDate" ${param.dateType == 'shippingDate' ? 'selected' : ''}>발송처리일</option>
+	      </select>
+	    </div>
+	    <div class="buttonGroup">
+	      <button type="button" onclick="setDateRange('today')">오늘</button>
+	      <button type="button" onclick="setDateRange('1week')">1주일</button>
+	      <button type="button" onclick="setDateRange('1month')">1개월</button>
+	      <button type="button" onclick="setDateRange('3months')">3개월</button>
+	    </div>
+	    <div class="dateGroup">
+	      <input type="date" name="startDate" value="${param.startDate}"> ~ 
+	      <input type="date" name="endDate" value="${param.endDate}">
+	    </div>
+	  </div>
+	
+	  <!-- 가운데: 배송요일 -->
+	  <div class="filterSection centerSection">
+	    <div class="filterGroup">
+	      <label>배송요일</label>
+	      <select name="deliveryDay" id="deliveryDay">
+	        <option value="" ${empty param.deliveryDay ? 'selected' : ''}>전체</option>
+	        <option value="MONDAY" ${param.deliveryDay == 'MONDAY' ? 'selected' : ''}>월요일</option>
+	        <option value="TUESDAY" ${param.deliveryDay == 'TUESDAY' ? 'selected' : ''}>화요일</option>
+	        <option value="WEDNESDAY" ${param.deliveryDay == 'WEDNESDAY' ? 'selected' : ''}>수요일</option>
+	        <option value="THURSDAY" ${param.deliveryDay == 'THURSDAY' ? 'selected' : ''}>목요일</option>
+	        <option value="FRIDAY" ${param.deliveryDay == 'FRIDAY' ? 'selected' : ''}>금요일</option>
+	        <option value="SATURDAY" ${param.deliveryDay == 'SATURDAY' ? 'selected' : ''}>토요일</option>
+	        <option value="SUNDAY" ${param.deliveryDay == 'SUNDAY' ? 'selected' : ''}>일요일</option>
+	      </select>
+	    </div>
+	    <!-- 검색 버튼 -->
+	    <div class="filterGroup">
+	      <button type="submit" class="searchBtn">검색</button>
+	    </div>
+	  </div>
+	
+	  <!-- 오른쪽: 상세조건 -->
+	  <div class="filterSection rightSection">
+	    <div class="filterGroup">
+	      <label>상세조건</label>
+	      <select name="searchType" id="searchType">
+	        <option value="all" ${param.searchType == 'all' ? 'selected' : ''}>전체</option>
+	        <option value="userName" ${param.searchType == 'userName' ? 'selected' : ''}>구매자명</option>
+	        <option value="pkOrderNum" ${param.searchType == 'pkOrderNum' ? 'selected' : ''}>주문번호</option>
+	        <option value="packageNum" ${param.searchType == 'packageNum' ? 'selected' : ''}>상품번호</option>
+	        <option value="trackingNum" ${param.searchType == 'trackingNum' ? 'selected' : ''}>송장번호</option>
+	      </select>
+	    </div>
+	    <input type="text" name="searchKeyword" placeholder="검색어 입력" value="${param.searchKeyword}">
+	  </div>
     
   </form>
 </div>
@@ -152,76 +236,83 @@
 	        <table id="notie_table" class="table">
 	            <thead>
 	            	<tr>
-		            <th><input type="checkbox" class="selectAll"></th>
 		            <th style="font-weight: bold;">주문번호</th>
 		            <th style="font-weight: bold;">제품번호</th>
-		            <th style="font-weight: bold;">총가격</th>
-		            <th style="font-weight: bold;">결제일</th>
+		            <th style="font-weight: bold;">제품명</th>
+		            <th style="font-weight: bold;">가격</th>
+		            <th style="font-weight: bold;">결제일</th>		            
 		            <th style="font-weight: bold;">구매자ID</th>
-		            <th style="font-weight: bold;">배송지이름</th>
+		            <th style="font-weight: bold;">수령인</th>
 		            <th style="font-weight: bold;">주소</th>
 		            <th style="font-weight: bold;">전화번호</th>
 		            <th style="font-weight: bold;">발송요일</th>
 		            <th style="font-weight: bold;">구독시작일</th>
-		          	<th style="font-weight: bold;">회차정보</th>
-		          	<th style="font-weight: bold;">주문상태</th>
-		          	<th style="font-weight: bold;">배송상태</th>
-		          	<th style="font-weight: bold;">적용</th>          	
+		            <th style="font-weight: bold;">회차정보</th>
+		            <th style="font-weight: bold;">배송상태</th>
+		            <th style="font-weight: bold;">송장번호</th>	          	
 		          </tr>
 	            </thead>
 	            <tbody>
-					               <tr>
-                    <td>
-                        <div class="uiGridCell orderNum"><a href="#">2025030415668</a></div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell productNum"><a href="#">2025030415668</a></div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">10,000원</div>
-                    </td>
+					<c:forEach var="order" items ="${packOrderList }">
+					
+					    <tr>
+				        <td><div class="uiGridCell orderNum" data-pkordernum="${order.pkOrderNum}"><a href="#">${order.pkOrderNum}</a></div></td>
+				        <td><div class="uiGridCell packageNum" data-packagenum="${order.packageNum }">${order.packageNum}</div></td>
+				        <td><div class="uiGridCell packageNum">${order.packageName}</div></td>
+				        
+				        <td><div class="uiGridCell">${order.pkTotalPrice}원</div></td>
 
-                    <td>
-                        <div class="uiGridCell id" name="id">hong***</div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">홍길동</div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">서울특별시 강남구</div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">010-1234-5678</div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">월</div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">월 <span style="font-weight: bold;">1</span></div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">2024.12.10</div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">2 회</div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">구매확정</div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell">
-                            <select class="status-select">
-                                <option>준비중</option>
-                                <option>배송중</option>
-                                <option>배송완료</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="uiGridCell"><button class="apply-btn">적용</button></div>
-                    </td>
-                </tr>
+				        <td><div class="uiGridCell">${order.orderedAt}</div></td>
+				        <td><div class="uiGridCell id">${order.userId}</div></td>
 
+				        <td><div class="uiGridCell id">${order.rname}</div></td>
+				        <td><div class="uiGridCell">${order.addr}</div></td>
+				        <c:set var="rPhone" value="${order.rphone}" />
+							<c:if test="${not empty rphone and fn:length(rphone) == 11}">
+							  <td><div class="uiGridCell id">
+							    ${fn:substring(rphone, 0, 3)}-${fn:substring(rphone, 3, 7)}-${fn:substring(rphone, 7, 11)}
+							  </div></td>
+							</c:if>
+							<c:if test="${empty rphone or fn:length(rphone) != 11}">
+							  <td><div class="uiGridCell id">${order.rphone}</div></td>
+							</c:if>
+				        <td><div class="uiGridCell">${order.deleveryDate}</div></td>
+				        <td><div class="uiGridCell">${order.subStartDate}</div></td>
+				        <td><div class="uiGridCell">${order.subRound}</div></td>
+							 
+
+				        <td>
+				            <div class="uiGridCell">
+							 <c:choose>
+							            <c:when test="${order.deleveryStatus == '구매확정'}">
+							                <span>구매확정</span> 
+							            </c:when>
+							            <c:otherwise>
+							                <select class="status-select">
+							                    <option ${order.deleveryStatus == '준비중' ? 'selected' : ''}>준비중</option>
+							                    <option ${order.deleveryStatus == '배송중' ? 'selected' : ''}>배송중</option>
+							                    <option ${order.deleveryStatus == '배송완료' ? 'selected' : ''}>배송완료</option>
+							                </select>
+							                <button class="apply-btn">적용</button>
+							            </c:otherwise>
+							        </c:choose>
+				                
+				            </div>
+				        </td>
+				        <td class="uiGridCell trackingNumCell">
+						  <c:choose>
+						    <c:when test="${order.deleveryStatus == '배송중' && empty order.trackingNum}">
+						      <input type="text" class="trackingInput" maxlength="16" inputmode="numeric" placeholder="송장번호 입력" style="width:130px;">
+						      <button class="trackingBtn">적용</button>
+						      
+						    </c:when>
+						    <c:otherwise>
+						      <span class="trackingNum">${order.trackingNum}</span>
+						    </c:otherwise>
+						  </c:choose>
+						</td>
+				    </tr>
+				</c:forEach>
 
 	            </tbody>
 	
@@ -246,32 +337,33 @@
 		
 		<div class="pagination">		    
 		    <!-- << 현재 페이지 - 5 -->
-			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&laquo;</a>
-			</c:if>
-			
-			<!-- < 이전 페이지 -->
-			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - 1}&sellStat=${param.sellStat}&sort=${param.sort}">&lsaquo;</a>
-			</c:if>
-			
-			<!-- 페이지 번호 -->
-			<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
-				<a href="?page=${i}&sellStat=${param.sellStat}&sort=${param.sort}" class="${currentPage == i ? 'active' : ''}">${i}</a>
-			</c:forEach>
-			
-			<!-- > 다음 페이지 -->
-			<c:if test="${currentPage < totalPages}">
-			    <a href="?page=${currentPage + 1}&sellStat=${param.sellStat}&sort=${param.sort}">&rsaquo;</a>
-
-			</c:if>
-			
-			<!-- >> 현재 페이지 + 5 -->
-			<c:if test="${currentPage < totalPages}">
-			    <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&raquo;</a>
-			</c:if>
+		    <c:if test="${currentPage > 1}">
+		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&laquo;</a>
+		    </c:if>
+		    
+		    <!-- < 이전 페이지 -->
+		    <c:if test="${currentPage > 1}">
+		        <a href="?page=${currentPage - 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&lsaquo;</a>
+		    </c:if>
+		    
+		    <!-- 페이지 번호 -->
+		    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+		        <a href="?page=${i}&dateType=${empty param.dateType ? '' : param.dateType}&startDate=${empty param.startDate ? '' : param.startDate}&endDate=${empty param.endDate ? '' : param.endDate}&searchType=${empty param.searchType ? '' : param.searchType}&searchKeyword=${empty param.searchKeyword ? '' : param.searchKeyword}"
+		        class="${currentPage == i ? 'active' : ''}">${i}</a>
+		    </c:forEach>
+		    
+		    <!-- > 다음 페이지 -->
+		    <c:if test="${currentPage < totalPages}">
+		        <a href="?page=${currentPage + 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&rsaquo;</a>
+		    </c:if>
+		    
+		    <!-- >> 현재 페이지 + 5 -->
+		    <c:if test="${currentPage < totalPages}">
+		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&raquo;</a>
+		    </c:if>
 		</div>
     </div>
+
 
     <div id="modal" class="modal">
         <div id="modalContent" class="modalContent">

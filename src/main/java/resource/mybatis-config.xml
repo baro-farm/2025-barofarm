@@ -59,7 +59,7 @@
 			</dataSource>
 		</environment>
 	</environments>
-
+    
 	<mappers>
 		<mapper resource="mapper/address.xml" />
 		<mapper resource="mapper/user.xml" />

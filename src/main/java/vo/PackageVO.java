@@ -23,6 +23,8 @@ public class PackageVO {
 	// 리뷰 정보
     private Double avgRating;
     private Integer reviewCount;
+    
+    private String cateName;
 	
 	public PackageVO() {
 		super();
@@ -175,6 +177,14 @@ public class PackageVO {
 
 	public void setReviewCount(Integer reviewCount) {
 		this.reviewCount = reviewCount;
+	}
+
+	public String getCateName() {
+		return cateName;
+	}
+
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
 	}
 	
 	

@@ -31,6 +31,13 @@
 						    <option value="title" ${param.searchType == 'title' ? 'selected' : ''}>제목</option>
 						    <option value="content" ${param.searchType == 'content' ? 'selected' : ''}>내용</option>
 						  </select>
+						  
+							<!-- 매칭 상태 필터 추가 -->
+							<select name="status">
+							    <option value="all" ${param.status == 'all' ? 'selected' : ''}>전체</option>
+							    <option value="true" ${param.status == 'true' ? 'selected' : ''}>완료</option>
+							    <option value="false" ${param.status == 'false' ? 'selected' : ''}>대기</option>
+							</select>
 						  <input type="hidden" name="tab" value="${activeTab}" />
 						  <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
 						  <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
@@ -44,6 +51,7 @@
 			            <thead>
 			                <tr>
 			                    <th style="font-weight: bold;">순번</th>
+			                    <th style="font-weight: bold;">매칭</th>
 			                    <th style="font-weight: bold;">제목</th>
 			                    <th style="font-weight: bold;">작성자</th>
 			                    <th style="font-weight: bold;">작성일자</th>
@@ -53,12 +61,19 @@
 			            	<c:forEach var="kock" items="${kocks }" varStatus="status">
 				                <tr id="kock-tr">
 				                    <td>${status.count }</td>
-				                    <c:if test="${empty user }">
-				                    <td><a href="${contextPath }/login">${kock.title }</a></td>
-				                    </c:if>
-				                    <c:if test="${!empty user }">
-				                    <td><a href="${contextPath }/detailKockFarm?kockNum=${kock.kockNum }">${kock.title }</a></td>
-				                    </c:if>
+					                    <c:if test="${ kock.matched eq true }">
+					                    <td><span class="statusB">완료</span></td>
+					                    </c:if>
+					                    <c:if test="${ kock.matched eq false }">
+					                    <td><span class="statusA">대기</span></td>
+					                    </c:if>
+					                    
+					                    <c:if test="${empty user  }">
+					                    <td><a href="${contextPath }/login">${kock.title }</a></td>
+					                    </c:if>
+					                    <c:if test="${!empty user}">
+					                    <td><a href="${contextPath }/detailKockFarm?kockNum=${kock.kockNum }">${kock.title }</a></td>
+					                    </c:if>
 				                    <td>${kock.userName }</td>
 				                    <fmt:parseDate value="${kock.createdAt}" pattern="yyyy-MM-dd" var="createdDate"/>
 				                    <td><fmt:formatDate value="${createdDate }" pattern="yyyy-MM-dd"/></td>
@@ -67,18 +82,24 @@
 			            </tbody>
 			        </table>
 			        <div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
-					  <c:if test="${pi.startPage > 1}">
-					    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
-					  </c:if>
-					
-					  <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
-					    <a href="?page=${p}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}"
-					       class="${p == pi.currentPage ? 'active' : ''}">${p}</a>
-					  </c:forEach>
-					
-					  <c:if test="${pi.endPage < pi.maxPage}">
-					    <a href="?page=${pi.endPage + 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&raquo;</a>
-					  </c:if>
+				    	  <c:if test="${pi.currentPage > 1}">
+						    <a href="?page=1&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&laquo;</a>
+						  </c:if>
+						  <c:if test="${pi.startPage > 1}">
+						    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&lt;</a>
+						  </c:if>
+						
+						  <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
+						    <a href="?page=${p}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}"
+						       class="${p == pi.currentPage ? 'active' : ''}">${p}</a>
+						  </c:forEach>
+						
+						  <c:if test="${pi.endPage < pi.maxPage}">
+						    <a href="?page=${pi.endPage + 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&gt;</a>
+						  </c:if>
+						  <c:if test="${pi.currentPage < pi.maxPage}">
+						    <a href="?page=${pi.maxPage}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&raquo;</a>
+						  </c:if>
 					</div>
 					<c:if test="${isSeller eq false }">
 			        <div class="buttons">
@@ -87,6 +108,7 @@
 			        </c:if>
 			    </div>
 	    	</div>
+   		<jsp:include page="/header/footer.jsp" />
 	</div>
 </body>
 

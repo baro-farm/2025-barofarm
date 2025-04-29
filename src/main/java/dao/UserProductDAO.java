@@ -7,6 +7,7 @@ import dto.seller.ProductOption;
 import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
+import vo.QuestionVO;
 
 public interface UserProductDAO {
 	List<ProductVO> selectProductByCategory(Map<String, Object> param) throws Exception;
@@ -33,4 +34,7 @@ public interface UserProductDAO {
 	PackageVO selectDetailPackage(Long packageNum) throws Exception;
 	List<PackageVO> selectPackageByCategory(Map<String, Object> param) throws Exception;
 	Integer countPackageByCategory(Integer packNum) throws Exception;
+	
+	List<QuestionVO> selectProdQA(Map<String, Object> param) throws Exception;
+	Integer countProdQA(Long prodNum) throws Exception;
 }

@@ -27,6 +27,9 @@ public interface UserService {
 	User findId(String email, String phone) throws Exception;
 	User findPwd(String email, String userId) throws Exception;
 	void updateResetPwdToken(Long userNum, String resetPwdToken) throws Exception;
+	void resetPwd(String pwd, Long userNum) throws Exception;
+	User existingPwd(String resetPwdToken) throws Exception;
+	boolean isSamePassword(Long userNum, String pwd) throws Exception;
 	
 	public User findUserById(String userId) throws Exception;
 

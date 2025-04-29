@@ -3,19 +3,15 @@
         width: 1200px;  /* ✅ 1024px에서 멈춤 */
     }
 }
-
 .table {
     min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
 }
-
-
 @font-face {
     font-family: 'SUIT-Regular';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
-
 * {
     font-family: SUIT-Regular, sans-serif;
 }
@@ -35,7 +31,6 @@
 }
 
 /* 내용 */
-
 #content {
   width: calc(100vw - 220px);
   max-width: 1280px;
@@ -95,35 +90,26 @@ tbody tr.hovered td {
 }
 
 .table th, .table td {
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
     padding: 5px;
     font-size: 14px;
     text-align: center;
 }
 
-.table th:nth-child(1),.table td:nth-child(1){
-    width: 10px;
-    padding: 0 20px;
-}
-
+.table th:nth-child(1),.table td:nth-child(1),
 .table th:nth-child(2) .table td:nth-child(2){
-    width: 70px;
-}
-
-.table th:nth-child(3),.table td:nth-child(3){
-   width: 75px;
-}
-
-.table th:nth-child(4),.table td:nth-child(4)
-{
-	width: 160px;
-	
+    width: 10px;
 }
 .table th:nth-child(5),.table td:nth-child(5) {
     width: 80px;
 }
-.table th:nth-child(6),.table td:nth-child(6),.table th:nth-child(9),.table td:nth-child(9) {
-    width: 90px;
+.table th:nth-child(6),.table td:nth-child(6) {
+    width: 150px;
+}
+.table th:nth-child(7),.table td:nth-child(7),
+.table th:nth-child(8),.table td:nth-child(8),
+.table th:nth-child(9),.table td:nth-child(9){
+	width:100px;
 }
 
 /* 오버플로우 방지 */
@@ -140,7 +126,6 @@ tbody tr.hovered td {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
 
 .status {
     padding: 5px 10px;

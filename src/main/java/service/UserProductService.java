@@ -7,6 +7,7 @@ import util.PageInfo;
 import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
+import vo.QuestionVO;
 
 public interface UserProductService {
 	List<ProductVO> ProductByCategory(PageInfo pageInfo,Integer cateNum, String sort) throws Exception;
@@ -20,6 +21,9 @@ public interface UserProductService {
 	ProductVO DetailProduct(Long productNum) throws Exception;
 	List<ProductOption> ProdOption(Long productNum) throws Exception;
 	List<ProdReviewVO> ProdReview(Long prodNum, PageInfo pageInfo) throws Exception;
+	Integer CountReview(Long prodNum) throws Exception;
+	List<QuestionVO> ProdQA(Long prodNum, PageInfo pageInfo) throws Exception;
+	Integer CountProdQA(Long prodNum) throws Exception;
 	
 	List<ProductVO> ProductBySellerNum(PageInfo pageInfo,Long sellerNum, String sort) throws Exception;
 	Integer PackageCount(Integer cateNum) throws Exception;

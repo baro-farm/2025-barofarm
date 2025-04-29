@@ -24,4 +24,22 @@
 		from prodanswer
 		where qaNum = #{qaNum}
 	</select>
+	<select id="selectProdQA" parameterType="Long" resultType="questionVo">
+		SELECT q.qaNum, q.userNum, q.productNum, q.title, q.content, q.createdAt,
+			pa.paNum, pa.content AS Acontent, pa.createdAt AS AcreatedAt,
+			u.userId
+		FROM prodquestion q
+		left join prodanswer pa ON q.qaNum = pa.qaNum
+		JOIN user u ON q.userNum = u.userNum
+		where q.productNum = #{prodNum}
+		order by q.createdAt DESC
+		LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countProdQA" parameterType="Long" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM prodquestion
+	    WHERE productNum = #{prodNum}
+	</select>
+	
+	
 </mapper>

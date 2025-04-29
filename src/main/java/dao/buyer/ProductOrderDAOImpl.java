@@ -42,6 +42,13 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mapper.prodOrder.sellectCountSellerProdOrderList",param);
 	}
+	
+	public void updateProdTrackingNum(Map<String, Object> param) throws Exception{
+		sqlSession.update("mapper.prodOrder.updatePdTrackingNum",param);
+		sqlSession.commit();
+		
+	}
+	
 
 	@Override
 	public void insertProductOrder(SqlSession sqlSession, ProductOrder productOrder) throws Exception {

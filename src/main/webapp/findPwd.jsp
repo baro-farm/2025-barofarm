@@ -16,21 +16,21 @@
 <div class="container">
 		<jsp:include page="/header/mainHeader.jsp" />
 		<div class="content">
-			<div class="findContainer">
-		        <h2 class="findTitle">비밀번호 찾기</h2>
-		        <div class="findForm">
-		            <input type="email" id="emailInput" class="inputField" placeholder="이메일">
-		            <input type="text" id="idInput" class="inputField" placeholder="아이디">
-		            <div id="resultBox" class="resultBox hidden"></div>
-		            <button type="button" id="findPwdBtn" class="findBtn">비밀번호 찾기</button>
-		        </div>
-		        <hr>
-		        <!-- 하단 메뉴 -->
-		        <div class="bottomMenu">
-		            <a href="${contextPath}login">로그인</a>
-		            <a href="${contextPath}findId">아이디 찾기</a>
-		        </div>
-	        </div>
+		<div class="findContainer">
+			<h2 class="findTitle">비밀번호 찾기</h2>
+		    <div class="findForm">
+		    	<input type="email" id="emailInput" class="inputField" placeholder="이메일">
+		        <input type="text" id="idInput" class="inputField" placeholder="아이디">
+		        <div id="resultBox" class="resultBox hidden"></div>
+		        <button type="button" id="findPwdBtn" class="findBtn">비밀번호 찾기</button>
+		    </div>
+		    <hr>
+		    <!-- 하단 메뉴 -->
+		    <div class="bottomMenu">
+		    	<a href="${contextPath}/login">로그인</a>
+		        <a href="${contextPath}/findId">아이디 찾기</a>
+		    </div>
+	    </div>
 	    </div>
     	<jsp:include page="/header/footer.jsp" />
 	</div>

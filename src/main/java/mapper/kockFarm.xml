@@ -47,8 +47,17 @@
 		<if test="startDateTo != null and startDateTo != ''">
 		  AND Date(k.createdAt) &lt;= #{startDateTo}
 		</if>
-	    <!-- 👤 특정 유저 광고만 조회할 경우 -->
-
+		<!-- 👤 매칭 상태 필터링 -->
+        <if test="status != null and status != 'all'">
+            <choose>
+                <when test="status == 'true'">
+                    AND k.isMatched = 1  <!-- 완료된 매칭 -->
+                </when>
+                <when test="status == 'false'">
+                    AND k.isMatched = 0  <!-- 대기 중인 매칭 -->
+                </when>
+            </choose>
+        </if>
 	  </where>
 	  ORDER BY k.createdAt DESC
 	  LIMIT #{recordSize} OFFSET #{offset}
@@ -78,6 +87,17 @@
 	    <if test="startDateTo != null and startDateTo != ''">
 	  	  AND Date(k.createdAt) &lt;= #{startDateTo}
 	    </if>
+	    <!-- 👤 매칭 상태 필터링 -->
+        <if test="status != null and status != 'all'">
+            <choose>
+                <when test="status == 'true'">
+                    AND k.isMatched = 1  <!-- 완료된 매칭 -->
+                </when>
+                <when test="status == 'false'">
+                    AND k.isMatched = 0  <!-- 대기 중인 매칭 -->
+                </when>
+            </choose>
+        </if>
 	  </where>
 	</select>
 	<!-- 콕팜 댓글 -->
