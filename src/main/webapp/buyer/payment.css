@@ -170,6 +170,7 @@
 .cart-item-info {
 	flex: 1;
 	display: flex;
+	align-items: center;
 	width: 100%;
 	justify-content: space-between;
 	padding: 0 20px;
@@ -221,6 +222,10 @@
 	padding: 20px;
 	border-top: 2px solid #65B741;
 	text-align: right;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 60px;
 }
 
 .all-total {
