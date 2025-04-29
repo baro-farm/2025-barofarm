@@ -14,4 +14,8 @@ public interface ShoppingCartService {
 	void deleteCartOption(Long cartNum) throws Exception;
 	List <ShoppingCartItem> selectCartByCartNums(List<Long> cartNums) throws Exception;
 	void deleteCartItems(SqlSession sqlSession, List<Long> cartNums) throws Exception;
+	Long getCartNum(Long userNum, Long optionNum) throws Exception;
+	void addToCart(Long sellerNum, Long userNum, Long productNum, Long optionNum, Integer quantity) throws Exception;
+	Boolean isProductInCart(Long userNum, Long optionNum) throws Exception;
+	void updateCartQuantityIncrease(Long userNum, Long cartNum, Integer quantity) throws Exception;
 }

@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import dto.User;
+import dto.buyer.ProductOrder;
 import dto.buyer.ShoppingCartItem;
 import service.buyer.PaymentService;
 import service.buyer.PaymentServiceImpl;
@@ -85,6 +86,10 @@ public class PaymentComplete extends HttpServlet {
 	    System.out.println("apiKey: " + apiKey);
 	    System.out.println("apiSecret: " + apiSecret);
 
+	    System.out.println("apiKey: '" + apiKey + "'");
+	    System.out.println("apiSecret: '" + apiSecret + "'");
+	    System.out.println("apiKey length: " + apiKey.length());
+	    System.out.println("apiSecret length: " + apiSecret.length());
 	    
 	    PaymentService paymentService = new PaymentServiceImpl(apiKey, apiSecret);
 //		PaymentService paymentService = new PaymentServiceImpl();
@@ -98,12 +103,12 @@ public class PaymentComplete extends HttpServlet {
 	    	boolean isVerified = Boolean.parseBoolean(paymentResult.get("isVerified"));
 	    	
 
-	    	String transactionId = "test_pg_tid";
-	    	String merchantUid = "test_merchant_uid";
+//	    	String transactionId = "test_pg_tid";
+//	    	String merchantUid = "test_merchant_uid";
 	    	// 1. 포트원 서버에 결제 검증 요청
-	        if (true) {
-//		        String transactionId = (String) paymentResult.get("pg_tid");
-//		        String merchantUid = (String) paymentResult.get("merchant_uid");
+	        if (isVerified) {
+		        String transactionId = (String) paymentResult.get("pg_tid");
+		        String merchantUid = (String) paymentResult.get("merchant_uid");
 	        	    
 	            // ✅ 주문 처리 바로 여기!
 	            ShoppingCartService cartService = new ShoppingCartServiceImpl();
@@ -122,7 +127,11 @@ public class PaymentComplete extends HttpServlet {
 	    	    User user = (User) session.getAttribute("user");
 	            Long userNum = user.getUserNum();
 	            String address = "임시 주소";
-	            Long orderNum = prodOrderService.insertProductOrder(sqlSession, userNum, totalPrice, address);
+	            
+	            ProductOrder productOrder = new ProductOrder(userNum, totalPrice, address, "배송준비", "결제완료");
+	            prodOrderService.insertProductOrder(sqlSession, productOrder);
+	            Long orderNum = productOrder.getPdOrderNum();
+//	            Long orderNum = prodOrderService.insertProductOrder(sqlSession, userNum, totalPrice, address);
 //	            Long orderNum = paymentService.insertProductOrder(userNum, impUid, totalPrice); // 주문번호 생성
 
 	            // 3. 주문 상세 insert (productorderitem)

@@ -108,19 +108,40 @@
 			<form id="optionChangeForm" method="POST"
 				action="${contextPath}/updateCartOptions">
 				<input type="hidden" name="productNum" id="modalProductNum" />
-
-				<!-- 옵션 리스트 (기존 옵션들 수정/삭제) -->
-				<div id="optionListArea"></div>
+				<table id="optionTable" class="option-table">
+				  <thead>
+				    <tr>
+				      <th>옵션명</th>
+				      <th>수량</th>
+				      <th>삭제</th>
+				    </tr>
+				  </thead>
+				  <tbody id="optionListArea">
+				    <!-- 여기에 JS로 row 추가 -->
+				  </tbody>
+				</table>
 
 				<!-- 옵션 추가 -->
-				<div style="margin-top: 20px;">
-					<label>옵션 추가 </label>
-					<select id="addOptionSelect"></select>
-					<label>수량</label>
-					<input type="number" class="number-input" id="addOptionQuantity" min="1" value="1" />
-					<button type="button" id="addOptionBtn">추가</button>
+				<div style="margin-top: 20px;" id="optionAdd">
+					<label style="font-size: 16px;">옵션 추가</label>
+					<table class="option-add-table">
+					  <thead>
+					    <tr>
+					      <th>옵션명</th>
+					      <th>수량</th>
+					      <th>추가</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td><select id="addOptionSelect"></select></td>
+					      <td><input type="number" class="number-input" id="addOptionQuantity" min="1" value="1" /></td>
+					      <td><button type="button" id="addOptionBtn">추가</button></td>
+					    </tr>
+					  </tbody>
+					</table>
 				</div>
-				<div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+				<div style="width: 100%;display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
 					<div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
 						<input type="hidden" name="productNum" id="modalProductNum" />
 						<input type="hidden" id="hiddenCartNums" name="cartNums" value="">
@@ -129,10 +150,9 @@
 							name="newOptionNums" value=""> 
 						<input type="hidden" id="hiddenNewQuantities" name="newQuantities" value="">
 						<input type="hidden" id="hiddenDeleteCartNums" name="deleteCartNums" value="">
-						<button type="submit">저장</button>
-						<button type="button" class="close" onclick="closeModal()">닫기</button>
+						<button type="button" class="close modalBtn" onclick="closeModal()">닫기</button>
+						<button type="submit" class="modalBtn">저장</button>
 					</div>
-
 				</div>
 			</form>
 		</div>

@@ -44,7 +44,7 @@
 			                    <select id="optionSelect" class="selectBox">
 			                    	<option value="">옵션 선택</option>
 			                        <c:forEach var="o" items="${option}">
-			                        	<option value="${o.option}|${o.price}">${o.option} - <fmt:formatNumber value="${o.price}" type="number" />원</option>
+			                        	<option value="${o.option}|${o.price}" data-optionnum="${o.optionNum }">${o.option} - <fmt:formatNumber value="${o.price}" type="number" />원</option>
 			                        </c:forEach>
 			                    </select>
 			                    <div id="selectedOptions"></div>
@@ -55,7 +55,7 @@
 			                
 			                <!-- 버튼 영역 -->
 			                <div class="actionButtons">
-			                    <a href="" id="basket">장바구니</a>
+			                    <a href="" id="basket" data-productnum="${product.productNum}">장바구니</a>
 			                    <a href="#" id="purchase">구매하기</a>
 			                </div>
 			            </div>
@@ -106,6 +106,7 @@
 			                <li class="tab focus"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
+			        
 			        <div class="infoContent">
 			            <div>
 			                <p>📌 결제안내</p>
@@ -127,7 +128,6 @@
     	</div>
     	<jsp:include page="/header/footer.jsp" />
     </div>
-
 	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 	<script>
 	const viewer = toastui.Editor.factory({
@@ -135,6 +135,7 @@
 		  viewer: true,
 		  initialValue: `${product.content}`
 		});
+	console.log('${product.productNum}')
 	</script>
 </body>
 </html>

@@ -90,15 +90,8 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 	}
 	
 
-	public Long insertProductOrder(SqlSession sqlSession, Long userNum, int totalPrice, String address) throws Exception {
-		Map<String, Object> param = new HashMap<>();
-	    param.put("userNum", userNum);
-	    param.put("pdTotalPrice", totalPrice);
-	    param.put("address", address);
-	    param.put("deleveryStatus", "배송준비");  // 기본값
-	    param.put("orderStatus", "결제완료");    // 기본값
-
-	    return prodOrderDao.insertProductOrder(sqlSession, param);
+	public void insertProductOrder(SqlSession sqlSession, ProductOrder productOrder) throws Exception {
+		prodOrderDao.insertProductOrder(sqlSession, productOrder);
 	}
 	
 	@Override
