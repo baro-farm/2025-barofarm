@@ -56,7 +56,7 @@
 			                <!-- 버튼 영역 -->
 			                <div class="actionButtons">
 			                    <a href="" id="basket" data-productnum="${product.productNum}">장바구니</a>
-			                    <a href="#" id="purchase">구매하기</a>
+			                    <a href="" id="purchase" data-productnum="${product.productNum}">구매하기</a>
 			                </div>
 			            </div>
 			        </div>

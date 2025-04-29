@@ -88,4 +88,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		param.put("quantity", quantity);
 		shoppingCartDao.updateCartQuantityIncrease(param);
 	}
+	
+	@Override
+	public ShoppingCartItem selectTempItem(Long optionNum, int quantity) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+        param.put("optionNum", optionNum);
+        param.put("quantity", quantity);
+        return shoppingCartDao.selectTempItem(param);
+	}
 }
