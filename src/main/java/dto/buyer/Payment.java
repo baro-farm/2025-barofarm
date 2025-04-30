@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class Payment {
 	Long payNum;
 	Long pdOrderNum;
+	Long pkOrderNum;
 	Integer price;
 	Integer transactionId; // pg 거래번호
 	String pay; // 결제수단
@@ -15,6 +16,19 @@ public class Payment {
 	public Payment() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Payment(Long pdOrderNum, Long pkOrderNum, Integer price, Integer transactionId, String pay,
+			LocalDateTime paidAt, String impUid, String merchantUid) {
+		super();
+		this.pdOrderNum = pdOrderNum;
+		this.pkOrderNum = pkOrderNum;
+		this.price = price;
+		this.transactionId = transactionId;
+		this.pay = pay;
+		this.paidAt = paidAt;
+		this.impUid = impUid;
+		this.merchantUid = merchantUid;
 	}
 
 	public Long getPayNum() {
@@ -31,6 +45,14 @@ public class Payment {
 
 	public void setPdOrderNum(Long pdOrderNum) {
 		this.pdOrderNum = pdOrderNum;
+	}
+
+	public Long getPkOrderNum() {
+		return pkOrderNum;
+	}
+
+	public void setPkOrderNum(Long pkOrderNum) {
+		this.pkOrderNum = pkOrderNum;
 	}
 
 	public Integer getPrice() {
@@ -80,5 +102,5 @@ public class Payment {
 	public void setMerchantUid(String merchantUid) {
 		this.merchantUid = merchantUid;
 	}
-
+	
 }

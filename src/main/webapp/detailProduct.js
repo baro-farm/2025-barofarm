@@ -169,33 +169,19 @@ document.addEventListener('DOMContentLoaded', function() {
 				})
 			});
 
-			// 리디렉션이 발생한 경우
+			// 리디렉션되었는지 확인
 			if (res.redirected) {
 				window.location.href = res.url;
 				return;
 			}
 
-			// JSON 응답인지 확인
-			const contentType = res.headers.get("content-type");
-			if (contentType && contentType.includes("application/json")) {
-				const result = await res.json();
-				console.log("✅ 응답 결과:", result);
-
-				if (result.success) {
-				  window.location.href = '/barofarm/buyNow';
-				}
-				if (!result.success) {
-					alert(result.message || '바로구매 요청 처리 실패');
-				}
-			} else {
-				const text = await res.text();
-				console.warn("❗ 서버에서 JSON이 아닌 응답:", text);
-				alert("서버 오류가 발생했거나 로그인 정보가 유실되었습니다.");
-			}
+			// fallback
+			window.location.href = '/barofarm/buyNow';
 		} catch (err) {
 			console.error("💥 네트워크 오류 또는 JSON 파싱 실패:", err);
 			alert("요청 처리 중 오류가 발생했습니다.");
 		}
+
 	});
 });
 

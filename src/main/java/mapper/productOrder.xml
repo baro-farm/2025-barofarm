@@ -156,7 +156,7 @@
 	    INSERT INTO productorder (userNum, pdTotalPrice, address, deleveryStatus, orderStatus, rName, rPhone)
 	    VALUES (#{userNum}, #{pdTotalPrice}, #{address}, #{deleveryStatus}, #{orderStatus}, #{rName}, #{rPhone})
 	</insert>
-	<insert id="insertProductOrderItem" parameterType="map">
+	<insert id="insertProductOrderItem" parameterType="prodOrderItem">
         INSERT INTO productorderitem (pdOrderNum, productNum, optionNum, amount, price)
         VALUES (#{pdOrderNum}, #{productNum}, #{optionNum}, #{amount}, #{price})
     </insert>

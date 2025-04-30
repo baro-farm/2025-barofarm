@@ -2,9 +2,11 @@ package controller.buyer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,10 +46,47 @@ public class BuyNow extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/barofarm/login");
+			return;
+		}
+		
+		Long userNum = user.getUserNum();
+		Properties props = new Properties();
+		InputStream input = getServletContext().getResourceAsStream("/WEB-INF/config/config.properties");
+		
+		if (input == null) {
+		    System.out.println("❌ properties 파일 경로 잘못됨!");
+		} else {
+		    props.load(input);
+		    System.out.println("✅ properties 파일 로드 성공!");
+		}
+		
+		String impKey = props.getProperty("imp.key");
+		request.setAttribute("impKey", impKey);
+
+		String cartNumsStr = request.getParameter("cartNums");
+		System.out.println(cartNumsStr);
+//		
+//		try {
+//			// 주소 정보도 동일하게 조회
+//			UserService userService = new UserServiceImpl();
+//			Long userNum = user.getUserNum();
+//			Address defaultAddress = userService.selectDefaultAddress(userNum);
+//			List<Address> addressList = userService.selectUserAddressList(user.getUserId());
+//			
+//			request.setAttribute("defaultAddress", defaultAddress);
+//			request.setAttribute("addressList", addressList);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+
+		
+		request.getRequestDispatcher("/buyer/buyNow.jsp").forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -59,7 +98,9 @@ public class BuyNow extends HttpServlet {
 			return;
 		}
 
-
+		request.setAttribute("userName", user.getUserName());
+		request.setAttribute("userPhone", user.getPhone());
+		
 		try {			
 			BufferedReader reader = request.getReader();
 			
@@ -70,16 +111,7 @@ public class BuyNow extends HttpServlet {
 	
 			List<ShoppingCartItem> tempOptions = new ArrayList<>();
 			ShoppingCartService cartService = new ShoppingCartServiceImpl();
-	
-//			for (JsonElement e : optionArray) {
-//				JsonObject obj = e.getAsJsonObject();
-//				Long optionNum = obj.get("optionNum").getAsLong();
-//				int quantity = obj.get("quantity").getAsInt();
-//				System.out.println("💡 호출: optionNum=" + optionNum + ", quantity=" + quantity);
-//	
-//				ShoppingCartItem item = cartService.selectTempItem(productNum, optionNum, quantity);
-//				tempOptions.add(item);
-//			}
+
 			for (JsonElement e : optionArray) {
 				JsonObject obj = e.getAsJsonObject();
 				Long optionNum = obj.get("optionNum").getAsLong();
@@ -88,52 +120,51 @@ public class BuyNow extends HttpServlet {
 
 				ShoppingCartItem item = cartService.selectTempItem(optionNum, quantity);
 				
-				if (item == null) {
-					System.out.println("❌ item이 null! productNum=" + productNum + ", optionNum=" + optionNum);
-					continue; // 또는 return;
-				}
-
-				tempOptions.add(item);
+				if (item != null) tempOptions.add(item);
 			}
 		
+			System.out.println("✔️ productName: " + tempOptions.get(0).getProductName());
+			System.out.println("✔️ imgUrl: " + tempOptions.get(0).getImgUrl());
+			System.out.println("✔️ price: " + tempOptions.get(0).getBasePrice());
+			System.out.println("✔️ storeName: " + tempOptions.get(0).getStoreName());
+
+			if (tempOptions.isEmpty()) {
+			    System.out.println("❌ tempOptions is empty - NPE 위험!");
+			    response.sendRedirect("/barofarm/error.jsp");
+			    return;
+			}
+			
+			
 			// 그룹 만들기
 			CartProductGroup group = new CartProductGroup();
 			group.setProductNum(productNum);
 			group.setProductName(tempOptions.get(0).getProductName());
 			group.setImgUrl(tempOptions.get(0).getImgUrl());
-			group.setBasePrice(tempOptions.get(0).getPrice());
+			group.setBasePrice(tempOptions.get(0).getBasePrice());
 			group.setStoreName(tempOptions.get(0).getStoreName());
 			group.setOptions(tempOptions);
 	
 			Map<String, List<CartProductGroup>> paymentCartMap = Map.of(
 				group.getStoreName(), List.of(group)
 			);
-	
-			request.setAttribute("paymentCartMap", paymentCartMap);
-	
-			System.out.println("tempOptions 사이즈: " + tempOptions.size());
-			System.out.println("첫 번째 item: " + tempOptions.get(0));
-			System.out.println("상품명: " + tempOptions.get(0).getProductName());
 
+			request.getSession().setAttribute("paymentCartMap", paymentCartMap);
+			request.getSession().setAttribute("isBuyNow", true);
 			
 			// 주소 정보도 동일하게 조회
 			UserService userService = new UserServiceImpl();
 			Long userNum = user.getUserNum();
 			Address defaultAddress = userService.selectDefaultAddress(userNum);
 			List<Address> addressList = userService.selectUserAddressList(user.getUserId());
-	
-			request.setAttribute("defaultAddress", defaultAddress);
-			request.setAttribute("addressList", addressList);
-	
-			request.setAttribute("isBuyNow", true);  // JSP에서 플래그 확인
-//			request.getRequestDispatcher("/buyer/buyNow.jsp").forward(request, response);
 			
-			JsonObject result = new JsonObject();
-			result.addProperty("success", true);
-			result.addProperty("redirectUrl", request.getContextPath() + "/buyer/buyNow.jsp");
+			request.getSession().setAttribute("defaultAddress", defaultAddress);
+			request.getSession().setAttribute("addressList", addressList);
+	
+			response.sendRedirect(request.getContextPath() + "/buyNow");
+			
+			System.out.println("✅ defaultAddress = " + defaultAddress);
+			System.out.println("✅ addressList = " + addressList);
 
-			response.setContentType("application/json");
-			response.getWriter().write(result.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("/barofarm/error.jsp");

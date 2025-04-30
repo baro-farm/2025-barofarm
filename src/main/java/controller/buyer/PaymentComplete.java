@@ -24,6 +24,7 @@ import com.google.gson.JsonParser;
 
 import dto.User;
 import dto.buyer.ProductOrder;
+import dto.buyer.ProductOrderItem;
 import dto.buyer.ShoppingCartItem;
 import service.buyer.PaymentService;
 import service.buyer.PaymentServiceImpl;
@@ -139,7 +140,7 @@ public class PaymentComplete extends HttpServlet {
 
 	            // 3. 주문 상세 insert (productorderitem)
 	            for (ShoppingCartItem item : cartItems) {
-	            	// 여기도 객체로 어떻게 하긴 해야할듯
+//	            	ProductOrderItem poItem = new ProductOrderItem(orderNum, item.getProductNum(), item.getOptionNum(), item.getQuantity(), item.getTotalPrice());
 	            	prodOrderService.insertProductOrderItem(sqlSession, orderNum, item.getProductNum(), item.getOptionNum(), item.getQuantity(), item.getTotalPrice());
 	            }
 
@@ -161,6 +162,7 @@ public class PaymentComplete extends HttpServlet {
 //	            Map<String, String> paymentResult = paymentService.verifyPayment(impUid, amount);
 	            
 	     //객체로.. 안됨?
+//	            Payment payment = new Payment(orderNum, null, amount, transactionId, "KCP-카드", impUid, merchantUid);
 	            paymentService.insertPayment(sqlSession, orderNum, null, amount, transactionId, "KCP-카드", impUid, merchantUid);
 	            
 	            // 응답

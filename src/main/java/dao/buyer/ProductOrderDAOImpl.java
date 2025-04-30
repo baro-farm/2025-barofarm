@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ProductOrder;
+import dto.buyer.ProductOrderItem;
 import util.MybatisSqlSessionFactory;
 import vo.ProdOrderVO;
 
@@ -56,21 +57,14 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 	}
 	
 	@Override
+//	public void insertProductOrderItem(SqlSession sqlSession, ProductOrderItem poItem) throws Exception {
 	public void insertProductOrderItem(SqlSession sqlSession, Map<String, Object> param) throws Exception {
         sqlSession.insert("mapper.prodOrder.insertProductOrderItem", param);
-		
 	}
 
 	@Override
 	public Integer countSellerProductOrderList(Map<String, Object> param) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum,
-			int amount, int price) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 }
