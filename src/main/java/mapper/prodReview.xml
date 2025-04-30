@@ -78,4 +78,104 @@
 	<select id="countProdReview" resultType="Integer" parameterType="long">
 	    SELECT COUNT(*) FROM prodReview WHERE productNum = #{productNum}
 	</select>
+	
+	<!-- seller List -->
+	<select id="selectSellerProdReviewList" parameterType="map" resultType="prodReviewVO">
+	    SELECT
+	        pr.productNum,
+	        pr.pdOrderNum,
+	        pr.userNum,
+	        p.productName,
+	        pr.pdReviewImgUrl AS imgUrl,
+	        po.option AS optionName,
+	        pr.createdAt,
+	        u.userId,
+	        pr.pdRating,
+	        pr.pdReviewContent AS pdContent,
+	        pr.reviewNum,
+	        pr.pdCommentStatus
+	    FROM prodreview pr
+	    JOIN productorderitem poi ON pr.pdOrderNum = poi.pdOrderNum AND pr.productNum = poi.productNum
+	    JOIN product p ON pr.productNum = p.productNum
+	    JOIN productoption po ON poi.optionNum = po.optionNum
+	    JOIN user u ON pr.userNum = u.userNum
+	    WHERE p.sellerNum = #{sellerNum}
+	      <if test="commentStat != null and commentStat != 'all'">
+			<if test="commentStat != null and commentStat.equals('answered')">
+			    AND pr.pdCommentStatus = 1
+			</if>
+			<if test="commentStat != null and commentStat.equals('unanswered')">
+			    AND (pr.pdCommentStatus IS NULL OR pr.pdCommentStatus = 0)
+			</if>
+	      </if>
+	      <if test="ratingFilter != null and ratingFilter != 'all'">
+			<if test="ratingFilter != null and ratingFilter.equals('5')">
+			    AND pr.pdRating = 5
+			</if>
+			<if test="ratingFilter != null and ratingFilter.equals('4')">
+			    AND pr.pdRating = 4
+			</if>
+			<if test="ratingFilter != null and ratingFilter.equals('3')">
+			    AND pr.pdRating = 3
+			</if>
+	      </if>
+	    <choose>
+	        <when test="sort == 'new'">
+	            ORDER BY pr.createdAt DESC
+	        </when>
+	        <when test="sort == 'old'">
+	            ORDER BY pr.createdAt ASC
+	        </when>
+	        <when test="sort == 'rating'">
+	            ORDER BY pr.pdRating DESC
+	        </when>
+	        <when test="sort == 'lowRating'">
+	            ORDER BY pr.pdRating ASC
+	        </when>
+	        <otherwise>
+	            ORDER BY pr.createdAt DESC
+	        </otherwise>
+	    </choose>
+	    LIMIT #{offset}, #{pageSize}	
+	</select>
+	
+	<select id="selectSellerCountProdReview" parameterType="map" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM prodreview pr
+	    JOIN productorderitem poi ON pr.pdOrderNum = poi.pdOrderNum AND pr.productNum = poi.productNum
+	    JOIN product p ON pr.productNum = p.productNum
+	    JOIN productoption po ON poi.optionNum = po.optionNum
+	    JOIN user u ON pr.userNum = u.userNum
+	    WHERE p.sellerNum = #{sellerNum}
+	      <if test="commentStat != null and commentStat != 'all'">
+	          <if test="commentStat == 'answered'">
+	              AND pr.pdCommentStatus = 1
+	          </if>
+	          <if test="commentStat == 'unanswered'">
+	              AND (pr.pdCommentStatus IS NULL OR pr.pdCommentStatus = 0)
+	          </if>
+	      </if>
+	      <if test="ratingFilter != null and ratingFilter != 'all'">
+	          <if test="ratingFilter == '5'">
+	              AND pr.pdRating = 5
+	          </if>
+	          <if test="ratingFilter == '4'">
+	              AND pr.pdRating = 4
+	          </if>
+	          <if test="ratingFilter == '3'">
+	              AND pr.pdRating = 3
+	          </if>
+	      </if>	
+	</select>
+	
+	<update  id="insertSellerProdReviewComment" parameterType="map">
+		update prodReview
+		set pdComment = #{commentContent},
+			pdCommentStatus=1
+		WHERE reviewNum IN
+	    <foreach item="reviewNum" collection="reviewNums" open="(" separator="," close=")">
+	        #{reviewNum}
+	    </foreach>	
+	</update >
+	
 </mapper>

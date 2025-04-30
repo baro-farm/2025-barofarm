@@ -17,10 +17,50 @@
 		order by po.orderDate desc
 	</select>
 	
+	<!-- Count 쿼리 -->
+	<select id="selectUserProdOrderCount" parameterType="map" resultType="Integer">
+	  SELECT COUNT(*)
+	  FROM productOrder po
+	  JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	  JOIN product p ON poi.productNum = p.productNum
+	  WHERE po.userNum = #{userNum}
+	    <if test="startDate != null and startDate != ''">
+	      AND po.orderDate &gt;= #{startDate}
+	    </if>
+	    <if test="endDate != null and endDate != ''">
+	      AND po.orderDate &lt;= #{endDate}
+	    </if>
+	    <if test="deliveryStatus != null and deliveryStatus != ''">
+	      AND po.deleveryStatus = #{deliveryStatus}
+	    </if>
+	</select>	
+	
+	<!-- 리스트 쿼리 -->
+	<select id="selectUserProdOrderList" parameterType="map" resultType="prodOrderVo">
+	  SELECT poi.pdOrderNum, poi.amount, poi.price,
+	         p.productNum, p.sellerNum, p.productName, p.imgUrl,
+	         po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus
+	  FROM `productOrder` po
+	  JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	  JOIN product p ON poi.productNum = p.productNum
+	  WHERE po.userNum = #{userNum}
+	    <if test="startDate != null and startDate != ''">
+	      AND po.orderDate &gt;= #{startDate}
+	    </if>
+	    <if test="endDate != null and endDate != ''">
+	      AND po.orderDate &lt;= #{endDate}
+	    </if>
+	    <if test="deliveryStatus != null and deliveryStatus != ''">
+	      AND po.deleveryStatus = #{deliveryStatus}
+	    </if>
+	  ORDER BY po.orderDate DESC
+	  LIMIT #{offset}, #{limit}
+	</select>
+	
 	<select id="prodDetailOrderList" parameterType="Long" resultType="prodOrderVo">
 		select
 			poi.pdOrderNum, poi.amount, poi.price,
-			p.productNum, p.sellerNum, p.productName,
+			p.productNum, p.sellerNum, p.productName,p.imgUrl,po.rname,po.rphone, po.address,
 			s.sellerNum, s.storeName,
 			po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus, po.orderStatus
 		from productOrderItem poi

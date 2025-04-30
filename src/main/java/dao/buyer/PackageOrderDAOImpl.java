@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import dto.buyer.PackageOrder;
 import util.MybatisSqlSessionFactory;
 import vo.PackOrderVO;
+import vo.ProdOrderVO;
 
 public class PackageOrderDAOImpl implements PackageOrderDAO{
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -42,6 +43,20 @@ public class PackageOrderDAOImpl implements PackageOrderDAO{
 	public void updatePackTrackingNum(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.packOrder.updatePkTrackingNum",param);
 		sqlSession.commit();
+	}
+
+	//user list
+	
+	@Override
+	public Integer selectUserPackOrderCount(Map<String, Object> param) {
+		return 	sqlSession.selectOne("mapper.packOrder.selectUserPackOrderCount",param);
+
+	}
+
+	@Override
+	public List<PackOrderVO> selectUserPackOrderList(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return 	sqlSession.selectList("mapper.packOrder.selectUserPackOrderList",param);
 	}
 
 }

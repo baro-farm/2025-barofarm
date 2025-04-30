@@ -44,8 +44,8 @@
 		<typeAlias type="vo.ProductVO" alias="ProductVO" />
 		<typeAlias type="vo.SellerVO" alias="sellerVO" />
 		<typeAlias type="vo.PackageVO" alias="PackageVO" />
+		<typeAlias type="dto.seller.Alarm" alias="alarm" />
 	</typeAliases>
-
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -82,5 +82,6 @@
 		<mapper resource="mapper/packageProduct.xml" />
 		<mapper resource="mapper/shoppingCart.xml" />
 		<mapper resource="mapper/payment.xml" />
+		<mapper resource="mapper/alarm.xml" />
 	</mappers>
 </configuration>

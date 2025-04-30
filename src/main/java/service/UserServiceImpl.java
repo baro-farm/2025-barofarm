@@ -169,7 +169,13 @@ public class UserServiceImpl implements UserService{
         return currentPwd.equals(pwd);
 	}
 
-	
-	
-
+	//fcm
+	@Override
+	public void updateFcmTokenIfChanged(Long userNum, String newFcmToken) throws Exception {
+		String currentToken = userDao.selectFcmToken(userNum);
+		
+		if (currentToken == null || !currentToken.equals(newFcmToken)) {
+			userDao.updateFcmToken(userNum, newFcmToken);
+		}
+	}
 }

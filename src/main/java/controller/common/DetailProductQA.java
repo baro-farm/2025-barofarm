@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import service.UserProductService;
 import service.UserProductServiceImpl;
 import util.PageInfo;
+import vo.ProdReviewVO;
 import vo.QuestionVO;
 
 /**
@@ -37,28 +38,30 @@ public class DetailProductQA extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 Long productNum = Long.parseLong(request.getParameter("productNum"));
-	        String pageStr = request.getParameter("prodQAPage");
-	        int curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
-
-	        UserProductService service = new UserProductServiceImpl();
-
-	        try {
-	            PageInfo pageInfo = new PageInfo(curPage, 5);
-	            pageInfo.setTotalCount(service.CountProdQA(productNum));
-
-	            List<QuestionVO> qaList = service.ProdQA(productNum, pageInfo);
-
-	            request.setAttribute("qaList", qaList);
-	            request.setAttribute("qaPageInfo", pageInfo);
-	            
-	            // ⭐ JSP forward
-	            request.getRequestDispatcher("detailQASection.jsp").forward(request, response);
-
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            request.setAttribute("err", "Q&A 조회 실패");
-	        }
+		request.setCharacterEncoding("utf-8");
+		
+		long productNum = Long.parseLong(request.getParameter("productNum"));
+		
+		String pageStr = request.getParameter("page");
+		System.out.println("DetailProductQA/productNum: "+productNum+", pageStr: "+pageStr);
+		
+		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
+		
+		UserProductService service = new UserProductServiceImpl();
+		try {
+			Integer totalCount = service.CountProdQA(productNum);
+			PageInfo pageInfo = new PageInfo(curPage, 5,totalCount);
+			
+			List<QuestionVO> prodQAList = service.ProdQA(productNum, pageInfo);
+			
+			request.setAttribute("prodQAList", prodQAList);
+			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("section", "qa");
+//			request.getRequestDispatcher("detailProduct.jsp").forward(request, response);
+		}catch (Exception e){
+			e.printStackTrace();
+			request.setAttribute("err", "상품 리뷰 목록 조회에 실패했습니다.");			
+		}
 	}
 
 	/**

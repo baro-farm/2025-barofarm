@@ -43,7 +43,10 @@ public class ProdWritableReviewList extends HttpServlet {
 		if(session != null) {
 			sessionUser=(User)session.getAttribute("user");
 		}
-		
+		if(sessionUser == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+			return;
+		}
 		
 		ProdReviewSerivce service = new ProdReviewServiceImpl();
 		List<ProdReviewVO> prodReviewList = null;
@@ -51,7 +54,7 @@ public class ProdWritableReviewList extends HttpServlet {
 			
 			prodReviewList = service.selectUserWritableReviewList(sessionUser.getUserId());
 			request.setAttribute("prodReviewList", prodReviewList);
-			request.getRequestDispatcher("/buyer/writableReviewList.jsp").forward(request, response);
+			request.getRequestDispatcher("/buyer/prodWritableReviewList.jsp").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();

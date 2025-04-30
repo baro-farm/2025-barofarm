@@ -75,9 +75,16 @@ a {
     display: flex;
     padding: 5px 0;
   }
+  .optionName{
+  	width: 265px;
+  }
   .selectedOptionItem div:not(:first-child){
     margin-left: auto;
   }
+ .decrease, .increase {
+ 	border: none;
+ 	font-size: 15px;
+ }
   /* 총 가격 */
   .totalPrice {
     text-align: right;
@@ -221,7 +228,10 @@ a {
   color: #888;
   font-size: 13px;
 }
-
+.qa-none {
+	text-align:center;
+	height:30px;
+}
 /* 안내사항 */
 .infoContent {
   margin: 10px;

@@ -2,23 +2,30 @@ document.addEventListener('DOMContentLoaded', function() {
 	const selectBox = document.getElementById('optionSelect');
 	const selectedOptionsContainer = document.getElementById('selectedOptions');
 	const totalPriceEl = document.getElementById('totalPrice');
-
+	const productPrice = parseInt(document.getElementById('productPrice').dataset.price, 10);
+	
 	const selectedOptions = {};
 
 	function updateTotalPrice() {
 		let total = 0;
 		for (const key in selectedOptions) {
-			total += selectedOptions[key].price * selectedOptions[key].qty;
-		}
-		totalPriceEl.textContent = total.toLocaleString();
-	}
+			const opt = selectedOptions[key];
+            const unitPrice = opt.price === 0
+            ? productPrice
+            : productPrice + opt.price;
+        total += unitPrice * opt.qty;
+        }
+        console.log(total,productPrice);
+        totalPriceEl.textContent = total.toLocaleString();
+        }
 
 	function renderOptions() {
 		selectedOptionsContainer.innerHTML = '';
 
-		Object.entries(selectedOptions).forEach(([key, { name, price, qty }]) => {
-			const wrapper = document.createElement('div');
-			wrapper.className = 'selectedOptionItem';
+        Object.entries(selectedOptions).forEach(([key, { name, price, qty }]) => {
+		const unitPrice = price === 0 ? productPrice : productPrice + price;;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'selectedOptionItem';
 
 			wrapper.innerHTML = `
         <div class="optionName">${name}</div>
@@ -81,7 +88,24 @@ document.addEventListener('DOMContentLoaded', function() {
 		renderOptions();
 	});
 
+
 	const basketBtn = document.getElementById('basket');
+
+    // 선택된 옵션들 하나씩 담기
+    for (const key of selectedKeys) {
+      const option = selectedOptions[key];
+      const optionNum = option.optionNum;  // optionNum은 어디에 저장해두는지 확인!
+      const quantity = option.qty;
+      
+      
+	  const productNum = basketBtn.dataset.productnum;
+
+      const payload = {
+        productNum: parseInt(productNum),
+        optionNum: optionNum,
+        quantity: quantity
+      };
+      }
 
 	basketBtn.addEventListener('click', async (e) => {
 		e.preventDefault();
@@ -182,15 +206,16 @@ document.addEventListener('DOMContentLoaded', function() {
 			alert("요청 처리 중 오류가 발생했습니다.");
 		}
 
-	});
+		});
 });
 
 /* 리뷰 페이징 */
-$(document).ready(function() {
-	$(document).on("click", "a.reviewPageLink", function(e) {
-		e.preventDefault();
-		console.log("클릭한 a 태그:", this.tagName);
-		const url = $(e.currentTarget).attr("href");
+$(document).ready(function(){ 
+    $(document).on("click", "a.reviewPageLink", function(e){
+        e.preventDefault();
+        console.log("클릭한 a 태그:", this.tagName);
+
+        const url = $(e.currentTarget).attr("href");
 
 		const scrollPos = $(window).scrollTop();
 		console.log("요청 URL:", url);
@@ -211,23 +236,24 @@ $(document).ready(function() {
 	});
 });
 
-
 $(document).on("click", "a.prodQAPageLink", function(e) {
 	e.preventDefault();
 	const url = $(e.currentTarget).attr("href");
 
+
 	const scrollPos = $(window).scrollTop();
 
-	$.ajax({
-		url: url,
-		type: "get",
-		data: { productNum: productNum, page: 1, type: 'qa' },
-		success: function(data) {
-			$("#prodQA").html(data);  // JSP 조각을 그대로 교체
-			$(window).scrollTop(scrollPos);
-		},
-		error: function(xhr, status, error) {
-			console.log("Ajax 오류:", status, error);
-		}
-	});
+    $.ajax({
+        url: url,
+        type: "get",
+        data: { productNum: productNum, page: 1, type: 'qa' },
+        success: function(data){
+            $("#prodQA").html(data);  // JSP 조각을 그대로 교체
+            $(window).scrollTop(scrollPos);
+        },
+        error: function(xhr, status, error){
+            console.log("Ajax 오류:", status, error);
+        }
+    });
 });
+

@@ -2,28 +2,26 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title>작성 가능한 리뷰</title>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<link rel="stylesheet" href="${contextPath}/buyer/writableReviewList.css">
+	<link rel="stylesheet" href="${contextPath}/buyer/prodWritableReviewList.css">
 	
 
-</head>
-<body>
-	<jsp:include page="/header/mainHeader.jsp"/>
+
 	
 	<div class="container" id="reviewContainer" name="reviewContainer">
 	<div class="wrapper">
-		<div class="sideMenu">
-			<jsp:include page="/header/buyerMenu.jsp" />
-		</div>
-		<div class="content">
-			<div class="title">작성 가능한 리뷰</div>
-			
+
+		<div class="content1">
+			<!-- 필터 -->
+		    <div class="reviewFilter">
+		        <select id="reviewFilterPeriod" name="reviewFilterPeriod">
+		            <option value="6개월">6개월</option>
+		            <option value="1년">1년</option>
+		            <option value="전체">전체</option>
+		        </select>
+		    </div>			
 			<div class="reviewList">
 	           <!-- 주문 내역이 없을 때 -->
 			    <c:if test="${empty prodReviewList}">
@@ -59,7 +57,7 @@
 			<span>5</span>
 		</div>
 	</div>
-</body>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 	  const buttons = document.querySelectorAll(".writeReviewBtn");
@@ -89,4 +87,3 @@ document.addEventListener("DOMContentLoaded", function () {
 	  });
 	});
 </script>
-</html>

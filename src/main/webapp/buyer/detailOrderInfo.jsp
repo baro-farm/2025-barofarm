@@ -35,11 +35,11 @@
     	<c:forEach var="prodOrder" items="${prodOrderList }">
     	
 	        <div class="orderItem">
-	            <img src="${contextPath}/${prodOrder.imgUrl }" alt="상품 이미지" class="productImage">
+	            <img src="${contextPath}${prodOrder.imgUrl }" alt="상품 이미지" class="productImage">
 	            <div class="productInfo">
 	                <div id="productName">${prodOrder.productName }</div>
 	                <div id="productAmount">수량: ${prodOrder.amount} 개</div>
-	                <c:set var="total" value="${prodOrder.amount* prodOrder.price }"/>
+	                <c:set var="total" value="${prodOrder.price }"/>
 	                <div>${total } 원</div>
 	            </div>
 	            <button class="btnSmall">문의하기</button>
@@ -52,9 +52,9 @@
     <!-- 배송지 정보 -->
     <div class="sectionTitle">배송지</div>
     <div class="addressBox">
-        <div id="receiverName">USERNAME (받는 사람 이름)</div>
-        <div id="receiverPhone">010-1111-1111</div>
-        <div id="receiverAddress">서울시 금천구 가산동</div>
+        <div id="receiverName">${prodOrder.rname }</div>
+        <div id="receiverPhone">${prodOrder.rphone }</div>
+        <div id="receiverAddress">${prodOrder.address }</div>
     </div>
 
     <!-- 결제 정보 -->
@@ -65,7 +65,6 @@
             <span class="totalPrice">총 <span id="totalPrice">${prodOrderList[0].pdTotalPrice }</span> 원</span>
         </div>
         <div>상품금액: <span id="productPrice">${prodOrderList[0].pdTotalPrice }</span> 원</div>
-        <div>배송비: <span id="shippingFee">2,500</span> 원</div>
     </div>
 </div>
 

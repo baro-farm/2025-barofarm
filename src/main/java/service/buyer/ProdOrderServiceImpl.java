@@ -108,5 +108,29 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 		prodOrderDao.insertProductOrderItem(sqlSession, param);
 	}
 
+	//유저 페이징 추가
+	@Override
+	public Integer selectUserProdOrderCount(Long userNum, String startDate, String endDate, String deliveryStatus) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        param.put("deliveryStatus", deliveryStatus);		
+        return prodOrderDao.selectUserProdOrderCount(param);
+	}
+
+	@Override
+	public List<ProdOrderVO> selectUserProdOrderList(Long userNum, String startDate, String endDate,
+			String deliveryStatus, int offset, int limit) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        param.put("deliveryStatus", deliveryStatus);
+        param.put("offset", offset);
+        param.put("limit", limit);
+        return prodOrderDao.selectUserProdOrderList(param);
+	}
+
 
 }

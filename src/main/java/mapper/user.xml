@@ -111,4 +111,16 @@
 	<select id="getPasswordByUserNum" parameterType="long" resultType="String">
     SELECT pwd FROM user WHERE userNum = #{userNum}
 </select>
+
+	<!-- fcm -->
+    <select id="selectFcmToken" parameterType="long" resultType="string">
+        SELECT fcmToken
+        FROM user
+        WHERE userNum = #{userNum}
+    </select>
+    <update id="updateFcmToken" parameterType="map">
+        UPDATE user
+        SET fcmToken = #{fcmToken}, updatedAt=NOW()
+        WHERE userNum = #{userNum}
+    </update>
  </mapper>

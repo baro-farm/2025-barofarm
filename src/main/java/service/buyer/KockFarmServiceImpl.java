@@ -21,8 +21,8 @@ public class KockFarmServiceImpl implements KockFarmService {
 	}
 	
 	@Override
-	public void insertKockFarm(KockFarm kockFarm) throws Exception {
-		kockFarmDao.insertKockFarm(kockFarm);
+	public Long insertKockFarm(KockFarm kockFarm) throws Exception {
+		return kockFarmDao.insertKockFarm(kockFarm);
 	}
 
 	@Override
