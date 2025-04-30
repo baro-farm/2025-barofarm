@@ -1,6 +1,7 @@
 package dao.buyer;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -26,6 +27,24 @@ public class ProdReviewDAOImple implements ProdReviewDAO {
 	@Override
 	public void inserProdReview(ProdReview prodReview) throws Exception {
 		sqlSession.insert("mapper.prodReview.insertProdReview",prodReview);	
+		sqlSession.commit();
+	}
+
+	//seller List
+	
+	@Override
+	public List<ProdReviewVO> selectProdReviewList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.prodReview.selectSellerProdReviewList",param);
+	}
+
+	@Override
+	public Integer selectCountProdReview(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.prodReview.selectSellerCountProdReview",param);
+	}
+
+	@Override
+	public void insertSellerProdReviewComment(Map<String, Object> param) throws Exception {
+		sqlSession.insert("mapper.prodReview.insertSellerProdReviewComment",param);
 		sqlSession.commit();
 	}
 

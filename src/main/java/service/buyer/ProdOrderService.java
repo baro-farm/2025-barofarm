@@ -14,6 +14,12 @@ public interface ProdOrderService {
 
 	Integer selectProductOrderCount(Long sellerNum) throws Exception;
 	
+	//구매자 페이징
+    Integer selectUserProdOrderCount(Long userNum, String startDate, String endDate, String deliveryStatus);
+    List<ProdOrderVO> selectUserProdOrderList(Long userNum, String startDate, String endDate, String deliveryStatus, int offset, int limit);
+
+	
+	
     // 주문 리스트
     List<ProdOrderVO> selectProductOrderList(Long sellerNum, int offset, int pageSize, String dateType, 
                                              String startDate, String endDate, 

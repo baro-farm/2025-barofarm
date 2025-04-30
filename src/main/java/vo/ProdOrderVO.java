@@ -11,12 +11,15 @@ public class ProdOrderVO {
 	String deleveryStatus;
 	String orderStatus;
 	Integer trackingNum;
+	String rname;
+	String rphone;
 	
 	//product order item
 	Long orderItem;
 	Long productNum;
 	Integer amount;
 	Integer totalPrice;
+	Integer price;
 	
 	//product
 	Long sellerNum;
@@ -205,14 +208,31 @@ public class ProdOrderVO {
 		this.trackingNum = trackingNum;
 	}
 
-	@Override
-	public String toString() {
-		return "ProdOrderVO [pdOrderNum=" + pdOrderNum + ", userNum=" + userNum + ", pdTotalPrice=" + pdTotalPrice
-				+ ", orderDate=" + orderDate + ", deleveryStatus=" + deleveryStatus + ", orderStatus=" + orderStatus
-				+ ", productNum=" + productNum + ", amount=" + amount + ", totalPrice=" + totalPrice + ", sellerNum=" + sellerNum
-				+ ", productName=" + productName + ", imgUrl=" + imgUrl + ", option=" + option + ", optionPrice="
-				+ optionPrice + ", storeName=" + storeName +", userName:"+ userName +"]";
+	public Integer getPrice() {
+		return price;
 	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public String getRname() {
+		return rname;
+	}
+
+	public void setRname(String rname) {
+		this.rname = rname;
+	}
+
+	public String getRphone() {
+		return rphone;
+	}
+
+	public void setRphone(String rphone) {
+		this.rphone = rphone;
+	}
+
+	
 
 	
 }

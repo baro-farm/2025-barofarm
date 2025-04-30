@@ -73,4 +73,16 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 		// TODO Auto-generated method stub
 		
 	}
+
+	//user list
+	@Override
+	public Integer selectUserProdOrderCount(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.prodOrder.selectUserProdOrderCount",param);
+	}
+
+	@Override
+	public List<ProdOrderVO> selectUserProdOrderList(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.prodOrder.selectUserProdOrderList",param);	}
 }

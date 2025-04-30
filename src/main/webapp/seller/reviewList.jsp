@@ -8,8 +8,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>판매자|리뷰관리</title>
-<link rel="stylesheet" href="${contextPath}/reset.css" />
-<link rel="stylesheet" href="${contextPath}/noticeList.css" />
+
 <link rel="stylesheet" href="${contextPath}/seller/reviewList.css" />
 
 <link
@@ -22,275 +21,333 @@
 	src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"
 	integrity="sha384-FcKnveOKVsyQDhaxWTmHPNxY0wtv3QwEmOUwRZ5g+QqTQvSKKmnkT0NiFcDCCIvg"
 	crossorigin="anonymous"></script>
-<script src="${contextPath}/noticeList.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script>
-        $(document).ready(function () {
-            const modal = $("#modal");
-            const modalContent = $("#modal .modalContent");
-           
-           
-            // 전체 선택 체크박스 기능 추가
-            $("thead input[type='checkbox']").on("click", function () {
-                let isChecked = $(this).prop("checked");
-                $("tbody input[type='checkbox']").prop("checked", isChecked);
-            });
+	$(document).ready(
+			function() {
+				const modal = $("#modal");
+				const modalContent = $("#modal .modalContent");
 
-            $(".btn.commentAdd").on("click", function () {
-                let selectedReviews = [];
-                // 체크된 체크박스가 있는 행에서 리뷰번호 가져오기
-                $("input[type='checkbox']:checked").each(function () {
-                    let reviewNum = $(this).closest("tr").find(".reviewNum").text().trim();
-                    if (reviewNum) {
-                        selectedReviews.push(reviewNum);
-                    }
-                });
+				// 전체 선택 체크박스 기능 추가
+				$("thead input[type='checkbox']").on(
+						"click",
+						function() {
+							let isChecked = $(this).prop("checked");
+							$("tbody input[type='checkbox']").prop("checked",
+									isChecked);
+						});
+				
+				//리뷰 작성 버튼 클릭
+				$(".btn.commentAdd").on("click",function() {
+					let selectedReviews = [];
+					// 체크된 체크박스가 있는 행에서 리뷰번호 가져오기
+					$("input[type='checkbox']:checked").each(function() {
+						let reviewNum = $(this).closest("tr").find(".reviewNum").text().trim();
+						if (reviewNum) {
+							selectedReviews.push(reviewNum);
+						}
+					});
+					if(selectedReviews.length=== 0){
+						alert("리뷰를 선택해주세요");
+						return;
+					}
+					
+				  	// 선택된 리뷰번호 표시
+				  	$("#reviewNum").text(selectedReviews.join(","));
+				    $.ajax({
+				        url: "insertReviewComment",   // ✅ 서블릿 URL
+				        method: "GET",
+				        data: { reviewNums: selectedReviews.join(",") },  // ✅ 선택된 번호 넘기기
+				        dataType: "html",
+				        success: function (response) {
+				            $("#modalContent").html(response);  // ✅ 모달 안에 내용 채우기
+				            $("#modal").css("display", "flex"); // ✅ 모달 열기
+				            $("body").addClass("modal-open");
+				        },
+				        error: function () {
+				            alert("답글 작성 화면을 불러오는 데 실패했습니다.");
+				        }
+				    });	
 
-                $.ajax({
-                    url: "insertReviewComment.html",
-                    method: "GET",
-                    dataType: "html",
-                    success: function (response) {
-                        modalContent.html(response); // 모달 내부에 HTML 삽입
-                        modal.css("display", "flex"); // 모달 표시
-                        $("body").addClass("modal-open");
-                        // 선택된 리뷰번호가 있을 때만 모달 표시
-                        if (selectedReviews.length > 0) {
+							
+				});
+				
+				//리뷰 답변 작성 후 버튼 클릭시 답변 등록
+				$(".btn.addBtn").on("click",function(){
+					const reviewNums = $("#reviewNum").text().split(",");
+					const commentContent = $("#reviewComment").val().trim();
+					
+					if(!commentContent){
+						alert("답글을 작성해주세요");
+						return;
+					}
+					
+					$.ajax({
+						
+						url: "${contextPath}/insertReviewComment",
+						type:"POST",
+						contextType:"application/json",
+						data: JSON.stringify({
+							reviewNums:reviewNums,
+							commentContent:commentContent
+						}),
+						success: function(response){
+							alert("답글 등록이 되었습니다");	
+							location.reload();
+						},
+						error:function(xhr, status, error) {
+						      alert("답글 등록에 실패했습니다.");
+					    }
+					});
 
-                            $("#modal #reviewNum").text(selectedReviews);
+				});
 
-                            modal.css("display", "flex");
-                        } else {
-                            alert("리뷰를 선택해주세요!");
-                        }
+				//리뷰내용 클릭시 상세 리뷰 창으로 이동
+				$(".reviewDetail").on("click", function(event) {
+					event.preventDefault(); // 기본 링크 이동 방지
 
-                    },
-                    error: function () {
-                        alert("주문 상세 정보를 불러오는 데 실패했습니다.");
-                    }
-                });
-            });
+					let row = $(this).closest("tr");
+					let reviewNum = row.find(".reviewNum").text().trim();
+					let orderNum = row.find(".orderNum a").text().trim();
+
+					// Ajax로 detailReviewComment.html을 불러와서 모달에 표시
+					$.ajax({
+						url : "detailReviewComment.html", // 올바른 경로 확인 필수!
+						method : "GET",
+						dataType : "html",
+						success : function(response) {
+							$("#modalContent").html(response); // 모달 내부 변경
+							$("#reviewNum").text(reviewNum);
+							$("#orderNum").text(orderNum);
+							$("#modal").css("display", "flex"); // 모달 표시
+							$("body").addClass("modal-open");
+						},
+						error : function(xhr, status, error) {
+							console.error("❌ AJAX 실패:", status, error);
+							alert("❌ 리뷰 상세 정보를 불러오는 데 실패했습니다.");
+						}
+					});
+				});
+
+				// 모달 닫기 이벤트
+				$(document).on("click", ".closeBtn", function() {
+					modal.css("display", "none");
+					$("body").removeClass("modal-open");
+
+				});
+
+				// 모달 바깥 클릭 시 닫기
+				$(window).on("click", function(event) {
+					if ($(event.target).is("#modal")) {
+						modal.css("display", "none");
+						$("body").removeClass("modal-open");
+
+					}
+				});
+
+				$(document).on("click", function(event) {
+					if ($(event.target).is("#modal, #reviewModal")) {
+						$(event.target).css("display", "none");
+						$("body").removeClass("modal-open");
+					}
+				});
 
 
-
-            //리뷰내용 클릭시 상세 리뷰 창으로 이동
-            $(".reviewDetail").on("click", function (event) {
-                event.preventDefault(); // 기본 링크 이동 방지
-
-                let row = $(this).closest("tr");
-                let reviewNum = row.find(".reviewNum").text().trim();
-                let orderNum = row.find(".orderNum a").text().trim();
-
-                // Ajax로 detailReviewComment.html을 불러와서 모달에 표시
-                $.ajax({
-                    url: "detailReviewComment.html", // 올바른 경로 확인 필수!
-                    method: "GET",
-                    dataType: "html",
-                    success: function (response) {
-                        $("#modalContent").html(response); // 모달 내부 변경
-                        $("#reviewNum").text(reviewNum);
-                        $("#orderNum").text(orderNum);
-                        $("#modal").css("display", "flex"); // 모달 표시
-                        $("body").addClass("modal-open");
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("❌ AJAX 실패:", status, error);
-                        alert("❌ 리뷰 상세 정보를 불러오는 데 실패했습니다.");
-                    }
-                });
-            });
-
-
-
-            // 모달 닫기 이벤트
-            $(document).on("click", ".closeBtn", function () {
-                modal.css("display", "none");
-                $("body").removeClass("modal-open");
-
-            });
-
-            // 모달 바깥 클릭 시 닫기
-            $(window).on("click", function (event) {
-                if ($(event.target).is("#modal")) {
-                    modal.css("display", "none");
-                    $("body").removeClass("modal-open");
-
-                }
-            });
-
-            $(document).on("click", function (event) {
-                if ($(event.target).is("#modal, #reviewModal")) {
-                    $(event.target).css("display", "none");
-                    $("body").removeClass("modal-open");
-                }
-            });
-
-  
-
-        });
-    </script>
+			});
+</script>
 
 </head>
 
 <body>
-	<div class="inner_body">
-		<div class="sidebar">
-			<jsp:include page="/header/sellerHeader.jsp" />
-		</div>
-	</div>
+	<jsp:include page="/header/sellerHeader.jsp" />
+
+	<header id="header">
+		<jsp:include page="/header/adminSellerTop.jsp" />
+	</header>
 
 	<div id="content">
-		<div>
-			<header id="header">
-				<div id="info">
-					<span id="email">kosta@kosta.com</span> <span>내 정보</span> <span>로그아웃</span>
-				</div>
-			</header>
-		</div>
-		<div class="notice-header">
+		<div class="noticeHeader">
 			<span id="title">리뷰 관리</span>
 		</div>
 
+		<div class="filterWrapper">
+			<div class="comment leftSection">
+				<button class="btn commentAdd">답변 등록</button>
+			</div>
+			<div class="rightSection">
+				<form id="sortForm" method="get" action="${contextPath}/sellerProdReviewList">
+					<!-- 답변 여부 필터 -->
+					<select name="commentStat" id="commentStat"
+						onchange="this.form.submit()">
+						<option value="all" ${param.commentStat == 'all' ? 'selected' : ''}>전체</option>
+						<option value="answered"
+							${param.commentStat == 'answered' ? 'selected' : ''}>답변작성</option>
+						<option value="unanswered"
+							${param.commentStat == 'unanswered' ? 'selected' : ''}>답변미작성</option>
+					</select>
+	
+					<!-- 별점 필터 추가 -->
+					<select name="ratingFilter" id="ratingFilter"
+						onchange="this.form.submit()">
+						<option value="all"
+							${param.ratingFilter == 'all' ? 'selected' : ''}>전체</option>
+						<option value="5" ${param.ratingFilter == '5' ? 'selected' : ''}>5점만
+							보기</option>
+						<option value="4" ${param.ratingFilter == '4' ? 'selected' : ''}>4점
+							이상 보기</option>
+						<option value="3" ${param.ratingFilter == '3' ? 'selected' : ''}>3점
+							이하 보기</option>
+					</select>
+	
+					<!-- 정렬 -->
+					<select name="sort" id="sortSelect" onchange="this.form.submit()">
+						<option value="new" ${param.sort == 'new' ? 'selected' : ''}>최신등록순</option>
+						<option value="old" ${param.sort == 'old' ? 'selected' : ''}>오래된등록순</option>
+						<option value="rating" ${param.sort == 'rating' ? 'selected' : ''}>평점높은순</option>
+						<option value="lowRating"
+							${param.sort == 'lowRating' ? 'selected' : ''}>평점낮은순</option>
+					</select>
+				</form>
+			</div>
+		</div>
+		<div class="tableWrapper">
 
-		<table id="notie_table" class="table" style="width: 950px;">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th>상품번호</th>
-					<th>상품명</th>
-					<th>카테고리</th>
-					<th>구매자평점</th>
-					<th>포토</th>
-					<th>리뷰내용</th>
-					<th>등록자</th>
-					<th>등록일자</th>
-					<th>리뷰글번호</th>
-					<th>답글여부</th>
-					<th>상품주문번호</th>
-					<th>구독유형</th>
-				</tr>
-			</thead>
-			<tbody>
-				<div class="comment">
-					<button class="btn commentAdd">답변 등록</button>
-				</div>
+			<table id="notie_table" class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th style="font-weight: bold;">상품번호</th>
+						<th style="font-weight: bold;">상품명</th>
+						<th style="font-weight: bold;">상품옵션</th>
+						<th style="font-weight: bold;">구매자평점</th>
+						<th style="font-weight: bold;">리뷰내용</th>
+						<th style="font-weight: bold;">포토</th>
+						<th style="font-weight: bold;">등록자</th>
+						<th style="font-weight: bold;">등록일자</th>
+						<th style="font-weight: bold;">리뷰글번호</th>
+						<th style="font-weight: bold;">답글여부</th>
+						<th style="font-weight: bold;">상품주문번호</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="review" items="${reviewList }">
+						<tr>
+							<td>
+								<div class="uiGridCell"><input type="checkbox"></div>
+							</td>
+							<td>
+								<div class="uiGridCell productNum">
+									<a href="#">${review.productNum}</a>
+								</div>
+							</td>
+							<td>
+								<div class="uiGridCell productName">
+									<a href="#">${review.productName}</a>
+								</div>
+							</td>
+							<td>
+								<div class="uiGridCell productName">
+									<a href="#">${review.optionName}</a>
+								</div>
+							</td>
+							<td><c:forEach var="i" begin="1" end="5">
+									<c:choose>
+										<c:when test="${i <= review.pdRating}">★</c:when>
+										<c:otherwise>☆</c:otherwise>
+									</c:choose>
+								</c:forEach><span>&nbsp;&nbsp;${review.pdRating}</span>
+							</td>
+							<td>
+								<div class="uiGridCell reviewDetail">
+									<a href="#">${review.pdContent}</a>
+								</div>
+							</td>
+							<td>
+								<div class="uiGridCell">
+									<img src="${contextPath}${review.imgUrl}" width="50">
+								</div>
+							</td>
 
-				<tr>
-					<td>
-						<div class="uiGridCell">
-							<input type="checkbox">
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell productNum">
-							<a href="#">2025030415668</a>
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell productName">
-							<a href="#">파프리카</a>
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell">고추/피망/파프리카/허브채소</div>
-					</td>
-					<td>
-						<div class="uiGridCell">⭐⭐⭐⭐ 4</div>
-					</td>
-					<td>
-						<div class="uiGridCell">
-							<img src="../../img/thumbnail.png" width="50">
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell reviewDetail">
-							<a href="#">파프리카가 싱싱</a>
-						</div>
-					</td>
 
-					<td>
-						<div class="uiGridCell">hong****</div>
-					</td>
-					<td>
-						<div class="uiGridCell">2025.03.28</div>
-					</td>
-					<td>
-						<div class="uiGridCell reviewNum">2222</div>
-					</td>
-					<td>
-						<div class="uiGridCell">N</div>
-					</td>
+							<td>
+								<div class="uiGridCell">${review.userId}</div>
+							</td>
+							<td>
+								<div class="uiGridCell">${review.createdAt }</div>
+							</td>
+							<td>
+								<div class="uiGridCell reviewNum">${review.reviewNum }</div>
+							</td>
+							<td>
+								<div class="uiGridCell">
+									<c:choose>
+										<c:when test="${review.pdCommentStatus eq true }">
+											<span>Y</span>
+										</c:when>
+										<c:otherwise><span>N</span></c:otherwise>
+									</c:choose>
+								</div>
+							</td>
 
-					<td>
-						<div class="uiGridCell orderNum">
-							<a href="#">2025030415668</a>
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell">-</div>
-					</td>
+							<td>
+								<div class="uiGridCell orderNum">
+									<a href="#">${review.pdOrderNum }</a>
+								</div>
+							</td>
+						</tr>
+					</c:forEach>
+					
+				</tbody>
+			</table>
+		</div>
+		<c:set var="startPage" value="${page - 2}" />
+		<c:set var="endPage" value="${page + 2}" />
 
-				</tr>
-				<tr>
-					<td>
-						<div class="uiGridCell">
-							<input type="checkbox">
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell productNum">
-							<a href="#">2025030415668</a>
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell productName">
-							<a href="#">파프리카</a>
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell">고추/피망/파프리카/허브채소</div>
-					</td>
-					<td>
-						<div class="uiGridCell">⭐⭐⭐⭐ 4</div>
-					</td>
-					<td>
-						<div class="uiGridCell">
-							<img src="../../img/thumbnail.png" width="50">
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell reviewDetail">
-							<a href="#">파프리카가 싱싱</a>
-						</div>
-					</td>
+		<c:if test="${startPage < 1}">
+			<c:set var="endPage" value="${endPage + (1 - startPage)}" />
+			<c:set var="startPage" value="1" />
+		</c:if>
 
-					<td>
-						<div class="uiGridCell">hong****</div>
-					</td>
-					<td>
-						<div class="uiGridCell">2025.03.28</div>
-					</td>
-					<td>
-						<div class="uiGridCell reviewNum">1111</div>
-					</td>
-					<td>
-						<div class="uiGridCell">N</div>
-					</td>
+		<c:if test="${endPage > totalPages}">
+			<c:set var="startPage" value="${startPage - (endPage - totalPages)}" />
+			<c:set var="endPage" value="${totalPages}" />
+		</c:if>
 
-					<td>
-						<div class="uiGridCell orderNum">
-							<a href="#">2025030415668</a>
-						</div>
-					</td>
-					<td>
-						<div class="uiGridCell">-</div>
-					</td>
+		<c:if test="${startPage < 1}">
+			<c:set var="startPage" value="1" />
+		</c:if>
 
-				</tr>
-			</tbody>
-		</table>
+		<div class="pagination">
+			<!-- << -->
+			<c:if test="${currentPage > 1}">
+				<a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}">&laquo;</a>
+			</c:if>
+		
+			<!-- < -->
+			<c:if test="${currentPage > 1}">
+				<a href="?page=${currentPage - 1}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}">&lsaquo;</a>
+			</c:if>
+		
+			<!-- 번호 -->
+			<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+				<a href="?page=${i}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+			</c:forEach>
+		
+			<!-- > -->
+			<c:if test="${currentPage < totalPages}">
+				<a href="?page=${currentPage + 1}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}">&rsaquo;</a>
+			</c:if>
+		
+			<!-- >> -->
+			<c:if test="${currentPage < totalPages}">
+				<a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}">&raquo;</a>
+			</c:if>
+		</div>
+
 		<div id="modal" class="modal">
-			<div id="modalContent" class="modalContent"></div>
+			<div class="modalContent" id="modalContent">
+
+		  	</div>
 
 		</div>
 	</div>

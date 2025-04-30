@@ -17,6 +17,12 @@ public class ProdReviewVO {
 	Integer pdRating;
 	String pdContent;
 	
+	String optionName; //옵션이름
+	Long reviewNum;
+	
+	Boolean pdCommentStatus;
+	String pdComment;
+	
 	public Long getProductNum() {
 		return productNum;
 	}
@@ -89,6 +95,31 @@ public class ProdReviewVO {
 	public void setPdContent(String pdContent) {
 		this.pdContent = pdContent;
 	}
+	public String getOptionName() {
+		return optionName;
+	}
+	public void setOptionName(String optionName) {
+		this.optionName = optionName;
+	}
+	public Long getReviewNum() {
+		return reviewNum;
+	}
+	public void setReviewNum(Long reviewNum) {
+		this.reviewNum = reviewNum;
+	}
+	public Boolean getPdCommentStatus() {
+		return pdCommentStatus;
+	}
+	public void setPdCommentStatus(Boolean pdCommentStatus) {
+		this.pdCommentStatus = pdCommentStatus;
+	}
+	public String getPdComment() {
+		return pdComment;
+	}
+	public void setPdComment(String pdComment) {
+		this.pdComment = pdComment;
+	}
+	
 	
 
 }

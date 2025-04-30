@@ -323,7 +323,7 @@
 	
 	        </table>
 		</div>
-		        <c:set var="startPage" value="${page - 2}" />
+		<c:set var="startPage" value="${page - 2}" />
 		<c:set var="endPage" value="${page + 2}" />
 		
 		<c:if test="${startPage < 1}">

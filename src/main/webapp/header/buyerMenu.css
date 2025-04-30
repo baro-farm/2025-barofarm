@@ -1,4 +1,4 @@
-@font-face {            
+ @font-face {            
     font-family: 'SUIT-Regular';            
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');            
     font-weight: normal;            
@@ -25,7 +25,6 @@ body {
     margin-bottom: 40px;
     background: #FBF6EE;
     font-size: 14px;
-    height: 110px;
     position: relative;
 }
 .user-info p {

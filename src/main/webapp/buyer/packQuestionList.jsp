@@ -4,9 +4,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<!DOCTYPE html>
-<html>
-<head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>꾸러미 문의 내역</title>
@@ -56,32 +54,34 @@
     		
     	});
     </script>
-</head>
-<body>
-<jsp:include page="/header/mainHeader.jsp"/>
+
 
 <div class="container">
     <div class="wrapper">
-		<div class="sideMenu">
-			<jsp:include page="/header/buyerMenu.jsp" />
-		</div>
-		<div class="content">
+
+		<div class="content1">
 			
-	    	<div class="header">상품 문의 내역</div>
 	
 		    <!-- 필터 섹션 -->
-		    <div class="filterSection">
-		        <select>
-		            <option>6개월</option>
-		            <option>3개월</option>
-		            <option>1개월</option>
-		        </select>
-		        <select>
-		            <option>전체</option>
-		            <option>답변 완료</option>
-		            <option>답변 미완료</option>
-		        </select>
-		    </div>
+			<div class="FilterBox">
+			  <label for="searchStartDate">조회 기간:</label>
+			  <input type="date" id="searchStartDate" name="searchStartDate">
+			  <span>~</span>
+			  <input type="date" id="searchEndDate" name="searchEndDate">
+			
+			  <label for="deliveryStatus">배송 상태:</label>
+			  <select id="deliveryStatus" name="deliveryStatus">
+			    <option value="">전체</option>
+			    <option value="준비중">준비중</option>
+			    <option value="배송중">배송중</option>
+			    <option value="배송완료">배송완료</option>
+			    <option value="구매확정">구매확정</option>
+			    <option value="취소완료">취소완료</option>
+			  </select>
+			
+			  <button type="button" id="searchBtn">검색</button>
+			</div>
+		    
 			    <c:if test="${empty questionList}">
 			        <div class="emptyMessage">작성한 문의 내역이 없습니다.</div>
 			    </c:if>
@@ -89,7 +89,7 @@
 		    <!-- 문의 내역 반복 -->
 		    <c:forEach var="question" items="${questionList }">
 			    <div class="question">
-			        <div class="imgBox"><img src="${question.imgUrl }" alt="imgsrc"></div>
+			        <div class="imgBox"><img src="${contextPath }${question.imgUrl }" alt="imgsrc"></div>
 			        <div class="questionContent">
 			            <div class="questionTitle"><a href="#">${question.productName }</a></div>
 			            <div class="questionInfo">${question.storeName } | 문의일:${question.createdAt }</div>
@@ -117,21 +117,3 @@
 		</div>
 	</div>
 </div>
-<!-- toggleReply 토클버튼 ajax안쓰는 버전 -->
-<!-- 
-<script>
-	onclick="toggleReply(this)"
-    function toggleReply(button) {
-        let replyBox = button.nextElementSibling;
-        if (replyBox.style.display === "block") {
-            replyBox.style.display = "none";
-            button.textContent = button.textContent.replace("▲", "▼");
-        } else {
-            replyBox.style.display = "block";
-            button.textContent = button.textContent.replace("▼", "▲");
-        }
-    }
-</script>
- -->
-</body>
-</html>

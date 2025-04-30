@@ -36,24 +36,21 @@
         <span>마이페이지</span>
     </div>
     <ul class="menu-list">
-        <li><a href="prodOrderList" >주문내역 및 배송조회</a></li>
+        <li><a href="buyerOrderList" >주문내역 및 배송조회</a></li>
         <li><a href="infoFoam">회원 정보 수정</a></li>
 
-        <li><a href="questionList">상품 문의</a></li>
+        <li><a href="allQuestionList">상품 문의</a></li>
         
         <li class="dropdown">
             <a style="text-decoration: none;">리뷰</a>
             <ul class="submenu">
-                <li><a href="prodWritableReviewList">&gt; 작성 가능한 리뷰</a></li>
-                <li><a href="prodWrittenReviewList">&gt; 내가 작성한 리뷰</a></li>
+                <li><a href="allWritableReviewList">&gt; 작성 가능한 리뷰</a></li>
+                <li><a href="allWrittenReviewList">&gt; 내가 작성한 리뷰</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a style="text-decoration: none;">꾸러미</a>
             <ul class="submenu">
-                <li><a href="packOrderList">&gt;주문내역 및 배송조회</a></li>
-            	<li><a href="#">&gt;리뷰</a></li>
-            	<li><a href="packQuestionList">&gt;상품 문의</a></li>
                 <li><a href="#">&gt;구독 관리</a></li>
             </ul>
         </li>

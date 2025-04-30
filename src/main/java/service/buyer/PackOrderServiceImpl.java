@@ -80,4 +80,27 @@ public class PackOrderServiceImpl implements PackOrderService {
 		
 	}
 
+	@Override
+	public Integer selectUserPackOrderCount(Long userNum, String startDate, String endDate, String deliveryStatus) {
+	       Map<String, Object> param = new HashMap<>();
+	        param.put("userNum", userNum);
+	        param.put("startDate", startDate);
+	        param.put("endDate", endDate);
+	        param.put("deliveryStatus", deliveryStatus);			
+	        return packOrderDao.selectUserPackOrderCount(param);
+	}
+
+	@Override
+	public List<PackOrderVO> selectUserPackOrderList(Long userNum, String startDate, String endDate,
+			String deliveryStatus, int offset, int limit) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        param.put("deliveryStatus", deliveryStatus);
+        param.put("offset", offset);
+        param.put("limit", limit);
+        return packOrderDao.selectUserPackOrderList(param);
+	}
+
 }

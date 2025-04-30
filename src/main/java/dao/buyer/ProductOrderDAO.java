@@ -13,6 +13,10 @@ public interface ProductOrderDAO {
 	List<ProdOrderVO> selectProdDetailOrderList(Long pdOrderNum) throws Exception;
 	void updateDeliveryStatus(ProductOrder pdOrder) throws Exception;
 	
+	//user with paging
+    Integer selectUserProdOrderCount(Map<String, Object> param);
+    List<ProdOrderVO> selectUserProdOrderList(Map<String, Object> param);	
+	
 	//seller product order list
 	List<ProdOrderVO> selectSellerProductOrderList(Map<String,Object> param) throws Exception;
 	Integer sellectCountSellerProductOrderList(Map<String,Object> param) throws Exception;

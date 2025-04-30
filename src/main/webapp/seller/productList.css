@@ -94,14 +94,14 @@ tbody tr.hovered td {
 }
 
 .table th, .table td {
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
     padding: 5px;
     font-size: 14px;
     text-align: center;
 }
 
 .table th:nth-child(1),.table td:nth-child(1){
-    width: 10px;
+    width: 30px;
     padding: 0 20px;
 }
 
@@ -110,18 +110,19 @@ tbody tr.hovered td {
 }
 
 .table th:nth-child(3),.table td:nth-child(3){
-   width: 75px;
+   width: 80px;
 }
 
 .table th:nth-child(4),.table td:nth-child(4)
+,.table th:nth-child(9),.table td:nth-child(9)
 {
-	width: 160px;
+	width: 60px;
 	
 }
 .table th:nth-child(5),.table td:nth-child(5) {
     width: 80px;
 }
-.table th:nth-child(6),.table td:nth-child(6),.table th:nth-child(9),.table td:nth-child(9) {
+.table th:nth-child(6),.table td:nth-child(6) {
     width: 90px;
 }
 
@@ -201,14 +202,13 @@ input[type=number] {
     background-color: #4e9e32;  /* ✅ 조금 더 진한 그린 */
 }
 .actions {
-    width: 100%;  /* ✅ 너비 꽉 채우고 */
-    max-width: 1200px;  
+    width:1200px;
     display: flex;
-    justify-content: flex-end;  
+    justify-content: flex-start;
     gap: 10px;
     margin-top: 10px;
     padding-right: 10px;
-    box-sizing: border-box;  
+    margin-bottom: 10px;
 }
 .actions button {
     margin-left: 10px; /* 버튼 간격 추가 */
