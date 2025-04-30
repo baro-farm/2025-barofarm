@@ -9,12 +9,8 @@
     font-family: SUIT-Regular, sans-serif;
 }
 
-.container {
-	max-width: 1300px;
-	margin: 0 auto;
-}
 
-.searchBox {
+.FilterBox {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -22,6 +18,8 @@
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 8px; 
+    margin-top:10px;
+    margin-bottom:10px;
 }
 .wrapper {
 	display: flex;
@@ -29,10 +27,9 @@
 	min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
 }
 
-.content {
+.content1 {
 	flex: 1;
 	align-self: flex-start;
-	padding: 30px 0;
 	max-width: 1000px;
 	min-width: 0;
 	margin-left: 20px;
@@ -40,22 +37,13 @@
 	position: relative;
 }
 
-.sideMenu {
-	position: relative;
-}
 
-.header {
-    font-size: 30px;
-    color:#5cb85c;
-    font-weight: bold;
 
-}
-
-.searchBox input {
+.FilterBox input {
     padding: 5px;
 }
 
-.searchBox button {
+.FilterBox button {
     padding: 5px 10px;
     background-color: #65B741;
     color: white;
@@ -181,23 +169,34 @@
     cursor: pointer;
     border-radius: 8px;
 }
-
-
 .pagination {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
     margin-top: 20px;
 }
 
 .pagination a {
-    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
     text-decoration: none;
-    color: black;
-    border-radius: 8px;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
 }
 
 .pagination a.active {
-    font-weight: bold;
-    background-color: #65B741;
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
 }

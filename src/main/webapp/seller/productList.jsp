@@ -180,9 +180,7 @@
         <div class="noticeHeader">
             <span id="title">상품 관리</span>
         </div>
-               <div class="actions">
-            <button class="btn add">상품등록</button>
-        </div>
+
         
 		<div class="filterWrapper">
 		    <form id="sortForm" method="get" action="${contextPath}/sellerProductList">
@@ -203,9 +201,12 @@
 		    </form>
 		</div>
 		<div class="tableWrapper">
-		
+				<div class="actions">
+					<button class="btn add">상품등록</button>
+				</div>		
 		<table id="notice_table" class="table">
-		        <thead>
+
+				<thead>
 		          <tr>
 		            <th style="font-weight: bold;">상품번호</th>
 		            <th style="font-weight: bold;">상품명</th>

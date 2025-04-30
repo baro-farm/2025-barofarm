@@ -12,7 +12,13 @@
 body {
     margin: 20px;
 }
-
+.header {
+    font-size: 30px;
+    color:#5cb85c;
+    font-weight: bold;
+    margin-top:20px;
+	margin-bottom:20px;
+}
 .container {
     max-width: 1300px;
     margin: 0 auto;
@@ -119,5 +125,6 @@ body {
 }
 
 .addAddress {
-    text-align: right;
+    text-align: left;
+    margin-bottom:10px;
 }

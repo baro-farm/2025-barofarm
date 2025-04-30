@@ -19,14 +19,14 @@ import vo.ProdReviewVO;
 /**
  * Servlet implementation class ProdWritableReviewList
  */
-@WebServlet("/prodWritableReviewList")
-public class ProdWritableReviewList extends HttpServlet {
+@WebServlet("/packWritableReviewList")
+public class PackWritableReviewList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProdWritableReviewList() {
+    public PackWritableReviewList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -54,7 +54,7 @@ public class ProdWritableReviewList extends HttpServlet {
 			
 			prodReviewList = service.selectUserWritableReviewList(sessionUser.getUserId());
 			request.setAttribute("prodReviewList", prodReviewList);
-			request.getRequestDispatcher("/buyer/prodWritableReviewList.jsp").forward(request, response);
+			request.getRequestDispatcher("/buyer/packWritableReviewList.jsp").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();

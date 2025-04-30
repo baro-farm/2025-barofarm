@@ -69,7 +69,14 @@ $(function() {
 						
 			<div class="content">
 				<!-- 헤더 -->
-				<div class="addressHeader">배송지 주소관리</div>
+				<div class="header">배송지 주소관리</div>
+				
+								<!-- 주소 추가 버튼 -->
+				<div class="addAddress">
+					<a href="${contextPath}/insertAddress">
+						<button class="btnGreen">주소지 추가</button>
+					</a>
+				</div>
 				<!-- 주소 목록 테이블 -->
 				<table class="addressTable">
 					<thead>
@@ -105,18 +112,8 @@ $(function() {
 				</table>
 			</div>
 		</div>
-		<!-- 페이지네이션 -->
-		<div class="pagination">
-			<span class="active">1</span> <span>2</span> <span>3</span> <span>4</span>
-			<span>5</span>
-		</div>
+		
 
-		<!-- 주소 추가 버튼 -->
-		<div class="addAddress">
-			<a href="${contextPath}/insertAddress">
-				<button class="btnGreen">주소지 추가</button>
-			</a>
-		</div>
 	</div>
 
 </body>

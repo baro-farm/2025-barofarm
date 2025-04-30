@@ -9,20 +9,12 @@
     font-family: SUIT-Regular, sans-serif;
 }
 
-.container {
-	max-width: 1300px;
-	margin: 0 auto;
-}
-.wrapper {
-	display: flex;
-	flex-direction: row;
-	min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
-}
 
-.content {
+
+
+.content1 {
 	flex: 1;
 	align-self: flex-start;
-	padding: 30px 0;
 	max-width: 1000px;
 	min-width: 0;
 	margin-left: 20px;
@@ -45,17 +37,29 @@
     color: #888;
     font-size: 1.2em;
 }
-.filterSection {
+.FilterBox {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
     gap: 10px;
     margin-bottom: 20px;
-    border-bottom: 2px solid black;
-    padding-bottom: 10px;
-
-
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px; 
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.FilterBox input {
+    padding: 5px;
 }
 
+.FilterBox button {
+    padding: 5px 10px;
+    background-color: #65B741;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
 select {
     padding: 8px;
     border: 1px solid #ccc;
