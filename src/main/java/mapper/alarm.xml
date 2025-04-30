@@ -29,4 +29,79 @@
 	    SET isChecked = 1
 	    WHERE alarmNum = #{alarmNum}
     </update>
+    <select id="selectAlarmBySearchDto" resultType="alarm" parameterType="searchDtoSoy">
+		SELECT * FROM alarm a
+	  <where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'type'">
+	          a.type LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+	
+	    <!-- 📅 날짜 검색 조건 -->
+	    <if test="startDateFrom != null and startDateFrom != ''">
+		  AND Date(a.createdAt) &gt;= #{startDateFrom}
+		</if>
+		<if test="startDateTo != null and startDateTo != ''">
+		  AND Date(a.createdAt) &lt;= #{startDateTo}
+		</if>
+		<!-- 👤 매칭 상태 필터링 -->
+        <if test="status != null and status != 'all'">
+            <choose>
+                <when test="status == 'true'">
+                    AND a.isChecked = 1  <!-- 완료된 알림 -->
+                </when>
+                <when test="status == 'false'">
+                    AND a.isChecked = 0  <!-- 대기 중인 알림 -->
+                </when>
+            </choose>
+        </if>
+   	    <!-- 👤 특정 유저 광고만 조회할 경우 -->
+	    <if test="userNum != null">
+	      AND a.seNum = #{userNum}
+	    </if>
+	  </where>
+	  ORDER BY a.createdAt DESC
+	  LIMIT #{recordSize} OFFSET #{offset}
+	</select>
+	
+	<select id="countAlarmBySearchDto" resultType="int" parameterType="searchDtoSoy">
+		SELECT count(*) FROM alarm a
+<where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'type'">
+	          a.type LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+	
+	    <!-- 📅 날짜 검색 조건 -->
+	    <if test="startDateFrom != null and startDateFrom != ''">
+		  AND Date(a.createdAt) &gt;= #{startDateFrom}
+		</if>
+		<if test="startDateTo != null and startDateTo != ''">
+		  AND Date(a.createdAt) &lt;= #{startDateTo}
+		</if>
+		<!-- 👤 매칭 상태 필터링 -->
+        <if test="status != null and status != 'all'">
+            <choose>
+                <when test="status == 'true'">
+                    AND a.isChecked = 1  <!-- 완료된 알림 -->
+                </when>
+                <when test="status == 'false'">
+                    AND a.isChecked = 0  <!-- 대기 중인 알림 -->
+                </when>
+            </choose>
+        </if>
+   	    <!-- 👤 특정 유저 광고만 조회할 경우 -->
+	    <if test="userNum != null">
+	      AND a.seNum = #{userNum}
+	    </if>
+	  </where>
+	</select>
 </mapper>

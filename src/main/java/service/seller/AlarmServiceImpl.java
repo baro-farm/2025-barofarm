@@ -6,6 +6,7 @@ import dao.seller.AlarmDAO;
 import dao.seller.AlarmDAOImpl;
 import dto.seller.Alarm;
 import util.FcmUtil;
+import util.SearchDtoSoy;
 import vo.SellerVO;
 
 public class AlarmServiceImpl implements AlarmService {
@@ -43,6 +44,14 @@ public class AlarmServiceImpl implements AlarmService {
 	@Override
 	public boolean markAlarmAsRead(Long alarmNum) throws Exception {
 		return alarmDAO.updateIsChecked(alarmNum) > 0 ;
+	}
+	@Override
+	public List<Alarm> selectAlarmBySearchDto(SearchDtoSoy dto) throws Exception {
+		return alarmDAO.selectAlarmBySearchDto(dto);
+	}
+	@Override
+	public int countAlarmBySearchDto(SearchDtoSoy dto) throws Exception {
+		return alarmDAO.countAlarmBySearchDto(dto);
 	}
 
 }
