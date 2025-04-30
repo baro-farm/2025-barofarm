@@ -164,8 +164,7 @@
 		            .then((res) => res.json())
 		            .then((data) => {
 		              if (data.success) {
-		                //alert('결제가 완료되었습니다!');
-		                location.href = `/barofarm/orderComplete?transactionId=${data.transactionId}`;
+		                location.href = `/barofarm/orderComplete?transactionId=\${data.transactionId}`;
 		              } else {
 		                alert('결제 검증에 실패했습니다.');
 		              }
