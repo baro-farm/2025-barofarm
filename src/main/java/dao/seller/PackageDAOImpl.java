@@ -39,5 +39,11 @@ public class PackageDAOImpl implements PackageDAO {
 		return sqlSession.selectOne("mapper.packageProduct.countPackageList",param);
 	}
 
+	@Override
+	public void updatePackageStock(Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.packageProduct.updatePackageStock", param);
+		sqlSession.commit();		
+	}
+
 	
 }

@@ -30,7 +30,7 @@ public class PageInfo {
         this.allPage = (int)Math.ceil((double)totalCount / pageSize);
         this.startPage = ((curPage - 1) / pageBlock) * pageBlock + 1;
         this.endPage = Math.min(startPage + pageBlock - 1, allPage);
-        System.out.println("allPage=" + allPage + ", startPage=" + startPage + ", endPage=" + endPage);
+        System.out.println("PageInfo/allPage=" + allPage + ", startPage=" + startPage + ", endPage=" + endPage);
     }
 	
 	public Integer getCurPage() {

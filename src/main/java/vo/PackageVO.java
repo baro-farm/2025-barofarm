@@ -25,6 +25,7 @@ public class PackageVO {
     private Integer reviewCount;
     
     private String cateName;
+    private String sellStatus;
 	
 	public PackageVO() {
 		super();
@@ -186,6 +187,15 @@ public class PackageVO {
 	public void setCateName(String cateName) {
 		this.cateName = cateName;
 	}
+
+	public String getSellStatus() {
+		return sellStatus;
+	}
+
+	public void setSellStatus(String sellStatus) {
+		this.sellStatus = sellStatus;
+	}
+	
 	
 	
 	

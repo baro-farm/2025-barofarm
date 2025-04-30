@@ -52,5 +52,14 @@ public class PackageServiceImpl implements PackageService {
 		return packageDao.countPackageList(param);
 	}
 
+	@Override
+	public void updatePackageStock(Long packageNum, Integer stock) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("packageNum", packageNum);
+		param.put("stock", stock);
+		packageDao.updatePackageStock(param);
+		
+	}
+
 	
 }

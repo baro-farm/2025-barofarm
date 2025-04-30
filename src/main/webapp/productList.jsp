@@ -69,10 +69,12 @@
 			                    	</c:if>
 			                    </a>
 			                </div>
-			                <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
-			                <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
-			                <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
-			                <p class="reviewScore">⭐ ${p.avgRating} (${p.reviewCount})</p>
+			                <div class="nameBox">
+				                <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
+				                <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
+				                <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
+				                <p class="reviewScore"><i class="bi bi-star-fill" style="color: #FFB534;"></i> ${p.avgRating} (${p.reviewCount})</p>
+			                </div>
 			            </div>
 		            </c:forEach>
 		            <c:forEach var="p" items="${packageList}">
@@ -86,16 +88,18 @@
 			                    		<img src="${contextPath}${p.imgUrl}" alt="">
 			                    	</c:if>
 			                    </a>
+			                    <p class="dateStr" hidden>${p.startDate}</p>
+			                    <span class="weekday"></span>
 			                </div>
-			                <p class="dateStr" hidden>${p.startDate}</p>
-			                <p class="name-row">
-			                	<a href="${contextPath}/detailPackage?packageNum=${p.packageNum}" class="packageName">${p.packageName}</a>
-			                	<span class="weekday"></span>
-			                </p>
-			                
-			                <p><a href="${contextPath}/detailPackage?packageNum=${p.packageNum}" class="storeName">${p.storeName}</a></p>
-			                <p class="price"><fmt:formatNumber value="${p.packagePrice}" type="number" />원</p>
-			                <p class="reviewScore">⭐ ${p.avgRating} (${p.reviewCount})</p>
+			                <div class="nameBox">
+				                
+				                <p class="name-row">
+				                	<a href="${contextPath}/detailPackage?packageNum=${p.packageNum}" class="packageName">${p.packageName}</a>	
+				                </p>
+				                <p><a href="${contextPath}/detailPackage?packageNum=${p.packageNum}" class="storeName">${p.storeName}</a></p>
+				                <p class="price"><fmt:formatNumber value="${p.packagePrice}" type="number" />원</p>
+				                <p class="reviewScore"><i class="bi bi-star-fill" style="color: #FFB534;"></i> ${p.avgRating} (${p.reviewCount})</p>
+			                </div>
 			            </div>
 		            </c:forEach>
 		    	</div>
