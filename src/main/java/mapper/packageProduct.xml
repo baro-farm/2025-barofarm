@@ -75,9 +75,13 @@
 	    <result property="reviewCount" column="reviewCount"/>
 	</resultMap>
 	<select id="selectPackageList" parameterType="map" resultMap="packageWithOptionResultMap">
-		select p.packageNum, p.sellerNum, p.packageName,p.packageUnit, 
-			p.packagePrice, p.imgUrl, p.createdAt, p.salesVolume,
-			c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount
+		select p.packageNum, p.sellerNum, p.packageName,p.packageUnit, p.stock, p.startDate, p.endDate,
+			p.packagePrice, p.imgUrl, p.createdAt, p.updatedAt, p.salesVolume,
+			c.name as cateName, IFNULL(ROUND(pr.avgRating, 1), 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount,
+			CASE 
+		        WHEN p.endDate >= CURDATE() THEN '판매 중'
+		        ELSE '판매 종료'
+		    	END AS sellStatus
 		from package p
 		join category c on p.cateNum = c.cateNum
 		left join (
@@ -89,16 +93,16 @@
 		<if test="sellStat != null and sellStat != ''">
 			<choose>
 				<when test="sellStat == 'sales'">
-					and p.status = true
+					AND p.endDate >= CURDATE()
 				</when>
 				<when test="sellStat == 'salesStop'">
-					and p.status = false
+					AND p.endDate &lt; CURDATE()
 				</when>
 			</choose>
 		</if>
 		<choose>
-	        <when test="sort == 'lowPrice'">order by p.price asc</when>
-	        <when test="sort == 'highPrice'">order by p.price desc</when>
+	        <when test="sort == 'lowPrice'">order by p.packagePrice asc</when>
+	        <when test="sort == 'highPrice'">order by p.packagePrice desc</when>
 	        <when test="sort == 'sales'">order by p.salesVolume desc</when>
 	        <when test="sort == 'reviewCount'">order by pr.reviewCount desc</when>
 	        <when test="sort == 'rating'">order by pr.avgRating desc</when>
@@ -121,4 +125,8 @@
 			</choose>
 		</if>
 	</select>
+	<update id="updatePackageStock" parameterType="map">
+		update package set stock = #{stock}
+		where packageNum = #{packageNum}
+	</update>
 </mapper>

@@ -16,9 +16,6 @@
 h2{
     font-weight: bold;
 }
-p{
-    height: 10px;
-}
 a{
     text-decoration: none;
     color: black;
@@ -27,10 +24,11 @@ a:hover{
     color: #FFB534;
 }
 .listTitle{ 
+	color: #65B741;
     font-size: 30px;
     width: 1000px;
-    margin: 0 auto;
-    padding: 30px 0;
+    margin: 10px 0 30px 0;
+
 }
 /* 캐러셀 */
 .carousel {
@@ -47,56 +45,44 @@ a:hover{
 /* 상품 목록 스타일 */
 .product-list {
     display: flex;
-    gap: 40px 15px;
     justify-content: center;
-    width: 1000px;
-    margin: 0 auto;    
+    gap: 4px 4px;
+    margin: 0 auto;
 }
-.productName {
-    width: 150px;  /* 더 넓게 설정 */
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
+.product{
+	width:196px;
 }
 .productImgBox img{
-  width: 185px;
-  height: 195px;
-  display: flex;
+  width: 100%;
+  height: 217px;
+  display: block;
   object-fit: cover;
-  margin: 0 auto;
-  border-radius: 18px;
+}
+.nameBox{
+	margin:5px;
+	line-height:1.6em;
 }
 .productName {
-    width: 150px;
+   width:100%;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
-}
-.product p {
-    margin: 7px;
-    cursor: default;
-}
-.product p:last-child {
-    margin: 0 0 0 3px; 
 }
 .price {
     font-weight: bold;
 }
 .reviewScore {
-    color: #FF9800;
+    font-size: 12px;
 }
 /* 버튼 스타일 */
 .viewMore {
 	text-align:center;
 	max-width:150px;
     display: block;
-    margin: 50px auto;
+    margin: 30px auto;
     padding: 8px;
     border-radius: 8px;
     background-color: #65B741;
@@ -112,8 +98,7 @@ a:hover{
     margin: 0 auto;
 }
 .notice, .faq {
-    
-    width: 500px;
+    width: 480px;
 }
 .noticeHeader, .faqHeader {
     display: flex;

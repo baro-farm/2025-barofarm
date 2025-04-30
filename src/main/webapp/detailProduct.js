@@ -2,14 +2,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	const selectBox = document.getElementById('optionSelect');
 	const selectedOptionsContainer = document.getElementById('selectedOptions');
 	const totalPriceEl = document.getElementById('totalPrice');
+	const productPrice = parseInt(document.getElementById('productPrice').dataset.price, 10);
 	
 	const selectedOptions = {};
 	
 	function updateTotalPrice() {
 		let total = 0;
 		for (const key in selectedOptions) {
-            total += selectedOptions[key].price * selectedOptions[key].qty;
+			const opt = selectedOptions[key];
+            const unitPrice = opt.price === 0
+            ? productPrice
+            : productPrice + opt.price;
+        total += unitPrice * opt.qty;
         }
+        console.log(total,productPrice);
         totalPriceEl.textContent = total.toLocaleString();
         }
 
@@ -17,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedOptionsContainer.innerHTML = '';
 
         Object.entries(selectedOptions).forEach(([key, { name, price, qty }]) => {
+		const unitPrice = price === 0 ? productPrice : productPrice + price;;
             const wrapper = document.createElement('div');
             wrapper.className = 'selectedOptionItem';
 
@@ -101,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
       
 	  const productNum = basketBtn.dataset.productnum;
-	  console.log(productNum)
+
       const payload = {
         productNum: parseInt(productNum),
         optionNum: optionNum,
@@ -139,6 +146,7 @@ $(document).ready(function(){
     $(document).on("click", "a.reviewPageLink", function(e){
         e.preventDefault();
         console.log("클릭한 a 태그:", this.tagName);
+
         const url = $(e.currentTarget).attr("href");
 
         const scrollPos = $(window).scrollTop();
@@ -160,7 +168,7 @@ $(document).ready(function(){
     });
 });
 
-    
+ 
     $(document).on("click", "a.prodQAPageLink", function(e){
     e.preventDefault();
     const url = $(e.currentTarget).attr("href");
