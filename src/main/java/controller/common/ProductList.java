@@ -62,7 +62,7 @@ public class ProductList extends HttpServlet {
 		UserProductService service = new UserProductServiceImpl();
 		try {
 			Integer totalCount = service.ProductCount(cateNum);
-			PageInfo pageInfo = new PageInfo(curPage, 20,totalCount);
+			PageInfo pageInfo = new PageInfo(curPage, 16,totalCount);
 			
 			if(cateNum >= 8) {
 				List<PackageVO> packageList = service.PackageByCategory(pageInfo, cateNum, sort);

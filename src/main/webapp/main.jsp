@@ -56,7 +56,7 @@
 			<div class="productTable">
 			    <!-- 판매량 베스트 TOP5 -->
 			    <section class="bestProducts">
-			    	<h2 class="listTitle">베스트 TOP5</h2>
+			    	<h2 class="listTitle">BEST</h2>
 			      	<div class="product-list">
 			      		<c:forEach var="p" items="${bestProducts}">
 				        	<div class="product">
@@ -70,13 +70,16 @@
 				                    	</c:if>
 					          		</a>
 					          	</div>
-						        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
-						        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
-						        <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
-						        <p class="reviewScore">
-						        	⭐ <fmt:formatNumber value="${p.avgRating}" type="number" maxFractionDigits="1" />
-						        	(${p.reviewCount})
-						        </p>
+					          	<div class="nameBox">
+							        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
+							        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
+							        <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
+							        <p class="reviewScore">
+							        	<i class="bi bi-star-fill" style="color: #FFB534;"></i> 
+							        	<fmt:formatNumber value="${p.avgRating}" type="number" maxFractionDigits="1" />
+							        	(${p.reviewCount})
+							        </p>
+						        </div>
 							</div>
 						</c:forEach>
 		      		</div>
@@ -85,10 +88,11 @@
 		    	<hr>
 		    	<!-- 신제품 TOP5 -->
 		    	<section class="newProducts">
-		      		<h2 class="listTitle">신제품 TOP5</h2>
+		      		<h2 class="listTitle">NEW</h2>
 		      		<div class="product-list">
 		      			<c:forEach var="p" items="${newProducts}">
 			      			<div class="product">
+			      				
 					          	<div class="productImgBox">
 					          		<a href="${contextPath}/detailProduct?productNum=${p.productNum}">
 						          		<c:if test="${empty p.imgUrl}">
@@ -99,13 +103,16 @@
 				                    	</c:if>
 					          		</a>
 					          	</div>
-						        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
-						        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
-						        <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
-						        <p class="reviewScore">
-						        	⭐ <fmt:formatNumber value="${p.avgRating}" type="number" maxFractionDigits="1" /> 
+					          	<div class="nameBox">
+							        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="productName">${p.productName}</a></p>
+							        <p><a href="${contextPath}/detailProduct?productNum=${p.productNum}" class="storeName">${p.storeName}</a></p>
+							        <p class="price"><fmt:formatNumber value="${p.price}" type="number" />원</p>
+							        <p class="reviewScore">
+						        	<i class="bi bi-star-fill" style="color: #FFB534;"></i>
+						        	<fmt:formatNumber value="${p.avgRating}" type="number" maxFractionDigits="1" /> 
 						        	(${p.reviewCount})
 						        </p>
+						        </div>
 							</div>
 						</c:forEach>
 			      	</div>

@@ -9,6 +9,7 @@
 <title>상품 상세페이지 - 리뷰</title>
 </head>
 <body>
+<div id="reviewSection">
 	<table class="reviewTable">
 		<c:forEach var="r" items="${review}">
 			<tr>
@@ -77,6 +78,7 @@
 				<a class="disabled">&gt;</a>
 			</c:otherwise>
 		</c:choose>
+	</div>
 	</div>
 </body>
 </html>

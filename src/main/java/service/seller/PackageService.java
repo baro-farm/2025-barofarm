@@ -12,4 +12,5 @@ public interface PackageService {
 	void updatePackageProduct(PackageProduct packageProduct) throws Exception;
 	List<PackageVO> selectSellerPackageList(Long sellerNum,int offset, int pageSize,String sort, String sellStat) throws Exception;
 	Integer selectCountSellerPackageList(Long sellerNum,String sellStat) throws Exception;
+	void updatePackageStock(Long packageNum, Integer stock) throws Exception;
 }

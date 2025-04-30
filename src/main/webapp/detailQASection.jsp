@@ -9,19 +9,19 @@
 <title>상품 상세페이지 - 상품 문의</title>
 </head>
 <body>
-totalCount: ${pageInfo.totalCount}, allPage: ${pageInfo.allPage}, startPage: ${pageInfo.startPage}, endPage: ${pageInfo.endPage}
-	<c:choose>
-		<c:when test="${not empty qaList}">
-			<c:forEach var="q" items="${qaList}">
-				<table class="prodQA">
-					<thead class="">
-						<tr>
-							<th style="font-weight: bold;">답변상태</th>
-							<th style="font-weight: bold;">제목</th>
-							<th style="font-weight: bold;">작성자</th>
-							<th style="font-weight: bold;">작성일</th>
-						</tr>
-					</thead>
+<div id="prodQASection">
+	<table class="prodQA">
+		<thead class="">
+			<tr>
+				<th style="font-weight: bold;">답변상태</th>
+				<th style="font-weight: bold;">제목</th>
+				<th style="font-weight: bold;">작성자</th>
+				<th style="font-weight: bold;">작성일</th>
+			</tr>
+		</thead>
+		<c:choose>
+			<c:when test="${not empty qaList}">
+				<c:forEach var="q" items="${qaList}">
 					<tbody>
 						<tr>
 							<td>답변대기</td>
@@ -29,21 +29,22 @@ totalCount: ${pageInfo.totalCount}, allPage: ${pageInfo.allPage}, startPage: ${p
 							<td>${q.userId }</td>
 							<td>${q.createdAt }</td>
 						</tr>
-			</c:forEach>
-			<!-- <tr class="answerRow">
-						<td colspan="4" class="answer"><span class="answerTitle">답변</span>
-							안녕하세요. 고객님~ 저희 유럽 샐러드 채소를 주문해주시면...
-							<div class="answerInfo">판매자 | 2025-02-21</div></td>
-					</tr> -->
-			</tbody>
-			</table>
-		</c:when>
-		<c:otherwise>
-			<tr>
-				<td class="qa-none">등록된 문의가 없습니다.</td>
-			</tr>
-		</c:otherwise>
-	</c:choose>
+				</c:forEach>
+				<!-- <tr class="answerRow">
+								<td colspan="4" class="answer"><span class="answerTitle">답변</span>
+									안녕하세요. 고객님~ 저희 유럽 샐러드 채소를 주문해주시면...
+									<div class="answerInfo">판매자 | 2025-02-21</div></td>
+							</tr> -->
+				</tbody>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td class="qa-none" >등록된 문의가 없습니다.</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
+	</table>
+
 
 	<div id="paging">
 		<!-- 이전 페이지 -->
@@ -91,6 +92,7 @@ totalCount: ${pageInfo.totalCount}, allPage: ${pageInfo.allPage}, startPage: ${p
 	<div id="qaModal" class="modal" style="display: none;">
 		<textarea id="qaContent" placeholder="문의 내용을 입력하세요"></textarea>
 		<button id="submitQAButton">작성 완료</button>
+	</div>
 	</div>
 </body>
 </html>

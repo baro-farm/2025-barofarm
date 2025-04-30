@@ -38,7 +38,6 @@
 							    <option value="true" ${param.status == 'true' ? 'selected' : ''}>완료</option>
 							    <option value="false" ${param.status == 'false' ? 'selected' : ''}>대기</option>
 							</select>
-						  <input type="hidden" name="tab" value="${activeTab}" />
 						  <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
 						  <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
 						  ~

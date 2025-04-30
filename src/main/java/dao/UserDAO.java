@@ -25,4 +25,7 @@ public interface UserDAO {
 	
 	public User selectUserById(String userId) throws Exception;
 
+	//fcm
+	void updateFcmToken(Long userNum, String newFcmToken) throws Exception;
+	String selectFcmToken(Long userNum) throws Exception;
 }

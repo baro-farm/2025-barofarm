@@ -1,0 +1,150 @@
+/* 제목 스타일 */
+body {
+	flex-direction: column;
+}
+/*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+/* 내용 */
+
+#content {
+  width: calc(100vw - 220px);
+  max-width: 1280px;
+  margin: 40px auto;
+  padding-top: 80px;
+  padding-left: 220px;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+.container-header {
+    display: flex;
+    justify-content: space-between;
+}
+.searchForm {
+	float: right;
+}
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #65B741;
+}
+.subscribe-box {
+    display: flex;
+    justify-content: flex-end;
+}
+tbody tr:hover {
+    background-color: #FBF6EE;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+    cursor: pointer !important; /* 정렬 활성화 */
+}
+
+.question-icon {
+    padding: 4px 4px;
+    border: 2px solid #D72638;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 4px 5px 0px;
+}
+
+/* 광고 신청 버튼 */
+.btn-apply {
+    background: #D72638;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.btn-apply:hover {
+    background-color: #c1212f;
+}
+
+
+/* 상품 이미지 */
+.product-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+}
+
+/* 버튼 스타일 */
+.btn-cancel {
+    background-color: #D72638;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #65B741;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 페이징 */
+.paging a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #333;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.paging a.active {
+  background-color: #65B741;
+  color: white;
+  font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+}
+
+.interruption {
+	
+}

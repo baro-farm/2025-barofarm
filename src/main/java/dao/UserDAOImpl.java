@@ -96,9 +96,19 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.selectOne("mapper.user.getPasswordByUserNum", userNum);
 	}
 
-	
+	@Override
+	public void updateFcmToken(Long userNum, String newFcmToken) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("fcmToken", newFcmToken);
+        
+		sqlSession.update("mapper.user.updateFcmToken", param);
+		sqlSession.commit();	
+	}
 
-	
+	@Override
+	public String selectFcmToken(Long userNum) throws Exception {
+		return sqlSession.selectOne("mapper.user.selectFcmToken", userNum);
+	}
 
-	
 }
