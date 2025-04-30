@@ -24,7 +24,7 @@
 		from prodanswer
 		where qaNum = #{qaNum}
 	</select>
-	<select id="selectProdQA" parameterType="Long" resultType="questionVo">
+	<select id="selectProdQA" parameterType="Map" resultType="questionVo">
 		SELECT q.qaNum, q.userNum, q.productNum, q.title, q.content, q.createdAt,
 			pa.paNum, pa.content AS Acontent, pa.createdAt AS AcreatedAt,
 			u.userId

@@ -12,4 +12,5 @@ public interface PackageDAO {
 	void updatePackageProduct(PackageProduct packageProduct) throws Exception;
 	List<PackageVO> selectPackageList(Map<String, Object> param) throws Exception;
 	Integer countPackageList(Map<String, Object> param) throws Exception;
+	void updatePackageStock(Map<String, Object> param) throws Exception;
 }

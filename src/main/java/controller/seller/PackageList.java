@@ -60,7 +60,7 @@ public class PackageList extends HttpServlet {
 		PackageService service = new PackageServiceImpl();
 		
 		int page=1;
-		int pageSize=10;
+		int pageSize=15;
 		int totalCount=0;
 		String sort = null;
 		String sellStat=null;
@@ -96,7 +96,6 @@ public class PackageList extends HttpServlet {
 		    
 			packageList = service.selectSellerPackageList(sellerNum,offset,pageSize,sort,sellStat);
 			System.out.println(packageList);
-			
 			int pageGroupSize = 5;
 			int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
 			int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;
