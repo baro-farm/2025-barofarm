@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ProductOrder;
+import dto.buyer.ProductOrderItem;
 import vo.ProdOrderVO;
 
 public interface ProductOrderDAO {
@@ -24,6 +25,6 @@ public interface ProductOrderDAO {
 
 	Integer countSellerProductOrderList(Map<String,Object> param) throws Exception;
 	void insertProductOrder(SqlSession sqlSession, ProductOrder productOrder) throws Exception;
-	void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum, int amount, int price) throws Exception;
-	void insertProductOrderItem(SqlSession sqlSession, Map<String, Object> param) throws Exception;
+	void insertProductOrderItem(SqlSession sqlSession, Map<String,Object> param) throws Exception;
+//	void insertProductOrderItem(SqlSession sqlSession, ProductOrderItem poItem) throws Exception;
 }

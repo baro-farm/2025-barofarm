@@ -38,6 +38,8 @@
 	gap: 6px; 
 	font-size: 20px;
 	text-align: center;
+	text-decoration: none;
+	color: black;
 }
 
 .wrapper{

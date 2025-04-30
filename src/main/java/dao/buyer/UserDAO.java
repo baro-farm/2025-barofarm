@@ -1,6 +1,7 @@
 package dao.buyer;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.buyer.Address;
 import dto.User;
@@ -13,6 +14,7 @@ public interface UserDAO {
 	void insertAddress(Address address) throws Exception;
 	List<Address> selectAddressList(String userId) throws Exception;
 	Address selectAddress(Long addrNum) throws Exception;
+	Address selectDefaultAddress(Long userNum);
 	void updateAddress(Address address) throws Exception;
 	void deleteAddress(Long addrNum) throws Exception;
 }

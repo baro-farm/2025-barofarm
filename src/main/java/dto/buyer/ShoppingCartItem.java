@@ -2,10 +2,12 @@ package dto.buyer;
 
 public class ShoppingCartItem {
 	private Long cartNum;
+	private Long sellerNum;
 	private Long productNum;
 	private String productName;
 	private String imgUrl;
 	private Integer price;
+	private Integer basePrice;  // 안되서 일단 추가
 	
 	private Long optionNum;
 	private String option;
@@ -21,6 +23,14 @@ public class ShoppingCartItem {
 
 	public void setCartNum(Long cartNum) {
 		this.cartNum = cartNum;
+	}
+	
+	public Long getSellerNum() {
+		return sellerNum;
+	}
+
+	public void setSellerNum(Long sellerNum) {
+		this.sellerNum = sellerNum;
 	}
 
 	public Long getProductNum() {
@@ -53,6 +63,15 @@ public class ShoppingCartItem {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	
+	public Integer getBasePrice() {
+		return basePrice;
+	}
+
+	public void setBasePrice(Integer basePrice) {
+		this.basePrice = basePrice;
 	}
 
 	public Long getOptionNum() {

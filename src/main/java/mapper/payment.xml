@@ -5,7 +5,7 @@
   
 <mapper namespace="mapper.payment">
 	<insert id="insertPayment" parameterType="map">
-	    INSERT INTO payment (pdOrderNum, price, transactionId, pay, impUid, merchantUid)
-	    VALUES (#{pdOrderNum}, #{price}, #{transactionId}, #{pay}, #{impUid}, #{merchantUid})
+	    INSERT INTO payment (pdOrderNum, pkOrderNum, price, transactionId, pay, impUid, merchantUid)
+	    VALUES (#{pdOrderNum}, #{pkOrderNum}, #{price}, #{transactionId}, #{pay}, #{impUid}, #{merchantUid})
 	</insert>
 </mapper>

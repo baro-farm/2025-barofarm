@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>주문/결제</title>
-<link rel="stylesheet" href="${contextPath }/buyer/payment.css">
+<link rel="stylesheet" href="${contextPath }/buyer/buyNow.css">
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
@@ -26,63 +26,64 @@
 			<div class="address-section">
 			    <div class="address-header">
 			        <div class="address-info">
-			            <p class="receiver-name" id="receiverName">${defaultAddress.name} (${defaultAddress.nickname})</p>
-			            <p class="receiver-phone" id="receiverPhone">${defaultAddress.phone}</p>
-			            <p class="receiver-address" id="receiverAddress">${defaultAddress.addr1} ${defaultAddress.addr2}</p>
+			            <p class="receiver-name" id="receiverName">${sessionScope.defaultAddress.name} (${sessionScope.defaultAddress.nickname})</p>
+			            <p class="receiver-phone" id="receiverPhone">${sessionScope.defaultAddress.phone}</p>
+			            <p class="receiver-address" id="receiverAddress">${sessionScope.defaultAddress.addr1} ${sessionScope.defaultAddress.addr2}</p>
 			        </div>
 			        <button type="button" class="change-address-btn" onclick="openAddressModal()">변경</button>
 			    </div>
 			</div>
 
-		    <c:if test="${empty paymentCartMap}">
+		    <c:if test="${empty sessionScope.paymentCartMap}">
 		        <p>선택된 상품이 없습니다.</p>
 		    </c:if>
 
 		<h2 class="sub-title">주문상품</h2>
-	    <c:if test="${not empty paymentCartMap}">
-	        <c:set var="totalSum" value="0" />
-	        <c:forEach var="storeEntry" items="${paymentCartMap}">
-	            <div class="store-group">
-	                <h2>${storeEntry.key}</h2>
-	                <hr class="hr">
-	                <c:forEach var="product" items="${storeEntry.value}">
-	                    <c:set var="productSum" value="0" />
-	                    <div class="cart-item">
-	                        <img src="${contextPath}${product.imgUrl}" />
-	                        <div class="cart-item-info">
-	                            <div class="info-1">
-	                                <p class="product-title">${product.productName}</p>
-	                                <p class="price">${product.basePrice}원</p>
-	                            </div>
-	                            <div class="info-2">
-	                                <div class="option-list">
-	                                    <c:forEach var="opt" items="${product.options}">
-	                                        <p>${opt.option} / ${opt.quantity}개 (+${opt.optionPrice}원)</p>
-	                                        <c:set var="productSum" value="${productSum + opt.totalPrice}" />
-	                                    </c:forEach>
-	                                </div>
-	                            </div>
-	                            <div class="info-3">
-	                                <p class="total">${productSum}원</p>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <c:set var="totalSum" value="${totalSum + productSum}" />
-	                </c:forEach>
-	            </div>
-	        </c:forEach>
-	        <div class="all-total-div">
-	            <p class="all-total">총 결제 금액: ${totalSum}원</p>
-	                <c:forEach var="storeEntry" items="${paymentCartMap}">
-	                    <c:forEach var="product" items="${storeEntry.value}">
-	                        <c:forEach var="opt" items="${product.options}">
-	                            <input type="hidden" name="cartNums" value="${opt.cartNum}" />
-	                        </c:forEach>
-	                    </c:forEach>
-	                </c:forEach>
-	                <button type="button" id="payment">결제하기</button> 
-	        </div>
-    	</c:if>
+
+		<c:if test="${not empty sessionScope.paymentCartMap}">
+		    <c:set var="totalSum" value="0" />
+		    
+		    <c:forEach var="storeEntry" items="${sessionScope.paymentCartMap}">
+		        <div class="store-group">
+		            <h2>${storeEntry.key}</h2> <!-- ✅ 가게 이름 -->
+		            <hr class="hr">
+		            
+		            <c:forEach var="product" items="${storeEntry.value}">
+		                <c:set var="productSum" value="0" />
+		                <div class="cart-item">
+		                    <img src="${contextPath}${product.imgUrl}" />
+		                    <div class="cart-item-info">
+		                        <div class="info-1">
+		                            <p class="product-title">${product.productName}</p>
+		                            <p class="price">${product.basePrice}원</p>
+		                        </div>
+		                        <div class="info-2">
+		                            <div class="option-list">
+		                                <c:forEach var="opt" items="${product.options}">
+		                                    <p>${opt.option} / ${opt.quantity}개 (+${opt.optionPrice}원)</p>
+		                                    <c:set var="productSum" value="${productSum + opt.totalPrice}" />
+		                                    <input type="hidden" name="optionNums" value="${opt.optionNum}" />
+		                                    <input type="hidden" name="quantities" value="${opt.quantity}" />
+		                                </c:forEach>
+		                            </div>
+		                        </div>
+		                        <div class="info-3">
+		                            <p class="total">${productSum}원</p>
+		                        </div>
+		                    </div>
+		                </div>
+		                <c:set var="totalSum" value="${totalSum + productSum}" />
+		            </c:forEach>
+		        </div>
+		    </c:forEach>
+		
+		    <div class="all-total-div">
+		        <p class="all-total">총 결제 금액: ${totalSum}원</p>
+		        <button type="button" id="payment">결제하기</button>
+		    </div>
+		</c:if>
+		
+
 		</div>
 	</div>
 	
@@ -91,7 +92,7 @@
 	    <div class="modal-content" style="width: 400px;">
 	        <h3>배송지 선택</h3>
 	        <ul id="addressList">
-	            <c:forEach var="addr" items="${addressList}">
+	            <c:forEach var="addr" items="${sessionScope.addressList}">
 	                <li class="address-item" 
 	                    data-name="${addr.name}" 
 	                    data-nickname="${addr.nickname}" 
@@ -109,7 +110,7 @@
 	</div>
 	
 	<jsp:include page="/header/footer.jsp" />
-	<script src="${contextPath }/buyer/payment.js"></script>
+	<script src="${contextPath }/buyer/buyNow.js"></script>
 	<script>
 	document.addEventListener('DOMContentLoaded', () => {
 		  const paymentBtn = document.getElementById('payment');
@@ -119,9 +120,14 @@
 		      document.querySelector('.all-total').innerText.replace(/[^\d]/g, ''),
 		      10
 		    );
-		    const cartNums = Array.from(
-		      document.querySelectorAll('input[name="cartNums"]')
-		    ).map((input) => input.value);
+		    const optionNums = Array.from(
+    		  document.querySelectorAll('input[name="optionNums"]')
+    		).map((input) => parseInt(input.value));
+
+    		const quantities = Array.from(
+    		  document.querySelectorAll('input[name="quantities"]')
+    		).map((input) => parseInt(input.value));
+
 
 		    const rName = document.getElementById('receiverName').innerText.trim();
             const rPhone =  document.getElementById('receiverPhone').innerText.trim();
@@ -146,14 +152,15 @@
 		      function (rsp) {
 		        if (rsp.success) {
 		          // ✅ 결제 성공 시 서버에 결제 정보 전달 (imp_uid)
-		          fetch(`${contextPath}/paymentComplete`, {
+		          fetch(`${contextPath}/buyNowComplete`, {
 		            method: 'POST',
 		            headers: { 'Content-Type': 'application/json' },
 		            body: JSON.stringify({
 		              imp_uid: rsp.imp_uid, // 아임포트 거래 고유번호
 		              merchant_uid: rsp.merchant_uid,
 		              amount: amount,
-		              cartNums: cartNums,
+		              optionNums: optionNums,
+		              quantities: quantities,
 		              rName: rName,
 		              rPhone: rPhone,
 		              rAddress: rAddress,
@@ -165,6 +172,7 @@
 		            .then((data) => {
 		              if (data.success) {
 		                location.href = `/barofarm/orderComplete?transactionId=\${data.transactionId}`;
+		                
 		              } else {
 		                alert('결제 검증에 실패했습니다.');
 		              }

@@ -75,4 +75,9 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 		sqlSession.update("mapper.shoppingCart.updateCartQuantityIncrease", param);
 		sqlSession.commit();
 	}
+	
+	@Override
+    public ShoppingCartItem selectTempItem(Map<String, Object> param) throws Exception {
+        return sqlSession.selectOne("mapper.shoppingCart.selectTempItem", param);
+	}
 }

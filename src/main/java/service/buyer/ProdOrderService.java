@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ProductOrder;
+import dto.buyer.ProductOrderItem;
 import vo.ProdOrderVO;
 
 public interface ProdOrderService {
@@ -28,8 +29,8 @@ public interface ProdOrderService {
     Integer countProductOrderList(Long sellerNum, String dateType, String startDate, 
                                   String endDate, String searchType, String searchKeyword) throws Exception;
 	void insertProductOrder(SqlSession sqlSession, ProductOrder productOrder) throws Exception;
+//	void insertProductOrderItem(SqlSession sqlSession, ProductOrderItem poItem) throws Exception;
 	void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum, int amount, int price) throws Exception;
-
 	void updateSellerProdTrackingNum(Long pdOrderNum, Integer trackingNum) throws Exception;
 	
 	

@@ -112,9 +112,10 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-    public void insertPayment(SqlSession sqlSession, Long pdOrderNum, int price, String transactionId, String pay, String impUid, String merchantUid) throws Exception {
+    public void insertPayment(SqlSession sqlSession, Long pdOrderNum, Long pkOrderNum, int price, String transactionId, String pay, String impUid, String merchantUid) throws Exception {
         Map<String, Object> param = new HashMap<>();
         param.put("pdOrderNum", pdOrderNum);
+        param.put("pkOrderNum", pkOrderNum);
         param.put("price", price);
         param.put("transactionId", transactionId);
         param.put("pay", pay);

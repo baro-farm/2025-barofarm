@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import dao.buyer.ProductOrderDAO;
 import dao.buyer.ProductOrderDAOImpl;
 import dto.buyer.ProductOrder;
+import dto.buyer.ProductOrderItem;
 import vo.ProdOrderVO;
 
 public class ProdOrderServiceImpl implements ProdOrderService {
@@ -95,8 +96,8 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 	}
 	
 	@Override
-	public void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum,
-			int amount, int price) throws Exception {
+	public void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum, int amount, int price) throws Exception {
+//		prodOrderDao.insertProductOrderItem(sqlSession, poItem);
 		Map<String, Object> param = new HashMap<>();
         param.put("pdOrderNum", pdOrderNum);
         param.put("productNum", productNum);

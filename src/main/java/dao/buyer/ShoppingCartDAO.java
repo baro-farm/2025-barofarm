@@ -19,4 +19,5 @@ public interface ShoppingCartDAO {
 	void insertCart(Map<String, Object> param) throws Exception;
 	Boolean isProductInCart(Map<String, Object> param) throws Exception;
 	void updateCartQuantityIncrease(Map<String, Object> param) throws Exception;
+	ShoppingCartItem selectTempItem(Map<String, Object> param) throws Exception;
 }

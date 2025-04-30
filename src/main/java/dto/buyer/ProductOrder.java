@@ -11,18 +11,22 @@ public class ProductOrder {
 	String deleveryStatus;
 	String orderStatus;
 	LocalDateTime orderdAt;
+	String rName;
+	String rPhone;
 	
 	public ProductOrder() {
 		super();
 	}
 
-	public ProductOrder(Long userNum, Integer pdTotalPrice, String address, String deleveryStatus, String orderStatus) {
+	public ProductOrder(Long userNum, Integer pdTotalPrice, String address, String deleveryStatus, String orderStatus, String rName, String rPhone) {
 		super();
 		this.userNum = userNum;
 		this.pdTotalPrice = pdTotalPrice;
 		this.address = address;
 		this.deleveryStatus = deleveryStatus;
 		this.orderStatus = orderStatus;
+		this.rName = rName;
+		this.rPhone = rPhone;
 	}
 
 	public Long getPdOrderNum() {
@@ -88,5 +92,21 @@ public class ProductOrder {
 	public void setOrderdAt(LocalDateTime orderdAt) {
 		this.orderdAt = orderdAt;
 	}
-	
+
+	public String getrName() {
+		return rName;
+	}
+
+	public void setrName(String rName) {
+		this.rName = rName;
+	}
+
+	public String getrPhone() {
+		return rPhone;
+	}
+
+	public void setrPhone(String rPhone) {
+		this.rPhone = rPhone;
+	}
+
 }

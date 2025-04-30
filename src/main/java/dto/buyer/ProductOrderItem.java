@@ -4,6 +4,7 @@ public class ProductOrderItem {
 	Long orderItem;
 	Long pdOrderNum;
 	Long productNum;
+	Long optionNum;
 	Integer amount;
 	Integer price;
 	
@@ -50,6 +51,14 @@ public class ProductOrderItem {
 
 	public void setProductNum(Long productNum) {
 		this.productNum = productNum;
+	}
+
+	public Long getOptionNum() {
+		return optionNum;
+	}
+
+	public void setOptionNum(Long optionNum) {
+		this.optionNum = optionNum;
 	}
 
 	public Integer getAmount() {

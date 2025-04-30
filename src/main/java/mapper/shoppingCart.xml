@@ -8,6 +8,7 @@
 		resultType="shoppingCartItem">
 		SELECT
 		sc.cartNum,
+		sc.sellerNum,
 		p.productNum,
 		p.productName,
 		p.imgUrl,
@@ -123,4 +124,26 @@
         SET quantity = quantity + #{quantity}
         WHERE cartNum=#{cartNum}
     </update>
+    <select id="selectTempItem" parameterType="map" resultType="shoppingCartItem">
+	    SELECT
+	        p.productNum,
+	        p.productName,
+	        p.imgUrl,
+	        p.price as basePrice,
+	        po.optionNum,
+	        po.option,
+	        <!-- po.price AS optionPrice,
+	        #{quantity} AS quantity,
+	        ((p.price + po.price) * #{quantity}) AS totalPrice,
+	        s.storeName -->
+	        po.price AS optionPrice,
+		    1 AS quantity,
+		    ((p.price + po.price) * 1) AS totalPrice,
+		    s.storeName
+	    FROM productoption po
+	    JOIN product p ON po.productNum = p.productNum
+	    JOIN sellerdetail s ON p.sellerNum = s.sellerNum
+	    WHERE po.optionNum = #{optionNum}
+	</select>
+
 </mapper>

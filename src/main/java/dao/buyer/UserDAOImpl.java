@@ -1,6 +1,7 @@
 package dao.buyer;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -47,6 +48,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public Address selectAddress(Long addrNum) throws Exception {
 		return sqlSession.selectOne("mapper.user.selectAddress",addrNum);
+	}
+	
+	@Override
+	public Address selectDefaultAddress(Long userNum) {
+		return sqlSession.selectOne("mapper.user.selectDefaultAddress", userNum);
 	}
 
 	@Override
