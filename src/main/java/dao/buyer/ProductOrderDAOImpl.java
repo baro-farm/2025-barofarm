@@ -67,15 +67,6 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
-<<<<<<< HEAD
-=======
-
-	@Override
-	public void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum,
-			int amount, int price) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 
 	//user list
 	@Override
@@ -88,5 +79,4 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 	public List<ProdOrderVO> selectUserProdOrderList(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("mapper.prodOrder.selectUserProdOrderList",param);	}
->>>>>>> 69dd29ad02944934498094510731330e21631cd1
 }
