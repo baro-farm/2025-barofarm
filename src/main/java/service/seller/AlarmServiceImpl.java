@@ -14,7 +14,7 @@ public class AlarmServiceImpl implements AlarmService {
 		this.alarmDAO = new AlarmDAOImpl();
 	}
 	@Override
-	public int sendKockFarmAlarm(Long cateNum, String cateName, Long buyerUserNum) throws Exception {
+	public int sendKockFarmAlarm(Long cateNum, String cateName, Long buyerUserNum, Long kockNum) throws Exception {
 		List<SellerVO> sellerList = alarmDAO.selectSellerListByCate(cateNum);
 		
 		int count = 0;
@@ -22,19 +22,27 @@ public class AlarmServiceImpl implements AlarmService {
 		for (SellerVO seller:sellerList) {
 			String fcmToken = seller.getFcmToken();
 			Long sellerUserNum = Long.parseLong(seller.getUserNum());
-			
+
 			if (fcmToken != null) {
 				String title="콕팜 알림";
 				String body="["+ cateName + "] 에 새로운 콕팜 요청이 등록되었습니다!";
 				FcmUtil.sendMessageTo(fcmToken, title, body);
 				count++;
-				Alarm alarm = new Alarm(buyerUserNum, sellerUserNum, "새로운 콕팜 요청이 등록되었습니다!", cateName , title);
+				Alarm alarm = new Alarm(buyerUserNum, sellerUserNum, "새로운 콕팜 요청이 등록되었습니다!", cateName, title, kockNum);
 				alarmDAO.insertAlarm(alarm);
 			}
 			
 		}
 		
 		return count;
+	}
+	@Override
+	public List<Alarm> recentAlarmList(Long seNum) throws Exception {
+		return alarmDAO.selectRecentAlarmList(seNum);
+	}
+	@Override
+	public boolean markAlarmAsRead(Long alarmNum) throws Exception {
+		return alarmDAO.updateIsChecked(alarmNum) > 0 ;
 	}
 
 }

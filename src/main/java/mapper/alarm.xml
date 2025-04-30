@@ -14,8 +14,19 @@
           AND u.fcmToken IS NOT NULL
         GROUP BY u.userNum
     </select>
-    <update id="insertAlarm" parameterType="alarm">
-        INSERT INTO alarm (reNum, seNum, content1, content2, type)
-        VALUES (#{reNum}, #{seNum}, #{content1}, #{content2}, #{type})
+    <insert id="insertAlarm" parameterType="alarm">
+        INSERT INTO alarm (reNum, seNum, content1, content2, type, targetNum)
+        VALUES (#{reNum}, #{seNum}, #{content1}, #{content2}, #{type}, #{targetNum})
+    </insert>
+    <select id="selectRecentAlarmList" parameterType="long" resultType="alarm">
+	    SELECT * FROM alarm
+		WHERE seNum=#{seNum}
+		ORDER BY createdAt DESC
+		LIMIT 5
+    </select>
+    <update id="updateIsChecked" parameterType="long">
+	    UPDATE alarm
+	    SET isChecked = 1
+	    WHERE alarmNum = #{alarmNum}
     </update>
 </mapper>

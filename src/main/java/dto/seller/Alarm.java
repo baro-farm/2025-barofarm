@@ -9,21 +9,22 @@ public class Alarm {
 	private String content1;
 	private String content2;
 	private String type;
+	private Long targetNum;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private boolean isChecked;
 	public Alarm() {
 	}
 	
-	public Alarm(Long alarmNum, Long reNum, Long seNum, String content1, String content2, String type,
+	public Alarm(Long alarmNum, Long reNum, Long seNum, String content1, String content2, String type, Long targetNum,
 			LocalDateTime createdAt, LocalDateTime updatedAt, boolean isChecked) {
-		super();
 		this.alarmNum = alarmNum;
 		this.reNum = reNum;
 		this.seNum = seNum;
 		this.content1 = content1;
 		this.content2 = content2;
 		this.type = type;
+		this.targetNum = targetNum;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.isChecked = isChecked;
@@ -36,6 +37,17 @@ public class Alarm {
 		this.content2 = content2;
 		this.type = type;
 	}
+	
+	public Alarm(Long reNum, Long seNum, String content1, String content2, String type, Long targetNum) {
+		super();
+		this.reNum = reNum;
+		this.seNum = seNum;
+		this.content1 = content1;
+		this.content2 = content2;
+		this.type = type;
+		this.targetNum = targetNum;
+	}
+
 	public Long getAlarmNum() {
 		return alarmNum;
 	}
@@ -71,6 +83,12 @@ public class Alarm {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public Long getTargetNum() {
+		return targetNum;
+	}
+	public void setTargetNum(Long targetNum) {
+		this.targetNum = targetNum;
 	}
 	public boolean isChecked() {
 		return isChecked;

@@ -124,6 +124,9 @@ document.getElementById("kockFarmForm").addEventListener("submit", async functio
         });
 
         if (response.ok) {
+        	const result = await response.json();
+            const kockNum = result.kockNum;
+            console.log(kockNum);
             const cateNum = document.getElementById("cateNum").value;
             const cateName = document.getElementById("cateNum").options[document.getElementById("cateNum").selectedIndex].text;
             const buyerUserNum = "${user.userNum}";
@@ -135,7 +138,8 @@ document.getElementById("kockFarmForm").addEventListener("submit", async functio
 			    body: JSON.stringify({
 			        cateNum: cateNum,
 			        cateName: cateName,
-			        buyerUserNum: buyerUserNum
+			        buyerUserNum: buyerUserNum,
+			        kockNum: kockNum
 			    })
 			});
 			if (!alarmResponse.ok) {

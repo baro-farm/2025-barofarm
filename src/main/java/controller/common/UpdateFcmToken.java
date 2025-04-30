@@ -54,7 +54,6 @@ public class UpdateFcmToken extends HttpServlet {
 		
         try {
         	UserService userService = new UserServiceImpl();
-        	System.out.println("update fcm");
         	userService.updateFcmTokenIfChanged(userNum, newFcmToken);
         	response.setStatus(200);
         }catch (Exception e) {

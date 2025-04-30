@@ -89,7 +89,7 @@ public class InsertKockFarm extends HttpServlet {
 			KockFarm kockfarm = new KockFarm(userNum, cateNum, title, quantity, price, shipDate, content, imgUrl);
 			KockFarmService service = new KockFarmServiceImpl();
 			
-			service.insertKockFarm(kockfarm);
+			Long kockNum = service.insertKockFarm(kockfarm);
 			
 			//json으로 성공응답
 			JsonResponse successResponse = new JsonResponse(true, "콕팜 작성 완료", kockfarm.getKockNum());

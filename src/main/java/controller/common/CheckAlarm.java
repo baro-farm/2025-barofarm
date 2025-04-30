@@ -16,16 +16,16 @@ import service.seller.AlarmService;
 import service.seller.AlarmServiceImpl;
 
 /**
- * Servlet implementation class SendKockFarmAlarm
+ * Servlet implementation class CheckAlarm
  */
-@WebServlet("/sendKockFarmAlarm")
-public class SendKockFarmAlarm extends HttpServlet {
+@WebServlet("/checkAlarm")
+public class CheckAlarm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SendKockFarmAlarm() {
+    public CheckAlarm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,31 +36,27 @@ public class SendKockFarmAlarm extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");
-		
-		BufferedReader br = request.getReader();
-		Gson gson = new Gson();
-		JsonObject jsonObj = gson.fromJson(br, JsonObject.class);
-		
-		Long cateNum = jsonObj.get("cateNum").getAsLong();
-		String cateName = jsonObj.get("cateName").getAsString();
-		Long buyerUserNum = jsonObj.get("buyerUserNum").getAsLong();
-		Long kockNum = jsonObj.get("kockNum").getAsLong();
+
 		try {
+			BufferedReader br = request.getReader();
+			Gson gson = new Gson();
+			JsonObject jsonObj = gson.fromJson(br, JsonObject.class);
+			Long alarmNum = jsonObj.get("alarmNum").getAsLong();
+
 			AlarmService alarmService = new AlarmServiceImpl();
-			int count = alarmService.sendKockFarmAlarm(cateNum, cateName, buyerUserNum, kockNum);
-			
+			boolean success = alarmService.markAlarmAsRead(alarmNum);
+
 			JsonObject res = new JsonObject();
-			res.addProperty("success", true);
-			res.addProperty("message", "알림 발송 완료");
-			res.addProperty("count", count);
+			res.addProperty("success", success);
 			response.getWriter().write(res.toString());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-            JsonObject result = new JsonObject();
-            result.addProperty("success", false);
-            result.addProperty("message", "알림 발송 중 오류 발생");
-            response.setStatus(500);
-            response.getWriter().write(result.toString());
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			JsonObject errorRes = new JsonObject();
+			errorRes.addProperty("success", false);
+			errorRes.addProperty("message", "알림 확인 처리 실패");
+			response.getWriter().write(errorRes.toString());
 		}
 	}
 

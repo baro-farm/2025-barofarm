@@ -18,6 +18,19 @@ public class AlarmDAOImpl implements AlarmDAO {
 
 	@Override
 	public void insertAlarm(Alarm alarm) throws Exception {
-		sqlSession.insert("mappe.alarm.insertAlarm",alarm);
+		sqlSession.insert("mapper.alarm.insertAlarm",alarm);
+		sqlSession.commit();
+	}
+
+	@Override
+	public List<Alarm> selectRecentAlarmList(Long seNum) throws Exception {
+		return sqlSession.selectList("mapper.alarm.selectRecentAlarmList", seNum);
+	}
+
+	@Override
+	public int updateIsChecked(Long alarmNum) throws Exception {
+		int num = sqlSession.update("mapper.alarm.updateIsChecked",alarmNum);
+		sqlSession.commit();
+		return num;
 	}
 }

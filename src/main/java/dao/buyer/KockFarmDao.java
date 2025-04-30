@@ -11,7 +11,7 @@ import vo.KockCommentVO;
 import vo.KockFarmVO;
 
 public interface KockFarmDao {
-	void insertKockFarm(KockFarm kock) throws Exception;
+	Long insertKockFarm(KockFarm kock) throws Exception;
 	KockFarm selectKockFarm(Long kockNum) throws Exception;
 	void updateKockFarm(KockFarm kockFarm);
 	void deleteKockFarm(Long kockNum) throws Exception;

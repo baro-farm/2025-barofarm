@@ -22,8 +22,8 @@
 	            <h1 class="title">팜포인트</h1>
 	            <c:if test="${isAlarm eq false }">
 		            <div class="subscribe-box">
-		                <span class="question-icon">❓</span>
-		                <button class="subscribe-btn">
+<!-- 		                <span class="question-icon">❓</span>
+ -->		                <button class="subscribe-btn">
 		                    콕팜링 구독하기
 		                </button>
 		            </div>
