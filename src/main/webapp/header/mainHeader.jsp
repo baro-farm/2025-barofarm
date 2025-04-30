@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script>
+  const contextPath = "${contextPath}";
+</script>
 <!DOCTYPE html>
 <html lang="ko">
     <!-- 로그인버튼 hover할떄 다른 디자인이 움직임 / 종버튼 알람올때 변경할지 / 종에 알림 수 입력하는거-->
@@ -47,7 +50,14 @@
 </script>
  <body>
  	<div class="mainHeader">
-        <div class="userMenu">
+        <!-- 헤더 -->
+        <header class="headerMenu">
+            <div class="headerlogo">
+                <a href="main">
+                    <img src="${contextPath }/img/barologo1.png" alt="barologo1" border="0" class="logo">
+                </a>
+            </div>
+            <div class="userMenu">
             <ul class="userMenuUl">
             	<c:choose>
             		<c:when test="${user==null}">
@@ -77,13 +87,6 @@
              	</c:choose>
             </ul>
         </div>
-        <!-- 헤더 -->
-        <header class="headerMenu">
-            <div class="headerlogo">
-                <a href="main">
-                    <img src="${contextPath }/img/barologo1.png" alt="barologo1" border="0" class="logo">
-                </a>
-            </div>
             <div class="navMenu">
                 <ul class="navMenuUl">
                     <li class="headerli"><a href="newProductList" class="headerBtn" id="new">신제품</a></li>

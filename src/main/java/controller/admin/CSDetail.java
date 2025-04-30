@@ -49,7 +49,7 @@ public class CSDetail extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 
 			// JSON으로 변환 (gson 사용)
-			Gson gson = new Gson();
+			Gson gson = new Gson();     
 			String json = gson.toJson(aq);
 			response.getWriter().write(json);
 //			System.out.println(json);

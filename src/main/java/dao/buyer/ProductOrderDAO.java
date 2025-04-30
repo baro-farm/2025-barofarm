@@ -26,5 +26,4 @@ public interface ProductOrderDAO {
 	Integer countSellerProductOrderList(Map<String,Object> param) throws Exception;
 	void insertProductOrder(SqlSession sqlSession, ProductOrder productOrder) throws Exception;
 	void insertProductOrderItem(SqlSession sqlSession, Map<String,Object> param) throws Exception;
-//	void insertProductOrderItem(SqlSession sqlSession, ProductOrderItem poItem) throws Exception;
 }
