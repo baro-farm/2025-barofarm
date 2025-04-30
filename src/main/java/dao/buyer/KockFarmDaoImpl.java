@@ -18,9 +18,10 @@ public class KockFarmDaoImpl implements KockFarmDao {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
 	@Override
-	public void insertKockFarm(KockFarm kock) throws Exception {
-		sqlSession.insert("mapper.kockFarm.insertKockFarm",kock);
+	public Long insertKockFarm(KockFarm kock) throws Exception {
+		Long num = (long) sqlSession.insert("mapper.kockFarm.insertKockFarm",kock);
 		sqlSession.commit();
+		return num;
 	}
 
 	@Override

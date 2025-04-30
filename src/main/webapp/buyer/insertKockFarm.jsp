@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>콕팜 작성하기</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   	<link rel="stylesheet" href="${contextPath}/buyer/insertKockFarm.css" />
   	<script>
 		function readURL(input) {
@@ -30,7 +31,7 @@
 	        <p>거래를 제안하세요!</p>
 	    </div>
 
-	    <form action="insertKockFarm" method="post" enctype="multipart/form-data">
+	    <form id="kockFarmForm" enctype="multipart/form-data">
 	      <div class="form-big">
 	        <div class="form-group">
 	          <label for="title">제목</label>
@@ -109,6 +110,54 @@
 	var shipDateInput = document.getElementById("shipDate");
 	shipDateInput.value = today;
 	shipDateInput.min = today;
-</script> 
+</script>
+<script>
+document.getElementById("kockFarmForm").addEventListener("submit", async function(e) {
+    e.preventDefault(); 
+    const formData = new FormData(this);
+
+    try {
+        //글 등록 요청
+        const response = await fetch('insertKockFarm', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+        	const result = await response.json();
+            const kockNum = result.kockNum;
+            console.log(kockNum);
+            const cateNum = document.getElementById("cateNum").value;
+            const cateName = document.getElementById("cateNum").options[document.getElementById("cateNum").selectedIndex].text;
+            const buyerUserNum = "${user.userNum}";
+            
+            //글 등록 성공했으면 FCM 알림 요청
+			const alarmResponse = await fetch('sendKockFarmAlarm', {
+			    method: 'POST',
+			    headers: { 'Content-Type': 'application/json' },
+			    body: JSON.stringify({
+			        cateNum: cateNum,
+			        cateName: cateName,
+			        buyerUserNum: buyerUserNum,
+			        kockNum: kockNum
+			    })
+			});
+			if (!alarmResponse.ok) {
+			    throw new Error("알림 발송 실패");
+			}
+
+            //알림까지 성공하면 목록으로 이동
+            alert("콕팜 글 작성 및 알림 발송 완료!");
+            location.href = "kockFarmList";
+        } else {
+            alert("글 등록에 실패했습니다.");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("에러가 발생했습니다.");
+    }
+});
+</script>
+ 
 </body>
 </html>

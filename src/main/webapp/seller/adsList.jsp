@@ -49,7 +49,7 @@
       <table id="banner-table" class="table">
           <thead>
               <tr>
-	                    <th style="font-weight: bold;">순번</th>
+                 <th style="font-weight: bold;">순번</th>
                  <th style="font-weight: bold;">신청 현황</th>
                  <th style="font-weight: bold;">이미지파일</th>
                  <th style="font-weight: bold;">상품명</th>
