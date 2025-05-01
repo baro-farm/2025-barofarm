@@ -47,9 +47,9 @@ public class GetAlarmList extends HttpServlet {
 		User sessionUser = (User) session.getAttribute("user");
 		Long sessionUserNum = sessionUser.getUserNum();
 
-		Long seNum = Long.parseLong(request.getParameter("seNum"));
+		Long reNum = Long.parseLong(request.getParameter("reNum"));
 
-		if (!sessionUserNum.equals(seNum)) {
+		if (!sessionUserNum.equals(reNum)) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			response.getWriter().write("{\"error\": \"권한이 없습니다.\"}");
 		    return;
@@ -57,7 +57,7 @@ public class GetAlarmList extends HttpServlet {
 		AlarmService alarmService = new AlarmServiceImpl();
         
 		try {
-			List<Alarm> list = alarmService.recentAlarmList(seNum);
+			List<Alarm> list = alarmService.recentAlarmList(reNum);
 	        
 			Gson gson = new GsonBuilder()
 					.registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {

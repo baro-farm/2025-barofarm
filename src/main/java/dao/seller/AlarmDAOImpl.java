@@ -24,8 +24,8 @@ public class AlarmDAOImpl implements AlarmDAO {
 	}
 
 	@Override
-	public List<Alarm> selectRecentAlarmList(Long seNum) throws Exception {
-		return sqlSession.selectList("mapper.alarm.selectRecentAlarmList", seNum);
+	public List<Alarm> selectRecentAlarmList(Long reNum) throws Exception {
+		return sqlSession.selectList("mapper.alarm.selectRecentAlarmList", reNum);
 	}
 
 	@Override
@@ -43,5 +43,10 @@ public class AlarmDAOImpl implements AlarmDAO {
 	@Override
 	public int countAlarmBySearchDto(SearchDtoSoy dto) throws Exception {
 		return sqlSession.selectOne("mapper.alarm.countAlarmBySearchDto",dto);
+	}
+
+	@Override
+	public int selectUnreadAlarmCount(Long userNum) throws Exception {
+		return sqlSession.selectOne("mapper.alarm.selectUnreadAlarmCount",userNum);
 	}
 }

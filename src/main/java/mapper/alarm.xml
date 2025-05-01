@@ -8,10 +8,12 @@
         FROM sellerdetail sd
         JOIN product p ON sd.sellerNum = p.sellerNum
         JOIN user u ON sd.userNum = u.userNum
+        JOIN point po ON sd.userNum = po.userNum
         WHERE sd.isAlarm = 1
           AND p.cateNum = #{cateNum}
           AND p.status = 1
           AND u.fcmToken IS NOT NULL
+          AND po.point >= 500 
         GROUP BY u.userNum
     </select>
     <insert id="insertAlarm" parameterType="alarm">
@@ -20,9 +22,9 @@
     </insert>
     <select id="selectRecentAlarmList" parameterType="long" resultType="alarm">
 	    SELECT * FROM alarm
-		WHERE seNum=#{seNum}
-		ORDER BY createdAt DESC
-		LIMIT 5
+		WHERE reNum=#{reNum}
+	   AND isChecked = 0
+		ORDER BY createdAt DESC		
     </select>
     <update id="updateIsChecked" parameterType="long">
 	    UPDATE alarm
@@ -61,7 +63,7 @@
         </if>
    	    <!-- 👤 특정 유저 광고만 조회할 경우 -->
 	    <if test="userNum != null">
-	      AND a.seNum = #{userNum}
+	      AND a.reNum = #{userNum}
 	    </if>
 	  </where>
 	  ORDER BY a.createdAt DESC
@@ -100,8 +102,14 @@
         </if>
    	    <!-- 👤 특정 유저 광고만 조회할 경우 -->
 	    <if test="userNum != null">
-	      AND a.seNum = #{userNum}
+	      AND a.reNum = #{userNum}
 	    </if>
 	  </where>
+	</select>
+	<select id="selectUnreadAlarmCount" parameterType="long" resultType="int">
+	   SELECT COUNT(*) 
+	    FROM alarm 
+	    WHERE reNum = #{userNum} 
+	   AND isChecked = 0
 	</select>
 </mapper>

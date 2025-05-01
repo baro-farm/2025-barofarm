@@ -24,5 +24,10 @@ public class UsePointDAOImpl implements UsePointDAO {
 	public int countUsePointBySearchDto(SearchDtoSoy dto) throws Exception {
 		return sqlSession.selectOne("mapper.usePoint.countUsePointBySearchDto",dto);
 	}
+	@Override
+	public void insertKockFarmAlarm(UsePoint usePoint) throws Exception {
+		sqlSession.insert("mapper.usePoint.insertKockFarmAlarm",usePoint);
+		sqlSession.commit();
+	}
 
 }
