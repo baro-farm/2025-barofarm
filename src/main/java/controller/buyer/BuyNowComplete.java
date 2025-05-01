@@ -124,7 +124,7 @@ public class BuyNowComplete extends HttpServlet {
 
 	            // 재고 감소 / 판매량 증가
 	            for (ShoppingCartItem item : items) {
-	                productService.adjustStock(sqlSession, item.getOptionNum(), item.getQuantity());
+	                productService.adjustStock(sqlSession, item.getOptionNum(), -item.getQuantity());
 	                productService.adjustSalesVolume(sqlSession, item.getProductNum(), item.getQuantity());
 	            }
 
