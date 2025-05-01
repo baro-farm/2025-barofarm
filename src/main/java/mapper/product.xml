@@ -153,7 +153,7 @@
 	      ORDER BY p.price DESC, p.productName ASC
 	    </when>
 	    <otherwise>
-	      ORDER BY p.productName DESC
+	      ORDER BY p.salesVolume DESC, IFNULL(ROUND(AVG(r.pdRating), 1), 0) DESC
 	    </otherwise>
 	  </choose>
 	
@@ -236,7 +236,7 @@
 		    	ORDER BY p.price DESC, p.productName ASC
 		  	</when>
 		  	<otherwise>
-		    	ORDER BY p.salesVolume DESC, p.productName ASC
+		    	ORDER BY p.salesVolume DESC, IFNULL(ROUND(AVG(r.pdRating), 1), 0) DESC
 		  	</otherwise>
 	  	</choose>
 	  	LIMIT #{start}, #{pageSize}
@@ -285,7 +285,7 @@
 	      ORDER BY p.price DESC, p.productName ASC
 	    </when>
 	    <otherwise>
-	      ORDER BY p.productName DESC
+	      ORDER BY p.salesVolume DESC, IFNULL(ROUND(AVG(r.pdRating), 1), 0) DESC
 	    </otherwise>
 	  </choose>
 	

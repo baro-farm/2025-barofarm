@@ -35,9 +35,20 @@
 		        </c:if>
 		        <br>
         		<a href="adminQAList" class="backBtn">목록으로</a>
+        		<button id="deleteBtn">삭제하기</button>
         	</div>
         </div>
         <jsp:include page="/header/footer.jsp" />
     </div>
+    <script>
+	    document.getElementById('deleteBtn').onclick = function() {
+	    	const urlParams = new URLSearchParams(window.location.search);
+	        const questionNum = urlParams.get('questionNum');
+	        
+	        if (confirm('정말 삭제하시겠습니까?')) {
+	            window.location.href = 'deleteAdminQA?questionNum=' + questionNum;
+	        }
+	    };
+	</script>
 </body>
 </html>

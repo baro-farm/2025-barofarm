@@ -63,6 +63,9 @@
     background-color: orange;
     color: white;
 }
+.active{
+	color: white;
+}
 .selectBox{
 	margin-top: 15px;
 	width:100%;

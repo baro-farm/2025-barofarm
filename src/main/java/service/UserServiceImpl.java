@@ -178,4 +178,10 @@ public class UserServiceImpl implements UserService{
 			userDao.updateFcmToken(userNum, newFcmToken);
 		}
 	}
+
+	@Override
+	public void deleteAdminQA(Long questionNum) throws Exception {
+		userDao.deleteAdminQA(questionNum);
+		
+	}
 }

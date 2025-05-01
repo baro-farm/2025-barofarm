@@ -91,7 +91,7 @@
                 <ul class="navMenuUl">
                     <li class="headerli"><a href="newProductList" class="headerBtn" id="new">신제품</a></li>
                     <li class="headerli"><a href="bestProductList" class="headerBtn" id="best">베스트</a></li>
-                    <li class="headerli"><a href="#" class="headerBtn" id="package">꾸러미</a></li>
+                    <li class="headerli"><a href="packageListByAll" class="headerBtn" id="package">꾸러미</a></li>
                     <li class="headerli"><a href="kockFarmList" class="headerBtn" id="kockFarm">콕팜</a></li>
                     <li class="headerli"><a href="adminQAList" class="headerBtn" id="kockFarm">문의하기</a></li>
                     <li class="headerli"><a href="userNoticeList" class="headerBtn" id="notice">공지사항</a></li>

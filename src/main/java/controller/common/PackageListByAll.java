@@ -12,19 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import service.UserProductService;
 import service.UserProductServiceImpl;
 import util.PageInfo;
+import vo.PackageVO;
 import vo.ProductVO;
 
 /**
- * Servlet implementation class BestProductList
+ * Servlet implementation class ProductList
  */
-@WebServlet("/bestProductList")
-public class ProductListByBest extends HttpServlet {
+@WebServlet("/packageListByAll")
+public class PackageListByAll extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductListByBest() {
+    public PackageListByAll() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,23 +37,37 @@ public class ProductListByBest extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String pageStr = request.getParameter("page");
+		String sort = request.getParameter("sort");
+		
+		// 페이징
 		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
-		PageInfo pageInfo = new PageInfo(curPage, 20);
-
+		
 		UserProductService service = new UserProductServiceImpl();
 		try {
-			List<ProductVO> bestList = service.BestProductByPage(pageInfo);
+			Integer totalCount = service.countPackageByAll();
+			PageInfo pageInfo = new PageInfo(curPage, 16,totalCount);
 
+			List<PackageVO> packageList = service.PackageByAll(pageInfo, sort);
+
+			request.setAttribute("packageList", packageList);
 			request.setAttribute("pageInfo", pageInfo);
-			request.setAttribute("productList", bestList);
-			request.setAttribute("cateName", "베스트");
-			request.setAttribute("listType", "best");
-
+			request.setAttribute("cateName", "꾸러미");
+			request.setAttribute("listType", "package");
+			request.setAttribute("sort", sort);
+			
 			request.getRequestDispatcher("productList.jsp").forward(request, response);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "베스트 상품 조회 실패");
+			request.setAttribute("err", "상품 목록 조회를 실패했습니다.");			
 		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

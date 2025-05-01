@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.seller.ProductOption;
 import util.PageInfo;
+import vo.PackReviewVO;
 import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
@@ -22,12 +23,15 @@ public interface UserProductService {
 	List<ProductOption> ProdOption(Long productNum) throws Exception;
 	List<ProdReviewVO> ProdReview(Long prodNum, PageInfo pageInfo) throws Exception;
 	Integer CountReview(Long prodNum) throws Exception;
-	List<QuestionVO> ProdQA(Long prodNum, PageInfo pageInfo) throws Exception;
-	Integer CountProdQA(Long prodNum) throws Exception;
 	
 	List<ProductVO> ProductBySellerNum(PageInfo pageInfo,Long sellerNum, String sort) throws Exception;
 	Integer PackageCount(Integer cateNum) throws Exception;
 	
 	PackageVO DetailPackage(Long packageNum) throws Exception;
+	List<PackReviewVO> PackReview(Long packNum, PageInfo pageInfo) throws Exception;
+	Integer CountPackReview(Long packNum) throws Exception;
 	List<PackageVO> PackageByCategory(PageInfo pageInfo,Integer cateNum, String sort) throws Exception;
+	
+	List<PackageVO> PackageByAll(PageInfo pageInfo, String sort) throws Exception;
+	Integer countPackageByAll() throws Exception;
 }
