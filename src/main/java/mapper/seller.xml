@@ -62,4 +62,8 @@
 	<update id="updateIsAlarm" parameterType="Long">
 		UPDATE sellerdetail SET isAlarm=NOT isAlarm WHERE userNum = #{userNum}
 	</update>
+	<select id="selectSellerDetail" parameterType="Long" resultType="seller">
+	  SELECT * FROM sellerDetail WHERE sellerNum = #{sellerNum}
+	</select>
+	
 </mapper>
