@@ -13,6 +13,7 @@ import dto.seller.ProductOption;
 import service.UserProductService;
 import service.UserProductServiceImpl;
 import util.PageInfo;
+import vo.PackReviewVO;
 import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
@@ -39,32 +40,33 @@ public class DetailPackage extends HttpServlet {
 request.setCharacterEncoding("utf-8");
 		
 		Long packageNum = Long.parseLong(request.getParameter("packageNum"));
-		String reviewPageStr = request.getParameter("reviewPage");
 		String ajaxHeader = request.getHeader("X-Requested-With");
 		boolean isAjax = "XMLHttpRequest".equals(ajaxHeader);
 
 		// 페이징
-		Integer curPage = (reviewPageStr == null || reviewPageStr.trim().equals("")) ? 1 : Integer.parseInt(reviewPageStr);
-		PageInfo pageInfo = new PageInfo(curPage, 5);
+		String pageStr = request.getParameter("page");
+		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
 		
 		UserProductService service = new UserProductServiceImpl();
 	
 		try {
-//			List<ProdReviewVO> reviewList = service.ProdReview(productNum, pageInfo);
-//			List<ProductOption> prodOption = service.ProdOption(productNum);
 			PackageVO detailPackage = service.DetailPackage(packageNum);
+			
+			Integer totalCount = service.CountReview(packageNum);
+			PageInfo pageInfo = new PageInfo(curPage, 5,totalCount);
+			List<PackReviewVO> reviewList = service.PackReview(packageNum, pageInfo);
+			
 			
 			if (isAjax) {
 				request.setAttribute("pack", detailPackage);
-//	            request.setAttribute("review", reviewList);
+	            request.setAttribute("review", reviewList);
 	            request.setAttribute("pageInfo", pageInfo);
 	            
-	            request.getRequestDispatcher("detailReviewSection.jsp").forward(request, response);
+	            request.getRequestDispatcher("detailPackReviewSection.jsp").forward(request, response);
 	        }	        
 	         else {
 	 			request.setAttribute("pack", detailPackage);
-//				request.setAttribute("option", prodOption);
-//		        request.setAttribute("review", reviewList);
+		        request.setAttribute("review", reviewList);
 		        request.setAttribute("pageInfo", pageInfo);
 	 			
 	            request.getRequestDispatcher("detailPackage.jsp").forward(request, response);

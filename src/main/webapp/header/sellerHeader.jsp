@@ -18,7 +18,7 @@
             <li><a href="${contextPath }/sellerProdOrderList">상품 주문관리</a></li>
             <li><a href="${contextPath}/sellerPackageList">꾸러미 판매 관리</a></li>
             <li><a href="${contextPath}/sellerPackOrderList">꾸러미 주문 관리</a></li>
-            <li><a href="#">꾸러미 구독 관리</a></li>
+            <li><a href="${contextPath}/sellerPackSubscribeList">꾸러미 구독 관리</a></li>
             <li><a href="#">리뷰</a></li>
             <li><a href="#">콕팜</a></li>
             <li><a href="${contextPath }/farmPointList">팜포인트</a></li>

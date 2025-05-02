@@ -28,4 +28,7 @@ public interface UserDAO {
 	//fcm
 	void updateFcmToken(Long userNum, String newFcmToken) throws Exception;
 	String selectFcmToken(Long userNum) throws Exception;
+	
+	void deleteAdminQA(Long questionNum) throws Exception;
+
 }

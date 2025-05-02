@@ -50,7 +50,14 @@
 </script>
  <body>
  	<div class="mainHeader">
-        <div class="userMenu">
+        <!-- 헤더 -->
+        <header class="headerMenu">
+            <div class="headerlogo">
+                <a href="main">
+                    <img src="${contextPath }/img/barologo1.png" alt="barologo1" border="0" class="logo">
+                </a>
+            </div>
+            <div class="userMenu">
             <ul class="userMenuUl">
             	<c:choose>
             		<c:when test="${user==null}">
@@ -80,18 +87,11 @@
              	</c:choose>
             </ul>
         </div>
-        <!-- 헤더 -->
-        <header class="headerMenu">
-            <div class="headerlogo">
-                <a href="main">
-                    <img src="${contextPath }/img/barologo1.png" alt="barologo1" border="0" class="logo">
-                </a>
-            </div>
             <div class="navMenu">
                 <ul class="navMenuUl">
                     <li class="headerli"><a href="newProductList" class="headerBtn" id="new">신제품</a></li>
                     <li class="headerli"><a href="bestProductList" class="headerBtn" id="best">베스트</a></li>
-                    <li class="headerli"><a href="#" class="headerBtn" id="package">꾸러미</a></li>
+                    <li class="headerli"><a href="packageListByAll" class="headerBtn" id="package">꾸러미</a></li>
                     <li class="headerli"><a href="kockFarmList" class="headerBtn" id="kockFarm">콕팜</a></li>
                     <li class="headerli"><a href="adminQAList" class="headerBtn" id="kockFarm">문의하기</a></li>
                     <li class="headerli"><a href="userNoticeList" class="headerBtn" id="notice">공지사항</a></li>

@@ -51,88 +51,28 @@
 			            <ul class="tabList">
 			                <li class="tab focus"><a href="#details">상세정보</a></li>
 			                <li class="tab"><a href="#reviews">리뷰 보기(${pack.reviewCount})</a></li>
-			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
 			        <div class="contentDetail">
-			            <div>
-			                ${pack.content }
-			            </div>
+			             <div id="viewer"></div>
 			        </div>
 			        <!-- 리뷰 -->
 			        <div class="tabs" id="reviews">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
 			                <li class="tab focus"><a href="#reviews">리뷰 보기(${pack.reviewCount})</a></li>
-			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
 					<div id="review" class="review">
-						<jsp:include page="/detailReviewSection.jsp" />
+						<jsp:include page="/detailPackReviewSection.jsp" />
 					</div>
-			        <!-- 문의 -->
-			        <div class="tabs" id="qna">
-			            <ul class="tabList">
-			                <li class="tab"><a href="#details">상세정보</a></li>
-			                <li class="tab"><a href="#reviews">리뷰 보기(${pack.reviewCount})</a></li>
-			                <li class="tab focus"><a href="#qna">문의(11)</a></li>
-			                <li class="tab"><a href="#info">안내사항</a></li>
-			              </ul>
-			        </div>
-			        
-			        <table id="notice_table" class="packQA">
-			            <thead class="">
-			                <tr>
-			                    <th style="font-weight: bold;">답변상태</th>
-			                    <th style="font-weight: bold;">제목</th>
-			                    <th style="font-weight: bold;">작성자</th>
-			                    <th style="font-weight: bold;">작성일</th>
-			                </tr>
-			            </thead>
-			            <tbody>
-			                <tr>
-			                    <td>답변대기</td>
-			                    <td><a href="">고객센터 전화번호 변경안내</a></td>
-			                    <td>id18****</td>
-			                    <td>2025-03-29</td>
-			                </tr>
-			                <tr>
-			                    <td>답변완료</td>
-			                    <td><a href="" class="question">연말연시 배송안내</a></td>
-			                    <td>id877****</td>
-			                    <td>2025-02-21</td>
-			                </tr>
-			                <tr class="answerRow">
-			                    <td colspan="4" class="answer">
-			                      <span class="answerTitle">답변</span>
-			                      안녕하세요. 고객님~ 저희 유럽 샐러드 채소를 주문해주시면...
-			                      <div class="answerInfo">판매자 | 2025-02-21</div>
-			                    </td>
-			                  </tr>
-			                <tr>
-			                    <td>답변완료</td>
-			                    <td><a href="">2019년 설 연휴 배송안내</a></td>
-			                    <td>id1sssss8****</td>
-			                    <td>2025-03-29</td>
-			                </tr>
-			            </tbody>
-			        </table>
-			
-			        <div class="paging">
-			            <a href="">&lt;</a>
-			            <a href="" class="pagingBtn">1</a>
-			            <a href="" class="pagingBtn">2</a>
-			            <a href="" class="pagingBtn">3</a>
-			            <a href="">&gt;</a>
-			        </div>
 			        <!-- 안내사항 -->
 			        <div class="tabs" id="info">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
 			                <li class="tab"><a href="#reviews">리뷰 보기(${pack.reviewCount})</a></li>
-			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab focus"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
@@ -157,6 +97,43 @@
     	</div>
     	<jsp:include page="/header/footer.jsp" />
     </div>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+	<script>
+		const viewer = toastui.Editor.factory({
+			  el: document.querySelector('#viewer'),
+			  viewer: true,
+			  initialValue: `${pack.content}`
+			});
+
+		    $(document).on("click", "a.reviewPageLink", function(e){
+		        e.preventDefault();
+		       const href = $(e.currentTarget).attr("href");
+		        const absoluteUrl = new URL(href, window.location.origin);  // ← 반드시 절대경로로
+		        const params = new URLSearchParams(absoluteUrl.search);
+
+		        const packageNum = params.get("packageNum");
+		        const page = params.get("reviewPage");
+				
+		        const scrollPos = $(window).scrollTop();
+		         console.log("요청 URL:", absoluteUrl.toString(), ", packageNum:", packageNum, ", reviewPage:", page);
+
+		        $.ajax({
+		            url: absoluteUrl.pathname,
+		            type: "get",
+		            headers: { "X-Requested-With": "XMLHttpRequest" },  
+		            data: { packageNum: packageNum, page: page, type: 'review' },
+		            success: function(data){
+		                $("#review").html(data);
+		                $(window).scrollTop(scrollPos);
+		            },
+		            error: function(xhr, status, error){
+		                console.log("Ajax 오류:", status, error);
+		                console.log("서버 응답:", xhr.responseText);
+		            }
+		        });
+		    });
+		});
+	</script>
     <script src="${contextPath}/detailPackage.js"></script>
 </body>
 </html>

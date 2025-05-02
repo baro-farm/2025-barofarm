@@ -12,4 +12,12 @@
 	<insert id="insertPoint" parameterType="point">
 		INSERT INTO point (userNum,point) VALUES(#{userNum}, #{point})
 	</insert>
+	<select id="totalSalesPointList" resultType="point">
+		select * from point
+		ORDER BY createdAt DESC
+		LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="CountTotalSalesPoint" resultType="point">
+		select COUNT(*) from point
+	</select>
 </mapper>
