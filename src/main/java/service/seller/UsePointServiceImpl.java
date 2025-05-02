@@ -44,5 +44,9 @@ public class UsePointServiceImpl implements UsePointService {
 		usePoint.setCurrPoint(currPoint);
 		usePointDAO.insertUsePointHistory(usePoint);
 	}
+	@Override
+	public void useByKockFarmAlarm(UsePoint usePoint) throws Exception {
+		usePointDAO.insertKockFarmAlarm(usePoint);
+	}
 
 }

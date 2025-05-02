@@ -7,6 +7,7 @@ import java.util.Map;
 import dao.UserProductDAO;
 import dao.UserProductDAOImpl;
 import util.PageInfo;
+import vo.PackReviewVO;
 import vo.PackageVO;
 import vo.ProdReviewVO;
 import vo.ProductVO;
@@ -189,19 +190,36 @@ public class UserProductServiceImpl implements UserProductService{
 	}
 
 	@Override
-	public List<QuestionVO> ProdQA(Long prodNum, PageInfo pageInfo) throws Exception {
+	public List<PackageVO> PackageByAll(PageInfo pageInfo, String sort) throws Exception {
 		Map<String, Object> param = new HashMap<>();
-		param.put("prodNum", prodNum);
 	    param.put("start", pageInfo.getOffset());
-        param.put("pageSize", pageInfo.getPageSize());
-		
-		return userProductDao.selectProdQA(param);
+	    param.put("pageSize", pageInfo.getPageSize());
+	    param.put("sort", sort);
+
+	    return userProductDao.selectPackageByAll(param);
 	}
 
 	@Override
-	public Integer CountProdQA(Long prodNum) throws Exception {
-		return userProductDao.countProdQA(prodNum);
+	public Integer countPackageByAll() throws Exception {
+		return userProductDao.countPackageByAll();
 	}
+
+	@Override
+	public List<PackReviewVO> PackReview(Long packNum, PageInfo pageInfo) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+	    param.put("packNum", packNum);
+	    param.put("start", pageInfo.getOffset());
+	    param.put("pageSize", pageInfo.getPageSize());
+
+	    return userProductDao.selectPackReview(param);
+	}
+
+	@Override
+	public Integer CountPackReview(Long packNum) throws Exception {
+		return userProductDao.countPackReview(packNum);
+	}
+
+	
 
 	
 

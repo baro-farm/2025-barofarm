@@ -21,58 +21,77 @@
 		<jsp:include page="/header/adminSellerTop.jsp" />
 	</header>	    
     <div id="content">
-     <div class="container-header">
-         <h2 class="title">알림 내역</h2>
-         <div class="subscribe-box">
-         	당신의 알람을 확인하세용~
-          </div>
+     <div class="pkHeader">
+         <span id="title">알림 내역</span>
       </div>
-		<form method="get" action="${contextPath}/sellerAlarmList" class="searchForm" >
-		 <select name="searchType">
-		   <option value="type" ${param.searchType == 'type' ? 'selected' : ''}>유형</option>
-		 </select>
-		<!-- 매칭 상태 필터 추가 -->
-		<select name="status">
-		    <option value="all" ${param.status == 'all' ? 'selected' : ''}>전체</option>
-		    <option value="true" ${param.status == 'true' ? 'selected' : ''}>확인</option>
-		    <option value="false" ${param.status == 'false' ? 'selected' : ''}>미확인</option>
-		</select>
-		 <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
-		 <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
-		 ~
-		 <input type="date" name="startDateTo" value="${param.startDateTo}" />
-		  <button type="submit">검색</button>
-		</form>
-      <div class="history-section">
-          <h3>알림 내역</h3>
+      		<div class="selectBox">
+			<form method="get" action="${contextPath}/sellerAlarmList" class="searchForm" >
+			 <select name="searchType">
+			   <option value="type" ${param.searchType == 'type' ? 'selected' : ''}>유형</option>
+			 </select>
+			<select name="status">
+			    <option value="all" ${param.status == 'all' ? 'selected' : ''}>전체</option>
+			    <option value="true" ${param.status == 'true' ? 'selected' : ''}>확인</option>
+			    <option value="false" ${param.status == 'false' ? 'selected' : ''}>미확인</option>
+			</select>
+			 <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
+			 <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
+			 ~
+			 <input type="date" name="startDateTo" value="${param.startDateTo}" />
+			  <button type="submit">검색</button>
+			</form>
+			</div>
+
+
+      <div class=tableWrapper>
       <table id="banner-table" class="table">
           <thead>
               <tr>
                  <th style="font-weight: bold;">순번</th>
-                 <th style="font-weight: bold;">보낸 사람</th>
                  <th style="font-weight: bold;">유형</th>
-                 <th style="font-weight: bold;">알림 제목</th>
+                 <th style="font-weight: bold;">보낸 사람</th>
+                 <th style="font-weight: bold;">알림</th>
                  <th style="font-weight: bold;">알림 내용</th>
                  <th style="font-weight: bold;">날짜</th>
                  <th style="font-weight: bold;">확인 여부</th>
              </tr>
          </thead>
          <tbody>
+         <c:choose>
+          <c:when test="${empty alarmList}">
+		    <tr>
+		      <td colspan="7" style="text-align: center;">알림이 없습니다.</td>
+		    </tr>
+		  </c:when>
+		  <c:otherwise>
             <c:forEach var="alarm" items="${alarmList }" varStatus="status">
               <tr>
                   <td>${status.count }</td>		                
-                  <td>김당근</td>
                   <td>${alarm.type }</td>
-                  <td>${alarm.content2 }</td>
+                  <td>${alarm.userName }</td>
+                  <td>
+                  <a href="${contextPath}/detailKockFarm?kockNum=${alarm.targetNum}">
+                  ${alarm.content2 }
+                  </a>
+                  </td>
                   <td>${alarm.content1 }</td>
-                  <td>${alarm.createdAt }</td>
-                  <td><button>확인</button></td>
+                  
+                  <td>${alarm.createdAt.toLocalDate() }</td>
+                  <c:if test="${alarm.checked eq false}">
+                  <td><button onclick="markAsRead(${alarm.alarmNum}, this)" class="close-notif">확인</button></td>
+                  </c:if>
+                  <c:if test="${alarm.checked eq true}">
+                  <td>읽음</td>
+                  </c:if>
               </tr>
             </c:forEach>
+            </c:otherwise>
+            </c:choose>
          </tbody>
      </table>
      </div>
-        <div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
+
+        <div class="pagination" id="pagingArea" style="text-align: center; margin-top: 20px;">
 	    	  <c:if test="${pi.currentPage > 1}">
 			    <a href="?page=1&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&laquo;</a>
 			  </c:if>
@@ -92,7 +111,26 @@
 			    <a href="?page=${pi.maxPage}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&raquo;</a>
 			  </c:if>
 		</div>
+		
+		
+		
   </div>
+<script>
+async function markAsRead(alarmNum, btnElement) {
+    const res = await fetch(`${contextPath}/checkAlarm`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ alarmNum })
+    });
 
+    if (res.ok) {
+        // 버튼 있는 <td>를 "읽음"으로 변경
+        const td = btnElement.closest('td');
+        td.textContent = '읽음';
+    } else {
+        alert('알림 확인 처리 실패');
+    }
+}
+</script>
 </body>
 </html>

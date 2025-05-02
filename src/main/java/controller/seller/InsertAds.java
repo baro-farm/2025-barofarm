@@ -1,7 +1,6 @@
 package controller.seller;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +19,9 @@ import service.seller.AdsService;
 import service.seller.AdsServiceImpl;
 import service.seller.PointService;
 import service.seller.PointServiceImpl;
+import service.seller.SellerService;
+import service.seller.SellerServiceImpl;
+import vo.SellerVO;
 
 /**
  * Servlet implementation class InsertAds
@@ -45,8 +47,10 @@ public class InsertAds extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		
 		PointService service = new PointServiceImpl();
+		SellerService sellserService = new SellerServiceImpl();
 		try {
 			Point point = service.getPoint(user.getUserNum());
+			SellerVO sell = sellserService.getSerllerDetail(user.getUserNum());
 			if (point==null) {
 				Integer zero =0;
 				request.setAttribute("point", zero);
@@ -54,6 +58,7 @@ public class InsertAds extends HttpServlet {
 				request.setAttribute("point", point.getPoint());
 			}
 			request.setAttribute("userName", user.getUserName());
+			request.setAttribute("sellerNum", sell.getSellerNum());
 			request.getRequestDispatcher("/seller/insertAds.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

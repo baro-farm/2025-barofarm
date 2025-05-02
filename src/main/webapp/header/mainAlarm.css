@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* 모달 */
-.modal-wrapper {
+.modal-wrapperh {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -10,7 +10,7 @@
     align-items: center;
     z-index: 1000;
 }
-.modal {
+.modalh {
     background: white;
     padding: 20px 40px;
     border-radius: 8px;
@@ -18,20 +18,22 @@
     max-width: 400px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    overflow-y: scroll; 
+    max-height: 500px;
 }
-.modal-wrapper p {
+.modal-wrapperh p {
     font-size: 20px;
     margin-bottom: 10px;
     font-weight: bold;
 }
 
- .modal-header {
+ .modal-headerh {
      display: flex;
      justify-content: space-between;
      align-items: center;
  }
 
- .modal-header h2 {
+ .modal-headerh h2 {
      font-size: 20px;
      background: #65B741;
      color: white;
@@ -42,14 +44,14 @@
   width: fit-content;
  }
 
- .close-btn {
+ .close-btnh {
      background: none;
      border: none;
      font-size: 20px;
      cursor: pointer;
  }
 
- .date-header {
+ .date-headerh {
      background: #65B741;
      color: white;
      padding: 6px 12px;
@@ -60,7 +62,7 @@
      width: fit-content;
  }
 
- .notification {
+ .notificationh {
      display: flex;
      align-items: center;
      background: #fff;
@@ -71,7 +73,7 @@
      position: relative;
  }
 
- .notification-icon {
+ .notification-iconh {
      width: 40px;
      height: 40px;
      border-radius: 50%;
@@ -81,31 +83,31 @@
      margin-right: 10px;
  }
 
- .icon-yellow { background: #FFC107; }
- .icon-red { background: #D72638; }
- .icon-green { background: #65B741; }
+ .icon-yellowh { background: #FFC107; }
+ .icon-redh { background: #D72638; }
+ .icon-greenh { background: #65B741; }
 
- .notification-text {
+ .notification-texth {
      flex-grow: 1;
      display: flex;
      flex-direction: column;
  }
 
- .notification-text h3 {
+ .notification-texth h3 {
      font-size: 20px;
      font-weight: bold;
      display: flex;
      margin: 2px 0px;
  }
 
- .notification-text p {
+ .notification-texth p {
      font-size: 14px;
      margin: 5px 0 0;
      color: #666;
       display: flex;
  }
 
- .time {
+ .timeh {
      font-size: 12px;
      color: #aaa;
      position: absolute;
@@ -113,7 +115,7 @@
      right: 10px;
  }
 
- .close-notif {
+ .close-notifh {
      position: absolute;
      top: 10px;
      right: 10px;
@@ -122,7 +124,28 @@
      font-size: 16px;
      cursor: pointer;
  }
-
-a {
+#headerAlarm a:hover {
+    color: #FFB534;
+}
+ a {
 	text-decoration: none;
+	color:black;
+}
+
+.notification2 {
+  position: relative;
+}
+.notification2 .badge {
+    position: absolute;
+    top: -5px;
+    right: -15px;
+    background-color: red;
+    color: white;
+    padding: 4px 1px;
+    border-radius: 50%;
+    font-size: 12px;
+    line-height: 1;
+    min-width: 18px;
+    text-align: center;
+    font-weight: bold;
 }

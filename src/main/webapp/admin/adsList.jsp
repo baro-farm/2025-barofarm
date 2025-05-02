@@ -14,12 +14,16 @@
     <link rel="stylesheet" href="${contextPath}/admin/adminAdsList.css" />
 </head>
 <body>
-	<div class="container">
-		<div class="wrapper">
-			<jsp:include page="/header/adminHeader.jsp" />
-			<div class="content" style="margin: 0 auto;">
-			    <h1 class="title">배너 광고</h1>
-<!-- 	        	<p class="subtitle">배너 광고 내역</p>
+	<jsp:include page="/header/adminHeader.jsp" />
+	<header id="header">
+			<jsp:include page="/header/adminSellerTop.jsp" />
+    </header>
+    <div id="content">
+			<div>
+				<div class="pkHeader">
+					<span id="title">배너 관리</span>
+				</div>
+				<!-- 	        	<p class="subtitle">배너 광고 내역</p>
  -->	   	        <!-- 탭 버튼 -->
  					<div id="searchAndPagingWrapper" style="display: none;">
 					 <form method="get" action="${contextPath}/adminAdsList" style="margin-bottom: 20px;">
@@ -48,22 +52,23 @@
 		              <tr>
    		                <th>순번</th>
 		                <th>스토어명</th>
-		                <th>상품명</th>
 		                <th>이미지파일</th>
-		                <th>상품링크</th>
 		                <th>광고시작일</th>
 		                <th>광고종료일</th>
 		                <th>상태</th>
 		              </tr>
 		            </thead>
 		            <tbody>
+		            	<c:if test="${empty postingList}">
+						  <tr>
+						    <td colspan="8" style="text-align: center;">조회된 결과가 없습니다.</td>
+						  </tr>
+						</c:if>
       	            	<c:forEach var="post" items="${postingList }" varStatus="status">
 							<tr>
 			                    <td>${status.count }</td>
 							    <td>${post.storeName}</td>
-							    <td>${post.productName}</td>
 							    <td><img src="kockImg?imgUrl=${post.imgUrl }" alt="이미지" width="50" /></td>
-							    <td><a href="${post.productUrl}" >${post.productUrl}</a></td>
 			                    <fmt:parseDate value="${post.startDate}" pattern="yyyy-MM-dd" var="startDate"/>
 			                    <fmt:parseDate value="${post.endDate}" pattern="yyyy-MM-dd" var="endDate"/>
 			                    <td class="startD"><fmt:formatDate value="${startDate }" pattern="yyyy-MM-dd"/></td>		                    
@@ -93,9 +98,8 @@
 		              <tr>
 		                <th>순번</th>
 		                <th>스토어명</th>
-		                <th>상품명</th>
+		                <th>내용</th>
 		                <th>이미지파일</th>
-		                <th>상품링크</th>
 		                <th>광고시작일</th>
 		                <th>광고종료일</th>
 		                <th>상태</th>
@@ -106,9 +110,8 @@
 						  <tr>
 		                    <td>${status.count }</td>
 						    <td>${ad.storeName}</td>
-						    <td>${ad.productName}</td>
+						    <td>${ad.title}</td>
 						    <td><img src="kockImg?imgUrl=${ad.imgUrl }" alt="이미지" width="50" /></td>
-						    <td><a href="${ad.productUrl}" target="_blank">${ad.productUrl}</a></td>
 		                    <fmt:parseDate value="${ad.startDate}" pattern="yyyy-MM-dd" var="startDate"/>
 		                    <fmt:parseDate value="${ad.endDate}" pattern="yyyy-MM-dd" var="endDate"/>
 		                    <td><fmt:formatDate value="${startDate }" pattern="yyyy-MM-dd"/></td>		                    
@@ -140,16 +143,19 @@
 				    <a href="?page=${pi.endPage + 1}&tab=application&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&raquo;</a>
 				  </c:if>
 				</div>
-
-		        
+		        </div>
 		        <!-- 🔽 메인 배너 관리 -->
-		        <div class="banner-section" id="bannerSection" style="margin-top: 60px;">
-					<h2 class="title" style="margin-top: 60px;">메인 배너 관리</h2>
-					
-					<div class="banner-add-section"  id="openBannerModal" style="text-align: right; margin-bottom: 10px;">
-					  <button class="banner-add-btn">배너 추가</button>
+		        <div class="banner-section" id="bannerSection">
+					<div class="pkHeader" style="margin-top: 60px;">
+						<span id="title">메인 배너 관리</span>
+					</div>
+					<div id="limitBannerMsg" class="banner-add-section" style="text-align: right; margin-bottom: 10px; display: ${fn:length(bannerList) >= 5 ? 'block' : 'none'};">
+					  <p>배너는 최대 5개 게시할 수 있습니다.</p>
 					</div>
 					
+					<div class="banner-add-section" id="openBannerModal" style="text-align: right; margin-bottom: 10px; display: ${fn:length(bannerList) < 5 ? 'block' : 'none'};">
+					    <button class="banner-add-btn">배너 추가</button>
+					  </div>
 					<table class="table banner-table">
 					  <thead>
 					    <tr>
@@ -175,8 +181,6 @@
 					</table>
 		        </div> <!-- 배너관리 -->
 		        
-			</div> <!-- content -->
-		</div> <!-- wrapper -->
     </div> <!-- container -->
   <script> /* 탭 전환 스크립트 */
   document.addEventListener("DOMContentLoaded", () => {
@@ -307,22 +311,21 @@
         const result = await res.json();
 
         if (result.success) {
-          alert('✅ 배너 등록 완료!');
           modal.style.display = 'none';
           form.reset();
           document.getElementById("imagePreview").style.display = "none";
           await refreshBannerTable();
         } else {
-          alert('❌ 등록 실패: ' + (result.message || '알 수 없는 오류'));
+          alert('등록 실패: ' + (result.message || '알 수 없는 오류'));
         }
       } catch (err) {
         console.error('배너 등록 에러:', err);
-        alert('❌ 서버 오류가 발생했습니다.');
+        alert('서버 오류가 발생했습니다.');
       }
     };
 
     img.onerror = function () {
-      alert("❌ 이미지 파일을 불러올 수 없습니다.");
+      alert("이미지 파일을 불러올 수 없습니다.");
     };
 
     img.src = objectUrl;
@@ -384,6 +387,17 @@
 	    	  tbody.appendChild(tr);
 	    	});
 
+	 	//버튼과 제한 문구 표시 제어
+	    const addBtnWrapper = document.getElementById("openBannerModal");
+	    const limitMsgWrapper = document.getElementById("limitBannerMsg");
+
+	    if (bannerList.length >= 5) {
+	      if (addBtnWrapper) addBtnWrapper.style.display = "none";
+	      if (limitMsgWrapper) limitMsgWrapper.style.display = "block";
+	    } else {
+	      if (addBtnWrapper) addBtnWrapper.style.display = "block";
+	      if (limitMsgWrapper) limitMsgWrapper.style.display = "none";
+	    }
 
 	
 	  } catch (err) {
@@ -416,8 +430,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	        const result = await res.json();
 
 	        if (result.success) {
-	          alert("✅ 배너가 삭제되었습니다.");
 	          row.remove(); // 행 제거
+	          await refreshBannerTable(); 
 	        } else {
 	          alert("❌ 삭제 실패: " + (result.message || "알 수 없는 오류"));
 	        }
@@ -455,7 +469,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	        const result = await res.json();
 
 	        if (result.success) {
-	          alert("✅ 상태가 업데이트되었습니다.");
 
 	          if (newStatus === "승인") {
 	            // ✅ 셀렉트를 "승인" 텍스트로 교체
@@ -479,11 +492,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	          }
 
 	        } else {
-	          alert("❌ 실패: " + (result.message || "알 수 없는 오류"));
+	          alert("실패: " + (result.message || "알 수 없는 오류"));
 	        }
 	      } catch (err) {
 	        console.error("에러:", err);
-	        alert("❌ 서버 오류 발생");
+	        alert("서버 오류 발생");
 	      }
 	    }
 	  });

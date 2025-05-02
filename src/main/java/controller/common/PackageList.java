@@ -60,7 +60,7 @@ public class PackageList extends HttpServlet {
 			List<PackageVO> packageList = service.PackageByCategory(pageInfo, cateNum, sort);
 
 			request.setAttribute("packageList", packageList);
-			request.setAttribute("productPageInfo", pageInfo);
+			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("cateNum", cateNum);
 			request.setAttribute("cateName", cateName);
 			request.setAttribute("sort", sort);

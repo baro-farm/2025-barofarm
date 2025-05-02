@@ -62,4 +62,49 @@
 	<update id="updateIsAlarm" parameterType="Long">
 		UPDATE sellerdetail SET isAlarm=NOT isAlarm WHERE userNum = #{userNum}
 	</update>
+	<select id="selectAlarmList" parameterType="searchDtoSoy" resultType="sellerVO">
+		SELECT 
+		    u.*, sd.*
+		FROM sellerdetail sd
+		JOIN user u ON sd.userNum = u.userNum
+		WHERE sd.isAlarm = 1
+		  AND u.isSeller = 1
+		  AND u.isDeleted = 0
+		  <where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'storeName'">
+	          AND sd.storeName LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+
+	  </where>
+	  ORDER BY a.createdAt DESC
+	  LIMIT #{recordSize} OFFSET #{offset}
+	</select>
+	<select id="countAlarmList" parameterType="searchDtoSoy" resultType="int">
+		SELECT 
+		    count(*)
+		FROM sellerdetail sd
+		JOIN user u ON sd.userNum = u.userNum
+		WHERE sd.isAlarm = 1
+		  AND u.isSeller = 1
+		  AND u.isDeleted = 0
+		  <where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'storeName'">
+	          AND sd.storeName LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+
+	  </where>
+	</select>
+	<select id="selectSellerDetail" parameterType="Long" resultType="seller">
+	  SELECT * FROM sellerDetail WHERE sellerNum = #{sellerNum}
+	</select>
 </mapper>

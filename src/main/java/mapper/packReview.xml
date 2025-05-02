@@ -68,6 +68,7 @@
 	        r.pkeviewContent, 
 	        r.createdAt,
 	        r.pkReviewImgUrl
+
 	    FROM packReview r
 	    JOIN package p ON r.packageNum = p.packageNum
 	    JOIN user u ON r.userNum = u.userNum
@@ -209,5 +210,27 @@
         WHERE r.pkReviewNum = #{pkReviewNum}
 	</select>
 	
+	<select id="selectPackReview" parameterType="map" resultType="packReviewVO">
+      SELECT 
+         r.packageNum, 
+           p.packageName,
+           CONCAT(LEFT(u.userId, CHAR_LENGTH(u.userId) - 3), '***') AS userId,
+           r.pkRating, 
+           r.pkReviewContent AS pkContent, 
+           r.createdAt,
+           r.pkReviewImgUrl AS imgUrl
+       FROM packReview r
+       JOIN package p ON r.packageNum = p.packageNum
+       JOIN user u ON r.userNum = u.userNum
+       WHERE r.packageNum = #{packageNum}
+       ORDER BY r.createdAt DESC
+       LIMIT #{start}, #{pageSize}
+   </select>
+	
+	
+	<select id="countProdReview" resultType="Integer" parameterType="long">
+	    SELECT COUNT(*) FROM packReview WHERE packageNum = #{packageNum}
+	</select>
 	
 </mapper>
+

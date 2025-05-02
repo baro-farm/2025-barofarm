@@ -38,10 +38,6 @@
 		        <label for="title">제목</label>
 		        <input type="text" name="title" required="required"/>
 		      </div>
-		      <div class="form-row">
-		        <label for="productName">상품명</label>
-		        <input type="text" name="productName" required="required"/>
-		      </div>
 		    </div>
 		
 		    <div class="form-group">
@@ -49,10 +45,9 @@
 		        <label>작성자</label>
 		        <input type="text" value="${userName}" readonly="readonly"/>
 		      </div>
-		      <div class="form-row">
-		        <label for="productUrl">상품 링크</label>
-		        <input type="text" name="productUrl" required="required"/>
-		      </div>
+		      		        <input type="hidden" name="productName" value="required"/>
+		     
+		        <input type="hidden" name="productUrl" value="http://localhost:8080/barofarm/storeProductList?sellerNum=${sellerNum }"/>
 		    </div>
 		    <div class="form-row">
 		      <label for="imgUrl">파일첨부</label>

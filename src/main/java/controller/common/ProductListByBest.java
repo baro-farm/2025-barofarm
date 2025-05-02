@@ -46,6 +46,7 @@ public class ProductListByBest extends HttpServlet {
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("productList", bestList);
 			request.setAttribute("cateName", "베스트");
+			request.setAttribute("listType", "best");
 
 			request.getRequestDispatcher("productList.jsp").forward(request, response);
 		} catch (Exception e) {

@@ -69,5 +69,8 @@
 	<select id="selectAdminQACount" resultType="Integer">
 		select count(*) from adminquestion
 	</select>
-	
+	<delete id="deleteAdminQA" parameterType="long">
+		DELETE FROM adminquestion
+    	WHERE questionNum = #{questionNum}
+	</delete>
 </mapper>

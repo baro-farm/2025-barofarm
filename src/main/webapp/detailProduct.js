@@ -199,47 +199,30 @@ document.addEventListener('DOMContentLoaded', function() {
 $(document).ready(function(){ 
     $(document).on("click", "a.reviewPageLink", function(e){
         e.preventDefault();
-        console.log("클릭한 a 태그:", this.tagName);
+       const href = $(e.currentTarget).attr("href");
+        const absoluteUrl = new URL(href, window.location.origin);  // ← 반드시 절대경로로
+        const params = new URLSearchParams(absoluteUrl.search);
 
-        const url = $(e.currentTarget).attr("href");
+        const productNum = params.get("productNum");
+        const page = params.get("reviewPage");
+		
+        const scrollPos = $(window).scrollTop();
+         console.log("요청 URL:", absoluteUrl.toString(), ", productNum:", productNum, ", reviewPage:", page);
 
-		const scrollPos = $(window).scrollTop();
-		console.log("요청 URL:", url);
-
-		$.ajax({
-			url: url,
-			type: "get",
-			data: { productNum: productNum, page: 1, type: 'review' },
-			success: function(data) {
-				$("#review").html(data);
-				$(window).scrollTop(scrollPos);
-			},
-			error: function(xhr, status, error) {
-				console.log("Ajax 오류:", status, error);
-				console.log("서버 응답:", xhr.responseText);
-			}
-		});
-	});
-});
-
-$(document).on("click", "a.prodQAPageLink", function(e) {
-	e.preventDefault();
-	const url = $(e.currentTarget).attr("href");
-
-
-	const scrollPos = $(window).scrollTop();
-
-    $.ajax({
-        url: url,
-        type: "get",
-        data: { productNum: productNum, page: 1, type: 'qa' },
-        success: function(data){
-            $("#prodQA").html(data);  // JSP 조각을 그대로 교체
-            $(window).scrollTop(scrollPos);
-        },
-        error: function(xhr, status, error){
-            console.log("Ajax 오류:", status, error);
-        }
+        $.ajax({
+            url: absoluteUrl.pathname,
+            type: "get",
+            headers: { "X-Requested-With": "XMLHttpRequest" },  
+            data: { productNum: productNum, page: page, type: 'review' },
+            success: function(data){
+                $("#review").html(data);
+                $(window).scrollTop(scrollPos);
+            },
+            error: function(xhr, status, error){
+                console.log("Ajax 오류:", status, error);
+                console.log("서버 응답:", xhr.responseText);
+            }
+        });
     });
 });
 

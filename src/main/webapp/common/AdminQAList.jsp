@@ -67,12 +67,20 @@
 		        </tbody>
 		      </table>
 		      <div id="paging">
-					<c:choose>
-						<c:when test="${pageInfo.curPage > 1 }">
-							<a href="adminQAList?page=${pageInfo.curPage-1 }">&lt;</a>
+			      <c:choose>
+						<c:when test="${pageInfo.curPage > 1}">
+							<a href="adminQAList?page=${pageInfo.curPage-10 }">&laquo;</a>
 						</c:when>
 						<c:otherwise>
-							<a>&lt;</a>
+							<a class="disabled">&laquo;</a>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${pageInfo.curPage > 1 }">
+							<a href="adminQAList?page=${pageInfo.curPage-1 }">&lsaquo;</a>
+						</c:when>
+						<c:otherwise>
+							<a class="disabled">&lsaquo;</a>
 						</c:otherwise>
 					</c:choose>
 					
@@ -89,11 +97,20 @@
 						
 					<c:choose>
 						<c:when test="${pageInfo.curPage < pageInfo.allPage }">
-							<a href="adminQAList?page=${pageInfo.curPage+1 }">&gt;</a>
+							<a href="adminQAList?page=${pageInfo.curPage+1 }">&rsaquo;</a>
 						</c:when>
 						<c:otherwise>
-							<a>&gt;</a>
+							<a>&rsaquo;</a>
 						</c:otherwise>	
+					</c:choose>
+					<c:choose>
+						<c:when test="${pageInfo.curPage < pageInfo.allPage}">
+							<a href="adminQAList?page=${pageInfo.curPage+10 }"
+								class="reviewPageLink">&raquo;</a>
+						</c:when>
+						<c:otherwise>
+							<a class="disabled">&raquo;</a>
+						</c:otherwise>
 					</c:choose>
 				</div>
 		      	<c:if test="${user != null}">

@@ -3,6 +3,8 @@ package dao.seller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dto.seller.PackageProduct;
 import vo.PackageVO;
 
@@ -13,4 +15,6 @@ public interface PackageDAO {
 	List<PackageVO> selectPackageList(Map<String, Object> param) throws Exception;
 	Integer countPackageList(Map<String, Object> param) throws Exception;
 	void updatePackageStock(Map<String, Object> param) throws Exception;
+	void adjustStock(SqlSession sqlSession, Map<String, Object> param) throws Exception;
+	void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception;
 }

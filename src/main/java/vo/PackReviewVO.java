@@ -3,34 +3,44 @@ package vo;
 import java.time.LocalDate;
 
 public class PackReviewVO {
-	Long pkReviewNum;
 
-	Long packageNum; // 상품 번호
-	Long pkOrderNum; // 주문 번호
-	Long userNum; // 회원 번호
+	private Long pkReviewNum;
+	private Long userNum;
+	private String userId;
+	private Long packageNum;
+	private Integer pkRating;
+	private String pkReviewContent;
+	private String pkReviewImgUrl;
+	private LocalDate createdAt;
+	private String pkComment;
+	private Boolean pkCommentStatus;
 	
-	String packageName; // 상품 이름
-	String packageUnit; //1인 2인 3인 ...
+	private Long pkOrderNum; // 주문 번호
 	
-	String storeName; // 스토어 이름
-	String pkReviewImgUrl;
+	private String packageName; // 상품 이름
+	private String packageUnit; //1인 2인 3인 ...
 	
-	LocalDate orderdAt; // 구매일자
-	LocalDate deadline; // 작성 기한 (구매일자 + 30일)
-	LocalDate createdAt;
+	private String storeName; // 스토어 이름
 	
-	String userId;
-	Integer pkRating;
-	String pkReviewContent;
-	
-	
-	Boolean pkCommentStatus;
-	String pkComment;
+	private LocalDate orderdAt; // 구매일자
+	private LocalDate deadline; // 작성 기한 (구매일자 + 30일)
 	public Long getPkReviewNum() {
 		return pkReviewNum;
 	}
 	public void setPkReviewNum(Long pkReviewNum) {
 		this.pkReviewNum = pkReviewNum;
+	}
+	public Long getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(Long userNum) {
+		this.userNum = userNum;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public Long getPackageNum() {
 		return packageNum;
@@ -38,17 +48,47 @@ public class PackReviewVO {
 	public void setPackageNum(Long packageNum) {
 		this.packageNum = packageNum;
 	}
+	public Integer getPkRating() {
+		return pkRating;
+	}
+	public void setPkRating(Integer pkRating) {
+		this.pkRating = pkRating;
+	}
+	public String getPkReviewContent() {
+		return pkReviewContent;
+	}
+	public void setPkReviewContent(String pkReviewContent) {
+		this.pkReviewContent = pkReviewContent;
+	}
+	public String getPkReviewImgUrl() {
+		return pkReviewImgUrl;
+	}
+	public void setPkReviewImgUrl(String pkReviewImgUrl) {
+		this.pkReviewImgUrl = pkReviewImgUrl;
+	}
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+	public String getPkComment() {
+		return pkComment;
+	}
+	public void setPkComment(String pkComment) {
+		this.pkComment = pkComment;
+	}
+	public Boolean getPkCommentStatus() {
+		return pkCommentStatus;
+	}
+	public void setPkCommentStatus(Boolean pkCommentStatus) {
+		this.pkCommentStatus = pkCommentStatus;
+	}
 	public Long getPkOrderNum() {
 		return pkOrderNum;
 	}
 	public void setPkOrderNum(Long pkOrderNum) {
 		this.pkOrderNum = pkOrderNum;
-	}
-	public Long getUserNum() {
-		return userNum;
-	}
-	public void setUserNum(Long userNum) {
-		this.userNum = userNum;
 	}
 	public String getPackageName() {
 		return packageName;
@@ -68,12 +108,6 @@ public class PackReviewVO {
 	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}
-	public String getPkReviewImgUrl() {
-		return pkReviewImgUrl;
-	}
-	public void setPkReviewImgUrl(String pkReviewImgUrl) {
-		this.pkReviewImgUrl = pkReviewImgUrl;
-	}
 	public LocalDate getOrderdAt() {
 		return orderdAt;
 	}
@@ -86,41 +120,8 @@ public class PackReviewVO {
 	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
 	}
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public Integer getPkRating() {
-		return pkRating;
-	}
-	public void setPkRating(Integer pkRating) {
-		this.pkRating = pkRating;
-	}
-	public String getPkReviewContent() {
-		return pkReviewContent;
-	}
-	public void setPkReviewContent(String pkReviewContent) {
-		this.pkReviewContent = pkReviewContent;
-	}
-	public Boolean getPkCommentStatus() {
-		return pkCommentStatus;
-	}
-	public void setPkCommentStatus(Boolean pkCommentStatus) {
-		this.pkCommentStatus = pkCommentStatus;
-	}
-	public String getPkComment() {
-		return pkComment;
-	}
-	public void setPkComment(String pkComment) {
-		this.pkComment = pkComment;
-	}
+	
+	
+
 	
 }

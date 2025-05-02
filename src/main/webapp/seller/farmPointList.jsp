@@ -100,7 +100,7 @@
 	                </tbody>
 	            </table>
 	        </div>
-			<div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
+			<div class="pagination" id="pagingArea" style="text-align: center; margin-top: 20px;">
 			  <c:if test="${pi.startPage > 1}">
 			    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
 			  </c:if>
@@ -118,7 +118,7 @@
 	<!-- 구독 모달 -->
 	<div id="subscribeModal" class="modal-wrapper" style="display:none;">
 		<div class="modal">
-			<p>팜링을 구독하시겠습니까?<br>언제든 취소가 가능합니다.</p>
+			<p>콕팜링을 구독하시겠습니까?<br>언제든 취소가 가능합니다.</p>
 		    <ul>
 		        <li>알림 1건당 500원 차감</li>
 		        <li>잔액 부족 시 알림 미발송</li>
@@ -133,7 +133,7 @@
 	<!-- 구독 취소 모달 -->
 	<div id="unsubscribeModal" class="modal-wrapper" style="display:none;">
 		<div class="modal">
-			<p>팜링 구독을 정말 취소하시겠습니까?<br>언제든 재구독이 가능합니다.</p>
+			<p>콕팜링 구독을 정말 취소하시겠습니까?<br>언제든 재구독이 가능합니다.</p>
 		    <ul>
 		        <li>취소 즉시 서비스 중간</li>
 		    </ul>
@@ -190,11 +190,11 @@
 			                if (action === 'subscribe') {
 			                    subBtn.classList.remove('subscribe-btn');
 			                    subBtn.classList.add('subscribed-btn');
-			                    subBtn.innerHTML = '✔ 팜링 구독취소';
+			                    subBtn.innerHTML = '✔ 콕팜링 구독취소';
 			                } else {
 			                    subBtn.classList.remove('subscribed-btn');
 			                    subBtn.classList.add('subscribe-btn');
-			                    subBtn.innerHTML = '팜링 구독하기';
+			                    subBtn.innerHTML = '콕팜링 구독하기';
 			                }
 			            }
 			        } catch (e) {

@@ -50,7 +50,14 @@
 </script>
  <body>
  	<div class="mainHeader">
-        <div class="userMenu">
+        <!-- 헤더 -->
+        <header class="headerMenu">
+            <div class="headerlogo">
+                <a href="main">
+                    <img src="${contextPath }/img/barologo1.png" alt="barologo1" border="0" class="logo">
+                </a>
+            </div>
+            <div class="userMenu">
             <ul class="userMenuUl">
             	<c:choose>
             		<c:when test="${user==null}">
@@ -65,7 +72,12 @@
 					        <c:when test="${user.isSeller == true}">
 					          <li class="userli"><a href="sellerProductList" class="userBtn">마이스토어</a></li>
 					          <li class="userli"><a href="shoppingCart" id="shoppingCart" class="userBtn">장바구니</a></li>
-	                		  <li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
+								<li class="userli notification2">
+								  <a href="#" id="alarm">
+								    <i class="bi bi-bell"></i>
+								    <span class="badge" id="alarmCount" style="display: none;">0</span>
+								  </a>
+								</li>
 					        </c:when>
 							<c:when test="${user.userId == 'admin'}">
 							    <li class="userli"><a href="userList" class="userBtn">관리자페이지</a></li>
@@ -80,18 +92,11 @@
              	</c:choose>
             </ul>
         </div>
-        <!-- 헤더 -->
-        <header class="headerMenu">
-            <div class="headerlogo">
-                <a href="main">
-                    <img src="${contextPath }/img/barologo1.png" alt="barologo1" border="0" class="logo">
-                </a>
-            </div>
             <div class="navMenu">
                 <ul class="navMenuUl">
                     <li class="headerli"><a href="newProductList" class="headerBtn" id="new">신제품</a></li>
                     <li class="headerli"><a href="bestProductList" class="headerBtn" id="best">베스트</a></li>
-                    <li class="headerli"><a href="#" class="headerBtn" id="package">꾸러미</a></li>
+                    <li class="headerli"><a href="packageListByAll" class="headerBtn" id="package">꾸러미</a></li>
                     <li class="headerli"><a href="kockFarmList" class="headerBtn" id="kockFarm">콕팜</a></li>
                     <li class="headerli"><a href="adminQAList" class="headerBtn" id="kockFarm">문의하기</a></li>
                     <li class="headerli"><a href="userNoticeList" class="headerBtn" id="notice">공지사항</a></li>
@@ -146,12 +151,12 @@ navigator.serviceWorker.register(contextPath2 + '/firebase-messaging-sw.js')
 </script>
 
 <!-- 헤더 알림 -->
-<div id="headerAlarm" class="modal-wrapper" style="display:none;">
+<div id="headerAlarm" class="modal-wrapperh" style="display:none;">
 
-<div class="modal">
-	<div class="modal-header">
-	    <div class="date-header">최근 알림</div>
-	    <button class="close-btn" onclick="closeModal()">&times;</button>
+<div class="modalh">
+	<div class="modal-headerh">
+	    <div class="date-headerh">미확인 알림</div>
+	    <button class="close-btnh" onclick="closeModal()">&times;</button>
 	</div>
 </div>
 </div>
@@ -159,7 +164,7 @@ navigator.serviceWorker.register(contextPath2 + '/firebase-messaging-sw.js')
 const userNum = ${user.userNum};
 
 document.querySelector('#alarm').addEventListener('click', async () => {
-    const response = await fetch(`getAlarmList?seNum=\${userNum}`);
+    const response = await fetch(`getAlarmList?reNum=\${userNum}`);
     if (response.ok) {
         const alarms = await response.json();
         renderAlarms(alarms);
@@ -172,21 +177,21 @@ function closeModal() {
 }
 
 function renderAlarms(alarms) {
-    const container = document.querySelector('#headerAlarm .modal');
+    const container = document.querySelector('#headerAlarm .modalh');
 
-    const oldNotifications = container.querySelectorAll('.notification');
+    const oldNotifications = container.querySelectorAll('.notificationh');
     oldNotifications.forEach(el => el.remove());
 
     if (alarms.length === 0) {
         const noAlarm = document.createElement('div');
-        noAlarm.className = 'notification';
+        noAlarm.className = 'notificationh';
         noAlarm.innerHTML = `
-            <div class="notification-icon icon-yellow">📩</div>
-            <div class="notification-text">
+            <div class="notification-iconh icon-yellowh">📩</div>
+            <div class="notification-texth">
                 <h3>알림 없음</h3>
                 <p>최근 알림이 없습니다.</p>
             </div>
-            <span class="time">-</span>
+            <span class="timeh">-</span>
         `;
         container.appendChild(noAlarm);
         return;
@@ -194,21 +199,21 @@ function renderAlarms(alarms) {
 
     alarms.forEach(alarm => {
         const alarmEl = document.createElement('div');
-        alarmEl.className = 'notification';
+        alarmEl.className = 'notificationh';
 
         const icon = getAlarmIcon(alarm.type);
         const time = formatAlarmTime(alarm.createdAt);
 
         alarmEl.innerHTML = `
-            <div class="notification-icon \${icon.color}">\${icon.symbol}</div>
-            <div class="notification-text">
+            <div class="notification-iconh \${icon.color}">\${icon.symbol}</div>
+            <div class="notification-texth">
             	<a href="\${contextPath2}/detailKockFarm?kockNum=\${alarm.targetNum}" class="alarm-link">    
             	<h3>새로운 \${alarm.type}</h3>
-                <p>[\${alarm.content2}]에 등록되었습니다.</p>
+                <p>[\${alarm.content2}] </p>
                 </a>
             </div>
-            <span class="time">\${time}</span>
-            <button class="close-notif" onclick="markAsRead(\${alarm.alarmNum}, this)">&times;</button>
+            <span class="timeh">\${time}</span>
+            <button class="close-notifh" onclick="markAsRead(\${alarm.alarmNum}, this)">&times;</button>
         `;
 
         container.appendChild(alarmEl);
@@ -216,10 +221,10 @@ function renderAlarms(alarms) {
 }
 
 function getAlarmIcon(type) {
-    if (type.includes("콕팜")) return { symbol: "📩", color: "icon-yellow" };
-    if (type.includes("답변")) return { symbol: "🔔", color: "icon-red" };
-    if (type.includes("주문")) return { symbol: "📢", color: "icon-green" };
-    return { symbol: "🔔", color: "icon-yellow" };
+    if (type.includes("콕팜")) return { symbol: "📩", color: "icon-yellowh" };
+    if (type.includes("답변")) return { symbol: "🔔", color: "icon-redh" };
+    if (type.includes("주문")) return { symbol: "📢", color: "icon-greenh" };
+    return { symbol: "🔔", color: "icon-yellowh" };
 }
 
 function formatAlarmTime(datetime) {
@@ -249,18 +254,54 @@ function formatAlarmTime(datetime) {
 }
 
 async function markAsRead(alarmNum, btnElement) {
-    const res = await fetch('checkAlarm', {
+    const res = await fetch(contextPath2 + '/checkAlarm', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ alarmNum })
     });
 
     if (res.ok) {
-        btnElement.parentElement.remove(); // ✅ 알림 DOM 삭제
+        btnElement.parentElement.remove();
+        const badge = document.getElementById("alarmCount");
+        let current = parseInt(badge.textContent);
+        if (!isNaN(current) && current > 1) {
+          badge.textContent = current - 1;
+        } else {
+          badge.style.display = 'none';
+        }
     } else {
         alert('알림 확인 처리 실패');
     }
 }
+
+
+//알림 뱃지
+document.addEventListener("DOMContentLoaded", function () {
+	  const badge = document.getElementById("alarmCount");
+	  if (!badge) return;
+
+	  fetch(contextPath2 +'/getAlarmCount')
+	    .then(res => {
+	      if (!res.ok) {
+	        throw new Error("응답이 올바르지 않음");
+	      }
+	      return res.json();
+	    })
+	    .then(data => {
+	      const count = data.count;
+	      console.log(count);
+	      if (count > 0) {
+	        badge.textContent = count;
+	        badge.style.display = 'inline-block';
+	      } else {
+	        badge.style.display = 'none';
+	      }
+	    })
+	    .catch(err => {
+	      console.error("알림 카운트 조회 실패:", err);
+	    });
+	});
+
 </script>
 
 </c:if>

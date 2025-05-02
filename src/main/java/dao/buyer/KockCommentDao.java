@@ -5,6 +5,7 @@ import java.util.Map;
 
 import dto.buyer.BabyComment;
 import dto.buyer.KockComment;
+import util.SearchDtoSoy;
 import vo.KockCommentVO;
 
 public interface KockCommentDao {
@@ -21,4 +22,7 @@ public interface KockCommentDao {
 	List<KockCommentVO> selectAllKockCommentList(Map<String,Object>param) throws Exception;
 	Integer countAllComments(Long userNum) throws Exception;
 
+	//마이스토어 댓글
+    List<KockCommentVO> selectAllSellerComments(SearchDtoSoy dto);
+    int countAllSellerComments(SearchDtoSoy dto);
 }

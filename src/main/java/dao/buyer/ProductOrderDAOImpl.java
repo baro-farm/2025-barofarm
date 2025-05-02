@@ -71,7 +71,8 @@ public class ProductOrderDAOImpl implements ProductOrderDAO {
 		return null;
 	}
 
-	// user list
+
+	//user list
 	@Override
 	public Integer selectUserProdOrderCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
@@ -140,4 +141,5 @@ public class ProductOrderDAOImpl implements ProductOrderDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("mapper.prodOrder.selectSellerCancelList", param);
 	}
+
 }

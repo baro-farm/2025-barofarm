@@ -111,4 +111,10 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.selectOne("mapper.user.selectFcmToken", userNum);
 	}
 
+	@Override
+	public void deleteAdminQA(Long questionNum) throws Exception {
+		sqlSession.delete("mapper.adminQuestion.deleteAdminQA", questionNum);
+		sqlSession.commit();
+	}
+
 }

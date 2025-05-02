@@ -52,7 +52,7 @@
 	      ORDER BY p.packageprice DESC, p.packageName ASC
 	    </when>
 	    <otherwise>
-	      ORDER BY p.packageName DESC
+	      ORDER BY p.packageName DESC,  IFNULL(ROUND(AVG(r.pkRating), 1), 0)
 	    </otherwise>
 	  </choose>
 	
@@ -175,4 +175,41 @@
     </if>
   </select>
 	
+	<select id="selectPackageByAll" resultType="PackageVO" parameterType="map">
+	  SELECT 
+	    p.packageNum, p.packageName, p.packageprice, p.imgUrl, p.salesVolume,
+	    s.storeName, p.startDate,
+	    IFNULL(ROUND(AVG(r.pkRating), 1), 0) AS avgRating,
+	    COUNT(r.pkreviewNum) AS reviewCount
+	  FROM package p
+	  JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	  LEFT JOIN packreview r ON p.packageNum = r.packageNum
+	  GROUP BY p.packageNum
+	
+	  <choose>
+	    <when test="sort == 'createdAt'">
+	      ORDER BY p.createdAt DESC, p.packageName ASC
+	    </when>
+	    <when test="sort == 'priceAsc'">
+	      ORDER BY p.packageprice ASC, p.packageName ASC
+	    </when>
+	    <when test="sort == 'priceDesc'">
+	      ORDER BY p.packageprice DESC, p.packageName ASC
+	    </when>
+	    <otherwise>
+	      ORDER BY p.packageName DESC,  IFNULL(ROUND(AVG(r.pkRating), 1), 0) 
+	    </otherwise>
+	  </choose>
+	
+	  LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countPackageByAll" resultType="Integer">
+	    SELECT COUNT(*) FROM package
+	</select>
+	<update id="adjustStock" parameterType="map">
+		UPDATE package SET stock = stock + #{quantityDiff} WHERE packageNum = #{packageNum} AND stock > 0
+	</update>
+	<update id="adjustSalesVolume" parameterType="map">
+		UPDATE package SET salesVolume = salesVolume + #{quantityDiff} WHERE packageNum = #{packageNum}
+	</update>
 </mapper>

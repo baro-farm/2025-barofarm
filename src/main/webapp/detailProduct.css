@@ -56,13 +56,16 @@ a {
     display: flex;
     justify-content: space-between;
 }
+.price {
+	font-size: 16px;
+}
 /* 주문 옵션 */
   .selectBox {
   	width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin: 120px 0 20px 0;
+    margin: 124px 0 20px 0;
     cursor: pointer;
   }
   #selectedOptions {
@@ -88,7 +91,7 @@ a {
   /* 총 가격 */
   .totalPrice {
     text-align: right;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
   }
   /* 버튼 영역 */
@@ -247,9 +250,30 @@ a {
 }
 /* 페이징 */
 #paging {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+#paging a {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;  /* 버튼 사이 간격 */
-    margin-top: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#paging a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+#paging a.select {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
 }

@@ -38,20 +38,12 @@
 	          <label>제목</label>
 	          <input type="text" value="${ads.title }" name="title"/>
 	        </div>
-	        <div class="form-row">
-	          <label>상품명</label>
-	          <input type="text" value="${ads.productName }" name="productName"/>
-	        </div>
 	      </div>
 	
 	      <div class="form-group">
 	        <div class="form-row">
 	          <label>작성자</label>
 	          <input type="text" value="${userName }" readonly="readonly"/>
-	        </div>
-	        <div class="form-row">
-	          <label>상품 링크</label>
-	          <input type="text" value="${ads.productUrl }" name="productUrl"/>
 	        </div>
 	      </div>
 	  
