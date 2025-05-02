@@ -13,6 +13,8 @@ public class Alarm {
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private boolean isChecked;
+	
+	private String userName;
 	public Alarm() {
 	}
 	
@@ -110,5 +112,14 @@ public class Alarm {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	
 }

@@ -32,8 +32,9 @@
 	    WHERE alarmNum = #{alarmNum}
     </update>
     <select id="selectAlarmBySearchDto" resultType="alarm" parameterType="searchDtoSoy">
-		SELECT * FROM alarm a
-	  <where>
+		SELECT a.*, u.userName FROM alarm a
+		JOIN user u ON a.seNum = u.userNum	  
+		<where>
 	    <!-- 🔍 키워드 검색 조건 -->
 	    <if test="keyword != null and keyword != ''">
 	      <choose>
@@ -72,7 +73,8 @@
 	
 	<select id="countAlarmBySearchDto" resultType="int" parameterType="searchDtoSoy">
 		SELECT count(*) FROM alarm a
-<where>
+		JOIN user u ON a.seNum = u.userNum
+		<where>
 	    <!-- 🔍 키워드 검색 조건 -->
 	    <if test="keyword != null and keyword != ''">
 	      <choose>

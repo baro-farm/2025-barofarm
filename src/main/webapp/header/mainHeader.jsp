@@ -209,7 +209,7 @@ function renderAlarms(alarms) {
             <div class="notification-texth">
             	<a href="\${contextPath2}/detailKockFarm?kockNum=\${alarm.targetNum}" class="alarm-link">    
             	<h3>새로운 \${alarm.type}</h3>
-                <p>[\${alarm.content2}] 콕팜</p>
+                <p>[\${alarm.content2}] </p>
                 </a>
             </div>
             <span class="timeh">\${time}</span>
