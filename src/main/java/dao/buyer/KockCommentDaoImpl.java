@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import dto.buyer.BabyComment;
 import dto.buyer.KockComment;
 import util.MybatisSqlSessionFactory;
+import util.SearchDtoSoy;
 import vo.KockCommentVO;
 
 public class KockCommentDaoImpl implements KockCommentDao {
@@ -56,5 +57,15 @@ public class KockCommentDaoImpl implements KockCommentDao {
 	public Integer countAllComments(Long userNum) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mapper.kockFarm.countAllComments",userNum);
+	}
+
+	@Override
+	public List<KockCommentVO> selectAllSellerComments(SearchDtoSoy dto) {
+        return sqlSession.selectList("mapper.kockFarm.selectAllSellerComments", dto);
+	}
+
+	@Override
+	public int countAllSellerComments(SearchDtoSoy dto) {
+        return sqlSession.selectOne("mapper.kockFarm.countAllSellerComments", dto);
 	}
 }
