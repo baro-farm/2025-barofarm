@@ -111,7 +111,7 @@ public class BuyNowComplete extends HttpServlet {
 	            }
 
 	            // 주문 테이블 insert
-	            ProductOrder order = new ProductOrder(userNum, totalPrice, rAddress, "배송준비", "결제완료", rName, rPhone);
+	            ProductOrder order = new ProductOrder(userNum, totalPrice, rAddress, "준비중", "결제완료", rName, rPhone);
 	            prodOrderService.insertProductOrder(sqlSession, order);
 	            Long orderNum = order.getPdOrderNum();
 
