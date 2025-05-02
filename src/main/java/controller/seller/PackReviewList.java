@@ -12,23 +12,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.User;
-import service.buyer.ProdReviewSerivce;
-import service.buyer.ProdReviewServiceImpl;
+import service.buyer.PackReviewSerivce;
+import service.buyer.PackReviewServiceImpl;
 import service.seller.SellerDetailService;
 import service.seller.SellerDetailServiceImpl;
-import vo.ProdReviewVO;
+import vo.PackReviewVO;
+
 
 /**
  * Servlet implementation class ProdReviewList
  */
-@WebServlet("/sellerProdReviewList")
-public class ProdReviewList extends HttpServlet {
+@WebServlet("/sellerPackReviewList")
+public class PackReviewList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProdReviewList() {
+    public PackReviewList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -52,7 +53,7 @@ public class ProdReviewList extends HttpServlet {
 			return;
 		}
 		
-		List<ProdReviewVO> reviewList = new ArrayList<>();
+		List<PackReviewVO> reviewList = new ArrayList<>();
 		
 		int page=1;
 		int pageSize=10;
@@ -63,12 +64,12 @@ public class ProdReviewList extends HttpServlet {
 		String ratingFilter = null;		
 		
 		SellerDetailService sellerService = new SellerDetailServiceImpl();
-		ProdReviewSerivce service = new ProdReviewServiceImpl();
+		PackReviewSerivce service = new PackReviewServiceImpl();
 		
 		try {
 			Long sellerNum = sellerService.selectSellerNumById(sessionUser.getUserId());
 			
-			totalCount = service.selectSellerCountProdReview(sellerNum,commentStat,ratingFilter);
+			totalCount = service.selectSellerCountPackReview(sellerNum,commentStat,ratingFilter);
 			
 			if(request.getParameter("page")!= null) {
 				page=Integer.parseInt(request.getParameter("page"));
@@ -101,7 +102,7 @@ public class ProdReviewList extends HttpServlet {
 			}
 			System.out.println(ratingFilter);
 
-			reviewList = service.selectSellerProdReviewList(sellerNum, commentStat, sort, ratingFilter, offset, pageSize);
+			reviewList = service.selectSellerPackReviewList(sellerNum, commentStat, sort, ratingFilter, offset, pageSize);
 			System.out.println(reviewList);
 
 			int pageGroupSize = 5;
@@ -118,7 +119,7 @@ public class ProdReviewList extends HttpServlet {
 			request.setAttribute("currentGroup", currentGroup);
 			request.setAttribute("pageGroupSize", pageGroupSize);
 			
-			request.getRequestDispatcher("/seller/reviewList.jsp").forward(request, response);
+			request.getRequestDispatcher("/seller/packReviewList.jsp").forward(request, response);
 			
 			
 		}catch(Exception e) {

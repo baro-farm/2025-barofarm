@@ -54,7 +54,6 @@
 	      AND po.deleveryStatus = #{deliveryStatus}
 	    </if>
 	  ORDER BY po.orderedAt DESC
-	  LIMIT #{offset}, #{limit}
 	</select>
 	
 	<update id="updatePkDeliveryStatus" parameterType="packOrder">

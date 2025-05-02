@@ -14,6 +14,7 @@ public interface ProdReviewSerivce {
 	List<ProdReviewVO> selectSellerProdReviewList(Long sellerNum, String commentStat, String sort, String ratingFilter, int offset, int pageSize) throws Exception;
 	Integer selectSellerCountProdReview(Long sellerNum, String commentStat, String ratingFilter) throws Exception;
 	
+	ProdReviewVO selectProdReviewDetailByReviewNum(Long reviewNum);
 	void insertProdReviewComment(List<Long> reviewNums,String commentContent) throws Exception;
 
 }

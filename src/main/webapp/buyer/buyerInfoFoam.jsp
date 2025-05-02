@@ -78,7 +78,10 @@ UserVO user = (UserVO)request.getAttribute("user");
 		        <div class="btn-group">
 		            <button type="submit" class="btn btn-save">저장</button>
 		            <button type="button" class="btn btn-cancel">취소</button>
-		            <button type="button" class="btn btn-delete">회원탈퇴</button>
+		            
+		        </div>
+		        <div class="deleteLink">
+		        	<a href="${contextPath }/deleteUser">'회원탈퇴</a>
 		        </div>
 		    </form>
 		    </div>

@@ -7,9 +7,9 @@
 <title>주문 내역</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<link rel="stylesheet" href="${contextPath}/buyer/productOrderList.css">
+<link rel="stylesheet" href="${contextPath}/buyer/packSubList.css">
 <style>
-.prodModal {
+.modal {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -74,7 +74,10 @@
 		
 		    	      orderItem.find(".orderStatus").text(res.status);
 		    	      orderItem.find(".orderButtons").html(`
-		    	        <button class="btn btnGreen">리뷰작성</button>`);
+		    	        <button class="btn btnGreen">리뷰작성</button>
+	                    <button class="btn btnGreen">장바구니 담기</button>
+	                    <button class="btn btnGreen">바로 구매하기</button> 
+		    	      `);
 		
 		    	      $("#confirmModal").hide();
 		    	    }
@@ -93,7 +96,7 @@
 		    const deliveryStatus = $('#deliveryStatus').val();
 
 		    $.ajax({
-		      url: '${contextPath}/prodOrderList',
+		      url: '${contextPath}/packSubList',
 		      type: 'GET',
 		      data: {
 		        searchStartDate: startDate,
@@ -121,7 +124,7 @@
 		    const deliveryStatus = $('#deliveryStatus').val();
 
 		    $.ajax({
-		      url: '${contextPath}/prodOrderList',
+		      url: '${contextPath}/packSubList',
 		      type: 'GET',
 		      data: {
 		        searchStartDate: startDate,
@@ -139,40 +142,7 @@
 		    });
 		  });
 		  
-		  let selectedCancelOrderNum = null;
-		  $(document).on("click", ".orderCancle", function () {
-		    selectedCancelOrderNum = $(this).closest(".orderItem").data("pd-order-num");
-		    $("#cancelModal").show();
-		  });
-
-		  $("#cancelConfirmNo").click(() => {
-		    $("#cancelModal").hide();
-		  });
-
-		  $("#cancelConfirmYes").click(() => {
-		    $.ajax({
-		      url: "${contextPath}/cancelProdOrder",
-		      type: "POST",
-		      contentType: "application/json",
-		      data: JSON.stringify({
-		        pdOrderNum: selectedCancelOrderNum,
-		        cancelStatus: "취소완료",
-		        cancelReason: "단순변심",
-		        cancelReasonDetail: "상품이 마음에 들지 않음"
-		      }),
-		      success: function (res) {
-		        if (res.result === "success") {
-		          alert("취소가 완료되었습니다.");
-		          location.reload();
-		        } else {
-		          alert("취소 중 오류 발생");
-		        }
-		      },
-		      error: function () {
-		        alert("서버 오류");
-		      }
-		    });
-		  });
+		  
 		});
 	</script>
 
@@ -188,14 +158,12 @@
 	  <span>~</span>
 	  <input type="date" id="searchEndDate" name="searchEndDate">
 	
-	  <label for="deliveryStatus">배송 상태:</label>
+	  <label for="deliveryStatus">구독 상태:</label>
 	  <select id="deliveryStatus" name="deliveryStatus">
-	    <option value="">전체</option>
-	    <option value="준비중">준비중</option>
-	    <option value="배송중">배송중</option>
-	    <option value="배송완료">배송완료</option>
-	    <option value="구매확정">구매확정</option>
-	    <option value="취소완료">취소완료</option>
+	    <option value="">구독전체</option>
+	    <option value="구독중">구독중</option>
+	    <option value="구독종료">구독종료</option>
+	    <option value="구독취소">구독취소</option>
 	  </select>
 	
 	  <button type="button" id="searchBtn">검색</button>
@@ -203,55 +171,37 @@
 
 	<div class="orderList">
 		<!-- 주문 내역이 없을 때 -->
-		<c:if test="${empty prodOrderList}">
-			<div class="emptyMessage">주문 내역이 없습니다.</div>
+		<c:if test="${empty packSubList}">
+			<div class="emptyMessage">구독 내역이 없습니다.</div>
 		</c:if>
 
 		<!-- 주문 내역 반복 -->
-		<c:forEach var="prodOrder" items="${prodOrderList }">
-			<div class="orderItem" data-pd-order-num="${prodOrder.pdOrderNum}">
+		<c:forEach var="packSub" items="${packSubList }">
+			<div class="orderItem" data-sub-num="${packSub.subNum}">
 
 
 				<div class="orderCenter">
 					<div class="orderLeft">
-						<div class="orderStatus orderReady">${prodOrder.deleveryStatus }
+						<div class="orderStatus orderReady">${packSub.isSub }
 						</div>
 
-						<img src="${contextPath}${prodOrder.imgUrl }" alt="">
+						<img src="${contextPath}${packSub.imgUrl }" alt="">
 					</div>
 					<div class="orderRight">
+
+						<div class="productName">${packSub.packageName }</div>
+						<div class="productPrice">${packSub.packagePrice }원</div>
 						<div>
-							<span class="orderDate">${prodOrder.orderDate } 주문</span>
-						</div>
-						<div class="productName">${prodOrder.productName }</div>
-						<div class="productPrice" data-price=${prodOrder.price }>${prodOrder.price }원</div>
-						<div class="orderDetail">
-							<a
-								href="${contextPath}/detailOrderInfo?pdOrderNum=${prodOrder.pdOrderNum}">상세보기></a>
+							<span class="subStartDate">구독 시작일: ${packSub.subStartDate}</span><br>
+							<span class="subEndDate">구독 종료 예상일: ${packSub.subEndDate}</span>
 						</div>
 
 					</div>
 					<div class="orderButtons">
 						<c:choose>
-							<c:when test="${prodOrder.deleveryStatus eq '준비중' }">
-								<button class="btn btnRed orderCancle">취소 신청</button>
-							</c:when>
-
-
-							<c:when test="${prodOrder.deleveryStatus eq '배송중' }">
-								<button class="btn btnGreen confirmBtn">구매 확정</button>
-
-
-							</c:when>
-
-							<c:when test="${prodOrder.deleveryStatus eq '배송완료' }">
-								<button class="btn btnGreen confirmBtn">구매 확정</button>
-
-							</c:when>
-
-							<c:when test="${prodOrder.deleveryStatus eq '구매확정' }">
-							    <button class="btn btnGreen wirteReview">리뷰작성</button>
-							
+							<c:when test="${packSub.isSub eq true }">
+								<button class="btn btnGreen">구독 배송지 변경</button>
+								<button class="btn btnGreen">구독 취소</button>
 							</c:when>
 						</c:choose>
 					</div>
@@ -308,21 +258,12 @@
 </div>
 
 <!-- 모달 -->
-<div id="confirmModal" class="prodModal" style="display: none;">
+<div id="confirmModal" class="modal" style="display: none;">
 	<div class="modalContent">
 		<p>구매를 확정하시겠습니까?</p>
 		<button id="confirmYes" class="btn btnGreen">확인</button>
 		<button id="confirmNo" class="btn btnRed">취소</button>
 	</div>
 </div>
-<!-- 모달 추가 -->
-<div id="cancelModal" class="prodModal" style="display:none;">
-  <div class="modalContent">
-    <p>정말로 해당 주문을 취소하시겠습니까?</p>
-    <button id="cancelConfirmYes" class="btn btnRed">확인</button>
-    <button id="cancelConfirmNo" class="btn btnGreen">취소</button>
-  </div>
-</div>
-
 
 

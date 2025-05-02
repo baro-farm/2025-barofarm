@@ -48,5 +48,13 @@ public class ProdReviewDAOImple implements ProdReviewDAO {
 		sqlSession.commit();
 	}
 
+	@Override
+	public ProdReviewVO selectProdReviewDetailByReviewNum(Long reviewNum) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.prodReview.selectProdReviewDetailByReviewNum",reviewNum);
+		
+		
+	}
+
 
 }

@@ -7,7 +7,9 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link rel="stylesheet" href="${contextPath}/buyer/prodWritableReviewList.css">
 	
-
+<script>
+  const contextPath = '${contextPath}';
+</script>
 
 	
 	<div class="container" id="reviewContainer" name="reviewContainer">
@@ -43,7 +45,8 @@
 							data-product-name="${prodReview.productName }"
 							data-product-num="${prodReview.productNum }"
 							data-img-url="${prodReview.imgUrl }"
-							data-user-num="${prodReview.userNum }"> 리뷰쓰기</button>
+							data-user-num="${prodReview.userNum }"
+							data-pd-order-num="${prodReview.pdOrderNum }"> 리뷰쓰기</button>
 							
 					</div>
 					
@@ -59,31 +62,28 @@
 	</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-	  const buttons = document.querySelectorAll(".writeReviewBtn");
+$(function () {
+	  $(".writeReviewBtn").on("click", function () {
+	    const $btn = $(this);
+	    
+	    const userNum = $.trim($btn.data("user-num"));
+	    const productNum = $.trim($btn.data("product-num"));
+	    const storeName = $.trim($btn.data("store-name"));
+	    const productName = $.trim($btn.data("product-name"));
+	    const imgUrl = $.trim($btn.data("img-url"));
+	    const pdOrderNum = $.trim($btn.data("pd-order-num"));
 
-	  buttons.forEach(button => {
-	    button.addEventListener("click", () => {
-	      const data = {
-	        userNum: button.dataset.userNum?.trim(),
-	        productNum: button.dataset.productNum?.trim(),
-	        storeName: button.dataset.storeName?.trim(),
-	        productName: button.dataset.productName?.trim(),
-	        imgUrl: button.dataset.imgUrl?.trim()
-	      };
+	    const queryString = 
+	      "userNum=" + encodeURIComponent(userNum) +
+	      "&productNum=" + encodeURIComponent(productNum) +
+	      "&storeName=" + encodeURIComponent(storeName) +
+	      "&productName=" + encodeURIComponent(productName) +
+	      "&imgUrl=" + encodeURIComponent(imgUrl)+
+	      "&pdOrderNum="+ encodeURIComponent(pdOrderNum);
 
-	      const queryString = 
-	        "userNum=" + encodeURIComponent(data.userNum)+
-	        "&productNum=" + encodeURIComponent(data.productNum) +
-	        "&storeName=" + encodeURIComponent(data.storeName) +
-	        "&productName=" + encodeURIComponent(data.productName) +
-	        "&imgUrl=" + encodeURIComponent(data.imgUrl);
-
-	      const destination = `/barofarm/insertProdReview?`+ queryString;
-	      console.log("이동할 주소:", destination);
-
-	      window.location.href = destination;
-	    });
+	    const destination = `\${contextPath}/insertProdReview?` + queryString;
+	    console.log("이동할 주소:", destination);
+	    location.href = destination;
 	  });
 	});
 </script>

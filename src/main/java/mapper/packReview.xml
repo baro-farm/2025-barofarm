@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.packReview">
+	<select id="selectWritableReview" parameterType="Long" resultType="packReviewVO">
+	   SELECT 
+	        p.packageName,
+	        p.pkReviewImgUrl,
+	        s.storeName,
+	        po.orderedAt,
+	        po.packageNum,
+	        po.pkOrderNum,
+	        po.userNum,
+	        DATE_ADD(po.orderedAt, INTERVAL 30 DAY) AS deadline
+	    FROM packageOrder po
+	    JOIN package p ON po.packageNum = p.packageNum
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	    WHERE po.userNum = #{userNum}
+	      AND po.deleveryStatus = '구매확정'
+	      AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	      AND NOT EXISTS (
+	          SELECT 1 
+	          FROM packReview r
+	          WHERE r.userNum = po.userNum
+	            AND r.packageNum = po.packageNum
+	      )	
+	</select>
+	
+	<select id="selectWrittenReviewList" parameterType="Long" resultType="packReviewVO">
+		SELECT 
+		    pr.pkReviewNum,
+		    pr.userNum,
+		    p.packageNum,
+		    p.packageName,
+		    p.imgUrl AS pkReviewImgUrl,
+		    pr.pkRating,
+		    pr.pkReviewContent,
+		    pr.createdAt,
+		    u.userName,
+		    s.storeName
+		FROM 
+		    packReview pr
+		JOIN 
+		    package p ON pr.packageNum = p.packageNum
+		JOIN 
+		    user u ON pr.userNum = u.userNum
+		JOIN 
+		    sellerdetail s ON p.sellerNum = s.sellerNum
+		WHERE 
+		    pr.userNum = #{userNum} 
+		ORDER BY 
+		    pr.createdAt DESC;
+	</select>
+	
+	<insert id="insertPackReview" parameterType="packReviewVO">
+		insert into packReview (userNum,packageNum,pkRating,pkReviewContent,pkReviewImgUrl)
+			values(#{userNum},#{packageNum},#{pkRating},#{pkReviewContent},#{pkReviewImgUrl})
+	</insert>
+	
+	<select id="selectPackReview" parameterType="map" resultType="packReviewVO">
+		SELECT 
+			r.packageNum, 
+			r.pkReviewNum,
+	        p.packageName,
+	        CONCAT(LEFT(u.userId, CHAR_LENGTH(u.userId) - 3), '***') AS userId,
+	        r.pkRating, 
+	        r.pkeviewContent, 
+	        r.createdAt,
+	        r.pkReviewImgUrl
+	    FROM packReview r
+	    JOIN package p ON r.packageNum = p.packageNum
+	    JOIN user u ON r.userNum = u.userNum
+	    WHERE r.packageNum = #{packageNum}
+	    ORDER BY r.createdAt DESC
+	    LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countPackReview" resultType="Integer" parameterType="long">
+	    SELECT COUNT(*) FROM packReview WHERE packageNum = #{packageNum}
+	</select>
+	
+	<!-- seller List -->
+	<select id="selectSellerPackReviewList" parameterType="map" resultType="packReviewVO">
+	    SELECT
+	        pr.packageNum,
+	        pr.pkOrderNum,
+	        pr.userNum,
+	        p.packageName,
+	        pr.pkReviewImgUrl,
+	        p.packageUnit,
+	        pr.createdAt,
+	        u.userId,
+	        pr.pkRating,
+	        pr.pkReviewContent,
+	        pr.pkReviewNum,
+	        pr.pkCommentStatus
+	    FROM packreview pr
+	    JOIN package p ON pr.packageNum = p.packageNum
+	    JOIN user u ON pr.userNum = u.userNum
+	    WHERE p.sellerNum = #{sellerNum}
+	      <if test="commentStat != null and commentStat != 'all'">
+			<if test="commentStat != null and commentStat.equals('answered')">
+			    AND pr.pkCommentStatus = 1
+			</if>
+			<if test="commentStat != null and commentStat.equals('unanswered')">
+			    AND (pr.pkCommentStatus IS NULL OR pr.pkCommentStatus = 0)
+			</if>
+	      </if>
+			<if test="ratingFilter != null and ratingFilter != 'all'">
+			    <if test="'5'.equals(ratingFilter)">
+			        AND pr.pkRating = 5
+			    </if>
+			    <if test="'4'.equals(ratingFilter)">
+			        AND pr.pkRating = 4
+			    </if>
+			    <if test="'3'.equals(ratingFilter)">
+			        AND pr.pkRating = 3
+			    </if>
+			    <if test="'2'.equals(ratingFilter)">
+			        AND pr.pkRating = 2
+			    </if>
+			    <if test="'1'.equals(ratingFilter)">
+			        AND pr.pkRating = 1
+			    </if>
+			</if>
+	    <choose>
+	        <when test="sort == 'new'">
+	            ORDER BY pr.createdAt DESC
+	        </when>
+	        <when test="sort == 'old'">
+	            ORDER BY pr.createdAt ASC
+	        </when>
+	        <when test="sort == 'rating'">
+	            ORDER BY pr.pkRating DESC
+	        </when>
+	        <when test="sort == 'lowRating'">
+	            ORDER BY pr.pkRating ASC
+	        </when>
+	        <otherwise>
+	            ORDER BY pr.createdAt DESC
+	        </otherwise>
+	    </choose>
+	    LIMIT #{offset}, #{pageSize}	
+	</select>
+	
+	<select id="selectSellerCountPackReview" parameterType="map" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM packreview pr
+	    JOIN package p ON pr.packageNum = p.packageNum
+	    JOIN user u ON pr.userNum = u.userNum
+	    WHERE p.sellerNum = #{sellerNum}
+	      <if test="commentStat != null and commentStat != 'all'">
+	          <if test="commentStat == 'answered'">
+	              AND pr.pkCommentStatus = 1
+	          </if>
+	          <if test="commentStat == 'unanswered'">
+	              AND (pr.pkCommentStatus IS NULL OR pr.pkCommentStatus = 0)
+	          </if>
+	      </if>
+			<if test="ratingFilter != null and ratingFilter != 'all'">
+			    <if test="'5'.equals(ratingFilter)">
+			        AND pr.pkRating = 5
+			    </if>
+			    <if test="'4'.equals(ratingFilter)">
+			        AND pr.pkRating = 4
+			    </if>
+			    <if test="'3'.equals(ratingFilter)">
+			        AND pr.pkRating = 3
+			    </if>
+			    <if test="'2'.equals(ratingFilter)">
+			        AND pr.pkRating = 2
+			    </if>
+			    <if test="'1'.equals(ratingFilter)">
+			        AND pr.pkRating = 1
+			    </if>
+			</if>
+	</select>
+	
+	<update  id="insertSellerPackReviewComment" parameterType="map">
+		update packReview
+		set pkComment = #{commentContent},
+			pkCommentStatus=1
+		WHERE pkReviewNum IN
+	    <foreach item="pkReviewNum" collection="pkReviewNums" open="(" separator="," close=")">
+	        #{pkReviewNum}
+	    </foreach>	
+	</update >
+	
+	<select id="selectPackReviewDetailByReviewNum" parameterType="long" resultType="packReviewVO">
+		SELECT
+	        r.pkReviewNum,
+            r.packageNum,
+            r.userNum,
+            r.pkRating,
+            r.pkReviewContent ,
+            r.pkReviewimgUrl,
+            r.pkComment,
+            r.pkCommentStatus,
+            r.createdAt,
+            CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
+            p.packageName
+        FROM packReview r
+        JOIN user u ON r.userNum = u.userNum
+        JOIN package p ON r.packageNum = p.packageNum
+        WHERE r.pkReviewNum = #{pkReviewNum}
+	</select>
+	
+	
+</mapper>

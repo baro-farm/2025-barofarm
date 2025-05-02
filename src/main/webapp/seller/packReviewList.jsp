@@ -7,9 +7,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>판매자|리뷰관리</title>
+<title>판매자|꾸러미리뷰관리</title>
 
-<link rel="stylesheet" href="${contextPath}/seller/reviewList.css" />
+<link rel="stylesheet" href="${contextPath}/seller/packReviewList.css" />
 
 <link
 	href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css"
@@ -55,9 +55,9 @@
 				  	// 선택된 리뷰번호 표시
 				  	$("#reviewNum").text(selectedReviews.join(","));
 				    $.ajax({
-				        url: "insertReviewComment",   // ✅ 서블릿 URL
+				        url: "insertPackReviewComment",   // ✅ 서블릿 URL
 				        method: "GET",
-				        data: { reviewNums: selectedReviews.join(",") },  // ✅ 선택된 번호 넘기기
+				        data: { pkReviewNums: selectedReviews.join(",") },  // ✅ 선택된 번호 넘기기
 				        dataType: "html",
 				        success: function (response) {
 				            $("#modalContent").html(response);  // ✅ 모달 안에 내용 채우기
@@ -76,18 +76,18 @@
 			    $(document).on("click", ".btn.addBtn", function () {
 			        const reviewNums = $("#reviewNum").text().split(",");
 			        const commentContent = $("#reviewComment").val().trim();
-
+					console.log(reviewNums);
 			        if (!commentContent) {
 			            alert("답글을 작성해주세요");
 			            return;
 			        }
-
+					
 			        $.ajax({
-			            url: "insertReviewComment",
+			            url: "insertPackReviewComment",
 			            type: "POST",
 			            contentType: "application/json",
 			            data: JSON.stringify({
-			                reviewNums: reviewNums,
+			                pkReviewNums: reviewNums,
 			                commentContent: commentContent
 			            }),
 			            success: function (response) {
@@ -109,10 +109,10 @@
 					let row = $(this).closest("tr");
 					let reviewNum = row.find(".reviewNum").text().trim();
 					let orderNum = row.find(".orderNum a").text().trim();
-					console.log(reviewNum);
+
 					// Ajax로 detailReviewComment.html을 불러와서 모달에 표시
 					$.ajax({
-						url : "${contextPath}/detailReviewComment", // 올바른 경로 확인 필수!
+						url : "detailPackReviewComment", // 올바른 경로 확인 필수!
 						method : "GET",
 						data : {reviewNum: reviewNum},
 						success : function(response) {
@@ -167,7 +167,7 @@
 
 	<div id="content">
 		<div class="noticeHeader">
-			<span id="title">리뷰 관리</span>
+			<span id="title">꾸러미 리뷰 관리</span>
 		</div>
 
 		<div class="filterWrapper">
@@ -236,36 +236,36 @@
 								<div class="uiGridCell"><input type="checkbox"></div>
 							</td>
 							<td>
-								<div class="uiGridCell productNum">
-									<a href="detailProduct?productNum=${review.productNum}">${review.productNum}</a>
+								<div class="uiGridCell packageName">
+									<a href="detailPackage?packageNum=${review.packageNum}">${review.packageNum}</a>
 								</div>
 							</td>
 							<td>
-								<div class="uiGridCell productName">
-									<a href="detailProduct?productNum=${review.productNum}">${review.productName}</a>
+								<div class="uiGridCell packageName">
+									<a href="detailPackage?packageNum=${review.packageNum}">${review.packageName}</a>
 								</div>
 							</td>
 							<td>
-								<div class="uiGridCell productName">
-									${review.optionName}
+								<div class="uiGridCell packageName">
+									${review.packageUnit}
 								</div>
 							</td>
 							<td>
 								<c:forEach var="i" begin="1" end="5">
 									<c:choose>
-										<c:when test="${i <= review.pdRating}">★</c:when>
+										<c:when test="${i <= review.pkRating}">★</c:when>
 										<c:otherwise>☆</c:otherwise>
 									</c:choose>
-								</c:forEach><span>&nbsp;&nbsp;${review.pdRating}</span>
+								</c:forEach><span>&nbsp;&nbsp;${review.pkRating}</span>
 							</td>
 							<td>
 								<div class="uiGridCell reviewDetail">
-									<a href="#">${review.pdContent}</a>
+									<a href="#">${review.pkReviewContent}</a>
 								</div>
 							</td>
 							<td>
 								<div class="uiGridCell">
-									<img src="${contextPath}/upload/${review.imgUrl}" width="50">
+									<img src="${contextPath}${review.pkReviewImgUrl}" width="50">
 								</div>
 							</td>
 
@@ -277,12 +277,12 @@
 								<div class="uiGridCell">${review.createdAt }</div>
 							</td>
 							<td>
-								<div class="uiGridCell reviewNum">${review.reviewNum }</div>
+								<div class="uiGridCell reviewNum">${review.pkReviewNum }</div>
 							</td>
 							<td>
 								<div class="uiGridCell">
 									<c:choose>
-										<c:when test="${review.pdCommentStatus eq true }">
+										<c:when test="${review.pkCommentStatus eq true }">
 											<span>Y</span>
 										</c:when>
 										<c:otherwise><span>N</span></c:otherwise>
@@ -292,7 +292,7 @@
 
 							<td>
 								<div class="uiGridCell orderNum">
-									<a href="#">${review.pdOrderNum }</a>
+									<a href="#">${review.pkOrderNum }</a>
 								</div>
 							</td>
 						</tr>

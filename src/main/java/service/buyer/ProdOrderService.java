@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ProductOrder;
 import dto.buyer.ProductOrderItem;
+import vo.ProdCancelVO;
 import vo.ProdOrderVO;
 
 public interface ProdOrderService {
@@ -33,5 +34,9 @@ public interface ProdOrderService {
 	void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum, int amount, int price) throws Exception;
 	void updateSellerProdTrackingNum(Long pdOrderNum, Integer trackingNum) throws Exception;
 	
+	//취소처리
+	void cancelProdOrder(Long pdOrderNum, String reason, String reasonDetail) throws Exception;
 	
+	Integer countSellerCancelList(Long sellerNum, String sort) throws Exception;
+	List<ProdCancelVO> selectSellerCancelList(Long sellerNum, String sort,int offset, int limit) throws Exception;
 }

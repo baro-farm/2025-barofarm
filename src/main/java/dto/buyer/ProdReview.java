@@ -8,6 +8,7 @@ public class ProdReview {
 	Long reviewNum;
 	Long userNum;
 	Long productNum;
+	Long pdOrderNum;
 	Integer pdRating;
 	String pdReviewContent;
 	String pdReviewImgUrl;
@@ -148,6 +149,14 @@ public class ProdReview {
 	}
 	
 	
+
+	public Long getPdOrderNum() {
+		return pdOrderNum;
+	}
+
+	public void setPdOrderNum(Long pdOrderNum) {
+		this.pdOrderNum = pdOrderNum;
+	}
 
 	public String getProductName() {
 		return productName;

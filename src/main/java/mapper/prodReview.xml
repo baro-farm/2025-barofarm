@@ -9,6 +9,7 @@
 	        p.imgUrl,
 	        s.storeName,
 	        po.orderedAt,
+	        po.pdOrderNum,
 	        poi.productNum,
 	        po.pdOrderNum,
 	        po.userNum,
@@ -34,7 +35,7 @@
 		    pr.userNum,
 		    p.productNum,
 		    p.productName,
-		    p.imgUrl AS productImgUrl,
+		    pr.pdReviewImgUrl,
 		    pr.pdRating,
 		    pr.pdReviewContent,
 		    pr.createdAt,
@@ -55,8 +56,8 @@
 	</select>
 	
 	<insert id="insertProdReview" parameterType="prodReview">
-		insert into prodReview (userNum,productNum,pdRating,pdReviewContent,pdReviewImgUrl)
-			values(#{userNum},#{productNum},#{pdRating},#{pdReviewContent},#{pdReviewImgUrl})
+		insert into prodReview (userNum,productNum,pdRating,pdReviewContent,pdReviewImgUrl,pdOrderNum)
+			values(#{userNum},#{productNum},#{pdRating},#{pdReviewContent},#{pdReviewImgUrl},#{pdOrderNum})
 	</insert>
 	
 	<select id="selectProdReview" parameterType="map" resultType="prodReviewVO">
@@ -108,17 +109,23 @@
 			    AND (pr.pdCommentStatus IS NULL OR pr.pdCommentStatus = 0)
 			</if>
 	      </if>
-	      <if test="ratingFilter != null and ratingFilter != 'all'">
-			<if test="ratingFilter != null and ratingFilter.equals('5')">
-			    AND pr.pdRating = 5
+			<if test="ratingFilter != null and ratingFilter != 'all'">
+			    <if test="'5'.equals(ratingFilter)">
+			        AND pr.pdRating = 5
+			    </if>
+			    <if test="'4'.equals(ratingFilter)">
+			        AND pr.pdRating = 4
+			    </if>
+			    <if test="'3'.equals(ratingFilter)">
+			        AND pr.pdRating = 3
+			    </if>
+			    <if test="'2'.equals(ratingFilter)">
+			        AND pr.pdRating = 2
+			    </if>
+			    <if test="'1'.equals(ratingFilter)">
+			        AND pr.pdRating = 1
+			    </if>
 			</if>
-			<if test="ratingFilter != null and ratingFilter.equals('4')">
-			    AND pr.pdRating = 4
-			</if>
-			<if test="ratingFilter != null and ratingFilter.equals('3')">
-			    AND pr.pdRating = 3
-			</if>
-	      </if>
 	    <choose>
 	        <when test="sort == 'new'">
 	            ORDER BY pr.createdAt DESC
@@ -155,17 +162,23 @@
 	              AND (pr.pdCommentStatus IS NULL OR pr.pdCommentStatus = 0)
 	          </if>
 	      </if>
-	      <if test="ratingFilter != null and ratingFilter != 'all'">
-	          <if test="ratingFilter == '5'">
-	              AND pr.pdRating = 5
-	          </if>
-	          <if test="ratingFilter == '4'">
-	              AND pr.pdRating = 4
-	          </if>
-	          <if test="ratingFilter == '3'">
-	              AND pr.pdRating = 3
-	          </if>
-	      </if>	
+			<if test="ratingFilter != null and ratingFilter != 'all'">
+			    <if test="'5'.equals(ratingFilter)">
+			        AND pr.pdRating = 5
+			    </if>
+			    <if test="'4'.equals(ratingFilter)">
+			        AND pr.pdRating = 4
+			    </if>
+			    <if test="'3'.equals(ratingFilter)">
+			        AND pr.pdRating = 3
+			    </if>
+			    <if test="'2'.equals(ratingFilter)">
+			        AND pr.pdRating = 2
+			    </if>
+			    <if test="'1'.equals(ratingFilter)">
+			        AND pr.pdRating = 1
+			    </if>
+			</if>
 	</select>
 	
 	<update  id="insertSellerProdReviewComment" parameterType="map">
@@ -177,5 +190,29 @@
 	        #{reviewNum}
 	    </foreach>	
 	</update >
+	
+	<select id="selectProdReviewDetailByReviewNum" parameterType="long" resultType="prodReviewVO">
+		SELECT
+            r.reviewNum,
+            r.productNum,
+            r.userNum,
+            r.pdRating,
+            r.pdReviewContent as pdContent,
+            r.pdReviewimgUrl as imgUrl,
+            r.pdComment,
+            r.pdCommentStatus,
+            r.createdAt,
+            CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
+            p.productName
+        FROM prodReview r
+        JOIN user u ON r.userNum = u.userNum
+        JOIN product p ON r.productNum = p.productNum
+        WHERE r.reviewNum = #{reviewNum}
+	</select>
+	
 	
 </mapper>
