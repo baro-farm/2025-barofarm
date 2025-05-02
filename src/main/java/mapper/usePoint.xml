@@ -73,4 +73,8 @@
 		    </if>
 		  </where>
 	</select>
+	<insert id="insertKockFarmAlarm" parameterType="alarm">
+		INSERT INTO usePoint (userNum, usedPoint, type, currPoint)
+    	VALUES (#{userNum}, #{usedPoint}, #{type}, #{currPoint})	
+	</insert>
 </mapper>

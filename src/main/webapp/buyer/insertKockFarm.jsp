@@ -147,7 +147,6 @@ document.getElementById("kockFarmForm").addEventListener("submit", async functio
 			}
 
             //알림까지 성공하면 목록으로 이동
-            alert("콕팜 글 작성 및 알림 발송 완료!");
             location.href = "kockFarmList";
         } else {
             alert("글 등록에 실패했습니다.");

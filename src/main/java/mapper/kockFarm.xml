@@ -205,4 +205,118 @@
 	    (SELECT COUNT(*) FROM babyComment WHERE userNum = #{userNum})
 	</select>
 	
+	<!-- 판매자의 댓글 리스트 -->
+	<select id="selectAllSellerComments" resultType="kockCommentVO" parameterType="searchDtoSoy">
+	  SELECT kc.*,
+	         k.title,
+	         u.userName AS buyerName,
+	         u2.userName AS sellerName,
+	         k.createdAt AS farmCreatedAt,
+	         k.isMatched AS matchingStatus,
+	         EXISTS (
+	           SELECT 1
+	           FROM matching m
+	           WHERE m.kcNum = kc.kcNum
+	             AND m.kockNum = kc.kockNum
+	             AND m.sellerNum = #{userNum}
+	         ) AS isMatchedForThisSeller
+	  FROM kockcomment kc
+	  JOIN kockfarm k ON kc.kockNum = k.kockNum
+	  JOIN user u ON k.userNum = u.userNum
+	  JOIN user u2 ON kc.userNum = u2.userNum
+	  WHERE kc.userNum = #{userNum}
+	
+	  <if test="keyword != null and keyword != ''">
+	    AND
+	    <choose>
+	      <when test="searchType == 'title'">
+	        k.title LIKE CONCAT('%', #{keyword}, '%')
+	      </when>
+	    </choose>
+	  </if>
+	
+	  <if test="startDateFrom != null and startDateFrom != ''">
+	    AND DATE(kc.createdAt) &gt;= #{startDateFrom}
+	  </if>
+	  <if test="startDateTo != null and startDateTo != ''">
+	    AND DATE(kc.createdAt) &lt;= #{startDateTo}
+	  </if>
+	
+	  <if test="status != null and status != 'all'">
+	    <choose>
+	      <when test="status == 'true'">
+	        AND EXISTS (
+	          SELECT 1
+	          FROM matching m
+	          WHERE m.kcNum = kc.kcNum
+	            AND m.kockNum = kc.kockNum
+	            AND m.sellerNum = #{userNum}
+	        )
+	      </when>
+	      <when test="status == 'false'">
+	        AND NOT EXISTS (
+	          SELECT 1
+	          FROM matching m
+	          WHERE m.kcNum = kc.kcNum
+	            AND m.kockNum = kc.kockNum
+	            AND m.sellerNum = #{userNum}
+	        )
+	      </when>
+	    </choose>
+	  </if>
+
+	
+	  ORDER BY kc.createdAt DESC
+	  LIMIT #{recordSize} OFFSET #{offset}
+	</select>
+
+
+	<select id="countAllSellerComments" resultType="int" parameterType="searchDtoSoy">
+	 SELECT COUNT(*)
+	  FROM kockcomment kc
+	  JOIN kockfarm k ON kc.kockNum = k.kockNum
+	  JOIN user u ON k.userNum = u.userNum
+	  JOIN user u2 ON kc.userNum = u2.userNum
+	  WHERE kc.userNum = #{userNum}
+	
+	  <if test="keyword != null and keyword != ''">
+	    AND
+	    <choose>
+	      <when test="searchType == 'title'">
+	        k.title LIKE CONCAT('%', #{keyword}, '%')
+	      </when>
+	    </choose>
+	  </if>
+	
+	  <if test="startDateFrom != null and startDateFrom != ''">
+	    AND DATE(kc.createdAt) &gt;= #{startDateFrom}
+	  </if>
+	  <if test="startDateTo != null and startDateTo != ''">
+	    AND DATE(kc.createdAt) &lt;= #{startDateTo}
+	  </if>
+	
+	  <if test="status != null and status != 'all'">
+	    <choose>
+	      <when test="status == 'true'">
+	        AND EXISTS (
+	          SELECT 1
+	          FROM matching m
+	          WHERE m.kcNum = kc.kcNum
+	            AND m.kockNum = kc.kockNum
+	            AND m.sellerNum = #{userNum}
+	        )
+	      </when>
+	      <when test="status == 'false'">
+	        AND NOT EXISTS (
+	          SELECT 1
+	          FROM matching m
+	          WHERE m.kcNum = kc.kcNum
+	            AND m.kockNum = kc.kockNum
+	            AND m.sellerNum = #{userNum}
+	        )
+	      </when>
+	    </choose>
+	  </if>
+	</select>
+
 </mapper>

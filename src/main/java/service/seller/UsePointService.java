@@ -10,4 +10,5 @@ public interface UsePointService {
 	List<UsePoint> selectUsePointListBySearchDto(SearchDtoSoy dto) throws Exception;
 	int countUsePointBySearchDto(SearchDtoSoy dto) throws Exception;
 	void chargePointByPayment(UsePoint usePoint) throws Exception;
+	void useByKockFarmAlarm (UsePoint usePoint) throws Exception;
 }

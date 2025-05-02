@@ -21,11 +21,11 @@
 		<jsp:include page="/header/adminSellerTop.jsp" />
 	</header>	    
     <div id="content">
-     <div class="container-header">
-         <h2 class="title">배너 광고</h2>
+     <div class="pkHeader">
+         <span id="title">배너 광고</span>
          <div class="subscribe-box">
-             <span class="question-icon">❓</span>
-             <c:if test="${bannerCnt <5 }">
+<!--              <span class="question-icon">❓</span>
+ -->             <c:if test="${bannerCnt <5 }">
    	                <button class="btn-apply" onclick="location.href='${contextPath}/insertAdsBySeller'">📢 광고 신청하기</button>
              </c:if>
              <c:if test="${bannerCnt >=5 }">
@@ -33,27 +33,28 @@
              </c:if>
           </div>
       </div>
-		<form method="get" action="${contextPath}/sellerAdsList" class="searchForm" >
-		 <select name="searchType">
-		   <option value="status" ${param.searchType == 'status' ? 'selected' : ''}>신청현황</option>
-		   <option value="product" ${param.searchType == 'product' ? 'selected' : ''}>상품명</option>
-		 </select>
-		 <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
-		 <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
-		 ~
-		 <input type="date" name="startDateTo" value="${param.startDateTo}" />
-		  <button type="submit">검색</button>
-		</form>
-      <div class="history-section">
-          <h3>광고 신청 내역</h3>
+  		<div class="selectBox">
+			<form method="get" action="${contextPath}/sellerAdsList" class="searchForm" >
+			 <select name="searchType">
+			   <option value="status" ${param.searchType == 'status' ? 'selected' : ''}>신청현황</option>
+			   <option value="product" ${param.searchType == 'product' ? 'selected' : ''}>상품명</option>
+			 </select>
+			 <input type="text" name="keyword" value="${param.keyword}" placeholder="검색어 입력">
+			 <input type="date" name="startDateFrom" value="${param.startDateFrom}" />
+			 ~
+			 <input type="date" name="startDateTo" value="${param.startDateTo}" />
+			  <button type="submit">검색</button>
+			</form>
+		</div>
+      <div class="tableWrapper">
       <table id="banner-table" class="table">
           <thead>
               <tr>
                  <th style="font-weight: bold;">순번</th>
                  <th style="font-weight: bold;">신청 현황</th>
                  <th style="font-weight: bold;">이미지파일</th>
-                 <th style="font-weight: bold;">상품명</th>
-                 <th style="font-weight: bold;">상품링크</th>
+                 <th style="font-weight: bold;">제목</th>
+                 <th style="font-weight: bold;">내용</th>
                  <th style="font-weight: bold;">광고시작일</th>
                  <th style="font-weight: bold;">광고종료일</th>
                  <th style="font-weight: bold;">승인 여부</th>
@@ -65,8 +66,8 @@
                   <td>${status.count }</td>		                
                   <td>${ads.status }</td>
                   <td><img src="kockImg?imgUrl=${ads.imgUrl }"  width="100px" alt="광고배너" class="product-img"></td>
-                  <td>${ads.productName }</td>
-                  <td><a href="${ads.productUrl }" target="_blank">${ads.productUrl }</a></td>
+                  <td>${ads.title }</td>
+                  <td>${ads.content }</td>
                   <td>${ads.startDate }</td>
                   <td>${ads.endDate }</td>
                   <td>
@@ -91,7 +92,7 @@
          </tbody>
      </table>
      </div>
-     <div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
+     <div class="pagination" id="pagingArea" style="text-align: center; margin-top: 20px;">
  <c:if test="${pi.startPage > 1}">
    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
  </c:if>

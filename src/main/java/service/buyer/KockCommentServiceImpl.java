@@ -8,6 +8,7 @@ import dao.buyer.KockCommentDao;
 import dao.buyer.KockCommentDaoImpl;
 import dto.buyer.BabyComment;
 import dto.buyer.KockComment;
+import util.SearchDtoSoy;
 import vo.KockCommentVO;
 
 public class KockCommentServiceImpl implements KockCommentService {
@@ -55,6 +56,14 @@ public class KockCommentServiceImpl implements KockCommentService {
 	@Override
 	public Integer selectCountAllComment(Long userNum) throws Exception {
 		return kockCommentDao.countAllComments(userNum);
+	}
+	@Override
+	public List<KockCommentVO> getSellerComments(SearchDtoSoy dto) {
+        return kockCommentDao.selectAllSellerComments(dto);
+	}
+	@Override
+	public int countSellerComments(SearchDtoSoy dto) {
+        return kockCommentDao.countAllSellerComments(dto);
 	}
 
 }

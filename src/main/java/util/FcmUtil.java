@@ -41,6 +41,7 @@ public class FcmUtil {
                 "    }\n" +
                 "  }\n" +
                 "}";
+		System.out.println("=== FcmUtil sendKockFarmAlarm 호출됨 ===");
 
         HttpURLConnection conn = (HttpURLConnection) new URL(MESSAGING_URL).openConnection();
         conn.setRequestMethod("POST");

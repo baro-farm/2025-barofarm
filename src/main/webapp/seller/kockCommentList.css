@@ -1,10 +1,12 @@
+@charset "UTF-8";
 
-.subscribe-box {
-    display: flex;
-    justify-content: flex-end;
+@media (max-width: 1200px) {
+    .table {
+        width: 1200px;  /* ✅ 1024px에서 멈춤 */
+    }
 }
-body {
-	flex-direction: column;
+.table {
+    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
 }
 /*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
 #header {
@@ -22,6 +24,13 @@ body {
 
 /* 내용 */
 
+/* #content {
+  width: calc(100vw - 220px);
+  max-width: 1280px;
+  margin: 40px auto;
+  padding-top: 80px;
+  padding-left: 220px;
+} */
 #content {
   width: calc(100vw - 220px);
   max-width: 1400px;
@@ -41,7 +50,7 @@ body {
 .pkHeader {
 	width:100%;
     display: flex;
-	justify-content: space-between;
+    justify-content: flex-start;
 }
 #title{
     font-size:30px;
@@ -106,67 +115,15 @@ body {
 tbody > tr:hover  {
     background-color: #FBF6EE;
 }
-.question-icon {
-    padding: 4px 4px;
-    border: 2px solid #D72638;
-    border-radius: 100%;
-    cursor: pointer;
-    display: flex;
-    width: 24px;
-    height: 24px;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 4px 5px 0px;
-}
-
-/* 광고 신청 버튼 */
-.btn-apply {
-    background: #D72638;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: bold;
-    font-size: 16px;
-    margin: 15px 0;
-}
-
-.btn-apply:hover {
-    background-color: #c1212f;
-}
-
-
-/* 상품 이미지 */
-.product-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-}
-
-/* 버튼 스타일 */
-.btn-cancel {
-    background-color: #D72638;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn-edit {
-    background-color: #65B741;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
 /* 페이징 */
+.paging a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #333;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 .pagination {
     display: flex;
     justify-content: center;
@@ -198,14 +155,24 @@ tbody > tr:hover  {
     background-color: #65B741;  /* ✅ 메인 그린 */
     color: white;
 }
+.close-notif {
+	padding: 4px 10px;
+    background-color: #65B741;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.close-notif:hover {
+    background-color: #4e9e32;
+}
 
-a {
-	text-decoration: none;
+a:hover {
+    color: #65B741;
 }
  a {
 	text-decoration: none;
 	color:black;
-}
-.interruption {
-	
 }
