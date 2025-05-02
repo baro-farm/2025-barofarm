@@ -18,13 +18,6 @@ body {
 
 /* 내용 */
 
-/* #content {
-  width: calc(100vw - 220px);
-  max-width: 1280px;
-  margin: 40px auto;
-  padding-top: 80px;
-  padding-left: 220px;
-} */
 #content {
   width: calc(100vw - 220px);
   max-width: 1400px;
@@ -110,14 +103,6 @@ tbody > tr:hover  {
     background-color: #FBF6EE;
 }
 /* 페이징 */
-.paging a {
-  margin: 0 5px;
-  text-decoration: none;
-  color: #333;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
 .pagination {
     display: flex;
     justify-content: center;

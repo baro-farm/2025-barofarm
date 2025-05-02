@@ -100,7 +100,7 @@
 	                </tbody>
 	            </table>
 	        </div>
-			<div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
+			<div class="pagination" id="pagingArea" style="text-align: center; margin-top: 20px;">
 			  <c:if test="${pi.startPage > 1}">
 			    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
 			  </c:if>

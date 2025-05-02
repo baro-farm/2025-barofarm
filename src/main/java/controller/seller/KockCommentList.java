@@ -74,7 +74,6 @@ request.setCharacterEncoding("utf-8");
 
 			request.setAttribute("pi", pageInfo);
 			request.setAttribute("commentList", commentList);
-			System.out.println(commentList.size());
 
             request.getRequestDispatcher("/seller/kockCommentList.jsp").forward(request, response);
         } catch (Exception e) {

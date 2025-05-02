@@ -22,7 +22,7 @@
 	</header>	    
     <div id="content">
      <div class="pkHeader">
-         <h2 id="title">알림 내역</h2>
+         <span id="title">알림 내역</span>
       </div>
       		<div class="selectBox">
 			<form method="get" action="${contextPath}/sellerAlarmList" class="searchForm" >

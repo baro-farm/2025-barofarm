@@ -23,7 +23,7 @@
 	</header>	    
     <div id="content">
       <div class="pkHeader">
-         <h2 id="title">콕팜 댓글</h2>
+         <span id="title">콕팜 댓글</span>
       </div>
        		<div class="selectBox">
 				<form method="get" action="${contextPath}/sellerKCList" class="searchForm" >
@@ -59,7 +59,7 @@
          <c:choose>
           <c:when test="${empty commentList}">
 		    <tr>
-		      <td colspan="7" style="text-align: center;">알림이 없습니다.</td>
+		      <td colspan="7" style="text-align: center;">댓글이 없습니다.</td>
 		    </tr>
 		  </c:when>
 		  <c:otherwise>
