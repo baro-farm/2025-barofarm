@@ -2,8 +2,11 @@ package service.buyer;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import dto.buyer.PackageOrder;
+import dto.buyer.PackageSubscribe;
 import vo.PackOrderVO;
-import vo.ProdOrderVO;
 
 public interface PackOrderService {
 	List<PackOrderVO> selectUserPackOrderList(String userId) throws Exception;
@@ -22,4 +25,6 @@ public interface PackOrderService {
 	Integer selectCountSellerPackOrderList(Long sellerNum, String dateType, String startDate, String endDate, String deliveryDay, String searchType, String searchKeyword) throws Exception;
 
 	void updateSellerPackTrackingNum(Long pkOrderNum, Integer trackingNum) throws Exception;
+	void insertPackageOrder(SqlSession sqlSession, PackageOrder packOrder) throws Exception;
+	void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception;
 }

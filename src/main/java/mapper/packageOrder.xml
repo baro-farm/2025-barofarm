@@ -165,4 +165,8 @@
 		    </choose>
 		</if>
 	</select>
+	<insert id="insertPackOrder" parameterType="map" useGeneratedKeys="true" keyProperty="pkOrderNum">
+		INSERT INTO packageorder (packageNum, userNum, subNum, pkTotalPrice, deleveryStatus) VALUES 
+		(#{packageNum}, #{userNum}, #{subNum}, #{pkTotalPrice}, #{deleveryStatus})
+	</insert>
 </mapper>

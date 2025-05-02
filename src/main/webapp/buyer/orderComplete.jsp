@@ -75,7 +75,7 @@
 
 				<div class="btn-group">
 					<a href="${contextPath}/main">메인으로</a>
-					<a href="">주문 내역 보기</a>
+					<a href="${contextPath}/buyerOrderList">주문 내역 보기</a>
 				</div>
 			</div>
 		</div>

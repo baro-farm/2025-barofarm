@@ -3,6 +3,8 @@ package controller.buyer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Properties;
 
@@ -84,10 +86,34 @@ public class PackagePayment extends HttpServlet {
 			
 			request.setAttribute("pack", pack);
 			request.setAttribute("storeName", seller.getStoreName());
-	//		String cartNumsStr = request.getParameter("cartNums");
-	//		System.out.println(cartNumsStr);
 			
+			// ✅ 구독 개월 수 계산
+			LocalDate start = pack.getStartDate().toLocalDate();
+			LocalDate end = pack.getEndDate().toLocalDate();
+			LocalDate today = LocalDate.now();
+
+			// 총 구독 개월 수
+			long months = ChronoUnit.MONTHS.between(start.withDayOfMonth(1), end.withDayOfMonth(1));
+
+			// 종료일이 시작일보다 같거나 크면 마지막 달 포함
+			if (end.getDayOfMonth() >= start.getDayOfMonth()) {
+			    months += 1;
+			}
 			
+			// "이번 달" 제외 기준: 같은 달 + 오늘 날짜가 시작일 이상이면 이번 달 제외
+			boolean isSameMonth = today.getYear() == start.getYear() &&
+			                      today.getMonth() == start.getMonth();
+			int deliveryDay = start.getDayOfMonth();
+
+			if (isSameMonth && today.getDayOfMonth() >= deliveryDay) {
+			    months -= 1;
+			}
+			if (months < 0) months = 0; // 방어 코드
+
+			int totalPrice = pack.getPackagePrice() * (int) months;
+
+			request.setAttribute("months", months);
+			request.setAttribute("totalPrice", totalPrice);
 			
 			request.getRequestDispatcher("/buyer/packagePayment.jsp").forward(request, response);
 		} catch (Exception e) {

@@ -3,9 +3,11 @@ package dao.buyer;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dto.buyer.PackageOrder;
+import dto.buyer.PackageSubscribe;
 import vo.PackOrderVO;
-import vo.ProdOrderVO;
 
 public interface PackageOrderDAO {
 	List<PackOrderVO> selectPackOrderList(String userId) throws Exception;
@@ -21,6 +23,6 @@ public interface PackageOrderDAO {
 	Integer selectCountSellerPackOrderList(Map<String,Object> param) throws Exception;
 	
 	void updatePackTrackingNum(Map<String,Object> param) throws Exception;
-	
-
+	void insertPackageOrder(SqlSession sqlSession, PackageOrder packOrder) throws Exception;
+	void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception;
 }

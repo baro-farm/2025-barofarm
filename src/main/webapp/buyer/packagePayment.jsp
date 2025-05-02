@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,23 +21,23 @@
 			<jsp:include page="/header/buyerMenu.jsp" />
 		</div>
 		<div id="content">
-		    <h1 class="title">주문/결제</h1>
+		    <h1 class="title">꾸러미 구독</h1>
 		
 			<!-- 배송지 섹션 -->
 			<h2 class="sub-title">배송지</h2>
 			<div class="address-section">
 			    <div class="address-header">
 			        <div class="address-info">
-			            <p class="receiver-name" id="receiverName">${sessionScope.defaultAddress.name} (${sessionScope.defaultAddress.nickname})</p>
-			            <p class="receiver-phone" id="receiverPhone">${sessionScope.defaultAddress.phone}</p>
-			            <p class="receiver-address" id="receiverAddress">${sessionScope.defaultAddress.addr1} ${sessionScope.defaultAddress.addr2}</p>
+			            <p class="receiver-name" id="receiverName" data-name="${sessionScope.defaultAddress.name}">${sessionScope.defaultAddress.name} (${sessionScope.defaultAddress.nickname})</p>
+			            <p class="receiver-phone" id="receiverPhone" data-phone="${sessionScope.defaultAddress.phone}">${sessionScope.defaultAddress.phone}</p>
+			            <p class="receiver-address" id="receiverAddress" data-address="${sessionScope.defaultAddress.addr1} ${sessionScope.defaultAddress.addr2}">${sessionScope.defaultAddress.addr1} ${sessionScope.defaultAddress.addr2}</p>
 			        </div>
 			        <button type="button" class="change-address-btn" onclick="openAddressModal()">변경</button>
 			    </div>
 			</div>
 
 		   
-		<h2 class="sub-title">주문상품</h2>
+		<h2 class="sub-title">구독 상품</h2>
 
 
 <div class="store-group">
@@ -46,21 +48,35 @@
         <div class="cart-item-info">
             <div class="info-1">
                 <p class="product-title">${pack.packageName}</p>
-                <p class="price">${pack.packagePrice}원</p>
+                <p class="price">월 <fmt:formatNumber value="${pack.packagePrice}" type="number" groupingUsed="true" />원</p>
             </div>
             <div class="info-2">
-                <p>${pack.packageUnit}</p>
+                <p>${pack.packageUnit} 꾸러미</p>
                 <input type="hidden" name="packageNum" value="${pack.packageNum}" />
             </div>
             <div class="info-3">
-                <p class="total">${pack.packagePrice}원</p>
+                <p class="total"><fmt:formatNumber value="${pack.packagePrice}" type="number" groupingUsed="true" />원</p>
             </div>
         </div>
     </div>
+    <div class="subscription-info">
+	    <!-- 시작일, 종료일을 가진 숨겨진 span 태그 -->
+		<span data-start-date="${pack.startDate}" data-end-date="${pack.endDate}"></span>
+    <!-- 단가 표시용 -->
+<p id="unitPrice" data-price="${pack.packagePrice}" style="display:none;"></p>
+	  <p>
+	    구독 기간:
+	    <strong>${pack.startDate} ~ ${pack.endDate}</strong><br/>
+	    현재 날짜: <strong><span id="today"></span></strong>
+	  </p>
+	  <p id="subscriptionMsg" class="sub-msg"></p>
+	  <p class="price-msg">월 <strong><fmt:formatNumber value="${pack.packagePrice}" type="number" groupingUsed="true" />원</strong></p>
+	  <!-- <p class="final-price-msg">결제 금액: <span id="finalPriceText"></span></p> -->
+	</div>
 </div>
 
 <div class="all-total-div">
-    <p class="all-total">총 결제 금액: ${pack.packagePrice}원</p>
+    <p class="all-total">총 결제 금액: <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true" />원</p>
     <button type="button" id="payment">결제하기</button>
 </div>
 		    
@@ -97,15 +113,18 @@
 		  const paymentBtn = document.getElementById('payment');
 		  paymentBtn.addEventListener('click', async () => {
 		    // 1. 결제할 금액, 주문정보 준비 (JSP에서 값 가져오기)
-		    const amount = parseInt(
+		    /* const amount = parseInt(
 		      document.querySelector('.all-total').innerText.replace(/[^\d]/g, ''),
 		      10
-		    );
+		    ); */
+		    /* let amount = payMonths * unitPrice; */
+		    let amount = '${totalPrice}';
 
-		    const rName = document.getElementById('receiverName').innerText.trim();
-            const rPhone =  document.getElementById('receiverPhone').innerText.trim();
-            const rAddress = document.getElementById('receiverAddress').innerText.trim();
-            
+		    const rName = document.getElementById('receiverName').dataset.name;
+		    const rPhone = document.getElementById('receiverPhone').dataset.phone;
+		    const rAddress = document.getElementById('receiverAddress').dataset.address;
+
+            const packageNum = document.querySelector('input[name="packageNum"]').value;
 		    // 2. 포트원 결제창 호출
 		    
 		    const IMP = window.IMP;
@@ -125,17 +144,18 @@
 		      function (rsp) {
 		        if (rsp.success) {
 		          // ✅ 결제 성공 시 서버에 결제 정보 전달 (imp_uid)
-		          fetch(`${contextPath}/buyNowComplete`, {
+		          fetch(`${contextPath}/packageSubscribe`, {
 		            method: 'POST',
 		            headers: { 'Content-Type': 'application/json' },
 		            body: JSON.stringify({
 		              imp_uid: rsp.imp_uid, // 아임포트 거래 고유번호
 		              merchant_uid: rsp.merchant_uid,
 		              amount: amount,
-		              rName: rName,
-		              rPhone: rPhone,
-		              rAddress: rAddress,
-		              type: '바로팜 상품 결제',
+		              packageNum: parseInt(packageNum, 10),
+		              rname: rName,
+		              rphone: rPhone,
+		              raddress: rAddress,
+		              type: '바로팜 꾸러미 구독',
 		              payInfo: 'KCP-카드',
 		            }),
 		          })
@@ -155,8 +175,6 @@
 		    );
 		  });
 		});
-
-
 	</script>
 </body>
 </html>
