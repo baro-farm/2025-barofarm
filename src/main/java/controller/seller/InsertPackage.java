@@ -107,7 +107,7 @@ public class InsertPackage extends HttpServlet {
         
         Long packageNum = packageProduct.getPackageNum();
         if (result) {
-        	response.sendRedirect("/barofarm/detailPacakage?packageNum=" + packageNum);
+        	response.sendRedirect("/barofarm/detailPackage?packageNum=" + packageNum);
         } else {
             response.sendRedirect("/barofarm/insertPackage");
         }

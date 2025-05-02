@@ -146,7 +146,7 @@ public class UpdatePackage extends HttpServlet {
 		}
 
 		if (result) {
-			response.sendRedirect("/barofarm/detailPacakage?packageNum=" + packageNum);
+			response.sendRedirect("/barofarm/detailPackage?packageNum=" + packageNum);
 		} else {
 //			response.sendRedirect("/barofarm/updatePackage?success=false");
 		}
