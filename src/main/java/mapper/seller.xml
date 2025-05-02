@@ -104,4 +104,7 @@
 
 	  </where>
 	</select>
+	<select id="selectSellerDetail" parameterType="Long" resultType="seller">
+	  SELECT * FROM sellerDetail WHERE sellerNum = #{sellerNum}
+	</select>
 </mapper>

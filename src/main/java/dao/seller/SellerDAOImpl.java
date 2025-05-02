@@ -42,5 +42,9 @@ public class SellerDAOImpl implements SellerDAO {
 		sqlSession.update("mapper.seller.updateIsAlarm",userNum);
 		sqlSession.commit();
 	}
-	
+
+	@Override
+	public SellerDetail selectSellerDetail(Long sellerNum) {
+		return sqlSession.selectOne("mapper.seller.selectSellerDetail", sellerNum);
+	}
 }

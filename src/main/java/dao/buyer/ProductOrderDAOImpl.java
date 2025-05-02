@@ -78,5 +78,7 @@ public class ProductOrderDAOImpl implements ProductOrderDAO{
 	@Override
 	public List<ProdOrderVO> selectUserProdOrderList(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("mapper.prodOrder.selectUserProdOrderList",param);	}
+		return sqlSession.selectList("mapper.prodOrder.selectUserProdOrderList",param);	
+	}
+
 }

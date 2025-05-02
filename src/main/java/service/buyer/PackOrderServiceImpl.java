@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dao.buyer.PackageOrderDAO;
 import dao.buyer.PackageOrderDAOImpl;
 import dto.buyer.PackageOrder;
+import dto.buyer.PackageSubscribe;
 import vo.PackOrderVO;
 
 public class PackOrderServiceImpl implements PackOrderService {
@@ -103,4 +106,14 @@ public class PackOrderServiceImpl implements PackOrderService {
         return packOrderDao.selectUserPackOrderList(param);
 	}
 
+	@Override
+	public void insertPackageOrder(SqlSession sqlSession, PackageOrder packOrder)
+			throws Exception {
+		packOrderDao.insertPackageOrder(sqlSession, packOrder);
+	}
+	
+	@Override
+	public void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception {
+		packOrderDao.insertSubscription(sqlSession, sub);		
+	}
 }

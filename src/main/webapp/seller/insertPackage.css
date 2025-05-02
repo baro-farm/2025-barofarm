@@ -105,7 +105,6 @@
 
 #editor {
   width: 1168px; /* stretch 대신 width 100% */
-  z-index: -1;
 }
 
 #insert_product {

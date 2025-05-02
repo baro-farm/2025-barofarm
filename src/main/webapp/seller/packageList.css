@@ -54,14 +54,17 @@
     align-self: flex-start;
 }
 .btn {
-	height: 24px;
+	height: 27px;
     padding: 0 10px;
-    margin: 10px 0 0 5px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     background-color: orange;
     color: white;
+    left:0;
+}
+.active{
+	color: white;
 }
 .selectBox{
 	margin-top: 15px;
@@ -69,6 +72,7 @@
     display: flex;
     justify-content: flex-end;
 }
+
 .selectBox select {
     padding: 4px 10px;
     border: 1px solid #ccc;

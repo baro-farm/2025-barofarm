@@ -18,8 +18,6 @@
 			<div class="content">
 		    <h1 class="title">공지사항</h1>
         	<p class="subtitle">관리자가 쓰는 서비스 관련 공지</p>
-        	totalCount: ${pageInfo.totalCount}, allPage: ${pageInfo.allPage}, startPage: ${pageInfo.startPage}, endPage: ${pageInfo.endPage}
-        	
 		    <table id="notice_table" class="table">
 		        <thead>
 		          <tr>

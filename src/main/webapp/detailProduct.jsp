@@ -66,7 +66,6 @@
 			            <ul class="tabList">
 			                <li class="tab focus"><a href="#details">상세정보</a></li>
 			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
-			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
@@ -78,177 +77,21 @@
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
 			                <li class="tab focus"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
-			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
 					<div id="review" class="review">
-						<table class="reviewTable">
-							<c:forEach var="r" items="${reviewList}">
-								<tr>
-									<td class="reviewContent">
-										<div class="reviewId">
-											<strong>${r.userId }</strong> <span class="stars"> <c:forEach
-													var="i" begin="1" end="5">
-													<c:choose>
-														<c:when test="${i <= r.pdRating}">
-															<i class="bi bi-star-fill" style="color: #FFB534;"></i>
-														</c:when>
-														<c:otherwise>
-															<i class="bi bi-star" style="color: #FFB534;"></i>
-														</c:otherwise>
-													</c:choose>
-												</c:forEach>
-											</span>
-										</div>
-										<div class="prodName">${r.productName}</div>
-										<div class="reviewText">${r.pdContent}</div> <span
-										class="reviewDate">${r.createdAt }</span>
-									</td>
-									<c:if test="${not empty r.imgUrl}">
-										<td class="reviewImg"><img alt="리뷰이미지"
-											src="${contextPath}${r.imgUrl}"></td>
-									</c:if>
-								</tr>
-							</c:forEach>
-						</table>
-						<div id="paging">
-							<!-- 이전 페이지 -->
-							<c:choose>
-								<c:when test="${pageInfo.curPage > 1}">
-									<a
-										href="${contextPath}/detailProduct?productNum=${product.productNum}&reviewPage=${pageInfo.curPage - 1}"
-										class="reviewPageLink">&lt;</a>
-								</c:when>
-								<c:otherwise>
-									<a class="disabled">&lt;</a>
-								</c:otherwise>
-							</c:choose>
-							<!-- 페이지 번호 -->
-							<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}"
-								var="page">
-								<c:choose>
-									<c:when test="${page == pageInfo.curPage}">
-										<a
-											href="${contextPath}/detailProduct?productNum=${product.productNum}&reviewPage=${page}"
-											class="reviewPageLink select">${page}</a>
-									</c:when>
-									<c:otherwise>
-										<a
-											href="${contextPath}/detailProduct?productNum=${product.productNum}&reviewPage=${page}"
-											class="reviewPageLink btn">${page}</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<!-- 다음 페이지 -->
-							<c:choose>
-								<c:when test="${pageInfo.curPage < pageInfo.allPage}">
-									<a
-										href="${contextPath}/detailProduct?productNum=${product.productNum}&reviewPage=${pageInfo.curPage + 1}"
-										class="reviewPageLink">&gt;</a>
-								</c:when>
-								<c:otherwise>
-									<a class="disabled">&gt;</a>
-								</c:otherwise>
-							</c:choose>
-						</div>
-					</div>
-			        <!-- 문의 -->
-			        <div class="tabs" id="qna">
-			            <ul class="tabList">
-			                <li class="tab"><a href="#details">상세정보</a></li>
-			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
-			                <li class="tab focus"><a href="#qna">문의(11)</a></li>
-			                <li class="tab"><a href="#info">안내사항</a></li>
-			              </ul>
-			        </div>
-					<div id="prodQA" class="prodQA">
-						<table class="prodQA">
-							<thead class="">
-								<tr>
-									<th style="font-weight: bold;">답변상태</th>
-									<th style="font-weight: bold;">제목</th>
-									<th style="font-weight: bold;">작성자</th>
-									<th style="font-weight: bold;">작성일</th>
-								</tr>
-							</thead>
-							<c:choose>
-								<c:when test="${not empty prodQAList}">
-									<c:forEach var="q" items="${prodQAList}">
-										<tbody>
-											<tr>
-												<td>답변대기</td>
-												<td>${q.title }</td>
-												<td>${q.userId }</td>
-												<td>${q.createdAt }</td>
-											</tr>
-									</c:forEach>
-									<!-- <tr class="answerRow">
-													<td colspan="4" class="answer"><span class="answerTitle">답변</span>
-														안녕하세요. 고객님~ 저희 유럽 샐러드 채소를 주문해주시면...
-														<div class="answerInfo">판매자 | 2025-02-21</div></td>
-												</tr> -->
-									</tbody>
-								</c:when>
-								<c:otherwise>
-									<tr>
-										<td class="qa-none" colspan="4">등록된 문의가 없습니다.</td>
-									</tr>
-								</c:otherwise>
-							</c:choose>
-						</table>
-					
-						<div id="paging">
-							<!-- 이전 페이지 -->
-							<c:choose>
-								<c:when test="${pageInfo.curPage > 1}">
-									<a
-										href="${contextPath}/detailProduct?productNum=${product.productNum}&prodQAPage=${pageInfo.curPage - 1}"
-										class="prodQAPageLink">&lt;</a>
-								</c:when>
-								<c:otherwise>
-									<a class="disabled">&lt;</a>
-								</c:otherwise>
-							</c:choose>
-							<!-- 페이지 번호 -->
-							<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}"
-								var="page">
-								<c:choose>
-									<c:when test="${page == pageInfo.curPage}">
-										<a
-											href="${contextPath}/detailProduct?productNum=${product.productNum}&prodQAPage=${page}"
-											class="prodQAPageLink select">${page}</a>
-									</c:when>
-									<c:otherwise>
-										<a
-											href="${contextPath}/detailProduct?productNum=${product.productNum}&prodQAPage=${page}"
-											class="prodQAPageLink btn">${page}</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<!-- 다음 페이지 -->
-							<c:choose>
-								<c:when test="${pageInfo.curPage < pageInfo.allPage}">
-									<a
-										href="${contextPath}/detailProduct?productNum=${product.productNum}&prodQAPage=${pageInfo.curPage + 1}"
-										class="prodQAPageLink">&gt;</a>
-								</c:when>
-								<c:otherwise>
-									<a class="disabled">&gt;</a>
-								</c:otherwise>
-							</c:choose>
-						</div>
+						<jsp:include page="/detailProdReviewSection.jsp" />
 					</div>
 			        <!-- 안내사항 -->
 			        <div class="tabs" id="info">
 			            <ul class="tabList">
 			                <li class="tab"><a href="#details">상세정보</a></li>
 			                <li class="tab"><a href="#reviews">리뷰 보기(${product.reviewCount})</a></li>
-			                <li class="tab"><a href="#qna">문의(11)</a></li>
 			                <li class="tab focus"><a href="#info">안내사항</a></li>
 			              </ul>
 			        </div>
-			        
+			        	
 			        <div class="infoContent">
 			            <div>
 			                <p>📌 결제안내</p>

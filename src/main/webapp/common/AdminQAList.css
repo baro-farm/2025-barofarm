@@ -104,18 +104,31 @@ tbody tr:hover {
 
 /* 페이징 */
 #paging {
-    text-align: center;
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
 }
 
 #paging a {
-	color: black;
-	text-decoration: none;
-    display: inline-flex;
+	display: flex;
     justify-content: center;
-    margin: 0 5px;
-    cursor: pointer;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 #paging a:hover {
-	color: #FFB534;
-	font-weight:bold;
+	background-color: #f0f0f0;
+}
+#paging a.select {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
 }
