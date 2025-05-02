@@ -69,7 +69,6 @@
 
 #editor {
   width: 100%; /* stretch 대신 width 100% */
-  z-index: -1;
 }
 
 #btns {
