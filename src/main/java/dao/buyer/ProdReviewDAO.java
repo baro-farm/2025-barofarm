@@ -16,4 +16,5 @@ public interface ProdReviewDAO {
 	Integer selectCountProdReview(Map<String,Object> param) throws Exception;
 	
 	void insertSellerProdReviewComment(Map<String,Object> param) throws Exception;
+	ProdReviewVO selectProdReviewDetailByReviewNum(Long reviewNum);
 }

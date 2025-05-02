@@ -103,6 +103,7 @@ public class PackOrderServiceImpl implements PackOrderService {
         param.put("deliveryStatus", deliveryStatus);
         param.put("offset", offset);
         param.put("limit", limit);
+        System.out.println(param);
         return packOrderDao.selectUserPackOrderList(param);
 	}
 

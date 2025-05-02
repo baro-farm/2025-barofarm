@@ -200,5 +200,102 @@
         INSERT INTO productorderitem (pdOrderNum, productNum, optionNum, amount, price)
         VALUES (#{pdOrderNum}, #{productNum}, #{optionNum}, #{amount}, #{price})
     </insert>
+	
+	<!-- 취소신청 -->
+	 <!-- 1. 해당 주문번호의 orderItem 조회 -->
+    <select id="selectOrderItemsByOrderNum" parameterType="long" resultType="long">
+        SELECT orderItem FROM productorderitem WHERE pdOrderNum = #{pdOrderNum}
+    </select>
 
+    <!-- 2. 취소 로그 insert -->
+	<insert id="insertCancelLog" parameterType="map">
+	    INSERT INTO productordercancel (
+	        orderItem,
+	        cancelStatus,
+	        cancelReason,
+	        cancelReasonDetail,
+	        cancelRequestedAt,
+	        refundPrice
+	    ) VALUES (
+	        #{orderItem},
+	        #{cancelStatus},
+	        #{cancelReason},
+	        #{cancelReasonDetail},
+	        #{cancelRequestedAt},
+	        #{refundPrice}
+	    )
+	</insert>
+
+    <!-- 3. 재고 복구용 정보 조회 -->
+    <select id="selectOptionAndAmountByOrderItem" parameterType="long" resultType="map">
+	  SELECT po.optionNum, po.amount, o.price
+	  FROM productorderitem po
+	  JOIN productoption o ON po.optionNum = o.optionNum
+	  WHERE po.orderItem = #{orderItem}
+    </select>
+
+    <!-- 4. 재고 복구 -->
+    <update id="restoreStock" parameterType="map">
+        UPDATE productoption
+        SET stock = stock + #{amount}
+        WHERE optionNum = #{optionNum}
+    </update>
+
+    <!-- 5. 주문 상태 업데이트 -->
+    <update id="updateOrderStatus" parameterType="long">
+        UPDATE productorder
+        SET orderStatus = '취소완료',
+            deleveryStatus = '취소완료'
+        WHERE pdOrderNum = #{pdOrderNum}
+    </update>
+    
+    
+    <!-- 취소 리스트 -->
+    <select id="countSellerCancelList" parameterType="map" resultType="Integer">
+        SELECT COUNT(*) 
+        FROM productordercancel pc
+        JOIN productorderitem poi ON pc.orderItem = poi.orderItem
+        JOIN productoption po ON poi.optionNum = po.optionNum
+        JOIN product p ON poi.productNum = p.productNum
+        JOIN productorder o ON poi.pdOrderNum = o.pdOrderNum
+        JOIN user u ON o.userNum = u.userNum
+        WHERE p.sellerNum = #{sellerNum}    
+    </select>
+    
+	<select id="selectSellerCancelList" parameterType="map" resultType="prodCancelVO">
+       SELECT 
+            pc.pdCancelNum,
+            pc.orderItem,
+            pc.cancelStatus,
+            pc.cancelReason,
+            pc.cancelReasonDetail,
+            pc.cancelRequestedAt,
+            poi.pdOrderNum,
+            poi.productNum,
+            p.productName,
+            po.option AS optionName,
+            poi.amount,
+            poi.price,
+            u.userId,
+            o.rname,
+            o.rphone,
+            o.address
+        FROM productordercancel pc
+        JOIN productorderitem poi ON pc.orderItem = poi.orderItem
+        JOIN productoption po ON poi.optionNum = po.optionNum
+        JOIN product p ON poi.productNum = p.productNum
+        JOIN productorder o ON poi.pdOrderNum = o.pdOrderNum
+        JOIN user u ON o.userNum = u.userNum
+        WHERE p.sellerNum = #{sellerNum}
+        <choose>
+            <when test="sort == 'old'">
+                ORDER BY pc.cancelRequestedAt ASC
+            </when>
+            <otherwise>
+                ORDER BY pc.cancelRequestedAt DESC
+            </otherwise>
+        </choose>
+        LIMIT #{offset}, #{limit}
+
+	</select> 
 </mapper>

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ProductOrder;
 import dto.buyer.ProductOrderItem;
+import vo.ProdCancelVO;
 import vo.ProdOrderVO;
 
 public interface ProductOrderDAO {
@@ -26,4 +27,12 @@ public interface ProductOrderDAO {
 	Integer countSellerProductOrderList(Map<String,Object> param) throws Exception;
 	void insertProductOrder(SqlSession sqlSession, ProductOrder productOrder) throws Exception;
 	void insertProductOrderItem(SqlSession sqlSession, Map<String,Object> param) throws Exception;
+//	void insertProductOrderItem(SqlSession sqlSession, ProductOrderItem poItem) throws Exception;
+
+	//취소
+	void processProdCancel(Long pdOrderNum, String reason, String detail) throws Exception;
+
+	//판매자 취소 리스트
+	Integer countSellerCancelList(Map<String, Object> param) throws Exception;
+	  List<ProdCancelVO> selectSellerCancelList(Map<String, Object> param) throws Exception;
 }

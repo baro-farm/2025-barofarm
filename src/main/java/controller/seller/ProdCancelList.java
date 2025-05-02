@@ -12,23 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.User;
-import service.buyer.ProdReviewSerivce;
-import service.buyer.ProdReviewServiceImpl;
+import service.buyer.ProdOrderService;
+import service.buyer.ProdOrderServiceImpl;
 import service.seller.SellerDetailService;
 import service.seller.SellerDetailServiceImpl;
-import vo.ProdReviewVO;
+import vo.ProdCancelVO;
 
 /**
- * Servlet implementation class ProdReviewList
+ * Servlet implementation class ProdCancelList
  */
-@WebServlet("/sellerProdReviewList")
-public class ProdReviewList extends HttpServlet {
+@WebServlet("/sellerCancelList")
+public class ProdCancelList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProdReviewList() {
+    public ProdCancelList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,29 +51,20 @@ public class ProdReviewList extends HttpServlet {
 			request.getRequestDispatcher("/login").forward(request, response);
 			return;
 		}
-		
-		List<ProdReviewVO> reviewList = new ArrayList<>();
+		List<ProdCancelVO> prodCancelList= new ArrayList<>();
+		SellerDetailService detailService = new SellerDetailServiceImpl();
+		ProdOrderService service = new ProdOrderServiceImpl();
 		
 		int page=1;
 		int pageSize=10;
-		int totalCount = 0;
-		
-		String commentStat = null;
+		int totalCount=0;
 		String sort = null;
-		String ratingFilter = null;		
 		
-		SellerDetailService sellerService = new SellerDetailServiceImpl();
-		ProdReviewSerivce service = new ProdReviewServiceImpl();
-		
+	
 		try {
-			Long sellerNum = sellerService.selectSellerNumById(sessionUser.getUserId());
 			
-			totalCount = service.selectSellerCountProdReview(sellerNum,commentStat,ratingFilter);
-			
-			if(request.getParameter("page")!= null) {
-				page=Integer.parseInt(request.getParameter("page"));
-			}
-			
+			Long sellerNum = detailService.selectSellerNumById(sessionUser.getUserId());
+			totalCount = service.countSellerCancelList(sellerNum, sort);
 			int totalPages=(int)Math.ceil((double)totalCount/pageSize);
 			
 			if (page > totalPages && totalPages > 0) {
@@ -83,49 +74,39 @@ public class ProdReviewList extends HttpServlet {
 		        page = 1;  // 페이지가 0 이하일 경우
 		    }
 
-		    int offset = (page - 1) * pageSize;		
-		    
+		    int offset = (page - 1) * pageSize;
+			
 		    sort = request.getParameter("sort");
-			if (sort == null) {
-				sort = "new";
-			}
-
-			commentStat = request.getParameter("commentStat");
-			if (commentStat == null) {
-				commentStat = "all";
-			}
-
-			ratingFilter = request.getParameter("ratingFilter");
-			if (ratingFilter == null) {
-				ratingFilter = "all";
-			}
-			System.out.println(ratingFilter);
-
-			reviewList = service.selectSellerProdReviewList(sellerNum, commentStat, sort, ratingFilter, offset, pageSize);
-			System.out.println(reviewList);
-
+		    if(sort == null) {
+		    	sort = "new";
+		    }
+		    
+		    prodCancelList = service.selectSellerCancelList(sellerNum, sort, offset, offset);
+		    
 			int pageGroupSize = 5;
 			int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
 			int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;
 			int groupEndPage = Math.min(groupStartPage + pageGroupSize - 1, totalPages);
 
-			request.setAttribute("reviewList", reviewList);
-
+			request.setAttribute("prodCancelList", prodCancelList);
 			request.setAttribute("groupStartPage", groupStartPage);
 			request.setAttribute("groupEndPage", groupEndPage);
 			request.setAttribute("totalPages", totalPages);
 			request.setAttribute("currentPage", page);
 			request.setAttribute("currentGroup", currentGroup);
 			request.setAttribute("pageGroupSize", pageGroupSize);
+			request.setAttribute("param.sort", sort);
+
+            request.getRequestDispatcher("/seller/prodCancelList.jsp").forward(request, response);
+
 			
-			request.getRequestDispatcher("/seller/reviewList.jsp").forward(request, response);
 			
-			
-		}catch(Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-
+	
+	
+	
 	
 	}
 

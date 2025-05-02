@@ -219,7 +219,6 @@
 		            <th style="font-weight: bold;">리뷰건수</th>
 		          	<th style="font-weight: bold;">리뷰평균</th>
 		          	<th style="font-weight: bold;">등록일자</th>
-		          	<th style="font-weight: bold;">수정일자</th>
 		          	<th style="font-weight: bold;"></th>
 		          	
 		          	
@@ -270,7 +269,6 @@
 					            <br> <span>${product.avgRating}</span>
 					          </td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.createdAt}</td>
-					          <td rowspan="${fn:length(product.optionList)}">${product.updatedAt}</td>
 					        </c:if>
 					        <c:if test="${status.first }">
 					          <td rowspan="${fn:length(product.optionList)}" ><button class="btn edit">수정</button></td>		          		

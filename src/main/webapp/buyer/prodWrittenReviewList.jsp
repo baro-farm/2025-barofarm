@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
-
+<script>
+	const contextPath = ${contextPath};
+</script>
 
     <title>내가 작성한 리뷰</title>
     <link rel="stylesheet" href="${contextPath}/buyer/prodWrittenReviewList.css">
@@ -31,7 +32,7 @@
 			
 				    <!-- 리뷰 리스트 -->
 				    <div class="reviewBox">
-				        <img src="#" alt="${prodReview.pdReviewImgUrl }" class="productImage">
+				        <img src="${contextPath}/upload/${prodReview.pdReviewImgUrl }" alt="${prodReview.pdReviewImgUrl }" class="productImage">
 				        <div class="reviewContent">
 				            <div class="storeName"><a href="#">[${prodReview.storeName }]</a></div>
 				            <div class="productName"><a href="#">${prodReview.productName }</a></div>

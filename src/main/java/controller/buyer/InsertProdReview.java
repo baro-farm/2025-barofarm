@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import dto.User;
 import dto.buyer.ProdReview;
 import dto.seller.Product;
@@ -47,6 +50,7 @@ public class InsertProdReview extends HttpServlet {
 
 	    Long userNum = Long.parseLong(request.getParameter("userNum"));
 	    Long productNum = Long.parseLong(request.getParameter("productNum"));
+	    Long pdOrderNum=Long.parseLong(request.getParameter("pdOrderNum"));
 	    String storeName = request.getParameter("storeName");
 	    String productName = request.getParameter("productName");
 	    String imgUrl = request.getParameter("imgUrl");
@@ -58,7 +62,7 @@ public class InsertProdReview extends HttpServlet {
 			request.setAttribute("productName", productName);
 			request.setAttribute("storeName", storeName);
 			request.setAttribute("imgUrl", imgUrl);
-
+			request.setAttribute("pdOrderNum", pdOrderNum);
 		    request.getRequestDispatcher("/buyer/insertProdReview.jsp").forward(request, response);
 
 			
@@ -76,12 +80,17 @@ public class InsertProdReview extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
-		
-	    Long userNum = Long.parseLong(request.getParameter("userNum"));
-	    Long productNum = Long.parseLong(request.getParameter("productNum"));
-	    int pdRating = Integer.parseInt(request.getParameter("pdRating"));
-	    String pdReviewContent = request.getParameter("pdReviewContent");
-	    String imgUrl = request.getParameter("imgUrl"); // 아직 업로드 미처리 시에는 null 가능	
+		int size = 10*1024*1024;
+		String path = request.getServletContext().getRealPath("upload");
+		MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8",
+				new DefaultFileRenamePolicy());
+	    Long userNum = Long.parseLong(multi.getParameter("userNum"));
+	    Long productNum = Long.parseLong(multi.getParameter("productNum"));
+	    Long pdOrderNum = Long.parseLong(multi.getParameter("pdOrderNum"));
+	    int pdRating = Integer.parseInt(multi.getParameter("pdRating"));
+	    String pdReviewContent = multi.getParameter("pdReviewContent");
+	    String imgUrl = multi.getFilesystemName("reviewImage");		
+	    
 	    
 	    ProdReview pdReview = new ProdReview();
 	    pdReview.setUserNum(userNum);
@@ -89,11 +98,14 @@ public class InsertProdReview extends HttpServlet {
 	    pdReview.setPdRating(pdRating);
 	    pdReview.setPdReviewContent(pdReviewContent);
 	    pdReview.setPdReviewImgUrl(imgUrl);
+	    pdReview.setPdOrderNum(pdOrderNum);
 	    
 	    ProdReviewSerivce service = new ProdReviewServiceImpl();
+	   
+	    
 	    try {
 			service.insertUserProdReview(pdReview);
-			 response.sendRedirect(request.getContextPath() + "/prodWrittenReviewList");
+			 response.sendRedirect(request.getContextPath() + "/allWrittenReviewList");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

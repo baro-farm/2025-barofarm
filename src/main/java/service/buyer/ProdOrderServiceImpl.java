@@ -11,6 +11,7 @@ import dao.buyer.ProductOrderDAO;
 import dao.buyer.ProductOrderDAOImpl;
 import dto.buyer.ProductOrder;
 import dto.buyer.ProductOrderItem;
+import vo.ProdCancelVO;
 import vo.ProdOrderVO;
 
 public class ProdOrderServiceImpl implements ProdOrderService {
@@ -130,6 +131,33 @@ public class ProdOrderServiceImpl implements ProdOrderService {
         param.put("offset", offset);
         param.put("limit", limit);
         return prodOrderDao.selectUserProdOrderList(param);
+	}
+
+	//취소처리
+	@Override
+	public void cancelProdOrder(Long pdOrderNum, String reason, String reasonDetail) throws Exception {
+
+		prodOrderDao.processProdCancel(pdOrderNum, reason, reasonDetail);
+	}
+
+	//취소 리스트
+	@Override
+	public Integer countSellerCancelList(Long sellerNum, String sort) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("sellerNum", sellerNum);
+        param.put("sort", sort);
+        return prodOrderDao.countSellerCancelList(param);
+	}
+
+	@Override
+	public List<ProdCancelVO> selectSellerCancelList(Long sellerNum, String sort, int offset, int limit)
+			throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("sellerNum", sellerNum);
+        param.put("sort", sort);
+        param.put("offset", offset);
+        param.put("limit", limit);
+        return prodOrderDao.selectSellerCancelList(param);
 	}
 
 

@@ -129,6 +129,52 @@
 		update package set stock = #{stock}
 		where packageNum = #{packageNum}
 	</update>
+	
+	<!-- package Sub List -->
+	 <select id="selectPackSubList" parameterType="map" resultType="packSubVO">
+    SELECT ps.*, p.packageName, p.imgUrl, p.packagePrice, p.packageUnit, p.endDate
+    FROM pakagesubscribe ps
+    JOIN package p ON ps.packageNum = p.packageNum
+    WHERE ps.userNum = #{userNum}
+    <if test="startDate != null and startDate != ''">
+      AND ps.subStartDate &gt;= #{startDate}
+    </if>
+    <if test="endDate != null and endDate != ''">
+      AND ps.subEndDate &lt;= #{endDate}
+    </if>
+    <if test="deliveryStatus != null and deliveryStatus != ''">
+      AND ps.isSub = 
+        <choose>
+          <when test="deliveryStatus == '구독중'">1</when>
+          <when test="deliveryStatus == '구독종료'">0</when>
+          <when test="deliveryStatus == '구독취소'">0</when>
+        </choose>
+    </if>
+    ORDER BY ps.subStartDate DESC
+    LIMIT #{offset}, #{pageSize}
+  </select>
+
+  <select id="selectPackSubCount" parameterType="map" resultType="Integer">
+    SELECT COUNT(*)
+    FROM pakagesubscribe ps
+    JOIN package p ON ps.packageNum = p.packageNum
+    WHERE ps.userNum = #{userNum}
+    <if test="startDate != null and startDate != ''">
+      AND ps.subStartDate &gt;= #{startDate}
+    </if>
+    <if test="endDate != null and endDate != ''">
+      AND ps.subEndDate &lt;= #{endDate}
+    </if>
+    <if test="deliveryStatus != null and deliveryStatus != ''">
+      AND ps.isSub = 
+        <choose>
+          <when test="deliveryStatus == '구독중'">1</when>
+          <when test="deliveryStatus == '구독종료'">0</when>
+          <when test="deliveryStatus == '구독취소'">0</when>
+        </choose>
+    </if>
+  </select>
+	
 	<select id="selectPackageByAll" resultType="PackageVO" parameterType="map">
 	  SELECT 
 	    p.packageNum, p.packageName, p.packageprice, p.imgUrl, p.salesVolume,

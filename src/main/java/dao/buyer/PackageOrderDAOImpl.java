@@ -57,6 +57,7 @@ public class PackageOrderDAOImpl implements PackageOrderDAO{
 	@Override
 	public List<PackOrderVO> selectUserPackOrderList(Map<String, Object> param) {
 		// TODO Auto-generated method stub
+		System.out.println("dao"+sqlSession.selectList("mapper.packOrder.selectUserPackOrderList",param) );
 		return 	sqlSession.selectList("mapper.packOrder.selectUserPackOrderList",param);
 	}
 

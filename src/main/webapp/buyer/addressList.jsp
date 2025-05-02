@@ -33,7 +33,7 @@ $(function() {
 				data:{addrNum: addrNum},
 				success:function(result) {
 					if(result=='true') {
-						alert("주소가 삭제 되었습니다");
+						
 						$("#row-"+addrNum).remove();
 					} else {
 						alert("삭제 실패")

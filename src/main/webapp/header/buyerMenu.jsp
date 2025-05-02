@@ -51,7 +51,7 @@
         <li class="dropdown">
             <a style="text-decoration: none;">꾸러미</a>
             <ul class="submenu">
-                <li><a href="#">&gt;구독 관리</a></li>
+                <li><a href="packSubList">&gt;구독 관리</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -63,7 +63,7 @@
         </li>
 
         <li><a href="addressList">배송지 주소관리</a></li>
-        <li><a href="adminQAList">고객센터</a></li>
+        <li><a href="adminQAList">문의하기</a></li>
     </ul>
 </div>
 

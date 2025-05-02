@@ -3,6 +3,7 @@ package vo;
 import java.time.LocalDate;
 
 public class PackReviewVO {
+
 	private Long pkReviewNum;
 	private Long userNum;
 	private String userId;
@@ -13,8 +14,16 @@ public class PackReviewVO {
 	private LocalDate createdAt;
 	private String pkComment;
 	private Boolean pkCommentStatus;
-
 	
+	private Long pkOrderNum; // 주문 번호
+	
+	private String packageName; // 상품 이름
+	private String packageUnit; //1인 2인 3인 ...
+	
+	private String storeName; // 스토어 이름
+	
+	private LocalDate orderdAt; // 구매일자
+	private LocalDate deadline; // 작성 기한 (구매일자 + 30일)
 	public Long getPkReviewNum() {
 		return pkReviewNum;
 	}
@@ -75,6 +84,44 @@ public class PackReviewVO {
 	public void setPkCommentStatus(Boolean pkCommentStatus) {
 		this.pkCommentStatus = pkCommentStatus;
 	}
+	public Long getPkOrderNum() {
+		return pkOrderNum;
+	}
+	public void setPkOrderNum(Long pkOrderNum) {
+		this.pkOrderNum = pkOrderNum;
+	}
+	public String getPackageName() {
+		return packageName;
+	}
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+	public String getPackageUnit() {
+		return packageUnit;
+	}
+	public void setPackageUnit(String packageUnit) {
+		this.packageUnit = packageUnit;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	public LocalDate getOrderdAt() {
+		return orderdAt;
+	}
+	public void setOrderdAt(LocalDate orderdAt) {
+		this.orderdAt = orderdAt;
+	}
+	public LocalDate getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(LocalDate deadline) {
+		this.deadline = deadline;
+	}
 	
+	
+
 	
 }

@@ -65,5 +65,10 @@ public class ProdReviewServiceImpl implements ProdReviewSerivce{
 		pdReviewDao.insertSellerProdReviewComment(param);
 	}
 
+	@Override
+	public ProdReviewVO selectProdReviewDetailByReviewNum(Long reviewNum) {
+		return pdReviewDao.selectProdReviewDetailByReviewNum(reviewNum);
+	}
+
 
 }
