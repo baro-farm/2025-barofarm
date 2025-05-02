@@ -2,6 +2,7 @@ package service.seller;
 
 import dao.seller.SellerDAO;
 import dao.seller.SellerDAOImpl;
+import dto.seller.SellerDetail;
 import vo.SellerVO;
 
 public class SellerServiceImpl implements SellerService {
@@ -25,5 +26,9 @@ public class SellerServiceImpl implements SellerService {
 	public void changeIsAlarm(Long userNum) throws Exception {
 		sellerDao.updateIsAlarm(userNum);
 	}
-
+ 
+	@Override
+	public SellerDetail selectSellerDetail(Long sellerNum) {
+		return sellerDao.selectSellerDetail(sellerNum);
+	}
 }

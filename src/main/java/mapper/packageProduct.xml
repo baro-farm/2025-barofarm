@@ -160,4 +160,10 @@
 	<select id="countPackageByAll" resultType="Integer">
 	    SELECT COUNT(*) FROM package
 	</select>
+	<update id="adjustStock" parameterType="map">
+		UPDATE package SET stock = stock + #{quantityDiff} WHERE packageNum = #{packageNum} AND stock > 0
+	</update>
+	<update id="adjustSalesVolume" parameterType="map">
+		UPDATE package SET salesVolume = salesVolume + #{quantityDiff} WHERE packageNum = #{packageNum}
+	</update>
 </mapper>

@@ -182,4 +182,8 @@
 	JOIN package p ON ps.packagenum = p.packagenum
 	WHERE ps.sellernum = #{sellernum}
 	</select>
+	<insert id="insertPackOrder" parameterType="map" useGeneratedKeys="true" keyProperty="pkOrderNum">
+		INSERT INTO packageorder (packageNum, userNum, subNum, pkTotalPrice, deleveryStatus) VALUES 
+		(#{packageNum}, #{userNum}, #{subNum}, #{pkTotalPrice}, #{deleveryStatus})
+	</insert>
 </mapper>

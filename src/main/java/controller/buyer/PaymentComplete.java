@@ -97,7 +97,6 @@ public class PaymentComplete extends HttpServlet {
 	    System.out.println("apiSecret length: " + apiSecret.length());
 	    
 	    PaymentService paymentService = new PaymentServiceImpl(apiKey, apiSecret);
-//		PaymentService paymentService = new PaymentServiceImpl();
 		ProdOrderService prodOrderService = new ProdOrderServiceImpl();
 		
 		System.out.println("apiKey: " + apiKey);
@@ -107,9 +106,6 @@ public class PaymentComplete extends HttpServlet {
 	    	Map<String, String> paymentResult = paymentService.verifyPayment(impUid, amount);
 	    	boolean isVerified = Boolean.parseBoolean(paymentResult.get("isVerified"));
 	    	
-
-//	    	String transactionId = "test_pg_tid";
-//	    	String merchantUid = "test_merchant_uid";
 	    	// 1. 포트원 서버에 결제 검증 요청
 	        if (isVerified) {
 		        String transactionId = (String) paymentResult.get("pg_tid");
@@ -135,8 +131,6 @@ public class PaymentComplete extends HttpServlet {
 	            ProductOrder productOrder = new ProductOrder(userNum, totalPrice, rAddress, "배송준비", "결제완료", rName, rPhone);
 	            prodOrderService.insertProductOrder(sqlSession, productOrder);
 	            Long orderNum = productOrder.getPdOrderNum();
-//	            Long orderNum = prodOrderService.insertProductOrder(sqlSession, userNum, totalPrice, address);
-//	            Long orderNum = paymentService.insertProductOrder(userNum, impUid, totalPrice); // 주문번호 생성
 
 	            // 3. 주문 상세 insert (productorderitem)
 	            for (ShoppingCartItem item : cartItems) {
@@ -146,12 +140,9 @@ public class PaymentComplete extends HttpServlet {
 
 	            // 4. 재고 감소 / 판매량 증가
 	            ProductService productService = new ProductServiceImpl();
-	            for (ShoppingCartItem item : cartItems) {
-	            	productService.adjustStock(sqlSession, item.getOptionNum(), item.getQuantity());
+	            for (ShoppingCartItem item : cartItems) {	                      
+	            	productService.adjustStock(sqlSession, item.getOptionNum(), -item.getQuantity());
 	            	productService.adjustSalesVolume(sqlSession, item.getProductNum(), item.getQuantity()); // 주문 시 증가
-//	                productService.ad(sqlSession, item.getOptionNum(), item.getQuantity());
-//	                productService.increaseSalesVolume(sqlSession, item.getProductNum(), item.getQuantity());
-
 	            }
 
 	            // 5. 장바구니 삭제
