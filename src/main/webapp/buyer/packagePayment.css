@@ -1,0 +1,270 @@
+.container {
+	width: 1280px;
+	margin: 0 auto;
+	display: flex;
+}
+
+.sideMenu {
+	position: relative;
+}
+
+#content {
+	width: 100%;
+	padding: 30px 0;
+	margin-left: 20px;
+}
+
+.title {
+	color: #65B741;
+	font-size: 30px;
+	font-weight: bold;
+	margin-bottom: 40px;
+}
+
+.sub-title {
+	font-size: 20px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 20px;
+}
+
+.address-section {
+	border: 2px solid #ccc;
+	padding: 20px;
+	margin-bottom: 30px;
+	border-radius: 10px;
+}
+
+.address-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.receiver-phone, .receiver-address {
+	font-size: 14px;
+}
+
+.change-address-btn {
+	background-color: #65B741;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	font-size: 14px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.change-address-btn:hover {
+	background-color: #579a39;
+}
+
+.address-info p {
+	margin: 5px 0;
+}
+
+/* 모달 전체 배경 */
+#addressModal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	display: none;
+}
+
+/* 모달 본체 */
+#addressModal .modal-content {
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 10px;
+	width: 400px;
+	max-height: 80vh;
+	overflow-y: auto;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 모달 안에 배송지 리스트 */
+#addressList {
+	list-style: none;
+	padding: 0;
+	margin: 20px 0;
+}
+
+.address-item {
+	padding: 12px 16px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.address-item:hover {
+	background-color: #f1f1f1;
+}
+
+/* 배송지 이름 */
+.address-item p {
+	margin: 4px 0;
+	font-size: 14px;
+}
+
+/* 닫기 버튼 */
+#addressModal button {
+	display: block;
+	margin: 10px auto 0;
+	padding: 8px 16px;
+	background-color: #65B741;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+#addressModal button:hover {
+	background-color: #579a39;
+}
+
+.store-group {
+	margin-bottom: 80px;
+}
+
+.store-group h2 {
+	font-size: 18px;
+}
+
+.store_name {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 20px;
+	/* text-decoration: none;
+	color: black; */
+}
+
+.hr {
+	margin-top: 16px;
+	border: 0;
+	border-top: 1px solid #ddd;
+}
+
+.cart-item {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+	display: flex;
+	align-items: center;
+}
+
+.cart-item img {
+	width: 100px;
+	height: auto;
+	margin-right: 20px;
+	border-radius: 8px;
+}
+
+.cart-item-info {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+
+.info-1 {
+	display: flex;
+	flex-direction: column;
+	flex: 2;
+	gap: 8px;
+}
+
+.info-2 {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	flex: 2;
+}
+
+.info-3 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+}
+
+.option-list {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.product-title {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.price {
+	font-weight: bold;
+	color: #333;
+}
+
+.total {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.all-total-div {
+	padding: 20px;
+	text-align: right;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 60px;
+}
+
+.all-total {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+button {
+	background-color: #65B741;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 6px;
+}
+
+button:hover {
+	background-color: #4d8d31;
+}
+
+.subscription-info {
+	margin: 20px 0;
+	padding: 20px;
+	background: #f8f8f8;
+	border-radius: 12px;
+}
+
+.sub-msg {
+	color: #777;
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+.final-price-msg {
+	font-weight: bold;
+	font-size: 16px;
+	color: #222;
+	margin-top: 10px;
+}

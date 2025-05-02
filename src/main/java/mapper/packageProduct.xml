@@ -129,4 +129,10 @@
 		update package set stock = #{stock}
 		where packageNum = #{packageNum}
 	</update>
+	<update id="adjustStock" parameterType="map">
+		UPDATE package SET stock = stock + #{quantityDiff} WHERE packageNum = #{packageNum} AND stock > 0
+	</update>
+	<update id="adjustSalesVolume" parameterType="map">
+		UPDATE package SET salesVolume = salesVolume + #{quantityDiff} WHERE packageNum = #{packageNum}
+	</update>
 </mapper>

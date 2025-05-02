@@ -297,7 +297,7 @@
 	<update id="adjustStock" parameterType="map">
 	    UPDATE productOption
 	    SET stock = stock + #{quantityDiff}
-	    WHERE optionNum = #{optionNum}
+	    WHERE optionNum = #{optionNum} AND stock > 0
 	</update>
 	<update id="adjustSalesVolume" parameterType="map">
 	    UPDATE product

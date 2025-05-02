@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dao.seller.PackageDAO;
 import dao.seller.PackageDAOImpl;
 import dto.seller.PackageProduct;
@@ -60,6 +62,21 @@ public class PackageServiceImpl implements PackageService {
 		packageDao.updatePackageStock(param);
 		
 	}
-
 	
+	 @Override
+	public void adjustStock(SqlSession sqlSession, Long packageNum, int quantityDiff) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("packageNum", packageNum);
+        param.put("quantityDiff", quantityDiff);
+        packageDao.adjustStock(sqlSession, param);
+	}
+
+	@Override
+	public void adjustSalesVolume(SqlSession sqlSession, Long packageNum, int quantityDiff) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+        param.put("packageNum", packageNum);
+        param.put("quantityDiff", quantityDiff);
+        packageDao.adjustSalesVolume(sqlSession, param);
+		
+	}
 }

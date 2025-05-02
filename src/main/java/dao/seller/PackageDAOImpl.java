@@ -45,5 +45,13 @@ public class PackageDAOImpl implements PackageDAO {
 		sqlSession.commit();		
 	}
 
+	@Override
+	public void adjustStock(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.packageProduct.adjustStock", param);		
+	}
 	
+	@Override
+	public void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.packageProduct.adjustSalesVolume", param);
+	}
 }

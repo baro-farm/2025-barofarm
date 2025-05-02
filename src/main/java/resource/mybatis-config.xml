@@ -45,6 +45,7 @@
 		<typeAlias type="vo.SellerVO" alias="sellerVO" />
 		<typeAlias type="vo.PackageVO" alias="PackageVO" />
 		<typeAlias type="dto.seller.Alarm" alias="alarm" />
+		<typeAlias type="dto.buyer.PackageSubscribe" alias="packageSubscribe" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -83,5 +84,6 @@
 		<mapper resource="mapper/shoppingCart.xml" />
 		<mapper resource="mapper/payment.xml" />
 		<mapper resource="mapper/alarm.xml" />
+		<mapper resource="mapper/packageSubscribe.xml" />
 	</mappers>
 </configuration>

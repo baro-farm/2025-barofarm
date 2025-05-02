@@ -111,7 +111,7 @@ public class BuyNowComplete extends HttpServlet {
 	            }
 
 	            // 주문 테이블 insert
-	            ProductOrder order = new ProductOrder(userNum, totalPrice, rAddress, "배송준비", "결제완료", rName, rPhone);
+	            ProductOrder order = new ProductOrder(userNum, totalPrice, rAddress, "준비중", "결제완료", rName, rPhone);
 	            prodOrderService.insertProductOrder(sqlSession, order);
 	            Long orderNum = order.getPdOrderNum();
 
@@ -124,7 +124,7 @@ public class BuyNowComplete extends HttpServlet {
 
 	            // 재고 감소 / 판매량 증가
 	            for (ShoppingCartItem item : items) {
-	                productService.adjustStock(sqlSession, item.getOptionNum(), item.getQuantity());
+	                productService.adjustStock(sqlSession, item.getOptionNum(), -item.getQuantity());
 	                productService.adjustSalesVolume(sqlSession, item.getProductNum(), item.getQuantity());
 	            }
 

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.PackageOrder;
+import dto.buyer.PackageSubscribe;
 import util.MybatisSqlSessionFactory;
 import vo.PackOrderVO;
 import vo.ProdOrderVO;
@@ -59,4 +60,13 @@ public class PackageOrderDAOImpl implements PackageOrderDAO{
 		return 	sqlSession.selectList("mapper.packOrder.selectUserPackOrderList",param);
 	}
 
+	@Override
+	public void insertPackageOrder(SqlSession sqlSession, PackageOrder packOrder) throws Exception {
+		sqlSession.insert("mapper.packOrder.insertPackOrder", packOrder);
+	}
+	
+	@Override
+	public void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception {
+		sqlSession.insert("mapper.packageSub.insertSubscription", sub);	
+	}
 }

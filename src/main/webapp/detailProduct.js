@@ -91,21 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	const basketBtn = document.getElementById('basket');
 
-    // 선택된 옵션들 하나씩 담기
-    for (const key of selectedKeys) {
-      const option = selectedOptions[key];
-      const optionNum = option.optionNum;  // optionNum은 어디에 저장해두는지 확인!
-      const quantity = option.qty;
-      
-      
-	  const productNum = basketBtn.dataset.productnum;
-
-      const payload = {
-        productNum: parseInt(productNum),
-        optionNum: optionNum,
-        quantity: quantity
-      };
-      }
+    
 
 	basketBtn.addEventListener('click', async (e) => {
 		e.preventDefault();

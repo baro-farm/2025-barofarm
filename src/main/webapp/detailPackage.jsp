@@ -41,7 +41,7 @@
 			                
 			                <!-- 버튼 영역 -->
 			                <div class="actionButtons">
-			                    <a href="#" id="purchase">구매하기</a>
+			                    <a href="#" id="purchase" data-package-num="${pack.packageNum}">구매하기</a>
 			                </div>
 			            </div>
 			        </div>
@@ -157,5 +157,6 @@
     	</div>
     	<jsp:include page="/header/footer.jsp" />
     </div>
+    <script src="${contextPath}/detailPackage.js"></script>
 </body>
 </html>
