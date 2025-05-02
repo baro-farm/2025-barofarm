@@ -205,7 +205,6 @@
 					<button class="btn add">상품등록</button>
 				</div>		
 		<table id="notice_table" class="table">
-
 				<thead>
 		          <tr>
 		            <th style="font-weight: bold;">상품번호</th>

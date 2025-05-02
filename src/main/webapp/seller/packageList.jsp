@@ -113,9 +113,9 @@
 	<div id="content">
 		<div class="pkHeader">
 			<span id="title">꾸러미 관리</span>
-			<button class="btn add">상품등록</button>
 		</div>
 		<div class="selectBox">
+		<button class="btn add">상품등록</button>
 			<!-- 필터링 옵션 -->
 				<form id="sortForm" method="get" action="${contextPath}/sellerPackageList">
 					<select name="sellStat" id="sellStat" onchange="this.form.submit()">
