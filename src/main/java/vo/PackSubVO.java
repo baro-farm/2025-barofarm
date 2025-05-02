@@ -26,6 +26,17 @@ public class PackSubVO {
 	String packageUnit;
 	
 	Long pkOrderNum;
+	Integer pkTotalPrice;
+	String userId;
+	String userName;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public Long getSubNum() {
 		return subNum;
@@ -178,6 +189,22 @@ public class PackSubVO {
 
 	public void setPkOrderNum(Long pkOrderNum) {
 		this.pkOrderNum = pkOrderNum;
+	}
+
+	public Integer getPkTotalPrice() {
+		return pkTotalPrice;
+	}
+
+	public void setPkTotalPrice(Integer pkTotalPrice) {
+		this.pkTotalPrice = pkTotalPrice;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	

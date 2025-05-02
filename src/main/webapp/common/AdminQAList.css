@@ -92,8 +92,8 @@ tbody tr:hover {
 .writeButton{
 	font-size: 14px;
 	color: white;
-	padding: 3px 9px;
-  	border-radius: 8px;
+	padding: 6px 14px;
+  	border-radius: 4px;
  	background-color: #FFB534;
   	text-decoration: none;
   	border: none;
@@ -108,7 +108,6 @@ tbody tr:hover {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    margin-top: 20px;
 }
 
 #paging a {

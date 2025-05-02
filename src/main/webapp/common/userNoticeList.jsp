@@ -47,33 +47,50 @@
 		        </tbody>
 		      </table>
 		      <div id="paging">
+					<!-- 이전 페이지 -->
 					<c:choose>
-						<c:when test="${pageInfo.curPage > 1 }">
-							<a href="userNoticeList?page=${pageInfo.curPage-1 }">&lt;</a>
-						</c:when>
-						<c:otherwise>
-							<a>&lt;</a>
-						</c:otherwise>
+					  <c:when test="${pageInfo.curPage > 10}">
+					    <a href="${pagingUrl}&page=${pageInfo.curPage - 10}&sort=${sort}">&laquo;</a>
+					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&laquo;</a>
+					  </c:otherwise>
 					</c:choose>
-					
-						<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage }" step="1" var="page">
-							<c:choose>
-								<c:when test="${page eq pageInfo.curPage}">
-									<a href="userNoticeList?page=${page }" class="select">${page }</a>
-								</c:when>
-								<c:otherwise>
-									<a href="userNoticeList?page=${page }" class="btn">${page }</a>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>	
-						
 					<c:choose>
-						<c:when test="${pageInfo.curPage < pageInfo.allPage }">
-							<a href="userNoticeList?page=${pageInfo.curPage+1 }">&gt;</a>
-						</c:when>
-						<c:otherwise>
-							<a>&gt;</a>
-						</c:otherwise>	
+					  <c:when test="${pageInfo.curPage > 1}">
+					    <a href="${pagingUrl}&page=${pageInfo.curPage - 1}&sort=${sort}">&lsaquo;</a>
+					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&lsaquo;</a>
+					  </c:otherwise>
+					</c:choose>
+					<!-- 페이지 번호 -->
+					<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
+					  <c:choose>
+					    <c:when test="${page == pageInfo.curPage}">
+					      <a href="${pagingUrl}&page=${page}&sort=${sort}" class="select">${page}</a>
+					    </c:when>
+					    <c:otherwise>
+					      <a href="${pagingUrl}&page=${page}&sort=${sort}" class="btn">${page}</a>
+					    </c:otherwise>
+					  </c:choose>
+					</c:forEach>
+					<!-- 다음 페이지 -->
+					<c:choose>
+					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+					    <a href="${pagingUrl}&page=${pageInfo.curPage + 1}&sort=${sort}">&rsaquo;</a>
+					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&rsaquo;</a>
+					  </c:otherwise>
+					</c:choose>
+					<c:choose>
+					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+					    <a href="${pagingUrl}&page=${pageInfo.curPage + 10}&sort=${sort}">&raquo;</a>
+					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&raquo;</a>
+					  </c:otherwise>
 					</c:choose>
 				</div>
 			</div> <!-- content -->

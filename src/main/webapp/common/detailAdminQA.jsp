@@ -29,10 +29,12 @@
 		                <td class="date"><span>${adminq.createdAt}</span></td>
 		            </tr>
 		        </table>
-		        <div id="" class="question text">${adminq.content}</div>
-		        <c:if test="${not empty adminq.aContent}">
-		           	<div id="" class="answer text">${adminq.aContent}</div>
-		        </c:if>
+		        <div class="textbox">
+			        <div id="" class="question text">${adminq.content}</div>
+			        <c:if test="${not empty adminq.aContent}">
+			           	<div id="" class="answer text">${adminq.aContent}</div>
+			        </c:if>
+		        </div>
 		        <br>
         		<a href="adminQAList" class="backBtn">목록으로</a>
         		<button id="deleteBtn">삭제하기</button>

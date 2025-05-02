@@ -149,7 +149,6 @@
 						<th style="font-weight: bold;">판매건수</th>
 						<th style="font-weight: bold;">리뷰건수</th>
 						<th style="font-weight: bold;">등록일자</th>
-						<th style="font-weight: bold;">수정일자</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -175,7 +174,6 @@
 							<td>${p.salesVolume}건</td>
 							<td>★ ${p.avgRating}(${p.reviewCount})</td>
 							<td>${p.createdAt}</td>
-							<td>${p.updatedAt}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

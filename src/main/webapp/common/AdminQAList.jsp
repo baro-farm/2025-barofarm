@@ -66,6 +66,11 @@
 		         </c:forEach>
 		        </tbody>
 		      </table>
+		      
+		      <c:if test="${user != null}">
+		      	<a href="insertAdminQA" class="writeButton">글쓰기</a>
+		      </c:if>
+		      
 		      <div id="paging">
 			      <c:choose>
 						<c:when test="${pageInfo.curPage > 1}">
@@ -113,9 +118,7 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-		      	<c:if test="${user != null}">
-		      		<a href="insertAdminQA" class="writeButton">글쓰기</a>
-		      	</c:if>
+		      	
 			</div> <!-- content -->
 		</div> <!-- wrapper -->
 		<jsp:include page="/header/footer.jsp" />

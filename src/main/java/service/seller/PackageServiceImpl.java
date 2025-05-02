@@ -9,8 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import dao.seller.PackageDAO;
 import dao.seller.PackageDAOImpl;
 import dto.seller.PackageProduct;
+import util.PageInfo;
+import vo.PackSubVO;
 import vo.PackageVO;
-import vo.ProductVO;
 
 public class PackageServiceImpl implements PackageService {
 	private PackageDAO packageDao;
@@ -78,5 +79,24 @@ public class PackageServiceImpl implements PackageService {
         param.put("quantityDiff", quantityDiff);
         packageDao.adjustSalesVolume(sqlSession, param);
 		
+	}
+
+	@Override
+	public List<PackSubVO> selectPackageSubList(PageInfo pageInfo, Long sellerNum,String startDate, String endDate, 
+			String searchType, String searchKeyword) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("start", pageInfo.getOffset());
+	    param.put("pageSize", pageInfo.getPageSize());
+	    param.put("sellerNum", sellerNum);
+	    param.put("startDate", startDate);
+	    param.put("endDate", endDate);
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
+		return packageDao.selectPackageSubList(param);
+	}
+
+	@Override
+	public Integer countPackageSubList(Long sellernum) throws Exception {
+		return packageDao.countPackageSubList(sellernum);
 	}
 }

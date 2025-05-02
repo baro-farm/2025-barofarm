@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.seller.PackageProduct;
+import vo.PackSubVO;
 import vo.PackageVO;
 
 public interface PackageDAO {
@@ -17,4 +18,6 @@ public interface PackageDAO {
 	void updatePackageStock(Map<String, Object> param) throws Exception;
 	void adjustStock(SqlSession sqlSession, Map<String, Object> param) throws Exception;
 	void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception;
+	List<PackSubVO> selectPackageSubList(Map<String, Object> param)throws Exception;
+	Integer countPackageSubList(Long sellernum)throws Exception;
 }

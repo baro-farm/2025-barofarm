@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.seller.PackageProduct;
+import util.PageInfo;
+import vo.PackSubVO;
 import vo.PackageVO;
 
 
@@ -17,4 +19,7 @@ public interface PackageService {
 	void updatePackageStock(Long packageNum, Integer stock) throws Exception;
 	void adjustStock(SqlSession sqlSession, Long packageNum, int quantityDiff) throws Exception;
 	void adjustSalesVolume(SqlSession sqlSession, Long packageNum, int quantityDiff) throws Exception;
+	List<PackSubVO> selectPackageSubList(PageInfo pageInfo, Long sellerNum, String startDate, String endDate, 
+			String searchType, String searchKeyword)throws Exception;
+	Integer countPackageSubList(Long sellernum)throws Exception;
 }

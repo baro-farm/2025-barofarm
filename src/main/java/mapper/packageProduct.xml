@@ -197,7 +197,7 @@
 	      ORDER BY p.packageprice DESC, p.packageName ASC
 	    </when>
 	    <otherwise>
-	      ORDER BY p.packageName DESC,  IFNULL(ROUND(AVG(r.pkRating), 1), 0) 
+	      ORDER BY IFNULL(ROUND(AVG(r.pkRating), 1), 0) DESC, p.packageName ASC
 	    </otherwise>
 	  </choose>
 	

@@ -26,6 +26,7 @@ a:hover{
 .listTitle{ 
 	color: #65B741;
     font-size: 30px;
+    font-weight:bold;
     width: 1000px;
     margin: 10px 0 30px 0;
 
@@ -94,8 +95,15 @@ a:hover{
 .infoSection {
     width: 1000px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 0 auto;
+    margin-top:20px;
+}
+.infoSection h3, .plus  {
+	font-size: 20px;
+	font-weight:bold;
+	color: #65B741;
+	margin-left: 10px;
 }
 .notice, .faq {
     width: 480px;
