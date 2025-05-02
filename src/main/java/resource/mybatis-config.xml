@@ -53,9 +53,9 @@
 				<property name="driver" value="org.mariadb.jdbc.Driver" />
 				<property name="url" value="jdbc:mariadb://localhost:3306/barofarm" />
 				<property name="username" value="root" />
-				<property name="password" value="1234" />
-				<property name="poolMaximumActiveConnections" value="1000"/>
-				<property name="poolMaximumIdleConnections" value="1000"/>
+				<property name="password" value="7564" />
+				<property name="poolMaximumActiveConnections" value="500"/>
+				<property name="poolMaximumIdleConnections" value="500"/>
 			</dataSource>
 		</environment>
 	</environments>
