@@ -51,6 +51,7 @@
 		<typeAlias type="vo.PackReviewVO" alias="packReviewVO" />
 		<typeAlias type="dto.buyer.PackageSubscribe" alias="packageSubscribe" />
 		<typeAlias type="vo.AdminProdOrderVO" alias="adminProdOrderVO" />
+		<typeAlias type="vo.AdminPackOrderVO" alias="adminPackOrderVO" />
 	</typeAliases>
 	
 	<environments default="development">

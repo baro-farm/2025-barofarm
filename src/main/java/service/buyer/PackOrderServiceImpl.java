@@ -11,6 +11,7 @@ import dao.buyer.PackageOrderDAO;
 import dao.buyer.PackageOrderDAOImpl;
 import dto.buyer.PackageOrder;
 import dto.buyer.PackageSubscribe;
+import vo.AdminPackOrderVO;
 import vo.PackOrderVO;
 
 public class PackOrderServiceImpl implements PackOrderService {
@@ -117,4 +118,26 @@ public class PackOrderServiceImpl implements PackOrderService {
 	public void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception {
 		packOrderDao.insertSubscription(sqlSession, sub);		
 	}
+	
+	@Override
+    public int countAdminPackOrderList(String startDate, String endDate, String searchType, String searchKeyword) throws Exception {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("startDate", startDate);
+        paramMap.put("endDate", endDate);
+        paramMap.put("searchType", searchType);
+        paramMap.put("searchKeyword", searchKeyword);
+        return packOrderDao.countAdminPackOrderList(paramMap);
+    }
+
+    @Override
+    public List<AdminPackOrderVO> selectAdminPackOrderList(int offset, int pageSize, String startDate, String endDate, String searchType, String searchKeyword) throws Exception {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("offset", offset);
+        paramMap.put("pageSize", pageSize);
+        paramMap.put("startDate", startDate);
+        paramMap.put("endDate", endDate);
+        paramMap.put("searchType", searchType);
+        paramMap.put("searchKeyword", searchKeyword);
+        return packOrderDao.selectAdminPackOrderList(paramMap);
+    }
 }
