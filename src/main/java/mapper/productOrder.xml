@@ -309,7 +309,7 @@
 		    pOpt.option,
 		    pOpt.price AS optionPrice,
 		    poi.amount,
-		    (pOpt.price * poi.amount) AS totalPrice,
+		    (p.price + pOpt.price * poi.amount) AS totalPrice,
 		    po.orderDate,
 		    CONCAT(
 			    LEFT(buyer.userId, 1),
