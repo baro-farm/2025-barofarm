@@ -7,6 +7,7 @@ public class AdminProdOrderVO {
     private String orderItem;     // 상품명
     private Long productNum;      // 상품번호
     private String option;        // 옵션명
+    private int productPrice;     // 상품 가격
     private int optionPrice;      // 옵션 가격
     private int amount;           // 수량
     private int totalPrice;       // 옵션가격 * 수량
@@ -57,7 +58,15 @@ public class AdminProdOrderVO {
         this.option = option;
     }
 
-    public int getOptionPrice() {
+    public int getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	public int getOptionPrice() {
         return optionPrice;
     }
 

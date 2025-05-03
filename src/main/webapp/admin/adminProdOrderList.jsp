@@ -56,6 +56,8 @@
 					<th>상품명</th>
 					<th>옵션</th>
 					<th>수량</th>
+					<th>기본가격</th>
+					<th>옵션가격</th>
 					<th>총금액</th>
 					<th>구매자</th>
 					<th>판매자</th>
@@ -73,6 +75,8 @@
 						<td>${order.productName}</td>
 						<td>${order.option}</td>
 						<td>${order.amount}</td>
+						<td>${order.productPrice}원</td>
+						<td>${order.optionPrice}원</td>
 						<td>${order.totalPrice}원</td>
 						<td>${order.buyerId} (${order.buyerName})</td>
 						<td>${order.sellerId}</td>

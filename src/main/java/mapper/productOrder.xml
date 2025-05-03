@@ -302,6 +302,8 @@
 		SELECT 
 		    po.pdOrderNum,
 		    p.productName AS productName,
+		    p.price AS productPrice,
+		    pOpt.price AS optionPrice,
 		    poi.orderItem,
 		    poi.productNum,
 		    pOpt.option,
