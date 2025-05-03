@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import dao.buyer.ProductOrderDAO;
 import dao.buyer.ProductOrderDAOImpl;
 import dto.buyer.ProductOrder;
-import dto.buyer.ProductOrderItem;
+import vo.AdminProdOrderVO;
 import vo.ProdCancelVO;
 import vo.ProdOrderVO;
 
@@ -160,5 +160,35 @@ public class ProdOrderServiceImpl implements ProdOrderService {
         return prodOrderDao.selectSellerCancelList(param);
 	}
 
+	@Override
+	public List<AdminProdOrderVO> selectAdminProductOrderList(Long sellerNum, int offset, int pageSize, String dateType,
+	                                                          String startDate, String endDate,
+	                                                          String searchType, String searchKeyword) throws Exception {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("offset", offset);
+	    param.put("pageSize", pageSize);
+	    param.put("dateType", dateType);
+	    param.put("startDate", startDate);
+	    param.put("endDate", endDate);
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
 
+	    if (sellerNum != null) {
+	        param.put("sellerNum", sellerNum);
+	    }
+
+	    return prodOrderDao.selectAdminProdOrderList(param);
+	}
+
+	@Override
+	public int countAdminOrderList(String dateType, String startDate, String endDate,
+	                               String searchType, String searchKeyword) throws Exception {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("dateType", dateType);
+	    param.put("startDate", startDate);
+	    param.put("endDate", endDate);
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
+	    return prodOrderDao.countAdminOrderList(param);
+	}
 }
