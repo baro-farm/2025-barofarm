@@ -12,12 +12,31 @@
 	<insert id="insertPoint" parameterType="point">
 		INSERT INTO point (userNum,point) VALUES(#{userNum}, #{point})
 	</insert>
-	<select id="totalSalesPointList" resultType="point">
-		select * from point
+	<select id="totalSalesPointList" parameterType="map" resultType="pointVO">
+		SELECT u.userId, s.storeName, up.type, u.username,
+	    CASE 
+	        WHEN up.usedPoint &gt; 0 THEN '충전'
+	        WHEN up.usedPoint &lt; 0 THEN '사용'
+	        ELSE '기타'
+	    END AS pType,
+		    up.usedPoint,
+		    up.currPoint, up.createdAt
+		FROM usepoint up
+		JOIN sellerdetail s ON up.userNum=s.userNum
+		JOIN user u ON u.userNum=up.userNum
 		ORDER BY createdAt DESC
 		LIMIT #{start}, #{pageSize}
 	</select>
-	<select id="CountTotalSalesPoint" resultType="point">
-		select COUNT(*) from point
+	<select id="countTotalSalesPoint" resultType="Integer">
+		select COUNT(*) from usepoint
+	</select>
+	<select id="MonthlyPoint">
+		SELECT
+		    DATE_FORMAT(createdAt, '%Y-%m') AS month,
+		    SUM(CASE WHEN usedPoint &gt; 0 THEN usedPoint ELSE 0 END) AS totalCharged,
+		    SUM(CASE WHEN usedPoint &lt; 0 THEN ABS(usedPoint) ELSE 0 END) AS totalUsed
+		FROM usepoint
+		GROUP BY month
+		ORDER BY month;
 	</select>
 </mapper>

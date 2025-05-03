@@ -16,8 +16,8 @@
 	<select id="selectDetailPackage" parameterType="long" resultType="PackageVO">
 		SELECT 
 		    p.packageNum, 
-		    p.sellerNum, 
-		    s.storeName,                       
+		    p.sellerNum, p.startDate, p.endDate,
+		    s.storeName, p.packageUnit,
 		    p.packageName, 
 		    p.packageprice, 
 		    p.imgUrl,

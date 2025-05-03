@@ -125,17 +125,11 @@
 					  <c:when test="${pageInfo.curPage > 10}">
 					    <a href="${pagingUrl}&page=${pageInfo.curPage - 10}&sort=${sort}">&laquo;</a>
 					  </c:when>
-					  <c:otherwise>
-					    <a class="disabled">&laquo;</a>
-					  </c:otherwise>
 					</c:choose>
 					<c:choose>
 					  <c:when test="${pageInfo.curPage > 1}">
 					    <a href="${pagingUrl}&page=${pageInfo.curPage - 1}&sort=${sort}">&lsaquo;</a>
 					  </c:when>
-					  <c:otherwise>
-					    <a class="disabled">&lsaquo;</a>
-					  </c:otherwise>
 					</c:choose>
 					<!-- 페이지 번호 -->
 					<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
@@ -153,17 +147,11 @@
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
 					    <a href="${pagingUrl}&page=${pageInfo.curPage + 1}&sort=${sort}">&rsaquo;</a>
 					  </c:when>
-					  <c:otherwise>
-					    <a class="disabled">&rsaquo;</a>
-					  </c:otherwise>
 					</c:choose>
 					<c:choose>
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
 					    <a href="${pagingUrl}&page=${pageInfo.curPage + 10}&sort=${sort}">&raquo;</a>
 					  </c:when>
-					  <c:otherwise>
-					    <a class="disabled">&raquo;</a>
-					  </c:otherwise>
 					</c:choose>
 				</div>
 				
