@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'SUIT-Regular', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #fff;
+}
+
 #header {
   position: fixed;
   top: 0;
@@ -9,6 +26,7 @@
   align-items: center;
   border-bottom: 1px solid #f3f3f3;
   background-color: white;
+  z-index: 10;
 }
 
 #content {
@@ -19,18 +37,17 @@
   padding-left: 220px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
 #wrapper {
-  width: 100%;
+  width: 1280px;
+  max-width: 1280px;
   overflow-x: auto;
 }
 
 .user_header {
-  max-width: 1920px;
-  min-width: 1280px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,32 +56,97 @@
 }
 
 #title {
-  font-size: 32px;
+  font-size: 30px;
+  color: #65B741;
+  font-weight: bold;
   align-self: flex-start;
+  margin-bottom: 10px;
 }
 
-#user_table {
+/* 🔍 필터 */
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   width: 100%;
-  overflow-y: auto;
-  min-width: 1280px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-thead > tr > th {
-  text-align: center;
+.filter-form select,
+.filter-form input[type="text"],
+.filter-form button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
+.filter-form button {
+  background-color: #65B741;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter-form button:hover {
+  background-color: #4e9e32;
+}
+
+/* 📋 테이블 */
 .table {
   width: 100%;
+  min-width: 1200px;
   border-collapse: collapse;
-  min-width: 800px; /* 너무 좁아지지 않도록 설정 */
+  background-color: white;
+  margin-bottom: 20px;
 }
+
 .table th,
 .table td {
+  border: 1px solid #ddd;
   padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  text-align: center;
 }
 
 .table th {
   background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table tbody tr:hover {
+  background-color: #FBF6EE;
+}
+
+/* 📄 페이징 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination a.active {
+  background-color: #65B741;
+  color: white;
 }

@@ -77,8 +77,46 @@
 		update user set isDeleted = 1 where userId=#{userId}
 	</update>
 
-	<select id="selectUserList" resultType="user">
-		select * from user order by userNum desc
+	<select id="selectUserList" parameterType="map" resultType="user">
+		SELECT *
+		FROM user
+		<where>
+			<if test="isSeller != null">
+				AND isSeller = #{isSeller}
+			</if>
+			<if test="keyword != null and keyword != ''">
+				<choose>
+					<when test="searchType == 'userId'">
+						AND userId LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test="searchType == 'userName'">
+						AND userName LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+		ORDER BY userNum DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	
+	<select id="countUserList" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM user
+		<where>
+			<if test="isSeller != null">
+				AND isSeller = #{isSeller}
+			</if>
+			<if test="keyword != null and keyword != ''">
+				<choose>
+					<when test="searchType == 'userId'">
+						AND userId LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test="searchType == 'userName'">
+						AND userName LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
 	</select>
 	<select id="findId" resultType="user" parameterType="map">
 		select userName,userId from user where email=#{email} and phone=#{phone}
