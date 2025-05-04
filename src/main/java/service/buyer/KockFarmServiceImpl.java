@@ -83,4 +83,9 @@ public class KockFarmServiceImpl implements KockFarmService {
 	    return kockFarmDao.selectCountUserKockPost(param);
 	}
 
+	@Override
+	public Matching selectMatchingByKCNum(Long kockNum) throws Exception {
+		return kockFarmDao.selectMatchingByKCNum(kockNum);
+	}
+
 }

@@ -22,7 +22,9 @@
   color: white;
   font-weight: bold;
 }
-
+.tab-buttons{
+	width: 100%;
+}
 
 .tab-content {
   display: none;
@@ -145,14 +147,6 @@
 .btn-cancel:hover { background-color: #c0c0c0;}
 
 
-@media (max-width: 1200px) {
-    .table {
-        width: 1200px;  /* ✅ 1024px에서 멈춤 */
-    }
-}
-.table {
-    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
-}
 #header {
   position: fixed;
   top: 0;
@@ -194,8 +188,9 @@
 .selectBox{
 	margin-top: 15px;
 	width:100%;
-    display: flex;
-    justify-content: flex-end;
+}
+.selectBox > form {
+	float:right;
 }
 .selectBox select, .selectBox input {
     padding: 4px 10px;
@@ -303,14 +298,13 @@ a:hover {
 	color:black;
 }
 .hh {
-	display: flex;
-	height: 67px;
-	
+    display: flex;
+    height: 67px;
+    width: 100%;
+    justify-content: space-between;
 }
-
 #in-progress, #application, .banner-section {
     width: 100%;
-    margin-top: 10px;
     overflow-x: auto;
 }
 

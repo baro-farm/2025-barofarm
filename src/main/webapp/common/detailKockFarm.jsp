@@ -208,7 +208,7 @@ $(document).on("submit", ".babyForm", function (e) {
 									  매칭
 									</button>
 									</c:if>
-									<c:if test="${isMatched}">
+									<c:if test="${isMatched && matching.sellerNum eq comment.userNum}">
 					            	<button class="btn-matched"  disabled="disabled">
 									  매칭 완료
 									</button>
@@ -387,12 +387,11 @@ document.getElementById('matchForm').addEventListener('submit', function (e) {
         data: formData,
         success: function (response) {
             // ✅ 매칭 성공 처리
-            alert("거래가 체결되었습니다.");
 
             // 1. 모든 매칭 버튼 비활성화
             document.querySelectorAll(".btn-match").forEach(btn => {
                 btn.disabled = true;
-                btn.classList.add("disabled");
+                btn.classList.add('btn-matched');
                 btn.textContent = "매칭 완료"; // 버튼 텍스트 바꾸기
             });
 
