@@ -192,4 +192,9 @@ public class UserServiceImpl implements UserService{
 		boolean res2 = addressDao.updateDefaultAddressSeller(userNum, addr1, addr2);
 		return res1 && res2;
 	}
+
+	@Override
+	public void deleteFcmToken(Long userNum) throws Exception{
+		userDao.deleteFcmToken(userNum);
+	}
 }

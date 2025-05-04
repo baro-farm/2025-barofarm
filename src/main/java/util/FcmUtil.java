@@ -55,21 +55,20 @@ public class FcmUtil {
         }
 
         int responseCode = conn.getResponseCode();
-        //System.out.println("[FCM 응답 코드] " + responseCode);
+        InputStream responseStream = (responseCode >= 200 && responseCode < 300)
+                ? conn.getInputStream()
+                : conn.getErrorStream();
 
-        try (InputStream is = conn.getInputStream();
-             Scanner scanner = new Scanner(is, "UTF-8")) {
+        try (Scanner scanner = new Scanner(responseStream, "UTF-8")) {
             String responseBody = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
-            //System.out.println("[FCM 응답 본문] " + responseBody);
-        } catch (Exception e) {
-            try (InputStream es = conn.getErrorStream()) {
-                if (es != null) {
-                    Scanner scanner = new Scanner(es, "UTF-8");
-                    String errorBody = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
-                    //System.out.println("[FCM 에러 응답] " + errorBody);
-                }
+            if (responseCode >= 200 && responseCode < 300) {
+                // 성공
+                // System.out.println("[FCM 응답 본문] " + responseBody);
+            } else {
+                // 실패
+                // System.err.println("[FCM 에러 응답] " + responseBody);
+                throw new RuntimeException("FCM 전송 실패: " + responseBody);
             }
-            throw new RuntimeException("FCM 전송 실패", e);
         }
     }
 }

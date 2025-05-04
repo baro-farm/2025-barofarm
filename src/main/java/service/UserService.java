@@ -35,6 +35,7 @@ public interface UserService {
 
 	//fcm
 	void updateFcmTokenIfChanged(Long userNum, String newFcmToken) throws Exception;
+	void deleteFcmToken(Long userNum) throws Exception;
 	
 	void deleteAdminQA(Long questionNum) throws Exception;
 

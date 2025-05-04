@@ -133,4 +133,10 @@ public class UserDAOImpl implements UserDAO {
         return res ==1;
 	}
 
+	@Override
+	public void deleteFcmToken(Long userNum) throws Exception{
+		sqlSession.update("mapper.user.deleteFcmToken",userNum);
+		sqlSession.commit();
+	}
+
 }
