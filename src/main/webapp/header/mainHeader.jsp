@@ -85,8 +85,13 @@
 							<c:otherwise>
 							    <li class="userli"><a href="myPageMain" class="userBtn">마이페이지</a></li>
 							    <li class="userli"><a href="shoppingCart" id="shoppingCart" class="userBtn">장바구니</a></li>
-	                			<li class="userli"><a href="#" id="alarm"><i class="bi bi-bell"></i></a></li>
-							</c:otherwise>
+							    <li class="userli notification2">
+							    <a href="#" id="alarm">
+							      <i class="bi bi-bell"></i>
+							      <span class="badge" id="alarmCount" style="display: none;">0</span>
+							    </a>
+								</li>						
+						    </c:otherwise>
 					      </c:choose>
 	                </c:otherwise>
              	</c:choose>

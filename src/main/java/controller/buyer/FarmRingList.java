@@ -66,7 +66,7 @@ public class FarmRingList extends HttpServlet {
 		try {
 			AlarmService service = new AlarmServiceImpl();
 			request.setAttribute("alarmList", service.selectAlarmBySearchDto(dto));
-			
+			System.out.println(service.selectAlarmBySearchDto(dto).size()+"ee");
 			int cnt = service.countAlarmBySearchDto(dto);
 			PageInfoSoy pageInfo = new PageInfoSoy(dto.getPage(), cnt, 5, dto.getRecordSize());
 			
