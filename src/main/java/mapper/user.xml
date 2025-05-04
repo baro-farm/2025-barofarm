@@ -123,4 +123,15 @@
         SET fcmToken = #{fcmToken}, updatedAt=NOW()
         WHERE userNum = #{userNum}
     </update>
+    <update id="updateSellerAccountInfo" parameterType="map">
+	    UPDATE user u
+	    JOIN sellerdetail s ON u.userNum = s.userNum
+	    SET
+	        u.pwd = #{pwd},
+	        u.phone = #{phone},
+	        u.email = #{email},
+	        s.storeName = #{storeName}
+	    WHERE u.userNum = #{userNum};
+	</update>
+    
  </mapper>

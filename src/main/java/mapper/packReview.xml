@@ -58,24 +58,7 @@
 			values(#{userNum},#{packageNum},#{pkRating},#{pkReviewContent},#{pkReviewImgUrl})
 	</insert>
 	
-	<select id="selectPackReview" parameterType="map" resultType="packReviewVO">
-		SELECT 
-			r.packageNum, 
-			r.pkReviewNum,
-	        p.packageName,
-	        CONCAT(LEFT(u.userId, CHAR_LENGTH(u.userId) - 3), '***') AS userId,
-	        r.pkRating, 
-	        r.pkeviewContent, 
-	        r.createdAt,
-	        r.pkReviewImgUrl
-
-	    FROM packReview r
-	    JOIN package p ON r.packageNum = p.packageNum
-	    JOIN user u ON r.userNum = u.userNum
-	    WHERE r.packageNum = #{packageNum}
-	    ORDER BY r.createdAt DESC
-	    LIMIT #{start}, #{pageSize}
-	</select>
+	
 	<select id="countPackReview" resultType="Integer" parameterType="long">
 	    SELECT COUNT(*) FROM packReview WHERE packageNum = #{packageNum}
 	</select>

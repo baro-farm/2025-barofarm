@@ -1,5 +1,8 @@
 package dao.buyer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.Address;
@@ -12,6 +15,16 @@ public class AddressDAOImpl implements AddressDAO {
 	public void insertAddress(Address address) throws Exception {
 		 sqlSession.insert("mapper.address.insertAddress", address);
 		 sqlSession.commit();
+	}
+
+	@Override
+	public boolean updateDefaultAddressSeller(Long userNum, String addr1, String addr2) throws Exception {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("addr1", addr1);
+	    param.put("addr2", addr2);
+        int res = sqlSession.update("mapper.address.updateDefaultAddressSeller", param);
+        sqlSession.commit();
+        return res ==1;
 	}
 
 }

@@ -31,4 +31,7 @@ public interface UserDAO {
 	
 	void deleteAdminQA(Long questionNum) throws Exception;
 
+	//스토어 정보 수정
+	 boolean updateSellerAccountInfo(Long userNum, String pwd, String phone, String email,String storeName, String postCode) throws Exception;
+
 }

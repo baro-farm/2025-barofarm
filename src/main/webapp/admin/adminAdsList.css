@@ -22,10 +22,6 @@
   display: block;
 }
 
-.sideMenu {
-	position: relative;
-    top: 200px;
-}
 /* ✅ 배너 추가 버튼 */
 .banner-add-btn {
   background-color: #65B741;
@@ -131,7 +127,6 @@
 
 .btn-cancel {
     background-color: #D3D3D3;
-    color: white;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
@@ -149,7 +144,6 @@
 .table {
     min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
 }
-/*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
 #header {
   position: fixed;
   top: 0;
@@ -165,13 +159,6 @@
 
 /* 내용 */
 
-/* #content {
-  width: calc(100vw - 220px);
-  max-width: 1280px;
-  margin: 40px auto;
-  padding-top: 80px;
-  padding-left: 220px;
-} */
 #content {
   width: calc(100vw - 220px);
   max-width: 1400px;
@@ -184,9 +171,10 @@
   align-items: center;
   right: 0;
 }
-.sideMenu {
-	position: relative;
-    top: 200px;
+#wrapper {
+  width: 100%;
+  overflow-x: auto;
+
 }/* 타이틀 */
 .pkHeader {
 	width:100%;
@@ -217,6 +205,12 @@
 }
 .selectBox input {
 	height: 17px;
+}
+.selectBox button {
+    background-color: #ffb534;
+    border: solid #ffb534;
+    border-radius: 4px;
+    height: 27px;
 }
 /* 꾸러미 목록 테이블  */
 .tableWrapper {
@@ -304,4 +298,9 @@ a:hover {
  a {
 	text-decoration: none;
 	color:black;
+}
+.hh {
+	display: flex;
+	height: 67px;
+	
 }

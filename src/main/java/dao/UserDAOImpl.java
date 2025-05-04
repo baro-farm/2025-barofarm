@@ -117,4 +117,20 @@ public class UserDAOImpl implements UserDAO {
 		sqlSession.commit();
 	}
 
+	@Override
+	public boolean updateSellerAccountInfo(Long userNum, String pwd, String phone, String email, String storeName,
+			String postCode)throws Exception  {
+		Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("pwd", pwd);
+        param.put("phone", phone);
+        param.put("email", email);
+        param.put("storeName", storeName);
+        param.put("postCode", postCode);
+
+        int res = sqlSession.update("mapper.user.updateSellerAccountInfo", param);
+        sqlSession.commit();
+        return res ==1;
+	}
+
 }

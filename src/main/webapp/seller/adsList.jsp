@@ -46,7 +46,6 @@
 			  <button type="submit">검색</button>
 			</form>
 		</div>
-      <div class="tableWrapper">
       <table id="banner-table" class="table">
           <thead>
               <tr>
@@ -91,7 +90,6 @@
              </c:forEach>
          </tbody>
      </table>
-     </div>
      <div class="pagination" id="pagingArea" style="text-align: center; margin-top: 20px;">
  <c:if test="${pi.startPage > 1}">
    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>

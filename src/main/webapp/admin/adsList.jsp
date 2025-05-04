@@ -10,6 +10,8 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>광고 관리</title>
+		<link rel="stylesheet" href="${contextPath}/header/reset.css">
+	
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="${contextPath}/admin/adminAdsList.css" />
 </head>
@@ -19,13 +21,12 @@
 			<jsp:include page="/header/adminSellerTop.jsp" />
     </header>
     <div id="content">
-			<div>
-				<div class="pkHeader">
-					<span id="title">배너 관리</span>
-				</div>
-				<!-- 	        	<p class="subtitle">배너 광고 내역</p>
- -->	   	        <!-- 탭 버튼 -->
- 					<div id="searchAndPagingWrapper" style="display: none;">
+			<div id="warpper">
+				<div class="hh">
+					<div class="pkHeader">
+						<span id="title">배너 관리</span>
+					</div>
+ 					<div id="searchAndPagingWrapper" class="selectBox" style="display: none;">
 					 <form method="get" action="${contextPath}/adminAdsList" style="margin-bottom: 20px;">
 						  <select name="searchType">
 						    <option value="store" ${param.searchType == 'store' ? 'selected' : ''}>스토어명</option>
@@ -39,7 +40,7 @@
 						  <button type="submit">검색</button>
 						</form>
 					</div>
- 
+				</div>
 				<div class="tab-buttons">
 				  <button class="tab-btn ${activeTab == 'in-progress' ? 'active' : ''}" data-tab="in-progress">진행 광고 목록</button>
 				  <button class="tab-btn ${activeTab == 'application' ? 'active' : ''}" data-tab="application">종료된 광고 목록</button>
@@ -129,7 +130,7 @@
 		          </table>
 		        </div>
 		        
-				<div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
+				<div class="pagination" id="pagingArea" >
 				  <c:if test="${pi.startPage > 1}">
 				    <a href="?page=${pi.startPage - 1}&tab=application&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
 				  </c:if>
@@ -197,7 +198,7 @@
 	  // ✅ 페이지 진입 시 초기 상태 세팅
 	  if (currentTab === "application") {
 	    searchArea.style.display = "block";
-	    pagingArea.style.display = "block";
+	    //pagingArea.style.display = "block";
 	    if (bannerSection) bannerSection.style.display = "none";
 	  } else {
 	    searchArea.style.display = "none";

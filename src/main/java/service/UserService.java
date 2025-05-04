@@ -38,4 +38,7 @@ public interface UserService {
 	
 	void deleteAdminQA(Long questionNum) throws Exception;
 
+	//스토어 정보 수정
+	 boolean updateSellerAccountInfo(Long userNum, String pwd, String phone, String email,String storeName, String postCode, String addr1, String addr2) throws Exception;
+
 }

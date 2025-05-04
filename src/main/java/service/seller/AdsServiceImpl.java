@@ -60,7 +60,10 @@ public class AdsServiceImpl implements AdsService {
 	public void updateAds(Advertisement ads) throws Exception {
 		adsDAO.updateAds(ads);
 	}
-	
+	@Override
+	public void updateExpiredAdsStatus() throws Exception {
+		adsDAO.updateExpiredAdsStatus();
+	}
 	//관리자
 	@Override
 	public List<Advertisement> selectAdsWithPosting() throws Exception {
@@ -99,4 +102,5 @@ public class AdsServiceImpl implements AdsService {
 		}
 		return true;
 	}
+
 }
