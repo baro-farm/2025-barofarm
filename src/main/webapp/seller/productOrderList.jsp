@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ page import="java.time.LocalDate" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%
@@ -117,37 +119,6 @@
                     }
                 });
             });
-         
-            // 송장번호 적용 버튼 클릭 시
-            $(document).on("click", ".trackingBtn", function () {
-                const $row = $(this).closest("tr");
-                const pdOrderNum = $row.find(".orderNum").data("pdordernum");
-                console.log(pdOrderNum);
-                const trackingNum = $row.find(".trackingInput").val();
-
-                $.ajax({
-                    url: "${contextPath}/UpdateProductTrackNum",
-                    method: "POST",
-                    dataType: "json",
-                    data:{
-                        pdOrderNum: pdOrderNum,
-                        trackingNum: trackingNum
-                    },
-                    success: function (response) {
-                        if (response.success === true) {
-                            alert("송장번호가 저장 되었습니다");
-                            location.reload();  // 새로고침으로 반영
-                        } else {
-                            alert("변경 실패");
-                        }
-                    },
-                    error: function () {
-                        alert("서버 오류 발생");
-                    }
-                });
-            });
-            
-         
             
         });
     </script>
@@ -189,10 +160,7 @@
       </div>
     </div>
     
-    <!-- 가운데: 검색 버튼 -->
-    <div class="filterSection centerSection">
-      <button type="submit" class="searchBtn">검색</button>
-    </div>
+
     
     <!-- 오른쪽: 상세조건 -->
     <div class="filterSection rightSection">
@@ -208,7 +176,10 @@
       </div>
       <input type="text" name="searchKeyword" id="searchKeyword" placeholder="검색어 입력" value="${param.searchKeyword}"   ${param.searchType == 'all' || empty param.searchType ? 'disabled' : ''}>
     </div>
-    
+        <!-- 가운데: 검색 버튼 -->
+    <div class="filterSection centerSection">
+      <button type="submit" class="searchBtn">검색</button>
+    </div>
   </form>
 </div>
 		
@@ -237,9 +208,8 @@
 	        <table id="notie_table" class="table">
 	            <thead>
 	            	<tr>
-		            <th style="font-weight: bold;">총<br>주문번호</th>
-		            <th style="font-weight: bold;">제품<br>주문번호</th>
-		            <th style="font-weight: bold;">제품번호</th>
+		            <th style="font-weight: bold;">주문번호</th>
+		            <th style="font-weight: bold;">품번</th>
 		            <th style="font-weight: bold;">옵션</th>
 		            <th style="font-weight: bold;">단가</th>
 		            <th style="font-weight: bold;">수량</th>
@@ -251,7 +221,7 @@
 		            <th style="font-weight: bold;">전화번호</th>
 		            <th style="font-weight: bold;">주문상태</th>
 		            <th style="font-weight: bold;">배송상태</th>
-		            <th style="font-weight: bold;">송장번호</th>
+
 
 		          	
 		          </tr>
@@ -261,12 +231,11 @@
 					
 					    <tr>
 				        <td><div class="uiGridCell orderNum" data-pdordernum="${order.pdOrderNum}"><a href="#">${order.pdOrderNum}</a></div></td>
-				        <td><div class="uiGridCell"><a href="#">${order.orderItem}</a></div></td>
 				        <td><div class="uiGridCell">${order.productNum}</div></td>
 				        <td><div class="uiGridCell">${order.option}</div></td>
-				        <td><div class="uiGridCell">${order.optionPrice}원</div></td>
+				        <td><div class="uiGridCell"><fmt:formatNumber value="${order.optionPrice}" type="number" groupingUsed="true" />원</div></td>
 				        <td><div class="uiGridCell">${order.amount}</div></td>
-				        <td><div class="uiGridCell">${order.totalPrice}원</div></td>
+				        <td><div class="uiGridCell"><fmt:formatNumber value="${order.totalPrice}" type="number" groupingUsed="true" />원</div></td>
 
 
 				        <td><div class="uiGridCell">${order.orderDate}</div></td>
@@ -304,18 +273,7 @@
 				                
 				            </div>
 				        </td>
-				        <td class="uiGridCell trackingNumCell">
-						  <c:choose>
-						    <c:when test="${order.deleveryStatus == '배송중' && empty order.trackingNum}">
-						      <input type="text" class="trackingInput" maxlength="16" inputmode="numeric" placeholder="송장번호 입력" style="width:130px;">
-						      <button class="trackingBtn">적용</button>
-						      
-						    </c:when>
-						    <c:otherwise>
-						      <span class="trackingNum">${order.trackingNum}</span>
-						    </c:otherwise>
-						  </c:choose>
-						</td>
+	
 				    </tr>
 				</c:forEach>
 
@@ -342,14 +300,15 @@
 		
 		<div class="pagination">		    
 		    <!-- << 현재 페이지 - 5 -->
-		    <c:if test="${currentPage > 1}">
-		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&laquo;</a>
-		    </c:if>
+		    
+		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+		        	class="${currentPage <= pageGroupSize ? 'disabled' : ''}">&laquo;</a>
+		    
 		    
 		    <!-- < 이전 페이지 -->
-		    <c:if test="${currentPage > 1}">
-		        <a href="?page=${currentPage - 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&lsaquo;</a>
-		    </c:if>
+		        <a href="?page=${currentPage - 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+		         class="${currentPage == 1 ? 'disabled' : ''}">&lsaquo;</a>
+		   
 		    
 		    <!-- 페이지 번호 -->
 		    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
@@ -358,13 +317,13 @@
 		    </c:forEach>
 		    
 		    <!-- > 다음 페이지 -->
-		    <c:if test="${currentPage < totalPages}">
-		        <a href="?page=${currentPage + 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&rsaquo;</a>
-		    </c:if>
+		        <a href="?page=${currentPage + 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+		        	class="${currentPage >= totalPages ? 'disabled' : ''}">&rsaquo;</a>
 		    
 		    <!-- >> 현재 페이지 + 5 -->
 		    <c:if test="${currentPage < totalPages}">
-		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&raquo;</a>
+		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+		        	class="${groupEndPage >= totalPages ? 'disabled' : ''}">&raquo;</a>
 		    </c:if>
 		</div>
     </div>

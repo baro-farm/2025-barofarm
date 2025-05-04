@@ -7,7 +7,7 @@
 		insert into sellerDetail (userNum, storeName, businessNum)
 				values (#{userNum}, #{storeName}, #{businessNum})
 	</insert>
-	<select id="selectStoreList" resultType="store">
+	<select id="selectStoreList" resultType="store" parameterType="map">
 		SELECT 
 		    s.sellerNum,
 		    u.userId,
@@ -37,6 +37,23 @@
 		    ) combined
 		    GROUP BY sellerNum
 		) totalSales ON s.sellerNum = totalSales.sellerNum
+		<where>
+		<if test="isAlarm != null">
+	      AND s.isAlarm = #{isAlarm}
+	    </if>
+		  <if test="keyword != null and keyword != ''">
+		    <choose>
+		      <when test="searchType == 'storeName'">
+		        AND s.storeName LIKE CONCAT('%', #{keyword}, '%')
+		      </when>
+		      <when test="searchType == 'userId'">
+		        AND u.userId LIKE CONCAT('%', #{keyword}, '%')
+		      </when>
+		    </choose>
+		  </if>
+		</where>
+		ORDER BY s.sellerNum DESC
+		LIMIT #{offset}, #{pageSize}				
 	</select>
 	
 	<select id="selectSellerNumByUserID" parameterType="String" resultType="Long">
@@ -107,4 +124,24 @@
 	<select id="selectSellerDetail" parameterType="Long" resultType="seller">
 	  SELECT * FROM sellerDetail WHERE sellerNum = #{sellerNum}
 	</select>
+	<select id="countStoreList" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM user u
+		JOIN sellerDetail s ON u.userNum = s.userNum		
+		<where>
+		<if test="isAlarm != null">
+	      AND s.isAlarm = #{isAlarm}
+	    </if>
+		  <if test="keyword != null and keyword != ''">
+		    <choose>
+		      <when test="searchType == 'storeName'">
+		        AND s.storeName LIKE CONCAT('%', #{keyword}, '%')
+		      </when>
+		      <when test="searchType == 'userId'">
+		        AND u.userId LIKE CONCAT('%', #{keyword}, '%')
+		      </when>
+		    </choose>
+		  </if>
+		</where>
+	</select>	
 </mapper>

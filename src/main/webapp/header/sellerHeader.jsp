@@ -66,6 +66,7 @@ $(document).ready(function () {
 
 		<!-- 기타 -->
 		<li><a href="${contextPath }/farmPointList">팜포인트</a></li>
+	    <li><a href="${contextPath}/sellerKCList">콕팜 댓글</a></li>
 		<li><a href="${contextPath }/sellerAlarmList">알림 내역</a></li>
 		<li><a href="${contextPath }/detailStoreInfo">스토어 정보</a></li>
 		<li><a href="${contextPath }/sellerAdsList">배너 광고</a></li>

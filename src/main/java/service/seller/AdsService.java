@@ -11,6 +11,7 @@ public interface AdsService {
 	void cancelAdsAndRefund(Long adsNum, String status) throws Exception;
 	Advertisement selectAdsByAdsNum(Long adsNum) throws Exception;
 	void updateAds(Advertisement ads) throws Exception;
+	void updateExpiredAdsStatus() throws Exception;
 	
 	//관리자
 	List<Advertisement> selectAdsWithPosting() throws Exception;

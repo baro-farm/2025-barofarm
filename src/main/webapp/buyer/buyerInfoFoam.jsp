@@ -80,14 +80,27 @@ UserVO user = (UserVO)request.getAttribute("user");
 		            <button type="button" class="btn btn-cancel">취소</button>
 		            
 		        </div>
-		        <div class="deleteLink">
-		        	<a href="${contextPath }/deleteUser">'회원탈퇴</a>
-		        </div>
+		        
+
 		    </form>
+		    	<div class="deleteLink">
+				    <p id="deleteUserBtn" style="color: #888; font-size: 13px; cursor: pointer; margin-top:20px;">&gt; 회원탈퇴</p>
+				</div>
 		    </div>
 	    </div><!-- end of content -->
     </div><!-- end of warraper -->
 </div>
+
+<!-- 그대로 유지 -->
+<div id="confirmModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 9999;">
+    <div style="background:#fff; padding:30px; border-radius:10px; text-align:center; width:300px;">
+        <p style="margin-bottom:20px;">정말로 회원 탈퇴하시겠습니까?</p>
+        <button id="confirmDelete" class="btn btn-delete" style="margin-right:10px;">확인</button>
+        <button id="cancelDelete" class="btn btn-cancel">취소</button>
+    </div>
+</div>
+
 <script>
     document.querySelector('form').addEventListener('submit', function(e) {
         const phone1 = document.getElementById('phone1').value.trim();
@@ -106,6 +119,22 @@ UserVO user = (UserVO)request.getAttribute("user");
             this.appendChild(hiddenPhone);
         }
         hiddenPhone.value = fullPhone;
+    });
+    
+    document.getElementById('deleteUserBtn').addEventListener('click', function () {
+        document.getElementById('confirmModal').style.display = 'flex';
+    });
+
+    document.getElementById('cancelDelete').addEventListener('click', function () {
+        document.getElementById('confirmModal').style.display = 'none';
+    });
+
+    document.getElementById('confirmDelete').addEventListener('click', function () {
+        fetch("${contextPath}/deleteUser", {
+            method: 'POST'
+        }).then(() => {
+            window.location.href = "${contextPath}/main.jsp";
+        });
     });
 </script>
 <script>

@@ -298,4 +298,92 @@
         LIMIT #{offset}, #{limit}
 
 	</select> 
+	<select id="selectAdminOrderList" parameterType="map" resultType="adminProdOrderVO">
+		SELECT 
+		    po.pdOrderNum,
+		    p.productName AS productName,
+		    p.price AS productPrice,
+		    pOpt.price AS optionPrice,
+		    poi.orderItem,
+		    poi.productNum,
+		    pOpt.option,
+		    pOpt.price AS optionPrice,
+		    poi.amount,
+		    (p.price + pOpt.price * poi.amount) AS totalPrice,
+		    po.orderDate,
+		    CONCAT(
+			    LEFT(buyer.userId, 1),
+			    REPEAT('*', CHAR_LENGTH(buyer.userId) - 2),
+			    RIGHT(buyer.userId, 1)
+			) as buyerId,
+		    buyer.userName AS buyerName,
+		    seller.userId AS sellerId,
+		    sellerDetail.storeName,
+		    po.address,
+		    buyer.phone,
+		    po.orderStatus,
+		    po.deleveryStatus,
+		    po.trackingNum
+		FROM productorder po
+		JOIN productorderitem poi ON po.pdOrderNum = poi.pdOrderNum
+		JOIN productoption pOpt ON poi.optionNum = pOpt.optionNum
+		JOIN product p ON poi.productNum = p.productNum
+		JOIN user buyer ON po.userNum = buyer.userNum
+		JOIN sellerdetail sellerDetail ON p.sellerNum = sellerDetail.sellerNum
+		JOIN user seller ON sellerDetail.userNum = seller.userNum
+		
+		<if test="startDate != null and endDate != null">
+			AND DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
+		</if>
+		<if test="searchType != null and searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<when test="searchType == 'buyerId'">
+					AND buyer.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'sellerId'">
+					AND seller.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'storeName'">
+					AND sellerDetail.storeName LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'pdOrderNum'">
+					AND po.pdOrderNum = #{searchKeyword}
+				</when>
+			</choose>
+		</if>
+		ORDER BY po.orderDate DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	<select id="countAdminOrderList" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM productorder po
+	    JOIN productorderitem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN productoption pOpt ON poi.optionNum = pOpt.optionNum
+	    JOIN product p ON poi.productNum = p.productNum
+	    JOIN user buyer ON po.userNum = buyer.userNum
+	    JOIN sellerdetail sellerDetail ON p.sellerNum = sellerDetail.sellerNum
+	    JOIN user seller ON sellerDetail.userNum = seller.userNum AND seller.isSeller = 1
+	    <where>
+	        <if test="startDate != null and endDate != null">
+	            AND DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
+	        </if>
+	        <if test="searchType != null and searchKeyword != null and searchKeyword != ''">
+	            <choose>
+	                <when test="searchType == 'buyerId'">
+	                    AND buyer.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	                <when test="searchType == 'sellerId'">
+	                    AND seller.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	                <when test="searchType == 'storeName'">
+	                    AND sellerDetail.storeName LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	                <when test="searchType == 'pdOrderNum'">
+	                    AND po.pdOrderNum = #{searchKeyword}
+	                </when>
+	            </choose>
+	        </if>
+	    </where>
+	</select>
+	
 </mapper>

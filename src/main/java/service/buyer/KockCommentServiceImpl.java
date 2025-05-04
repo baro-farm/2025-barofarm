@@ -44,10 +44,10 @@ public class KockCommentServiceImpl implements KockCommentService {
 	}
 	
 	@Override
-	public List<KockCommentVO> selectUserMyCommentList(Long userNum, int limit, int offset) throws Exception {
+	public List<KockCommentVO> selectUserMyCommentList(Long userNum, int pageSize, int offset) throws Exception {
 	    Map<String, Object> param = new HashMap<>();
 	    param.put("userNum", userNum);
-	    param.put("limit", limit);
+	    param.put("pageSize", pageSize);
 	    param.put("offset", offset);
 	    return kockCommentDao.selectAllKockCommentList(param);
 	    

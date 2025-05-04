@@ -55,9 +55,11 @@ public class KockFarmPostList extends HttpServlet {
 		KockFarmService service = new KockFarmServiceImpl();
 		
 		List<KockFarmVO> kockPostList = new ArrayList<>();
+		int page = 1;
+		int pageSize = 10; // ✅ 한 페이지 10개
+		int totalCount = 0;
 		
 		try {
-			Long userNum=userService.selectUserNumByUserId(sessionUser.getUserId());
 
 			String periodParam = request.getParameter("period");
 			String matchedParam = request.getParameter("matched");
@@ -83,15 +85,52 @@ public class KockFarmPostList extends HttpServlet {
 			LocalDate startDate = LocalDate.now().minusMonths(months);
 			
 			
+
+			
+			Long userNum=userService.selectUserNumByUserId(sessionUser.getUserId());
 			System.out.println(userNum);
 			System.out.println(startDate);
 			System.out.println(isMatched);
+			
+		    totalCount = service.selectCountKockPost(userNum, startDate, isMatched);
+			System.out.println(totalCount);
+		    
+		    if(request.getParameter("page")!= null) {
+				page=Integer.parseInt(request.getParameter("page"));
+			}
+			
+		    
+		    int totalPages = (int) Math.ceil((double) totalCount / pageSize);			
+			
 
+			totalPages=(int)Math.ceil((double)totalCount/pageSize);
 			
-			kockPostList= service.selectMyPostList(userNum,startDate,isMatched);
+			if (page > totalPages && totalPages > 0) {
+		        page = totalPages;
+		    }
+		    if (page <= 0) {
+		        page = 1;  // 페이지가 0 이하일 경우
+		    }
+
+		    int offset = (page - 1) * pageSize;
 			
+			
+			kockPostList= service.selectMyPostList(userNum, startDate, isMatched, pageSize, offset);
+			
+			int pageGroupSize = 5;
+			int groupStartPage = ((page - 1) / pageGroupSize) * pageGroupSize + 1;
+			int groupEndPage = Math.min(groupStartPage + pageGroupSize - 1, totalPages);
+
 			System.out.println(kockPostList);
 			request.setAttribute("kockPostList", kockPostList);
+			
+			request.setAttribute("currentPage", page);
+			request.setAttribute("totalPages", totalPages);
+			request.setAttribute("pageGroupSize", pageGroupSize);
+			request.setAttribute("groupStartPage", groupStartPage);
+			request.setAttribute("groupEndPage", groupEndPage);
+			request.setAttribute("totalCount", totalCount);
+			
 			request.setAttribute("period", periodParam); // 선택 유지용
 			request.setAttribute("matched", matchedParam); // 선택 유지용
 			request.getRequestDispatcher("/buyer/kockFarmPostList.jsp").forward(request, response);

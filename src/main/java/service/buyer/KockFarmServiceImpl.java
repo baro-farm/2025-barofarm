@@ -64,9 +64,23 @@ public class KockFarmServiceImpl implements KockFarmService {
 	}
 
 	@Override
-	public List<KockFarmVO> selectMyPostList(Long userNum,LocalDate startDate,Boolean isMatched) throws Exception {
-		
-		return kockFarmDao.selectKockFarmPostList(userNum,startDate,isMatched);
+	public List<KockFarmVO> selectMyPostList(Long userNum, LocalDate startDate, Boolean isMatched, int pageSize, int offset) throws Exception {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("userNum", userNum);
+	    param.put("startDate", startDate);
+	    param.put("isMatched", isMatched);
+	    param.put("pageSize", pageSize);
+	    param.put("offset", offset);
+		return kockFarmDao.selectKockFarmPostList(param);
+	}
+
+	@Override
+	public Integer selectCountKockPost(Long userNum, LocalDate startDate, Boolean isMatched) throws Exception {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("userNum", userNum);
+	    param.put("startDate", startDate);
+	    param.put("isMatched", isMatched);
+	    return kockFarmDao.selectCountUserKockPost(param);
 	}
 
 }

@@ -167,7 +167,7 @@
 
 	<div id="content">
 		<div class="noticeHeader">
-			<span id="title">리뷰 관리</span>
+			<span id="title">상품 리뷰 관리</span>
 		</div>
 
 		<div class="filterWrapper">
@@ -320,29 +320,26 @@
 
 		<div class="pagination">
 			<!-- << -->
-			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}">&laquo;</a>
-			</c:if>
+				<a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}"
+				 class="${currentPage <= pageGroupSize ? 'disabled' : ''}">&laquo;</a>
 		
 			<!-- < -->
-			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - 1}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}">&lsaquo;</a>
-			</c:if>
+				<a href="?page=${currentPage - 1}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}"
+					class="${currentPage == 1 ? 'disabled' : ''}">&lsaquo;</a>
 		
 			<!-- 번호 -->
-			<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
-				<a href="?page=${i}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+	    	<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+				<a href="?page=${i}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}" 
+				class="${currentPage == i ? 'active' : ''}">${i}</a>
 			</c:forEach>
 		
 			<!-- > -->
-			<c:if test="${currentPage < totalPages}">
-				<a href="?page=${currentPage + 1}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}">&rsaquo;</a>
-			</c:if>
+				<a href="?page=${currentPage + 1}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}"
+				 class="${currentPage >= totalPages ? 'disabled' : ''}">&rsaquo;</a>
 		
 			<!-- >> -->
-			<c:if test="${currentPage < totalPages}">
-				<a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}">&raquo;</a>
-			</c:if>
+				<a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&commentStat=${param.commentStat}&ratingFilter=${param.ratingFilter}&sort=${param.sort}"
+				 class="${groupEndPage >= totalPages ? 'disabled' : ''}">&raquo;</a>
 		</div>
 
 		<div id="modal" class="modal">

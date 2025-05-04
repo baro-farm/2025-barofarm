@@ -16,4 +16,12 @@ public interface PackReviewDAO {
 	
 	void insertSellerPackReviewComment(Map<String,Object> param) throws Exception;
 	PackReviewVO selectPackReviewDetailByReviewNum(Long pkReviewNums);
+	
+	//user reviewList
+    Integer selectCountUserWrittenReviews(Map<String, Object> param) throws Exception;
+    List<PackReviewVO> selectUserWrittenReviews(Map<String, Object> param) throws Exception;
+
+    Integer selectCountUserWritableReviews(Map<String, Object> param) throws Exception;
+    List<PackReviewVO> selectUserWritableReviews(Map<String, Object> param) throws Exception;
+
 }

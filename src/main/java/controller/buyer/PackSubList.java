@@ -66,9 +66,11 @@ public class PackSubList extends HttpServlet {
 			String startDate = request.getParameter("searchStartDate");
 			String endDate = request.getParameter("searchEndDate");
 			String deliveryStatus = request.getParameter("deliveryStatus");
+			
 			Long userNum = userService.selectUserNumByUserId(sessionUser.getUserId());
 			System.out.println(userNum);
-            if (request.getParameter("page") != null) {
+           
+			if (request.getParameter("page") != null) {
                 page = Integer.parseInt(request.getParameter("page"));
             }
             totalCount = service.selectPackSubsCount(userNum, startDate, endDate, deliveryStatus);

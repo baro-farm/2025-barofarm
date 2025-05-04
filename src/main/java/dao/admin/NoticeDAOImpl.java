@@ -12,8 +12,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 	
 	@Override
-	public List<Notice> selectNoticeList() throws Exception {
-		return sqlSession.selectList("mapper.notice.selectNoticeList");
+	public List<Notice> selectNoticeList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.notice.selectNoticeList", param);
 	}
 
 	@Override
@@ -58,4 +58,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 		return sqlSession.selectList("mapper.notice.selectFixNoticeList");
 	}
 	
+	@Override
+	public Integer selectNoticeCountAll() throws Exception {
+		return sqlSession.selectOne("mapper.notice.selectNoticeCountAll");
+	}
 }

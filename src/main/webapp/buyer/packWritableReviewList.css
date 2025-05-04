@@ -12,7 +12,6 @@
 }
 
 
-
 .emptyMessage {
     text-align: center;
     padding: 50px 0;
@@ -32,9 +31,19 @@
 }
 .reviewFilter {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* 오른쪽 정렬 */
     align-items: center;
     margin-bottom: 20px;
+    gap: 10px; /* 옵션 간 간격 */
+}
+.reviewFilter select {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+.sideMenu {
+	position: relative;
 }
 
 .title {

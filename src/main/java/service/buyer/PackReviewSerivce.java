@@ -18,4 +18,12 @@ public interface PackReviewSerivce {
 	PackReviewVO selectPackReviewDetailByReviewNum(Long pkReviewNum) throws Exception;
 	void insertPackReviewComment(List<Long> pkReviewNums,String commentContent) throws Exception;
 
+	//buyer reviewList
+    Integer selectCountUserWrittenReviews(Long userNum, String period) throws Exception;
+    List<PackReviewVO> selectUserWrittenReviews(Long userNum, String period, int offset, int pageSize) throws Exception;
+
+	//buyer reviewList
+    Integer selectCountUserWritableReviews(Long userNum, String period) throws Exception;
+    List<PackReviewVO> selectUserWritableReviews(Long userNum, String period, int offset, int pageSize) throws Exception;
+	
 }

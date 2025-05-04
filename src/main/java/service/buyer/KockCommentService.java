@@ -17,7 +17,7 @@ public interface KockCommentService {
 	BabyComment selectBCommentByReNum(Long reNum) throws Exception;
 	
 	//댓글 리스트
-	List<KockCommentVO> selectUserMyCommentList(Long userNum, int limit, int offset) throws Exception;
+	List<KockCommentVO> selectUserMyCommentList(Long userNum, int pageSize, int offset) throws Exception;
 	Integer selectCountAllComment(Long userNum) throws Exception;
 	
 	//마이스토어 댓글

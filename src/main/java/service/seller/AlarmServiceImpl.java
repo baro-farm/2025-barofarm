@@ -6,6 +6,8 @@ import dao.seller.AlarmDAO;
 import dao.seller.AlarmDAOImpl;
 import dto.seller.Alarm;
 import dto.seller.UsePoint;
+import service.UserService;
+import service.UserServiceImpl;
 import util.FcmUtil;
 import util.SearchDtoSoy;
 import vo.SellerVO;
@@ -14,10 +16,12 @@ public class AlarmServiceImpl implements AlarmService {
 	private AlarmDAO alarmDAO;
 	private PointService pointService;
 	private UsePointService usePointService;
+	private UserService userService;
 	public AlarmServiceImpl() {
 		this.alarmDAO = new AlarmDAOImpl();
 		this.pointService = new PointServiceImpl();
 		this.usePointService = new UsePointServiceImpl();
+		this.userService = new UserServiceImpl();
 	}
 	@Override
 	public int sendKockFarmAlarm(Long cateNum, String cateName, Long buyerUserNum, Long kockNum) throws Exception {
@@ -47,9 +51,12 @@ public class AlarmServiceImpl implements AlarmService {
 				
 					count++;
 				} catch (Exception e) {
-					// FCM 실패 시 로그만 남기고 다음 유저로 진행
 		            System.err.println("알림 전송 실패: " + sellerUserNum + " / 이유: " + e.getMessage());
-		        
+		            // "UNREGISTERED"가 포함된 오류 메시지면 fcmToken 제거
+		            if (e.getMessage().contains("UNREGISTERED")) {
+		                System.out.println("무효한 FCM 토큰, DB에서 삭제합니다: " + sellerUserNum);
+		                userService.deleteFcmToken(sellerUserNum);
+		            }
 				}
 				
 			}
