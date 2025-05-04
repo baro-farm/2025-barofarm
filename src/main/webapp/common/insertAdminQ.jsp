@@ -9,11 +9,6 @@
 	<title>문의하기 작성</title>
 	<link rel="stylesheet" href="${contextPath}/reset.css">
 	<link rel="stylesheet" href="${contextPath}/common/insertAdminQ.css">
-	<script>
-	$('#backBtn').on('click', function() {
-		  window.history.back();
-		});
-	</script>
 </head>
 <body>
 	<div class="container">
@@ -42,13 +37,21 @@
 	            	<input type="text" id="qTitle" name="title" />
 	            	<br>
 	        		<textarea type="text" id="qContent" name="content" ></textarea>
+	        		<br>
 			        <div id="bottom">
 				      	<button type="submit" id="insertBtn">작성하기</button>
-			    	  	<button id="backBtn">취소하기</button>
+			    	  	<button type="button" id="backBtn">취소하기</button>
 			      	</div>
       			</form>
       		</div>
     	</div>
 	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+		  document.getElementById('backBtn').addEventListener('click', function() {
+		    window.location.href = '${contextPath}/adminQAList'; 
+		  });
+		});
+	</script>
 </body>
 </html>

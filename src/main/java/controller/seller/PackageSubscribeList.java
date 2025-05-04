@@ -14,9 +14,13 @@ import javax.servlet.http.HttpSession;
 import dto.User;
 import service.buyer.PackOrderService;
 import service.buyer.PackOrderServiceImpl;
+import service.seller.PackageService;
+import service.seller.PackageServiceImpl;
 import service.seller.SellerDetailService;
 import service.seller.SellerDetailServiceImpl;
+import util.PageInfo;
 import vo.PackOrderVO;
+import vo.PackSubVO;
 
 /**
  * Servlet implementation class PackageSubscribeList
@@ -51,73 +55,35 @@ public class PackageSubscribeList extends HttpServlet {
 			return;
 		}	
 		
-		List<PackOrderVO> packOrderList = new ArrayList<>();
+		String pageStr = request.getParameter("page");
+		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
+		
 		SellerDetailService sellerService = new SellerDetailServiceImpl();
-		PackOrderService service = new PackOrderServiceImpl();
-		int page=1;
-		int pageSize=10;
-		int totalCount=0;
+		PackageService service = new PackageServiceImpl();
 		try {
-			
-            String dateType = request.getParameter("dateType") != null ? request.getParameter("dateType") : "paymentDate";
             String startDate = request.getParameter("startDate");
             String endDate = request.getParameter("endDate");
-            String deliveryDay = request.getParameter("deliveryDay");
             String searchType = request.getParameter("searchType") != null ? request.getParameter("searchType") : "all";
             String searchKeyword = request.getParameter("searchKeyword");
-            
-            if (request.getParameter("page") != null) {
-                page = Integer.parseInt(request.getParameter("page"));
-            }
-            
-            Long sellerNum = sellerService.selectSellerNumById(sessionUser.getUserId());
-			System.out.println(sellerNum);
+			System.out.println("packsubscribeList/startDate: "+startDate+", endDate: "+endDate+
+					", searchType: "+searchType+", searchKeyword: "+searchKeyword);
 			
-            totalCount =  service.selectCountSellerPackOrderList(sellerNum, dateType, startDate, endDate, deliveryDay, searchType, searchKeyword);
-            System.out.println(totalCount);
-            int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-
-			if (page > totalPages && totalPages > 0) {
-		        page = totalPages;
-		    }
-		    if (page <= 0) {
-		        page = 1;  // 페이지가 0 이하일 경우
-		    }
+			Long sellerNum = sellerService.selectSellerNumById(sessionUser.getUserId());
+			System.out.println("packsublist/sellerNum: "+sellerNum);
+			Integer totalCount = service.countPackageSubList(sellerNum);
+			PageInfo pageInfo = new PageInfo(curPage, 15, totalCount);
 			
-			int offset = (page - 1) * pageSize;
+			List<PackSubVO> packSubList = service.selectPackageSubList(pageInfo, sellerNum, startDate, endDate, searchType, searchKeyword);
+			System.out.println("packsublist/packSubList: "+packSubList.size());
+			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("packSubList", packSubList);
 			
-			System.out.println("totalCount = " + totalCount);
-			System.out.println("totalPages = " + totalPages);
-			System.out.println("startDate: " + startDate);
-			System.out.println("endDate: " + endDate);			
-
-			packOrderList = service.selectSellerPackOrderList(sellerNum, offset, pageSize, dateType, startDate, endDate, deliveryDay, searchType, searchKeyword);
-			System.out.println(packOrderList.size()+"size.");
-			
-			int pageGroupSize = 5;
-			int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
-			int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;
-			int groupEndPage = Math.min(groupStartPage + pageGroupSize - 1, totalPages);
-			
-            // 값 전달
-            request.setAttribute("packOrderList", packOrderList);
-            request.setAttribute("totalPages", totalPages);
-            request.setAttribute("currentPage", page);
-            request.setAttribute("pageGroupSize", pageGroupSize);
-            request.setAttribute("groupStartPage", groupStartPage);
-            request.setAttribute("groupEndPage", groupEndPage);
-
-            // 검색 조건 유지
-            request.setAttribute("dateType", dateType);
             request.setAttribute("startDate", startDate);
             request.setAttribute("endDate", endDate);
-            request.setAttribute("deliveryDay", deliveryDay);
             request.setAttribute("searchType", searchType);
             request.setAttribute("searchKeyword", searchKeyword);
             
     		request.getRequestDispatcher("/seller/packageSubscribeList.jsp").forward(request, response);
-
-            
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -125,7 +125,7 @@
 				<div class="notice">
 					<div class="noticeHeader">
 				        <h3>공지사항</h3>
-				        <a href="userNoticeList">+</a>
+				        <a href="userNoticeList" class="plus">+</a>
 					</div>
 					<ul class="recentNotice">
 					  <c:forEach var="n" items="${noticeList}">
@@ -139,7 +139,7 @@
 		    	<div class="faq">
 			    	<div class="faqHeader">
 				        <h3>문의하기</h3>
-				        <a href="adminQAList">+</a>
+				        <a href="adminQAList" class="plus">+</a>
 			      	</div>
 		      		<ul class="recentAdminQA">
 					  <c:forEach var="q" items="${adminQA}">

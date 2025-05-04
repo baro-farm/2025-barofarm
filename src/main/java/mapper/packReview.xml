@@ -58,7 +58,6 @@
 			values(#{userNum},#{packageNum},#{pkRating},#{pkReviewContent},#{pkReviewImgUrl})
 	</insert>
 	
-
 	<select id="countPackReview" resultType="Integer" parameterType="long">
 	    SELECT COUNT(*) FROM packReview WHERE packageNum = #{packageNum}
 	</select>

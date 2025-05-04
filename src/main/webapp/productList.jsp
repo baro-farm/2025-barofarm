@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="pagingUrl">
   <c:choose>
@@ -53,9 +54,18 @@
         		<div class="searchSorting">
         		<c:if test="${listType != 'best' and listType != 'new'}">
 				  <ul class="searchList">
-					    <li><a href="${pagingUrl}&page=1&sort=createdAt">신상품</a></li>
-					    <li><a href="${pagingUrl}&page=1&sort=priceAsc">낮은가격</a></li>
-					    <li><a href="${pagingUrl}&page=1&sort=priceDesc">높은가격</a></li>
+					    <c:choose>
+						  <c:when test="${fn:contains(pagingUrl, '?')}">
+						    <li><a href="${pagingUrl}&page=1&sort=createdAt">신상품</a></li>
+						    <li><a href="${pagingUrl}&page=1&sort=priceAsc">낮은가격</a></li>
+						    <li><a href="${pagingUrl}&page=1&sort=priceDesc">높은가격</a></li>
+						  </c:when>
+						  <c:otherwise>
+						    <li><a href="${pagingUrl}?page=1&sort=createdAt">신상품</a></li>
+						    <li><a href="${pagingUrl}?page=1&sort=priceAsc">낮은가격</a></li>
+						    <li><a href="${pagingUrl}?page=1&sort=priceDesc">높은가격</a></li>
+						  </c:otherwise>
+						</c:choose>
 				  </ul>
 				  </c:if>
 				</div>
@@ -115,17 +125,11 @@
 					  <c:when test="${pageInfo.curPage > 10}">
 					    <a href="${pagingUrl}&page=${pageInfo.curPage - 10}&sort=${sort}">&laquo;</a>
 					  </c:when>
-					  <c:otherwise>
-					    <a class="disabled">&laquo;</a>
-					  </c:otherwise>
 					</c:choose>
 					<c:choose>
 					  <c:when test="${pageInfo.curPage > 1}">
 					    <a href="${pagingUrl}&page=${pageInfo.curPage - 1}&sort=${sort}">&lsaquo;</a>
 					  </c:when>
-					  <c:otherwise>
-					    <a class="disabled">&lsaquo;</a>
-					  </c:otherwise>
 					</c:choose>
 					<!-- 페이지 번호 -->
 					<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
@@ -143,17 +147,11 @@
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
 					    <a href="${pagingUrl}&page=${pageInfo.curPage + 1}&sort=${sort}">&rsaquo;</a>
 					  </c:when>
-					  <c:otherwise>
-					    <a class="disabled">&rsaquo;</a>
-					  </c:otherwise>
 					</c:choose>
 					<c:choose>
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
 					    <a href="${pagingUrl}&page=${pageInfo.curPage + 10}&sort=${sort}">&raquo;</a>
 					  </c:when>
-					  <c:otherwise>
-					    <a class="disabled">&raquo;</a>
-					  </c:otherwise>
 					</c:choose>
 				</div>
 				

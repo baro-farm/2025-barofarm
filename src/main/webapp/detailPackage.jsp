@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -8,13 +9,28 @@
 <head>
 <meta charset="UTF-8">
 <title>꾸러미 상세 페이지</title>
-	<!-- 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	 -->
 	<link rel="stylesheet" href="${contextPath}/reset.css" />
     <link rel="stylesheet" href="${contextPath}/detailPackage.css" /> 
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script defer src="detailProduct.js"></script>
+    <script>
+	    $(document).ready(function() {
+		    function getMonthsDifference(date1, date2) {
+		        var start = new Date(date1);
+		        var end = new Date(date2);
+		        var years = end.getFullYear() - start.getFullYear();
+		        var months = end.getMonth() - start.getMonth();
+		        return years * 12 + months + 1; // +1: 시작, 종료월 모두 포함
+		    }
+	
+		    $('.date-range').each(function() {
+		        var startDate = $(this).data('start');
+		        var endDate = $(this).data('end');
+		        var months = getMonthsDifference(startDate, endDate);
+		        $(this).text('구독 기간 : '+startDate + ' ~ ' + endDate + ' (' + months + '회차)');
+		    });
+		});
+    </script>
 </head>
 <body>
 	<div class="container">
@@ -30,15 +46,22 @@
 			            </div>
 			            <div class="packInfo">
 			                <!-- 스토어상품정보 -->
-			                <div class="storeName"><a href="${contextPath}/storeProductList?sellerNum=${pack.sellerNum}">${pack.storeName} &gt;</a></div>
-			                <div class="packTitle">${pack.packageName}</div>
+			                <div class="storeName">
+			                	<a href="${contextPath}/storeProductList?sellerNum=${pack.sellerNum}">${pack.storeName} &gt;</a>
+			                </div>
+			                <div class="packTitle">
+			                	${pack.packageName}
+			                	<p class="dateStr" hidden>${pack.startDate}</p>
+			                    <span class="weekday"></span>
+			                </div>
 			                <div class="additional">
 			                    <div class="reviewScore">⭐ ${pack.avgRating} (${pack.reviewCount})</div>
 			                </div>
-
-			                 <!-- 총 가격 -->
-			                <div class="totalPrice"><fmt:formatNumber value="${pack.packagePrice }" type="number" />원</div>
-			                
+			                <div class="i-box">
+			                	<div>${pack.packageUnit } </div>
+			               		<div class="date-range" data-start="${pack.startDate}" data-end="${pack.endDate}"></div>
+			               		<div class="totalPrice"><fmt:formatNumber value="${pack.packagePrice }" type="number" />원</div>
+			                </div>
 			                <!-- 버튼 영역 -->
 			                <div class="actionButtons">
 			                    <a href="#" id="purchase" data-package-num="${pack.packageNum}">구매하기</a>
@@ -132,7 +155,20 @@
 		            }
 		        });
 		    });
-		});
+		    
+		    function getDayOfWeek(dateStr) {
+			    const days = ['[일요팜]', '[월요팜]', '[화요팜]', '[수요팜]', '[목요팜]', '[금요팜]', '[토요팜]'];
+			    const date = new Date(dateStr);
+			    return days[date.getDay()];
+			}
+			
+			document.querySelectorAll('.dateStr').forEach(function(dateElem, idx) {
+			    const dateText = dateElem.innerText.trim();
+			    const weekElem = document.querySelectorAll('.weekday')[idx];
+			    if (weekElem) {
+			        weekElem.innerHTML = getDayOfWeek(dateText);
+			    }
+			});
 	</script>
     <script src="${contextPath}/detailPackage.js"></script>
 </body>

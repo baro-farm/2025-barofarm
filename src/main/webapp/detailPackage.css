@@ -51,6 +51,9 @@ a {
 .packTitle {
     font-size: 20px;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .additional {
     display: flex;
@@ -78,10 +81,20 @@ a {
   .selectedOptionItem div:not(:first-child){
     margin-left: auto;
   }
+  .date-range{
+  width:fit-content;
+  }
+  .i-box{
+  	border: 2px solid #ccc;
+  	background-color: #fcfcfc;
+  	border-radius: 4px;
+  	padding: 10px;
+  	margin: 156px 0 20px 0;
+  }
   /* 총 가격 */
   .totalPrice {
     text-align: right;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
   }
   /* 버튼 영역 */

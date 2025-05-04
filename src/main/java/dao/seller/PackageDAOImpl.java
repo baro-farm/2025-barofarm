@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import dto.seller.PackageProduct;
 import util.MybatisSqlSessionFactory;
+import vo.PackSubVO;
 import vo.PackageVO;
 
 public class PackageDAOImpl implements PackageDAO {
@@ -53,5 +54,15 @@ public class PackageDAOImpl implements PackageDAO {
 	@Override
 	public void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.packageProduct.adjustSalesVolume", param);
+	}
+
+	@Override
+	public List<PackSubVO> selectPackageSubList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.packageSub.packageSubList", param);
+	}
+
+	@Override
+	public Integer countPackageSubList(Long sellernum) throws Exception {
+		return sqlSession.selectOne("mapper.packageSub.countPackageSubList",sellernum);
 	}
 }

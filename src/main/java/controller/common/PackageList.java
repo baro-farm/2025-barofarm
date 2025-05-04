@@ -43,10 +43,10 @@ public class PackageList extends HttpServlet {
 		//카테고리
 		String cateName = null;
 		switch (cateNum) {
-		    case 8: cateName = "1인 꾸러미"; break;
-		    case 9: cateName = "2인 꾸러미"; break;
-		    case 10: cateName = "3인 꾸러미"; break;
-		    case 11: cateName = "4인 꾸러미"; break;
+		    case 8: cateName = "혼밥 꾸러미"; break;
+		    case 9: cateName = "커플 꾸러미"; break;
+		    case 10: cateName = "트리오 꾸러미"; break;
+		    case 11: cateName = "패밀리 꾸러미"; break;
 		}
 		
 		// 페이징

@@ -165,23 +165,7 @@
 		    </choose>
 		</if>
 	</select>
-	<select id="packageSubList">
-	SELECT 
-	    ps.subnum, ps.usernum,
-	    CONCAT(
-			    LEFT(u.userId, 1),        
-			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
-			    RIGHT(u.userId, 1)
-			) as userId,
-	    u.username, u.phone,
-	    ps.packagenum,
-	    p.packagename,  p.catenum,  p.startdate,  p.enddate,
-	    ps.sellernum, ps.substartdate, ps.subenddate,  ps.subround
-	FROM pakagesubscribe ps
-	LEFT JOIN user u ON ps.usernum = u.usernum
-	JOIN package p ON ps.packagenum = p.packagenum
-	WHERE ps.sellernum = #{sellernum}
-	</select>
+	
 	<insert id="insertPackOrder" parameterType="map" useGeneratedKeys="true" keyProperty="pkOrderNum">
 		INSERT INTO packageorder (packageNum, userNum, subNum, pkTotalPrice, deleveryStatus) VALUES 
 		(#{packageNum}, #{userNum}, #{subNum}, #{pkTotalPrice}, #{deleveryStatus})
