@@ -40,12 +40,12 @@ public class CustomerService {
 		this.title = title;
 	}
 
-	public String getContent() {
+	public String getQuestionContent() {
 		return questionContent;
 	}
 
-	public void setContent(String content) {
-		this.questionContent = content;
+	public void setQuestionContent(String questionContent) {
+		this.questionContent = questionContent;
 	}
 
 	public LocalDateTime getQuestionCreatedAt() {
@@ -110,7 +110,8 @@ public class CustomerService {
 	}
 
 	public String getPreviewContent() {
-		String plain = questionContent.replaceAll("<[^>]*>", ""); // HTML 태그 제거
-		return plain.length() > 100 ? plain.substring(0, 100) : plain;
+	    if (questionContent == null) return "";
+	    String plain = questionContent.replaceAll("<[^>]*>", "");
+	    return plain.length() > 100 ? plain.substring(0, 100) + "..." : plain;
 	}
 }

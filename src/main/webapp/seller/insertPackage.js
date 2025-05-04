@@ -85,4 +85,21 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
       container.appendChild(div);
     });
+    
+	const today = new Date();
+	const yyyy = today.getFullYear();
+	const mm = String(today.getMonth() + 1).padStart(2, '0'); // month is 0-indexed
+	const dd = String(today.getDate()).padStart(2, '0');
+	const todayStr = `${yyyy}-${mm}-${dd}`;
+	
+	// 시작일, 종료일 input 요소
+	const startDateInput = document.getElementById('start');
+	const endDateInput = document.getElementById('end');
+	
+	startDateInput.min = todayStr;
+	endDateInput.min = todayStr;
+	
+	// 초기값도 오늘로 설정
+	startDateInput.value = todayStr;
+	endDateInput.value = todayStr;
 });

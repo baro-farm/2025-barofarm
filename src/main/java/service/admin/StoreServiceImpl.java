@@ -1,6 +1,8 @@
 package service.admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.admin.StoreDAO;
 import dao.admin.StoreDAOImpl;
@@ -14,8 +16,12 @@ public class StoreServiceImpl implements StoreService {
 	}
 	
 	@Override
-	public List<Store> allStore() throws Exception {
-		return storeDao.selectStoreList();
+	public List<Store> allStore(Map<String, Object> param) throws Exception {
+		return storeDao.selectStoreList(param);
 	}
 
+	@Override
+	public int getStoreCount(Map<String, Object> param) throws Exception {
+		return storeDao.countStoreList(param);
+	}
 }

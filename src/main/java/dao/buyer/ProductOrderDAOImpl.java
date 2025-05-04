@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-
-
 import dto.buyer.ProductOrder;
-import dto.buyer.ProductOrderItem;
 import util.MybatisSqlSessionFactory;
+import vo.AdminProdOrderVO;
 import vo.ProdCancelVO;
 import vo.ProdOrderVO;
 
@@ -141,4 +139,13 @@ public class ProductOrderDAOImpl implements ProductOrderDAO {
 		return sqlSession.selectList("mapper.prodOrder.selectSellerCancelList", param);
 	}
 
+	@Override
+	public List<AdminProdOrderVO> selectAdminProdOrderList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.prodOrder.selectAdminOrderList", param);
+	}
+	
+	@Override
+	public int countAdminOrderList(Map<String, Object> param) throws Exception {
+	    return sqlSession.selectOne("mapper.prodOrder.countAdminOrderList", param);
+	}
 }

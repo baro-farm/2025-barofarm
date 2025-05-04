@@ -6,7 +6,7 @@ import java.util.Map;
 import dto.admin.Notice;
 
 public interface NoticeDAO {
-	List <Notice> selectNoticeList() throws Exception;
+	List <Notice> selectNoticeList(Map<String, Object> param) throws Exception;
 	void insertNotice(Notice notice) throws Exception;
 	Notice selectNotice(Integer noticeNum) throws Exception;
 	void deleteNotice(Integer noticeNum) throws Exception;
@@ -15,4 +15,5 @@ public interface NoticeDAO {
 	List<Notice> selectNoticeListByPage(Map<String, Object> param) throws Exception;
 	Integer selectNoticeCount() throws Exception;
 	List<Notice> selectFixNoticeList() throws Exception;
+	Integer selectNoticeCountAll() throws Exception;
 }

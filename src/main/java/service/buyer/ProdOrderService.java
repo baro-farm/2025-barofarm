@@ -1,11 +1,12 @@
 package service.buyer;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ProductOrder;
-import dto.buyer.ProductOrderItem;
+import vo.AdminProdOrderVO;
 import vo.ProdCancelVO;
 import vo.ProdOrderVO;
 
@@ -39,4 +40,12 @@ public interface ProdOrderService {
 	
 	Integer countSellerCancelList(Long sellerNum, String sort) throws Exception;
 	List<ProdCancelVO> selectSellerCancelList(Long sellerNum, String sort,int offset, int limit) throws Exception;
+	// 관리자 주문 목록
+	List<AdminProdOrderVO> selectAdminProductOrderList(Long sellerNum, int offset, int pageSize, String dateType, 
+            String startDate, String endDate, 
+            String searchType, String searchKeyword) throws Exception;
+	// ProdOrderService.java
+	int countAdminOrderList(String dateType, String startDate, String endDate,
+	                        String searchType, String searchKeyword) throws Exception;
+
 }

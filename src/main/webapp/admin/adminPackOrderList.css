@@ -1,3 +1,9 @@
+@media (max-width: 1200px) {
+  .table {
+    width: 1200px;
+  }
+}
+
 @font-face {
   font-family: 'SUIT-Regular';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
@@ -6,7 +12,7 @@
 }
 
 * {
-  font-family: 'SUIT-Regular', sans-serif;
+  font-family: SUIT-Regular, sans-serif;
   box-sizing: border-box;
 }
 
@@ -35,20 +41,7 @@
   gap: 20px;
 }
 
-#wrapper {
-  width: 100%;
-  max-width: 1280px;
-  overflow-x: auto;
-}
-
-.store_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-#title {
+.title {
   font-size: 30px;
   color: #65B741;
   font-weight: bold;
@@ -56,14 +49,11 @@
   align-self: flex-start;
 }
 
-/* 필터 */
 .filter-form {
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .filter-top,
@@ -74,8 +64,8 @@
 }
 
 .filter-form select,
-.filter-form input[type="text"],
-.filter-form button {
+.filter-form input[type="date"],
+.filter-form input[type="text"] {
   padding: 6px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -83,8 +73,12 @@
 }
 
 .filter-form button {
+  padding: 6px 12px;
   background-color: #65B741;
   color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -93,7 +87,11 @@
   background-color: #4e9e32;
 }
 
-/* 테이블 */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .table {
   width: 100%;
   min-width: 1200px;
@@ -119,7 +117,6 @@
   background-color: #FBF6EE;
 }
 
-/* 페이징 */
 .pagination {
   display: flex;
   justify-content: center;
@@ -149,4 +146,11 @@
 .pagination a.active {
   background-color: #65B741;
   color: white;
+}
+
+a {
+  color: black;
+}
+a:hover {
+  color: orange;
 }

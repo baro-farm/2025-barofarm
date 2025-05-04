@@ -33,6 +33,15 @@
 			</div>
 			<!-- 최대 인원 선택 -->
 			<div class="input_div">
+				<label for="product_category">판매 단위</label> <select
+					name="product_category" id="product_category">
+					<option value="8">혼밥 (1인 꾸러미)</option>
+					<option value="9">커플 (2인 꾸러미)</option>
+					<option value="10">트리오 (3인 꾸러미)</option>
+					<option value="11">패밀리 (4인 꾸러미)</option>
+				</select>
+			</div>
+			<div class="input_div" style="display:none;">
 				<label for="max_people">판매 단위</label> <select id="package_unit" name="package_unit">
 					<option value="1인">1인</option>
 					<option value="2인">2인</option>
@@ -42,26 +51,14 @@
 			</div>
 			<div id="options_container">
 				<div class="input_div">
-					<label for="package_price"> 1인 가격 </label> <input type="number"
-						name="package_price" id="package_price" placeholder="1인 가격 (원)"
+					<label for="package_price">가격 </label> <input type="number"
+						name="package_price" id="package_price" placeholder="가격 (원)"
 						required>
 				</div>
 			</div>
 			<div class="input_div">
 				<label for="package_stock">재고</label> <input type="number"
 					id="package_stock" name="package_stock" required />
-			</div>
-			<div class="input_div">
-				<label for="product_category">카테고리</label> <select
-					name="product_category" id="product_category">
-					<option value="1">배추/무/대파/부추</option>
-					<option value="2">오이/호박/가지</option>
-					<option value="3">고추/피망/파프리카/열매채소</option>
-					<option value="4">감자/고구마</option>
-					<option value="5">양상추/양배추/새싹채소</option>
-					<option value="6">당근/연근/뿌리채소</option>
-					<option value="7">마늘/양파/생강/파</option>
-				</select>
 			</div>
 			<!-- select나 라디오 버튼으로 최대 몇인까지 가능하게 할 건지 추가하고 옵션으로 1인은 얼마, 2인은 얼마 이렇게 판매자가 기입을 하면? -->
 

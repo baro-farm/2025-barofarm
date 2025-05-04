@@ -1,6 +1,7 @@
 package dao.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -11,8 +12,12 @@ public class UserDAOImpl implements UserDAO {
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 	
 	@Override
-	public List<User> selectUserList() throws Exception {
-		return sqlSession.selectList("mapper.user.selectUserList");
+	public List<User> selectUserList(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.user.selectUserList", param);
 	}
 
+	@Override
+	public int countUser(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.user.countUserList");
+	}
 }
