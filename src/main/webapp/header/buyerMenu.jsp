@@ -59,8 +59,8 @@
                 <li><a href="kockCommentList">&gt;내 댓글</a></li>
             </ul>
         </li>
-
         <li><a href="addressList">배송지 주소관리</a></li>
+        <li><a href="${contextPath}/buyerAlarmList">알림 내역</a></li>
         <li><a href="adminQAList">문의하기</a></li>
     </ul>
 </div>
