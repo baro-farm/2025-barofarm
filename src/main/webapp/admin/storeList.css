@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'SUIT-Regular', sans-serif;
+  box-sizing: border-box;
+}
+
 #header {
   position: fixed;
   top: 0;
@@ -9,62 +21,132 @@
   align-items: center;
   border-bottom: 1px solid #f3f3f3;
   background-color: white;
+  z-index: 10;
 }
 
 #content {
   width: calc(100vw - 220px);
-  max-width: 1280px;
   margin: 40px auto;
   padding-top: 80px;
   padding-left: 220px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  gap: 20px;
 }
 
 #wrapper {
   width: 100%;
+  max-width: 1280px;
   overflow-x: auto;
 }
 
 .store_header {
-  max-width: 1920px;
-  min-width: 1280px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  flex-direction: column;
+  width: 100%;
 }
 
 #title {
-  font-size: 32px;
+  font-size: 30px;
+  color: #65B741;
+  font-weight: bold;
+  margin-bottom: 10px;
   align-self: flex-start;
 }
 
-#store_table {
+/* 필터 */
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   width: 100%;
-  overflow-y: auto;
-  min-width: 1280px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-thead > tr > th {
+.filter-top,
+.filter-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-form select,
+.filter-form input[type="text"],
+.filter-form button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.filter-form button {
+  background-color: #65B741;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter-form button:hover {
+  background-color: #4e9e32;
+}
+
+/* 테이블 */
+.table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 14px;
   text-align: center;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 800px; /* 너무 좁아지지 않도록 설정 */
-}
-.table th,
-.table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.table th {
+  background-color: #f7f7f7;
+  font-weight: bold;
 }
 
-.table th {
-  background-color: #f4f4f4;
+.table tbody tr:hover {
+  background-color: #FBF6EE;
+}
+
+/* 페이징 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination a.active {
+  background-color: #65B741;
+  color: white;
 }

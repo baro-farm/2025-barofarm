@@ -109,8 +109,6 @@
 			</div>
 		</div>
 	</div>
-	<script
-		src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"></script>
 	<script src="${contextPath}/admin/noticeList.js"></script>
 </body>
 </html>
