@@ -44,8 +44,15 @@ public class InsertAds extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		User user =  null;
 		
+		if(session != null) {
+			user=(User)session.getAttribute("user");
+		}
+		if(user == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+			return;
+		}
 		PointService service = new PointServiceImpl();
 		SellerService sellserService = new SellerServiceImpl();
 		try {

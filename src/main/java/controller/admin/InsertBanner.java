@@ -49,7 +49,15 @@ public class InsertBanner extends HttpServlet {
 		String imgUrl = multi.getFilesystemName("imgUrl");
 
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+	    User user =  null;
+		
+		if(session != null) {
+			user=(User)session.getAttribute("user");
+		}
+		if(user == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+			return;
+		}
 		Long userNum = user.getUserNum();
 		
 		Banner banner = new Banner(null, null, title, imgUrl, "http://localhost:8080/barofarm/main", null, null, true, userNum);

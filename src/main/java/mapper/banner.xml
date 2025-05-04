@@ -31,5 +31,6 @@
 	</select>
 	<select id="selectBannerByIsPosted" resultType="banner">
 		SELECT * FROM banner WHERE isPosted=1
+		order by createdAt desc
 	</select>
 </mapper>

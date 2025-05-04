@@ -21,18 +21,25 @@
 		      <label>아이디</label>
 		      <div class="readonly-text">${seller.userId }</div>
 		    </div>
+   		    <div class="form-group">
+		      <label>이름</label>
+		      <div class="readonly-text">${seller.userName }</div>
+		    </div>
 		    <div class="form-group">
 		      <label>비밀번호</label>
 		      <input type="password" value="${seller.pwd }" />
 		    </div>
 		    <div class="form-group">
-		      <label>이름</label>
-		      <div class="readonly-text">${seller.userName }</div>
-		    </div>
-		    <div class="form-group">
-		      <label>전화번호</label>
-		      <input type="text" value="${seller.phone }" />
-		    </div>
+			  <label>전화번호</label>
+			  <div class="phone-group">
+			    <input type="text" id="phone1" maxlength="3" value="${seller.phone.substring(0,3)}" />
+			    -
+			    <input type="text" id="phone2" maxlength="4" value="${seller.phone.substring(3,7)}" />
+			    -
+			    <input type="text" id="phone3" maxlength="4" value="${seller.phone.substring(7)}" />
+			  </div>
+			</div>
+		    
 		    <div class="form-group">
 		      <label>이메일</label>
 		      <input type="email" value="${seller.email }" />
@@ -56,11 +63,21 @@
 		      <label>스토어명</label>
 		      <input type="text" value="${seller.storeName }" />
 		    </div>
-		    <div class="form-group">
-		      <label>사업자 번호</label>
-		      <input type="text" placeholder="사업자 번호" value="${seller.businessNum }" />
+			<div class="form-group">
+			  <label>사업자 번호</label>
+			  <div class="biz-group">
+			    <input type="text" id="biz1" maxlength="3" value="${seller.businessNum.substring(0,3)}" readonly />
+			    -
+			    <input type="text" id="biz2" maxlength="2" value="${seller.businessNum.substring(3,5)}" readonly />
+			    -
+			    <input type="text" id="biz3" maxlength="5" value="${seller.businessNum.substring(5)}" readonly />
+			  </div>
+			</div>
+		    <div class="form-group bttn">
+		    	<button class="submit-btn" type="button" id="updateBtn">수정하기</button>
+		    	<button class="del-btn" type="button" id="deleteBtn">탈퇴하기</button>
 		    </div>
-		    <button class="submit-btn" type="submit">수정</button>
+		    
 		  </form>
     </div>
     
@@ -110,5 +127,82 @@
         }).open();
     }
 </script>
+<!-- 탈퇴 모달 -->
+	<div id="talModal" class="modal-wrapper" style="display:none;">
+		<div class="modal">
+			<p>정말 탈퇴하시겠습니까?<br>탈퇴 시 모든 정보가 사라집니다!</p>
+		    <div class="buttons">
+		        <button class="btn btn-subscribe">회원 유지</button>
+		        <button class="btn btn-cancel">탈퇴하기</button>
+		    </div>
+        </div>
+	</div>
+<script>
+document.getElementById('deleteBtn').addEventListener('click', function () {
+    document.getElementById('talModal').style.display = 'flex';
+});
+
+document.querySelector('#talModal .btn-subscribe').addEventListener('click', function () {
+    document.getElementById('talModal').style.display = 'none';
+});
+
+document.querySelector('#talModal .btn-cancel').addEventListener('click', function () {
+    fetch('${contextPath}/deleteUserBySeller', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: '${seller.userId}' })
+    })
+    .then(res => res.json())
+    .then(result => {
+        alert(result.msg);
+        if (result.redirect) {
+            location.href = result.redirect;
+        }
+    })
+    .catch(err => {
+        alert('서버 통신 중 오류가 발생했습니다.');
+        console.error(err);
+    });
+});
+
+
+/*  수정 */
+ 
+document.getElementById('updateBtn').addEventListener('click', function () {
+    const data = {
+        userId: '${seller.userId}',
+        pwd: document.querySelector('input[type="password"]').value,
+        phone: document.getElementById('phone1').value +
+               document.getElementById('phone2').value +
+               document.getElementById('phone3').value,
+        email: document.querySelector('input[type="email"]').value,
+        postCode: document.getElementById('postCode').value,
+        addr1: document.getElementById('addr1').value,
+        addr2: document.getElementById('addr2').value,
+        storeName: document.querySelector('input[value="${seller.storeName }"]').value,
+        businessNum: document.getElementById('biz1').value +
+                     document.getElementById('biz2').value +
+                     document.getElementById('biz3').value
+    };
+
+    fetch('${contextPath}/detailStoreInfo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+        location.reload();
+    })
+    .catch(err => {
+        alert('수정 중 오류가 발생했습니다.');
+        console.error(err);
+    });
+});
+
+
+
+</script>
+
 </body>
 </html>

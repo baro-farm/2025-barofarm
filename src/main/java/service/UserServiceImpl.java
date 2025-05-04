@@ -184,4 +184,17 @@ public class UserServiceImpl implements UserService{
 		userDao.deleteAdminQA(questionNum);
 		
 	}
+
+	@Override
+	public boolean updateSellerAccountInfo(Long userNum, String pwd, String phone, String email, String storeName,
+			String postCode, String addr1, String addr2) throws Exception {
+		boolean res1 = userDao.updateSellerAccountInfo(userNum, pwd, phone, email, storeName, postCode);
+		boolean res2 = addressDao.updateDefaultAddressSeller(userNum, addr1, addr2);
+		return res1 && res2;
+	}
+
+	@Override
+	public void deleteFcmToken(Long userNum) throws Exception{
+		userDao.deleteFcmToken(userNum);
+	}
 }

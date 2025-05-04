@@ -20,6 +20,8 @@ import service.admin.BannerService;
 import service.admin.BannerServiceImpl;
 import service.admin.NoticeService;
 import service.admin.NoticeServiceImpl;
+import service.seller.AdsService;
+import service.seller.AdsServiceImpl;
 import vo.ProductVO;
 
 /**
@@ -45,7 +47,7 @@ public class Main extends HttpServlet {
 		UserService uservice = new UserServiceImpl();
 		UserProductService pservice = new UserProductServiceImpl();
 		BannerService bservice = new BannerServiceImpl();
-
+		AdsService aservice = new AdsServiceImpl();
 		try {
 			// 베스트 TOP 5
 			List<ProductVO> bestProducts = pservice.getBest5();
@@ -61,6 +63,7 @@ public class Main extends HttpServlet {
 			request.setAttribute("adminQA", adminQA);
 			//메인배너 상태 변경
 			bservice.updateExpiredBannerIsPosted();
+			aservice.updateExpiredAdsStatus();
 			List<Banner> bannerList = bservice.selectBannerByIsPosted();
 			request.setAttribute("bannerList", bannerList);
 			

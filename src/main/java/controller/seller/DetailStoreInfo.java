@@ -1,5 +1,6 @@
 package controller.seller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -7,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import dto.User;
 import service.buyer.UserService;
@@ -60,8 +65,44 @@ public class DetailStoreInfo extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json; charset=UTF-8");
+
+        BufferedReader reader = request.getReader();
+        Gson gson = new Gson();
+        JsonObject json = gson.fromJson(reader, JsonObject.class);
+
+        // JSON에서 값 추출
+        String userId = json.get("userId").getAsString();
+        String pwd = json.get("pwd").getAsString();
+        String phone = json.get("phone").getAsString();
+        String email = json.get("email").getAsString();
+        String postCode = json.get("postCode").getAsString();
+        String addr1 = json.get("addr1").getAsString();
+        String addr2 = json.get("addr2").getAsString();
+        String storeName = json.get("storeName").getAsString();
+
+
+        HttpSession session = request.getSession(false);
+        User user  = (User) session.getAttribute("user");
+        Long userNum = user.getUserNum();
+        
+        service.UserService uService = new service.UserServiceImpl();
+        boolean success = false;
+        try {
+
+            if (userNum != null) {
+                // 서비스에 전달할 map 또는 DTO 구성
+                success = uService.updateSellerAccountInfo(userNum, pwd, phone, email, storeName, postCode, addr1, addr2);
+            }
+		} catch (Exception e) {
+	        e.printStackTrace();
+        }
+        
+        JsonObject result = new JsonObject();
+        result.addProperty("msg", success ? "정보가 수정되었습니다." : "수정에 실패했습니다.");
+
+        response.getWriter().write(result.toString());
 	}
 
 }
