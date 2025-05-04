@@ -6,7 +6,7 @@ import dto.admin.Notice;
 import util.PageInfo;
 
 public interface NoticeService {
-	List<Notice> allNotice() throws Exception;
+	List<Notice> allNotice(int offset, int pageSize) throws Exception;
 	void writeNotice(Notice notice) throws Exception;
 	void deleteNotice(Integer noticeNum) throws Exception;
 	Notice selectNotice(Integer noticeNum) throws Exception;
@@ -15,4 +15,5 @@ public interface NoticeService {
 	List<Notice> NoticeListByPage(PageInfo pageInfo) throws Exception;
 	List<Notice> getFixNoticeList() throws Exception;
 	Integer getNoticeCount() throws Exception;
+	Integer getNoticeCountAll() throws Exception;
 }
