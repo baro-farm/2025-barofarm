@@ -212,18 +212,15 @@
 
 
 							<c:when test="${prodOrder.deleveryStatus eq '배송중' }">
-								<button class="btn btnGreen confirmBtn">구매 확정</button>
 
 
 							</c:when>
 
 							<c:when test="${prodOrder.deleveryStatus eq '배송완료' }">
-								<button class="btn btnGreen confirmBtn">구매 확정</button>
 
 							</c:when>
 
 							<c:when test="${prodOrder.deleveryStatus eq '구매확정' }">
-							    <button class="btn btnGreen wirteReview">리뷰작성</button>
 							
 							</c:when>
 						</c:choose>

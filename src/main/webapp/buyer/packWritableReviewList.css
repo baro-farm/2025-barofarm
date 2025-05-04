@@ -12,7 +12,6 @@
 }
 
 
-
 .emptyMessage {
     text-align: center;
     padding: 50px 0;
@@ -42,6 +41,9 @@
     font-size: 14px;
     border-radius: 6px;
     border: 1px solid #ccc;
+}
+.sideMenu {
+	position: relative;
 }
 
 .title {

@@ -51,8 +51,28 @@ public class PackReviewDAOImple implements PackReviewDAO {
 	public PackReviewVO selectPackReviewDetailByReviewNum(Long pkReviewNums) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mapper.packReview.selectPackReviewDetailByReviewNum",pkReviewNums);
-		
-		
+	}
+
+	@Override
+	public Integer selectCountUserWrittenReviews(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.packReview.selectCountPackUserWrittenReviews", param);
+	}
+
+	@Override
+	public List<PackReviewVO> selectUserWrittenReviews(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.packReview.selectUserPackWrittenReviews", param);
+	}
+
+	@Override
+	public Integer selectCountUserWritableReviews(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.packReview.selectCountPackUserWritableReviews", param);
+
+	}
+
+	@Override
+	public List<PackReviewVO> selectUserWritableReviews(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.packReview.selectUserPackWritableReviews", param);
+
 	}
 
 

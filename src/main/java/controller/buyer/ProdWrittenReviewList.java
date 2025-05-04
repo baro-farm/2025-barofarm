@@ -46,6 +46,11 @@ public class ProdWrittenReviewList extends HttpServlet {
 			sessionUser = (User) session.getAttribute("user");
 		}
 		
+		if (sessionUser == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+			return;
+		}
+		
 		ProdReviewSerivce service = new ProdReviewServiceImpl();
 		List<ProdReview> prodReviewList = null;
 		try {

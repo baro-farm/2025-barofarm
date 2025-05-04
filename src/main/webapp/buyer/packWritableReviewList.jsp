@@ -3,88 +3,128 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<title>작성 가능한 리뷰</title>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet"
-	href="${contextPath}/buyer/packWritableReviewList.css">
+	<title>작성 가능한 리뷰</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link rel="stylesheet" href="${contextPath}/buyer/packWritableReviewList.css">
+	
+<script>
+  const contextPath = '${contextPath}';
+</script>
 
-
-
-
-<div class="container" id="reviewContainer" name="reviewContainer">
-
+	
+	<div class="container" id="reviewContainer" name="reviewContainer">
+	<div class="wrapper">
 
 		<div class="content1">
 			<!-- 필터 -->
 		    <div class="reviewFilter">
 		        <select id="reviewFilterPeriod" name="reviewFilterPeriod">
-		            <option value="6개월">6개월</option>
-		            <option value="1년">1년</option>
-		            <option value="전체">전체</option>
+		            <option value="1개월">1개월</option>
+		            <option value="3개월">3개월</option>
 		        </select>
-		    </div>
+		    </div>			
 			<div class="reviewList">
-				<!-- 주문 내역이 없을 때 -->
-				<c:if test="${empty prodReviewList}">
-					<div class="emptyMessage">작성 가능한 리뷰내역이 없습니다.</div>
-				</c:if>
+	           <!-- 주문 내역이 없을 때 -->
+			    <c:if test="${empty packReviewList}">
+			        <div class="emptyMessage">작성 가능한 리뷰내역이 없습니다.</div>
+			    </c:if>				
 				<!-- 작성 가능한 리뷰 반복 -->
-				<c:forEach var="prodReview" items="${prodReviewList }">
-
+				<c:forEach var="packReview" items="${packReviewList }">
+				
 					<div class="reviewBox">
-						<img class="reviewImage" src="${contextPath}${prodReview.imgUrl }"
-							alt="img">
+						<img class="reviewImage" src="${contextPath}${packReview.imgUrl }" alt="img">
 						<div class="reviewContent">
-							<div class="storeName">[${prodReview.storeName }]</div>
-							<div class="productName" style="margin-top: 10px">${prodReview.productName }</div>
-							<div class="purchaseDate" style="margin-top: 10px">${prodReview.orderdAt }</div>
-							<div class="writeDeadline" style="margin-top: 10px">작성 기한:
-								${prodReview.deadline }</div>
+							<div class="storeName">[${packReview.storeName }]</div>
+							<div class="packuctName" style="margin-top:10px">${packReview.packuctName }</div>
+							<div class="purchaseDate" style="margin-top:10px">${packReview.orderdAt }</div>
+							<div class="writeDeadline" style="margin-top:10px">작성 기한: ${packReview.deadline }</div>
 						</div>
 						<button class="reviewButton writeReviewBtn"
-							data-store-name="${prodReview.storeName }"
-							data-product-name="${prodReview.productName }"
-							data-product-num="${prodReview.productNum }"
-							data-img-url="${prodReview.imgUrl }"
-							data-user-num="${prodReview.userNum }">리뷰쓰기</button>
-
+							data-store-name="${packReview.storeName }"
+							data-packuct-name="${packReview.packuctName }"
+							data-packuct-num="${packReview.packuctNum }"
+							data-img-url="${packReview.imgUrl }"
+							data-user-num="${packReview.userNum }"
+							data-pd-order-num="${packReview.pkOrderNum }"> 리뷰쓰기</button>
+							
 					</div>
-
+					
 				</c:forEach>
-
+				
+			</div>
 			</div>
 		</div>
+<div class="pagination">
+    <!-- << -->
+    <c:choose>
+        <c:when test="${currentPage > 1}">
+            <a href="#" class="page-link" data-page="${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}">&laquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&laquo;</a>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- < -->
+    <c:choose>
+        <c:when test="${currentPage > 1}">
+            <a href="#" class="page-link" data-page="${currentPage - 1}">&lsaquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&lsaquo;</a>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- 번호 -->
+    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+        <a href="#" class="page-link ${currentPage == i ? 'active' : ''}" data-page="${i}">${i}</a>
+    </c:forEach>
+
+    <!-- > -->
+    <c:choose>
+        <c:when test="${currentPage < totalPages}">
+            <a href="#" class="page-link" data-page="${currentPage + 1}">&rsaquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&rsaquo;</a>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- >> -->
+    <c:choose>
+        <c:when test="${currentPage < totalPages}">
+            <a href="#" class="page-link" data-page="${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}">&raquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&raquo;</a>
+        </c:otherwise>
+    </c:choose>
+</div>
 	</div>
-	<div class="pagination">
-		<span class="active">1</span> <span>2</span> <span>3</span> <span>4</span>
-		<span>5</span>
-	</div>
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-	  const buttons = document.querySelectorAll(".writeReviewBtn");
+$(function () {
+	  $(".writeReviewBtn").on("click", function () {
+	    const $btn = $(this);
+	    
+	    const userNum = $.trim($btn.data("user-num"));
+	    const packuctNum = $.trim($btn.data("packuct-num"));
+	    const storeName = $.trim($btn.data("store-name"));
+	    const packuctName = $.trim($btn.data("packuct-name"));
+	    const imgUrl = $.trim($btn.data("img-url"));
+	    const pdOrderNum = $.trim($btn.data("pd-order-num"));
 
-	  buttons.forEach(button => {
-	    button.addEventListener("click", () => {
-	      const data = {
-	        userNum: button.dataset.userNum?.trim(),
-	        productNum: button.dataset.productNum?.trim(),
-	        storeName: button.dataset.storeName?.trim(),
-	        productName: button.dataset.productName?.trim(),
-	        imgUrl: button.dataset.imgUrl?.trim()
-	      };
+	    const queryString = 
+	      "userNum=" + encodeURIComponent(userNum) +
+	      "&packuctNum=" + encodeURIComponent(packuctNum) +
+	      "&storeName=" + encodeURIComponent(storeName) +
+	      "&packuctName=" + encodeURIComponent(packuctName) +
+	      "&imgUrl=" + encodeURIComponent(imgUrl)+
+	      "&pdOrderNum="+ encodeURIComponent(pdOrderNum);
 
-	      const queryString = 
-	        "userNum=" + encodeURIComponent(data.userNum)+
-	        "&productNum=" + encodeURIComponent(data.productNum) +
-	        "&storeName=" + encodeURIComponent(data.storeName) +
-	        "&productName=" + encodeURIComponent(data.productName) +
-	        "&imgUrl=" + encodeURIComponent(data.imgUrl);
-
-	      const destination = `/barofarm/insertProdReview?`+ queryString;
-	      console.log("이동할 주소:", destination);
-
-	      window.location.href = destination;
-	    });
+	    const destination = `\${contextPath}/insertPackReview?` + queryString;
+	    console.log("이동할 주소:", destination);
+	    location.href = destination;
 	  });
 	});
 </script>

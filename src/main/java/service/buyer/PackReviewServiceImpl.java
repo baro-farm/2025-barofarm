@@ -69,5 +69,43 @@ public class PackReviewServiceImpl implements PackReviewSerivce{
 		return pkReviewDao.selectPackReviewDetailByReviewNum(pkReviewNums);
 	}
 
+	@Override
+	public Integer selectCountUserWrittenReviews(Long userNum, String period) throws Exception {
+	       Map<String, Object> param = new HashMap<>();
+	       param.put("userNum", userNum);
+	       param.put("period", period);		
+		return pkReviewDao.selectCountUserWrittenReviews(param);
+	}
+
+	@Override
+	public List<PackReviewVO> selectUserWrittenReviews(Long userNum, String period, int offset, int pageSize)
+			throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("period", period);
+        param.put("offset", offset);
+        param.put("pageSize", pageSize);		
+        return pkReviewDao.selectUserWrittenReviews(param);
+	}
+
+	@Override
+	public Integer selectCountUserWritableReviews(Long userNum, String period) throws Exception {
+	       Map<String, Object> param = new HashMap<>();
+	       param.put("userNum", userNum);
+	       param.put("period", period);	
+	       return pkReviewDao.selectCountUserWritableReviews(param);
+	}
+
+	@Override
+	public List<PackReviewVO> selectUserWritableReviews(Long userNum, String period, int offset, int pageSize)
+			throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("period", period);
+        param.put("offset", offset);
+        param.put("pageSize", pageSize);		
+        return pkReviewDao.selectUserWritableReviews(param);
+	}
+
 
 }
