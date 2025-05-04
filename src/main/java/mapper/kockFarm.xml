@@ -163,6 +163,17 @@
     		</if>
 	  	GROUP BY k.kockNum, k.userNum, k.cateNum, k.title,k.content, k.createdAt, k.isMatched, c.name, m.matchingNum, m.sellerNum, s.storeName
 		ORDER BY k.createdAt DESC	
+		LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<select id="selectCountUserKockPost" parameterType="map" resultType="Integer">
+	  SELECT COUNT(*) 
+	  FROM kockfarm 
+	  WHERE userNum = #{userNum}
+	    AND createdAt >= #{startDate}
+	  <if test="isMatched != null">
+	    AND isMatched = #{isMatched}
+	  </if>
 	</select>
 	
 	<select id="selectAllKockCommentList" parameterType="map" resultType="kockCommentVo">
@@ -195,7 +206,7 @@
 	    WHERE bc.userNum = #{userNum}
   	) AS allComments
   	ORDER BY createdAt DESC
-  	LIMIT #{limit} OFFSET #{offset}
+  	 LIMIT #{pageSize} OFFSET #{offset}
 	</select>	
 	
 	<select id="countAllComments" parameterType="long" resultType="Integer">

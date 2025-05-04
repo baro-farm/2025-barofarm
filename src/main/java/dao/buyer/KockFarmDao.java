@@ -21,5 +21,6 @@ public interface KockFarmDao {
 	void insertMatching(Matching matching) throws Exception;
 	void updateKockMatched(Long kockNum) throws Exception;
 	//마이페이지
-	List<KockFarmVO> selectKockFarmPostList(Long userNum ,LocalDate startDate,Boolean isMatched) throws Exception;
+	List<KockFarmVO> selectKockFarmPostList(Map<String, Object> param) throws Exception;
+	Integer selectCountUserKockPost(Map<String,Object> param) throws Exception;
 }

@@ -26,7 +26,28 @@
 	position: relative;
 }
 
+.FilterBox {
+    display: flex;
+    justify-content: flex-end;  /* ✅ 오른쪽 정렬 */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    background-color: #fafafa;
+}
 
+.FilterBox input[type="date"],
+.FilterBox select {
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    color: #333;
+}
 .FilterBox input {
     padding: 5px;
 }
@@ -188,4 +209,9 @@
 .pagination a.active {
     background-color: #65B741;  /* ✅ 메인 그린 */
     color: white;
+}
+
+.pagination a.disabled {
+    pointer-events: none;
+    color: #ccc;
 }

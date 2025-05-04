@@ -51,14 +51,20 @@ body {
 
 .filter-section {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;  /* ✅ 오른쪽 정렬 */
+    align-items: center;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-select {
-    padding: 8px;
+.filter-section select {
+    padding: 6px 10px;
+    font-size: 14px;
+    height: 36px;                 /* ✅ 통일된 세로 길이 */
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
+    background-color: white;
+    color: #333;
     cursor: pointer;
 }
 
@@ -78,12 +84,14 @@ select {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom:5px;
 }
 
 .category {
     font-size: 14px;
     color: #666;
-    margin-top: 5px;
+    margin-bottom: 8px;
+    
 }
 
 .tag {
@@ -120,10 +128,43 @@ select {
     color: #888;
     margin-top: 10px;
 }
-a{
+.tag a{
     text-decoration: none;
     color:white;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+
+.pagination a.active {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
+}
+
 a:hover{
     color:#FFB534;
 }

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.mysql.cj.Session;
 
 import dto.buyer.ProductOrder;
 import dto.buyer.ProductOrderItem;

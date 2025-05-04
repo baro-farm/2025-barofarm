@@ -36,10 +36,8 @@
         <span>마이페이지</span>
     </div>
     <ul class="menu-list">
-        <li><a href="buyerOrderList" >주문내역 및 배송조회</a></li>
+        <li><a href="buyerOrderList" >주문내역</a></li>
         <li><a href="infoFoam">회원 정보 수정</a></li>
-
-        <li><a href="allQuestionList">상품 문의</a></li>
         
         <li class="dropdown">
             <a style="text-decoration: none;">리뷰</a>

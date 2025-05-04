@@ -56,34 +56,47 @@ public class KockFarmCommentList extends HttpServlet {
 		KockCommentService service = new KockCommentServiceImpl();
 		List<KockCommentVO> kockCommentList = new ArrayList<>();
 		
+		int page = 1;
+		int pageSize = 10; // ✅ 한 페이지 10개
+		int totalCount = 0;
+		
 		try {
-			int currentPage=1;
-			int limit = 15;
+
+			Long userNum=userService.selectUserNumByUserId(sessionUser.getUserId());
+			totalCount = service.selectCountAllComment(userNum);
 			
-			String pageParam=request.getParameter("page");
-			if (pageParam != null) {
-			    try {
-			        currentPage = Integer.parseInt(pageParam);
-			        if (currentPage < 1) currentPage = 1; // 최소 1페이지 보장
-			    } catch (NumberFormatException e) {
-			        currentPage = 1;
-			    }
+			if(request.getParameter("page")!= null) {
+				page=Integer.parseInt(request.getParameter("page"));
 			}
 			
-			Long userNum=userService.selectUserNumByUserId(sessionUser.getUserId());
+			int totalPages=(int)Math.ceil((double)totalCount/pageSize);
 			
-			int totalCommentCount = service.selectCountAllComment(userNum);
-			int maxPage=(int)Math.ceil((double)totalCommentCount/limit);
-			int offset = (currentPage-1)*limit;
-			if (offset < 0) offset = 0;
+			if (page > totalPages && totalPages > 0) {
+		        page = totalPages;
+		    }
+		    if (page <= 0) {
+		        page = 1;  // 페이지가 0 이하일 경우
+		    }
+
+		    int offset = (page - 1) * pageSize;
 			
-			kockCommentList=service.selectUserMyCommentList(userNum, limit, offset);
+						
+			kockCommentList=service.selectUserMyCommentList(userNum, pageSize, offset);
 			
+			int pageGroupSize = 5;
+			int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
+			int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;
+			int groupEndPage = Math.min(groupStartPage + pageGroupSize - 1, totalPages);
+		
 			request.setAttribute("kockCommentList", kockCommentList);
-			request.setAttribute("currentPage", currentPage);
-			request.setAttribute("maxPage", maxPage);
-			request.setAttribute("totalCommentCount", totalCommentCount);
-	        request.getRequestDispatcher("/buyer/kockFarmCommentList.jsp").forward(request, response);
+			request.setAttribute("groupStartPage", groupStartPage);
+			request.setAttribute("groupEndPage", groupEndPage);
+			request.setAttribute("totalPages", totalPages);
+			request.setAttribute("currentPage", page);
+			request.setAttribute("currentGroup", currentGroup);
+			request.setAttribute("pageGroupSize", pageGroupSize);
+
+			request.getRequestDispatcher("/buyer/kockFarmCommentList.jsp").forward(request, response);
 
 		}catch(Exception e) {
 			e.printStackTrace();

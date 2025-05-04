@@ -111,33 +111,6 @@
 		    });
 		  });
 		  
-		  // 페이징 클릭 처리
-		  $(document).on('click', '.page-link', function (e) {
-		    e.preventDefault(); // 링크 기본 동작 막기
-
-		    const page = $(this).data("page");
-		    const startDate = $('#searchStartDate').val();
-		    const endDate = $('#searchEndDate').val();
-		    const deliveryStatus = $('#deliveryStatus').val();
-
-		    $.ajax({
-		      url: '${contextPath}/prodOrderList',
-		      type: 'GET',
-		      data: {
-		        searchStartDate: startDate,
-		        searchEndDate: endDate,
-		        deliveryStatus: deliveryStatus,
-		        page: page
-		      },
-		      success: function (data) {
-		        $('.orderList').html($(data).find('.orderList').html());
-		        $('.pagination').html($(data).find('.pagination').html());
-		      },
-		      error: function () {
-		        alert("페이지 이동 실패");
-		      }
-		    });
-		  });
 		  
 		  let selectedCancelOrderNum = null;
 		  $(document).on("click", ".orderCancle", function () {
@@ -263,50 +236,80 @@
 	</div>
 </div>
 
-<c:set var="startPage" value="${page - 2}" />
-<c:set var="endPage" value="${page + 2}" />
-
-<c:if test="${startPage < 1}">
-    <c:set var="endPage" value="${endPage + (1 - startPage)}" />
-    <c:set var="startPage" value="1" />
-</c:if>
-
-<c:if test="${endPage > totalPages}">
-    <c:set var="startPage" value="${startPage - (endPage - totalPages)}" />
-    <c:set var="endPage" value="${totalPages}" />
-</c:if>
-
-<c:if test="${startPage < 1}">
-    <c:set var="startPage" value="1" />
-</c:if>
-
 <div class="pagination">
     <!-- << -->
-    <c:if test="${currentPage > 1}">
-        <a href="#" class="page-link" data-page="${currentPage - pageGroupSize > 0 ? currentPage - pageGroupSize : 1}">&laquo;</a>
-    </c:if>
+    <c:choose>
+        <c:when test="${currentPage > 1}">
+            <a href="#" class="page-link" data-page="${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}">&laquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&laquo;</a>
+        </c:otherwise>
+    </c:choose>
 
     <!-- < -->
-    <c:if test="${currentPage > 1}">
-        <a href="#" class="page-link" data-page="${currentPage - 1}">&lsaquo;</a>
-    </c:if>
+    <c:choose>
+        <c:when test="${currentPage > 1}">
+            <a href="#" class="page-link" data-page="${currentPage - 1}">&lsaquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&lsaquo;</a>
+        </c:otherwise>
+    </c:choose>
 
     <!-- 번호 -->
-    <c:forEach begin="${startPage}" end="${endPage}" var="i">
+    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
         <a href="#" class="page-link ${currentPage == i ? 'active' : ''}" data-page="${i}">${i}</a>
     </c:forEach>
 
     <!-- > -->
-    <c:if test="${currentPage < totalPages}">
-        <a href="#" class="page-link" data-page="${currentPage + 1}">&rsaquo;</a>
-    </c:if>
+    <c:choose>
+        <c:when test="${currentPage < totalPages}">
+            <a href="#" class="page-link" data-page="${currentPage + 1}">&rsaquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&rsaquo;</a>
+        </c:otherwise>
+    </c:choose>
 
     <!-- >> -->
-    <c:if test="${currentPage < totalPages}">
-        <a href="#" class="page-link" data-page="${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}">&raquo;</a>
-    </c:if>
+    <c:choose>
+        <c:when test="${currentPage < totalPages}">
+            <a href="#" class="page-link" data-page="${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}">&raquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&raquo;</a>
+        </c:otherwise>
+    </c:choose>
 </div>
+<script>
+$(document).on('click', '.pagination a', function (e) {
+    e.preventDefault();
+    const page = $(this).data('page');
+    const startDate = $('#searchStartDate').val();
+    const endDate = $('#searchEndDate').val();
+    const deliveryStatus = $('#deliveryStatus').val();
 
+    $.ajax({
+      url: '${contextPath}/prodOrderList',
+      type: 'GET',
+      data: {
+        searchStartDate: startDate,
+        searchEndDate: endDate,
+        deliveryStatus: deliveryStatus,
+        page: page
+      },
+      success: function (data) {
+        const $response = $('<div>').html(data);
+        $('.orderList').html($response.find('.orderList').html());
+        $('.pagination').html($response.find('.pagination').html());
+      },
+      error: function () {
+        alert("페이지 요청 실패");
+      }
+    });
+  });
+</script>
 <!-- 모달 -->
 <div id="confirmModal" class="prodModal" style="display: none;">
 	<div class="modalContent">

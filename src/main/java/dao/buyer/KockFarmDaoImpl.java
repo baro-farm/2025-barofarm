@@ -65,12 +65,15 @@ public class KockFarmDaoImpl implements KockFarmDao {
 	}
 
 	@Override
-	public List<KockFarmVO> selectKockFarmPostList(Long userNum,LocalDate startDate,Boolean isMatched) throws Exception {
-		Map<String, Object> param = new HashMap<>();
-		param.put("userNum", userNum);
-		param.put("startDate", startDate);
-		param.put("isMatched", isMatched);		
+	public List<KockFarmVO> selectKockFarmPostList(Map<String, Object> param) throws Exception {
+
 		return sqlSession.selectList("mapper.kockFarm.selectKockFarmPostList", param);
+	}
+
+	@Override
+	public Integer selectCountUserKockPost(Map<String, Object> param) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.kockFarm.selectCountUserKockPost",param);
 	}
 
 }

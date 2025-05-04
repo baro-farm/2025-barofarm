@@ -42,20 +42,15 @@
 		    window.location.href = '${contextPath}/insertProduct';
 		});
 		
-		//수정버튼 눌렀을 때. 체크박스는 1개만 가능
+		//수정버튼 눌렀을 때. 
 		 $('.btn.edit').on('click', function() {
-		        const $checked = $('#notice_table tbody input[type="checkbox"]:checked');
-		        if ($checked.length === 0) {
-		            alert('수정할 상품을 선택해주세요.');
-		            return;
-		        }
-		        if ($checked.length > 1) {
-		            alert('하나의 상품만 선택해주세요.');
-		            return;
-		        }
-		        const productNum = $checked.closest('tr').find('.productNum a').text().trim();
-		        window.location.href = `${contextPath}/updateProduct?productNum=\${productNum}`;
-		    });
+			    const productNum = $(this).data('productnum');
+			    if (productNum) {
+			        window.location.href = `${contextPath}/updateProduct?productNum=\${productNum}`;
+			    } else {
+			        alert("상품 번호를 찾을 수 없습니다.");
+			    }
+		});
 		
 		
 	    // +, - 버튼 클릭 이벤트
@@ -104,37 +99,32 @@
 	    });
 	    
 	 // 상태변경 버튼 클릭(여러개 선택 가능)
-	    $('.btn.delete').on('click', function() {
-	        const $checked = $('#notice_table tbody input[type="checkbox"]:checked');
-	        if ($checked.length === 0) {
-	            alert('상태를 변경할 상품을 선택해주세요.');
-	            return;
-	        }
-
-	        // 선택된 상품들의 productNum과 status 수집
-	        let products = [];
-	        $checked.each(function() {
-	            const $row = $(this).closest('tr');
-	            const productNum = $row.find('.productNum a').text().trim();
-	            const statusText = $row.find('.status').text().trim();
-	            const currentStatus = (statusText === '판매중') ? true : false;
-
-	            // ✅ 상태 반전 (true → false, false → true)
-	            const newStatus = !currentStatus;
-
-	            products.push({ productNum: productNum, status: newStatus });
-	        });
+	    $('.status-toggle').on('click', function() {
+	    	const $el = $(this);
+	        const productNum = $el.data('productnum');
+	        const currentStatus = $el.data('status'); // true / false
+	        const newStatus = !currentStatus;
 
 	        // 서버로 전송 (JSON)
 	        $.ajax({
 	            url: '${contextPath}/updateProdStatus',
 	            method: 'POST',
 	            contentType: 'application/json',
-	            data: JSON.stringify(products),
+	            data:  JSON.stringify([{ productNum: productNum, status: newStatus }]),
 	            success: function(response) {
 	                if (response === 'success') {
 	                    alert('상태가 변경되었습니다');
-	                    location.reload();  // 새로고침으로 반영
+	                    const $container = $el.closest('td');
+	                    const $indicator = $container.find('div'); // 상태 표시용 div
+	                    // 텍스트 및 클래스 갱신
+	                    if (newStatus) {
+	                        $el.text('판매중').data('status', true);
+	                        $indicator.removeClass('red').addClass('green');
+	                    } else {
+	                        $el.text('판매중단').data('status', false);
+	                        $indicator.removeClass('green').addClass('red');
+
+	                    }
 	                } else {
 	                    alert('상태 변경 실패!');
 	                }
@@ -145,24 +135,6 @@
 	        });
 	    });
 	    
-	    
-	    // 1️ 헤더(전체선택) 체크박스 클릭
-	    $('.selectAll').on('change', function() {
-	        const isChecked = $(this).is(':checked');
-	        $('.rowCheck').prop('checked', isChecked);  // 하위 체크박스 전부 체크/해제
-	    });
-
-	    // 2️ 하위 체크박스 클릭 시 → 헤더 체크박스 상태 갱신
-	    $('#notice_table').on('change', '.rowCheck', function() {
-	        const total = $('.rowCheck').length;
-	        const checked = $('.rowCheck:checked').length;
-
-	        if (total === checked) {
-	            $('.selectAll').prop('checked', true);  // 모두 체크됐으면 헤더도 체크
-	        } else {
-	            $('.selectAll').prop('checked', false); // 하나라도 풀렸으면 헤더 해제
-	        }
-	    });
 	    
 	});
 	</script>
@@ -183,33 +155,37 @@
 
         
 		<div class="filterWrapper">
-		    <form id="sortForm" method="get" action="${contextPath}/sellerProductList">
-		       	<select name="sellStat" id="sellStat" onchange="this.form.submit()">
-		            <option value="all" ${param.sellStat == 'all' ? 'selected' : ''}>전체</option>
-		            <option value="sales" ${param.sellStat == 'sales' ? 'selected' : ''}>판매중</option>
-		            <option value="salesStop" ${param.sellStat == 'salesStop' ? 'selected' : ''}>판매중단</option>
-		        </select>
-		        <select name="sort" id="sortSelect" onchange="this.form.submit()">
-		            <option value="new" ${param.sort == 'new' ? 'selected' : ''}>최신등록순</option>
-		            <option value="lowPrice" ${param.sort == 'lowPrice' ? 'selected' : ''}>낮은가격순</option>
-		            <option value="highPrice" ${param.sort == 'highPrice' ? 'selected' : ''}>높은가격순</option>
-		            <option value="sales" ${param.sort == 'sales' ? 'selected' : ''}>누적판매순</option>
-		            <option value="reviewCount" ${param.sort == 'reviewCount' ? 'selected' : ''}>리뷰많은순</option>
-		            <option value="rating" ${param.sort == 'rating' ? 'selected' : ''}>평점높은순</option>
-		        </select>
+		       	<div class="actions leftSection">
+					<button class="btn add">상품등록</button>
+				</div>
+				<div class="rightSection">
+				    <form id="sortForm" method="get" action="${contextPath}/sellerProductList">
+		
+				       	<select name="sellStat" id="sellStat" onchange="this.form.submit()">
+				            <option value="all" ${param.sellStat == 'all' ? 'selected' : ''}>전체</option>
+				            <option value="sales" ${param.sellStat == 'sales' ? 'selected' : ''}>판매중</option>
+				            <option value="salesStop" ${param.sellStat == 'salesStop' ? 'selected' : ''}>판매중단</option>
+				        </select>
+				        <select name="sort" id="sortSelect" onchange="this.form.submit()">
+				            <option value="new" ${param.sort == 'new' ? 'selected' : ''}>최신등록순</option>
+				            <option value="lowPrice" ${param.sort == 'lowPrice' ? 'selected' : ''}>낮은가격순</option>
+				            <option value="highPrice" ${param.sort == 'highPrice' ? 'selected' : ''}>높은가격순</option>
+				            <option value="sales" ${param.sort == 'sales' ? 'selected' : ''}>누적판매순</option>
+				            <option value="reviewCount" ${param.sort == 'reviewCount' ? 'selected' : ''}>리뷰많은순</option>
+				            <option value="rating" ${param.sort == 'rating' ? 'selected' : ''}>평점높은순</option>
+				        </select>
 
 		    </form>
+		    </div>
 		</div>
 		<div class="tableWrapper">
-				<div class="actions">
-					<button class="btn add">상품등록</button>
-				</div>		
+		
 		<table id="notice_table" class="table">
 				<thead>
 		          <tr>
-		            <th style="font-weight: bold;">상품번호</th>
-		            <th style="font-weight: bold;">상품명</th>
-		            <th style="font-weight: bold;">카테고리</th>
+		            <th style="font-weight: bold;">품번</th>
+		           	<th style="font-weight: bold;">카테고리</th>
+		            <th style="font-weight: bold;" colspan="2">상품명</th>
 		            <th style="font-weight: bold;">가격</th>	            
 		           	<th style="font-weight: bold;">상품상태</th>
 		          	<th style="font-weight: bold;">옵션</th>
@@ -219,7 +195,6 @@
 		            <th style="font-weight: bold;">리뷰건수</th>
 		          	<th style="font-weight: bold;">리뷰평균</th>
 		          	<th style="font-weight: bold;">등록일자</th>
-		          	<th style="font-weight: bold;"></th>
 		          	
 		          	
 		          </tr>
@@ -230,17 +205,24 @@
 		          		<tr data-productnum="${product.productNum }">
 		          			<c:if test="${status.first }">
 					          <td rowspan="${fn:length(product.optionList)}" class="productNum"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productNum}</a></td>
-					          <td rowspan="${fn:length(product.optionList)}"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productName}</a></td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.cateName}</td>
+					          <td rowspan="${fn:length(product.optionList)}"><a href="${contextPath }/detailProduct?productNum=${product.productNum}">${product.productName}</a></td>
+					          					        <c:if test="${status.first }">
+					          <td rowspan="${fn:length(product.optionList)}" ><button class="btn edit" data-productnum="${product.productNum}">수정</button></td>		          		
+		          			</c:if>
 					          <td rowspan="${fn:length(product.optionList)}">${product.price}원</td>
 					          <td rowspan="${fn:length(product.optionList)}">		          			
 							     <c:choose>
 					              <c:when test="${product.status == true}">
-					                <span class="status on-sale">판매중</span>
+					                <div class="${product.status == true ? 'green' : 'red' }"></div>
+					                <span class="status  status-toggle" data-productnum="${product.productNum}" data-status="true">판매중</span>
 					              </c:when>
 					              <c:otherwise>
-					                <span class="status stopped">판매중단</span>
-					              </c:otherwise>
+					              <div class="${product.status == false ? 'red' : 'green'}"></div>
+								    <span class="status  status-toggle "
+								          data-productnum="${product.productNum}"
+								          data-status="false">판매중단</span>		
+								  </c:otherwise>
 					            </c:choose>
 					          </td>
 					        </c:if>      			
@@ -270,9 +252,7 @@
 					          </td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.createdAt}</td>
 					        </c:if>
-					        <c:if test="${status.first }">
-					          <td rowspan="${fn:length(product.optionList)}" ><button class="btn edit">수정</button></td>		          		
-		          			</c:if>
+
 		          		</tr>
 	                </c:forEach>
 		         </c:forEach>
@@ -299,14 +279,12 @@
 		
 		<div class="pagination">		    
 		    <!-- << 현재 페이지 - 5 -->
-			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&laquo;</a>
-			</c:if>
+				<a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}"
+				class="${currentPage <= pageGroupSize ? 'disabled' : ''}">&laquo;</a>
 			
 			<!-- < 이전 페이지 -->
-			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - 1}&sellStat=${param.sellStat}&sort=${param.sort}">&lsaquo;</a>
-			</c:if>
+				<a href="?page=${currentPage - 1}&sellStat=${param.sellStat}&sort=${param.sort}"
+				class="${currentPage == pageGroupSize ? 'disabled' : ''}">&lsaquo;</a>
 			
 			<!-- 페이지 번호 -->
 			<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
@@ -314,15 +292,13 @@
 			</c:forEach>
 			
 			<!-- > 다음 페이지 -->
-			<c:if test="${currentPage < totalPages}">
-			    <a href="?page=${currentPage + 1}&sellStat=${param.sellStat}&sort=${param.sort}">&rsaquo;</a>
+			    <a href="?page=${currentPage + 1}&sellStat=${param.sellStat}&sort=${param.sort}"
+			     class="${currentPage >= totalPages ? 'disabled' : ''}">&rsaquo;</a>
 
-			</c:if>
 			
 			<!-- >> 현재 페이지 + 5 -->
-			<c:if test="${currentPage < totalPages}">
-			    <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&raquo;</a>
-			</c:if>
+			    <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}"
+			     class="${groupEndPage >= totalPages ? 'disabled' : ''}">&raquo;</a>
 		</div>
 		
     </div>

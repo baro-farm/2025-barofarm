@@ -86,7 +86,8 @@
 		    ps.subStartDate,
 		    ps.subRound, 
 		    po.deleveryStatus,          
-		    po.trackingNum
+		    po.trackingNum,
+		    po.orderedAt
 		FROM 
 		    packageOrder po
 		JOIN 
