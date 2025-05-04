@@ -43,7 +43,7 @@
 			</div>
 
 
-      <div class=tableWrapper>
+	<div class="tableWrapper">
       <table id="banner-table" class="table">
           <thead>
               <tr>

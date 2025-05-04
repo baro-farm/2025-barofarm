@@ -10,8 +10,12 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>광고 관리</title>
+		<link rel="stylesheet" href="${contextPath}/header/reset.css">
+	
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="${contextPath}/admin/adminAdsList.css" />
+    	<link rel="stylesheet" href="${contextPath }/common/modal.css">
+ 
 </head>
 <body>
 	<jsp:include page="/header/adminHeader.jsp" />
@@ -19,13 +23,11 @@
 			<jsp:include page="/header/adminSellerTop.jsp" />
     </header>
     <div id="content">
-			<div>
-				<div class="pkHeader">
-					<span id="title">배너 관리</span>
-				</div>
-				<!-- 	        	<p class="subtitle">배너 광고 내역</p>
- -->	   	        <!-- 탭 버튼 -->
- 					<div id="searchAndPagingWrapper" style="display: none;">
+				<div class="hh">
+					<div class="pkHeader">
+						<span id="title">배너 관리</span>
+					</div>
+ 					<div id="searchAndPagingWrapper" class="selectBox" style="display: none;">
 					 <form method="get" action="${contextPath}/adminAdsList" style="margin-bottom: 20px;">
 						  <select name="searchType">
 						    <option value="store" ${param.searchType == 'store' ? 'selected' : ''}>스토어명</option>
@@ -39,7 +41,7 @@
 						  <button type="submit">검색</button>
 						</form>
 					</div>
- 
+				</div>
 				<div class="tab-buttons">
 				  <button class="tab-btn ${activeTab == 'in-progress' ? 'active' : ''}" data-tab="in-progress">진행 광고 목록</button>
 				  <button class="tab-btn ${activeTab == 'application' ? 'active' : ''}" data-tab="application">종료된 광고 목록</button>
@@ -68,7 +70,7 @@
 							<tr>
 			                    <td>${status.count }</td>
 							    <td>${post.storeName}</td>
-							    <td><img src="kockImg?imgUrl=${post.imgUrl }" alt="이미지" width="50" /></td>
+							    <td><img src="kockImg?imgUrl=${post.imgUrl }" alt="이미지" width="50px" class="product-img" /></td>
 			                    <fmt:parseDate value="${post.startDate}" pattern="yyyy-MM-dd" var="startDate"/>
 			                    <fmt:parseDate value="${post.endDate}" pattern="yyyy-MM-dd" var="endDate"/>
 			                    <td class="startD"><fmt:formatDate value="${startDate }" pattern="yyyy-MM-dd"/></td>		                    
@@ -111,7 +113,7 @@
 		                    <td>${status.count }</td>
 						    <td>${ad.storeName}</td>
 						    <td>${ad.title}</td>
-						    <td><img src="kockImg?imgUrl=${ad.imgUrl }" alt="이미지" width="50" /></td>
+						    <td><img src="kockImg?imgUrl=${ad.imgUrl }" alt="이미지" width="50px" class="product-img"  /></td>
 		                    <fmt:parseDate value="${ad.startDate}" pattern="yyyy-MM-dd" var="startDate"/>
 		                    <fmt:parseDate value="${ad.endDate}" pattern="yyyy-MM-dd" var="endDate"/>
 		                    <td><fmt:formatDate value="${startDate }" pattern="yyyy-MM-dd"/></td>		                    
@@ -129,7 +131,7 @@
 		          </table>
 		        </div>
 		        
-				<div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
+				<div class="pagination" id="pagingArea" >
 				  <c:if test="${pi.startPage > 1}">
 				    <a href="?page=${pi.startPage - 1}&tab=application&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
 				  </c:if>
@@ -143,7 +145,6 @@
 				    <a href="?page=${pi.endPage + 1}&tab=application&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&raquo;</a>
 				  </c:if>
 				</div>
-		        </div>
 		        <!-- 🔽 메인 배너 관리 -->
 		        <div class="banner-section" id="bannerSection">
 					<div class="pkHeader" style="margin-top: 60px;">
@@ -156,21 +157,27 @@
 					<div class="banner-add-section" id="openBannerModal" style="text-align: right; margin-bottom: 10px; display: ${fn:length(bannerList) < 5 ? 'block' : 'none'};">
 					    <button class="banner-add-btn">배너 추가</button>
 					  </div>
+				  <div class="">
 					<table class="table banner-table">
 					  <thead>
 					    <tr>
 					      <th>순번</th>
-					      <th>이미지파일</th>
+   					      <th>이미지파일</th>
 					      <th>배너명</th>
 					      <th>등록일</th>
    					      <th>삭제</th>
 					    </tr>
 					  </thead>
 					  <tbody>
+					  <c:if test="${empty bannerList}">
+						  <tr>
+						    <td colspan="8" style="text-align: center;">조회된 결과가 없습니다.</td>
+						  </tr>
+						</c:if>
 		            	<c:forEach var="bn" items="${bannerList }" varStatus="status">
 			                <tr>
 			                    <td>${status.count }</td>
-						    	<td><img src="kockImg?imgUrl=${bn.imgUrl }" alt="이미지" width="50" /></td>
+   			                    <td><img src="kockImg?imgUrl=${bn.imgUrl }" alt="이미지" width="50px" class="product-img" /></td>
 			                    <td>${bn.title }</td>
 			                    <fmt:parseDate value="${bn.createdAt}" pattern="yyyy-MM-dd" var="createdDate"/>
 			                    <td><fmt:formatDate value="${createdDate }" pattern="yyyy-MM-dd"/></td>
@@ -179,6 +186,7 @@
 		                </c:forEach>
 					  </tbody>
 					</table>
+				</div>
 		        </div> <!-- 배너관리 -->
 		        
     </div> <!-- container -->
@@ -197,7 +205,7 @@
 	  // ✅ 페이지 진입 시 초기 상태 세팅
 	  if (currentTab === "application") {
 	    searchArea.style.display = "block";
-	    pagingArea.style.display = "block";
+	    //pagingArea.style.display = "block";
 	    if (bannerSection) bannerSection.style.display = "none";
 	  } else {
 	    searchArea.style.display = "none";
@@ -357,7 +365,7 @@
 	
 	    if (bannerList.length === 0) {
 	      const tr = document.createElement("tr");
-	      tr.innerHTML = `<td colspan="4" style="text-align:center;">등록된 배너가 없습니다.</td>`;
+	      tr.innerHTML = `<td colspan="5" style="text-align:center;">등록된 배너가 없습니다.</td>`;
 	      tbody.appendChild(tr);
 	      return;
 	    }
@@ -503,5 +511,42 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 </script> <!-- 진행광고 상태변경 -->
+
+<!-- 이미지 모달 -->
+<div id="imgModal" class="modal-wrapper" style="display:none;">
+	<div class="modal">
+	  <div id="imgModalContent">
+	    <span id="closeImgModal" style="cursor:pointer; float: right;">❌</span>
+	    <img id="modalImage" src="" style="max-width: 100%; height: auto; margin-top: 20px;" />
+	  </div>
+	</div>
+</div>
+<script> 
+document.addEventListener("DOMContentLoaded", function () {
+  // 이미지 클릭 → 모달에 원본 표시
+  document.querySelectorAll(".product-img").forEach(function(img) {
+    img.addEventListener("click", function () {
+      const modal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("modalImage");
+      modalImg.src = this.src.replace("width=100px", "");
+      modal.style.display = "flex";
+    });
+  });
+
+  // 닫기 버튼 클릭 시 모달 닫기
+  document.getElementById("closeImgModal").addEventListener("click", function () {
+    document.getElementById("imgModal").style.display = "none";
+  });
+
+  // 모달 외부 클릭 시 닫기
+  document.getElementById("imgModal").addEventListener("click", function (e) {
+    const modalContent = document.getElementById("imgModalContent");
+    if (!modalContent.contains(e.target)) {
+      this.style.display = "none";
+    }
+  });
+});
+</script>
+
 </body>
 </html>
