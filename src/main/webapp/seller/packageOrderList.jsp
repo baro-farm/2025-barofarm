@@ -28,11 +28,6 @@
             const modalContent = $("#modal .modalContent");
             console.log("page load");
            
-            //테이블 체크 박스 눌렀을때 전체 체크박스 선택
-            $("thead input[type='checkbox']").on("click", function () {
-                let isChecked = $(this).prop("checked");
-                $("tbody input[type='checkbox']").prop("checked", isChecked);
-            });
             
             // 주문번호 클릭 시 AJAX로 상세 페이지 불러오기
             $(document).on("click", ".orderNum", function (event) {
@@ -101,38 +96,7 @@
                     }
                 });
             });
-         
-            // 송장번호 적용 버튼 클릭 시
-            $(document).on("click", ".trackingBtn", function () {
-                const $row = $(this).closest("tr");
-                const pkOrderNum = $row.find(".orderNum").data("pkordernum");
-                console.log(pkOrderNum);
-                const trackingNum = $row.find(".trackingInput").val();
-
-                $.ajax({
-                    url: "${contextPath}/updatePackTrackNum",
-                    method: "POST",
-                    dataType: "json",
-                    data:{
-                    	pkOrderNum: pkOrderNum,
-                        trackingNum: trackingNum
-                    },
-                    success: function (response) {
-                        if (response.success === true) {
-                            alert("송장번호가 저장 되었습니다");
-                            location.reload();  // 새로고침으로 반영
-                        } else {
-                            alert("변경 실패");
-                        }
-                    },
-                    error: function () {
-                        alert("서버 오류 발생");
-                    }
-                });
-            });
-            
-         
-            
+      
         });
     </script>
 </head>
@@ -146,7 +110,7 @@
     
     <div id="content">
         <div class="notice-header">
-            <span id="title">상품 주문 관리</span>
+            <span id="title">꾸러미 주문 관리</span>
         </div>
         
 <div class="filterBox">
@@ -157,7 +121,6 @@
 	      <label>조회기간</label>
 	      <select name="dateType">
 	        <option value="paymentDate" ${param.dateType == 'paymentDate' ? 'selected' : ''}>결제일</option>
-	        <option value="shippingDate" ${param.dateType == 'shippingDate' ? 'selected' : ''}>발송처리일</option>
 	      </select>
 	    </div>
 	    <div class="buttonGroup">
@@ -178,19 +141,16 @@
 	      <label>배송요일</label>
 	      <select name="deliveryDay" id="deliveryDay">
 	        <option value="" ${empty param.deliveryDay ? 'selected' : ''}>전체</option>
-	        <option value="MONDAY" ${param.deliveryDay == 'MONDAY' ? 'selected' : ''}>월요일</option>
-	        <option value="TUESDAY" ${param.deliveryDay == 'TUESDAY' ? 'selected' : ''}>화요일</option>
-	        <option value="WEDNESDAY" ${param.deliveryDay == 'WEDNESDAY' ? 'selected' : ''}>수요일</option>
-	        <option value="THURSDAY" ${param.deliveryDay == 'THURSDAY' ? 'selected' : ''}>목요일</option>
-	        <option value="FRIDAY" ${param.deliveryDay == 'FRIDAY' ? 'selected' : ''}>금요일</option>
-	        <option value="SATURDAY" ${param.deliveryDay == 'SATURDAY' ? 'selected' : ''}>토요일</option>
-	        <option value="SUNDAY" ${param.deliveryDay == 'SUNDAY' ? 'selected' : ''}>일요일</option>
+	        <option value="월" ${param.deliveryDay == '월' ? 'selected' : ''}>월요일</option>
+	        <option value="화" ${param.deliveryDay == '화' ? 'selected' : ''}>화요일</option>
+	        <option value="수" ${param.deliveryDay == '수' ? 'selected' : ''}>수요일</option>
+	        <option value="목" ${param.deliveryDay == '목' ? 'selected' : ''}>목요일</option>
+	        <option value="금" ${param.deliveryDay == '금' ? 'selected' : ''}>금요일</option>
+	        <option value="토" ${param.deliveryDay == '토' ? 'selected' : ''}>토요일</option>
+	        <option value="일" ${param.deliveryDay == '일' ? 'selected' : ''}>일요일</option>
 	      </select>
 	    </div>
-	    <!-- 검색 버튼 -->
-	    <div class="filterGroup">
-	      <button type="submit" class="searchBtn">검색</button>
-	    </div>
+
 	  </div>
 	
 	  <!-- 오른쪽: 상세조건 -->
@@ -207,7 +167,10 @@
 	    </div>
 	    <input type="text" name="searchKeyword" placeholder="검색어 입력" value="${param.searchKeyword}">
 	  </div>
-    
+    	    <!-- 검색 버튼 -->
+	    <div class="filterGroup">
+	      <button type="submit" class="searchBtn">검색</button>
+	    </div>
   </form>
 </div>
 		
@@ -249,7 +212,6 @@
 		            <th style="font-weight: bold;">구독시작일</th>
 		            <th style="font-weight: bold;">회차정보</th>
 		            <th style="font-weight: bold;">배송상태</th>
-		            <th style="font-weight: bold;">송장번호</th>	          	
 		          </tr>
 	            </thead>
 	            <tbody>
@@ -299,18 +261,6 @@
 				                
 				            </div>
 				        </td>
-				        <td class="uiGridCell trackingNumCell">
-						  <c:choose>
-						    <c:when test="${order.deleveryStatus == '배송중' && empty order.trackingNum}">
-						      <input type="text" class="trackingInput" maxlength="16" inputmode="numeric" placeholder="송장번호 입력" style="width:130px;">
-						      <button class="trackingBtn">적용</button>
-						      
-						    </c:when>
-						    <c:otherwise>
-						      <span class="trackingNum">${order.trackingNum}</span>
-						    </c:otherwise>
-						  </c:choose>
-						</td>
 				    </tr>
 				</c:forEach>
 
@@ -318,7 +268,8 @@
 	
 	        </table>
 		</div>
-		        <c:set var="startPage" value="${page - 2}" />
+		
+		<c:set var="startPage" value="${page - 2}" />
 		<c:set var="endPage" value="${page + 2}" />
 		
 		<c:if test="${startPage < 1}">
@@ -335,34 +286,29 @@
 		    <c:set var="startPage" value="1" />
 		</c:if>
 		
-		<div class="pagination">		    
-		    <!-- << 현재 페이지 - 5 -->
-		    <c:if test="${currentPage > 1}">
-		        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&laquo;</a>
-		    </c:if>
-		    
-		    <!-- < 이전 페이지 -->
-		    <c:if test="${currentPage > 1}">
-		        <a href="?page=${currentPage - 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&lsaquo;</a>
-		    </c:if>
-		    
-		    <!-- 페이지 번호 -->
-		    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
-		        <a href="?page=${i}&dateType=${empty param.dateType ? '' : param.dateType}&startDate=${empty param.startDate ? '' : param.startDate}&endDate=${empty param.endDate ? '' : param.endDate}&searchType=${empty param.searchType ? '' : param.searchType}&searchKeyword=${empty param.searchKeyword ? '' : param.searchKeyword}"
-		        class="${currentPage == i ? 'active' : ''}">${i}</a>
-		    </c:forEach>
-		    
-		    <!-- > 다음 페이지 -->
-		    <c:if test="${currentPage < totalPages}">
-		        <a href="?page=${currentPage + 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&rsaquo;</a>
-		    </c:if>
-		    
-		    <!-- >> 현재 페이지 + 5 -->
-		    <c:if test="${currentPage < totalPages}">
-		        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">&raquo;</a>
-		    </c:if>
-		</div>
-    </div>
+	<div class="pagination">
+	    <!-- << 그룹 처음 -->
+	    <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+	       class="${currentPage <= pageGroupSize ? 'disabled' : ''}">&laquo;</a>
+	
+	    <!-- < 이전 -->
+	    <a href="?page=${currentPage - 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+	       class="${currentPage == 1 ? 'disabled' : ''}">&lsaquo;</a>
+	
+	    <!-- 페이지 번호 -->
+	    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+	        <a href="?page=${i}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+	           class="${currentPage == i ? 'active' : ''}">${i}</a>
+	    </c:forEach>
+	
+	    <!-- > 다음 -->
+	    <a href="?page=${currentPage + 1}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+	       class="${currentPage >= totalPages ? 'disabled' : ''}">&rsaquo;</a>
+	
+	    <!-- >> 그룹 끝 -->
+	    <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&dateType=${param.dateType}&startDate=${param.startDate}&endDate=${param.endDate}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+	       class="${groupEndPage >= totalPages ? 'disabled' : ''}">&raquo;</a>
+	</div>
 
 
     <div id="modal" class="modal">

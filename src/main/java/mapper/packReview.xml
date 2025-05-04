@@ -58,7 +58,7 @@
 			values(#{userNum},#{packageNum},#{pkRating},#{pkReviewContent},#{pkReviewImgUrl})
 	</insert>
 	
-	
+
 	<select id="countPackReview" resultType="Integer" parameterType="long">
 	    SELECT COUNT(*) FROM packReview WHERE packageNum = #{packageNum}
 	</select>
@@ -209,11 +209,116 @@
        ORDER BY r.createdAt DESC
        LIMIT #{start}, #{pageSize}
    </select>
-	
-	
+
 	<select id="countProdReview" resultType="Integer" parameterType="long">
 	    SELECT COUNT(*) FROM packReview WHERE packageNum = #{packageNum}
 	</select>
 	
+	
+	<!-- writtenReviewList -->
+	<select id="selectUserPackWrittenReviews" parameterType="map" resultType="packReviewVO">
+	SELECT 
+		    pr.pkReviewNum,
+		    pr.userNum,
+		    p.packageNum,
+		    p.packageName,
+		    pr.pkReviewImgUrl,
+		    pr.pkRating,
+		    pr.pkReviewContent,
+		    pr.createdAt,
+		    sd.storeName
+	FROM 
+	    packReview pr
+	JOIN 
+	    package p ON pr.packageNum = p.packageNum
+	JOIN 
+	    packageorder po ON pr.pkOrderNum = po.pkOrderNum
+	JOIN 
+	    sellerdetail sd ON p.sellerNum = sd.sellerNum
+	WHERE 
+	    pr.userNum = #{userNum}
+	<if test="period == '1개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+	</if>
+	<if test="period == '3개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+	</if>
+	<if test="period == '6개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+	</if>
+	ORDER BY 
+	    pr.createdAt DESC
+	LIMIT #{pageSize} OFFSET #{offset}
+</select>
+
+<select id="selectCountPackUserWrittenReviews" parameterType="map" resultType="Integer">
+	SELECT 
+	    COUNT(*) 
+	FROM 
+	    packReview pr
+	WHERE 
+	    pr.userNum = #{userNum}
+	<if test="period == '1개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+	</if>
+	<if test="period == '3개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+	</if>
+	<if test="period == '6개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+	</if>
+</select>
+
+<select id="selectUserPackWritableReviews" parameterType="map" resultType="packReviewVO">
+	SELECT 
+	    p.packageName,
+	    p.imgUrl,
+	    s.storeName,
+	    po.orderedAt,
+	    po.pkOrderNum,
+	    p.packageNum,
+	    po.userNum,
+	    DATE_ADD(po.orderedAt, INTERVAL 30 DAY) AS deadline
+	FROM 
+	    packageorder po
+	JOIN 
+	    package p ON po.packageNum = p.packageNum
+	JOIN 
+	    sellerdetail s ON p.sellerNum = s.sellerNum
+	WHERE 
+	    po.userNum = #{userNum}
+	    AND po.deleveryStatus = '구매확정'
+	    AND po.orderedAt >= DATE_SUB(NOW(), INTERVAL #{period} MONTH)
+	    AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	    AND NOT EXISTS (
+	        SELECT 1 
+	        FROM packReview r
+	        WHERE r.userNum = po.userNum
+	          AND r.packageNum = p.packageNum
+	    )
+	ORDER BY po.orderedAt DESC
+	LIMIT #{pageSize} OFFSET #{offset}
+</select>
+
+
+<select id="selectCountPackUserWritableReviews" parameterType="map" resultType="Integer">
+	SELECT 
+	    COUNT(*)
+	FROM 
+	    packageorder po
+	JOIN 
+	    package p ON po.packageNum = p.packageNum
+	WHERE 
+	    po.userNum = #{userNum}
+	    AND po.deleveryStatus = '구매확정'
+	    AND po.orderedAt >= DATE_SUB(NOW(), INTERVAL #{period} MONTH)
+	    AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	    AND NOT EXISTS (
+	        SELECT 1 
+	        FROM packReview r
+	        WHERE r.userNum = po.userNum
+	          AND r.packageNum = p.packageNum
+	    )
+</select>
 </mapper>
 

@@ -33,6 +33,33 @@
   background-color: white;
 }
 
+/* 공통 입력 요소 높이 통일 */
+input[type="date"],
+select,
+button,
+.searchBtn {
+  height: 38px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+/* 버튼 특별 강조 */
+.searchBtn {
+  background-color: #65B741;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.searchBtn:hover {
+  background-color: #4e9e32;
+}
+
+
 /* 내용 */
 
 #content {
@@ -84,7 +111,7 @@
   display: flex;
   justify-content: space-between;  /* ✅ 3등분 */
   align-items: center;
-  width: 1024px;
+  width: 100%;
   min-width: 1024px;
   margin: 0 auto 20px;
   padding: 20px;
@@ -100,10 +127,18 @@
   gap: 10px;
 }
 
+
 .leftSection {
   flex: 1;  /* 왼쪽 넓게 */
 }
-
+.leftSection select,
+.centerSection select
+{
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 50px;
+}
 .centerSection {
   flex: 0 0 80px;  /* 가운데 검색 버튼 고정 */
   display: flex;
@@ -161,36 +196,80 @@
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
+  height: 34px;
 }
 
 .searchBtn:hover {
   background-color: #4e9e32;
 }
+.filterSection {
+  display: contents;
+  flex-direction: column;
+  gap: 10px;
+}
+.filterGroup label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+}
+.buttonGroup button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.buttonGroup button:hover {
+  background-color: #65B741;
+  color: white;
+  border-color: #65B741;
+}
+
+.dateGroup input[type="date"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.rightSection select, 
+.rightSection input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 180px;
+}
 /* 테이블 영역*/
 .tableWrapper {
     width: 100%;
+    margin-top: 10px;
     overflow-x: auto;
 }
-
-tbody tr:hover {
+tbody tr.hovered td {
     background-color: #FBF6EE;
 }
-
 .table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
-
 .table th, .table td {
     border: 1px solid #ddd;
     padding: 5px;
     font-size: 14px;
     text-align: center;
 }
-
+.table th {
+	border-bottom: 2px solid #ccc;
+	background-color: #FCFCFC;
+	height: 30px;
+}
 .table th:nth-child(1),.table td:nth-child(1),
 .table th:nth-child(2), .table td:nth-child(2),
 .table th:nth-child(3),.table td:nth-child(3){
@@ -336,6 +415,11 @@ body:not(.modal-open) {
 .pagination a.active {
     background-color: #65B741;  /* ✅ 메인 그린 */
     color: white;
+}
+
+.pagination a.disabled {
+    pointer-events: none;
+    color: #ccc;
 }
 
 a{

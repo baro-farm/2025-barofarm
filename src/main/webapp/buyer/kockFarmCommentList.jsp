@@ -28,17 +28,15 @@
 		        
 		        	<c:forEach var="comment" items="${kockCommentList}">
 			        	 <div class="commentBox" data-kocknum="${comment.kockNum }">
-			                <input type="checkbox"
-					            id="commentCheck${status.index}" 
-					            name="commentCheck" 
-					            value="${comment.commentNum}">
-					            
-			                <div class="commentContent" >
-			                    <div class="commentText">
-			                    	${comment.content }
-			                    </div>
-			                    <div class="commentDate">${comment.createdAt }</div>
-			                    <div class="commentNote"><a href="${contextPath}/detailKockFarm?kockNum=${comment.kockNum}">${comment.title }</a></div>
+							<div class="commentAll">
+				               <div class="commentNote"><a href="${contextPath}/detailKockFarm?kockNum=${comment.kockNum}">제목: ${comment.title }</a></div>
+						            
+				                <div class="commentContent" >
+				                    <div class="commentText">
+				                    	${comment.content }
+				                    </div>
+				                    <div class="commentDate">${comment.createdAt }</div>
+				                </div>
 			                </div>
 			            </div>
 		        	</c:forEach>
@@ -46,11 +44,8 @@
 		
 		            <!-- 하단 전체 선택 및 버튼 -->
 		            <div class="footer">
-		                <div class="footerLeft">
-		                    <input type="checkbox" id="selectAllCheck" name="selectAllCheck"> 전체선택
-		                </div>
+
 		                <div class="footerRight">
-		                    <button type="button" id="deleteButton" name="deleteButton" class="btnDelete">선택 삭제</button>
 		                    <button type="button" id="writeButton" name="writeButton" class="btnWrite writeButton">글쓰기</button>
 		                </div>
 		            </div>
@@ -94,28 +89,66 @@
 			              });
 		            </script>
 		
-		            <!-- 페이지네이션 -->
-		            <div class="pagination">
-		            	<c:if test="${currentPage>1 }">
-		            		<a href="?page=${currentPage-1 }">〈 </a>
-		            	</c:if>
-		            	
-					    <c:forEach var="i" begin="1" end="${maxPage}">
-					        <c:choose>
-					            <c:when test="${i == currentPage}">
-					                <span class="currentPage">${i}</span>
-					            </c:when>
-					            <c:otherwise>
-					                <a href="?page=${i}">${i}</a>
-					            </c:otherwise>
-					        </c:choose>
-					    </c:forEach>
-					    
-					 	<c:if test="${currentPage < maxPage}">
-					        <a href="?page=${currentPage + 1}">〉</a>
-					    </c:if>					    
-		            </div>
+
 		        </form>
+<c:set var="groupStartPage" value="${(currentPage - 1) / pageGroupSize * pageGroupSize + 1}" />
+<c:set var="groupEndPage" value="${groupStartPage + pageGroupSize - 1}" />
+
+<c:if test="${groupEndPage > totalPages}">
+    <c:set var="groupEndPage" value="${totalPages}" />
+</c:if>
+
+<div class="pagination">
+    <!-- << : 이전 페이지 그룹으로 -->
+    <c:choose>
+        <c:when test="${currentPage > pageGroupSize}">
+            <c:set var="prevGroupPage" value="${currentPage - pageGroupSize}" />
+            <a href="?page=${prevGroupPage}">&laquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&laquo;</a>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- < : 이전 페이지 -->
+    <c:choose>
+        <c:when test="${currentPage > 1}">
+            <a href="?page=${currentPage - 1}">&lsaquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&lsaquo;</a>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- 페이지 번호 -->
+    <c:forEach var="i" begin="${groupStartPage}" end="${groupEndPage}">
+        <a href="?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+    </c:forEach>
+
+    <!-- > : 다음 페이지 -->
+    <c:choose>
+        <c:when test="${currentPage < totalPages}">
+            <a href="?page=${currentPage + 1}">&rsaquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&rsaquo;</a>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- >> : 다음 페이지 그룹으로 -->
+    <c:choose>
+        <c:when test="${groupEndPage < totalPages}">
+            <c:set var="nextGroupPage" value="${currentPage + pageGroupSize}" />
+            <c:if test="${nextGroupPage > totalPages}">
+                <c:set var="nextGroupPage" value="${totalPages}" />
+            </c:if>
+            <a href="?page=${nextGroupPage}">&raquo;</a>
+        </c:when>
+        <c:otherwise>
+            <a class="disabled">&raquo;</a>
+        </c:otherwise>
+    </c:choose>
+</div>
 	        </div><!-- end of content -->
     	</div><!-- end of wrapper -->    
     </div><!-- end of container-->

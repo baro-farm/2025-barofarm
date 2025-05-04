@@ -20,7 +20,6 @@
     <div class="orderBox">
         <div class="orderHeader">
             <span id="orderDate">${prodOrderList[0].orderDate } 주문</span>
-            <button class="btnGreen">영수증</button>
         </div>
         <div>
             <span class="orderNumber">주문 번호</span> 
@@ -42,10 +41,9 @@
 	                <c:set var="total" value="${prodOrder.price }"/>
 	                <div>${total } 원</div>
 	            </div>
-	            <button class="btnSmall">문의하기</button>
+
 	        </div>
-	        <button class="btnSmall">배송 조회</button>
-	        <button class="btnSmall">재구매</button>
+
         </c:forEach>
     </div>
 
