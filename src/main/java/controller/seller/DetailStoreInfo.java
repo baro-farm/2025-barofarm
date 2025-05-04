@@ -41,8 +41,16 @@ public class DetailStoreInfo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		User user = (User) request.getSession().getAttribute("user");
+		HttpSession session = request.getSession();
+		User user =  null;
 		
+		if(session != null) {
+			user=(User)session.getAttribute("user");
+		}
+		if(user == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+			return;
+		}
 		SellerService sellerService = new SellerServiceImpl();
 		UserService userService = new UserServiceImpl();
 		
@@ -51,6 +59,7 @@ public class DetailStoreInfo extends HttpServlet {
 			SellerVO seller = sellerService.getSerllerDetail(user.getUserNum());
 			UserVO userVo = userService.selectUserInfo(user.getUserId());
 			request.setAttribute("seller", seller);
+			userVo.setIsSeller(true);
 			request.setAttribute("user", userVo);
 			request.getRequestDispatcher("/seller/detailStoreInfo.jsp").forward(request, response);
 		} catch (Exception e) {

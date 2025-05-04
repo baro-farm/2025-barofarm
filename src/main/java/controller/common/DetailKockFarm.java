@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dto.User;
 import dto.buyer.KockComment;
 import dto.buyer.KockFarm;
+import dto.buyer.Matching;
 import service.buyer.KockCommentService;
 import service.buyer.KockCommentServiceImpl;
 import service.buyer.KockFarmService;
@@ -68,7 +69,11 @@ public class DetailKockFarm extends HttpServlet {
 						break;
 					}
 				}
-			}		
+			}
+			if (kock.isMatched()==true) {
+				Matching matching = service.selectMatchingByKCNum(kockNum);
+				request.setAttribute("matching", matching);
+			}
 
 			request.setAttribute("isMatched", kock.isMatched());
 			request.setAttribute("hasComment", hasComment);

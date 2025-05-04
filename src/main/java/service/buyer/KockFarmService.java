@@ -18,6 +18,7 @@ public interface KockFarmService {
 	int countKFBySearchDto(SearchDtoSoy dto) throws Exception;
 	//매칭
 	void insertMatching(Matching matching,Long kockNum) throws Exception;
+	Matching selectMatchingByKCNum(Long kockNum) throws Exception;
 	//마이페이지 리스트
 	List<KockFarmVO> selectMyPostList(Long userNum, LocalDate startDate, Boolean isMatched, int pageSize, int offset) throws Exception;
 	Integer selectCountKockPost(Long userNum, LocalDate startDate, Boolean isMatched) throws Exception;

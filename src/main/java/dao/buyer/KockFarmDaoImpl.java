@@ -76,4 +76,9 @@ public class KockFarmDaoImpl implements KockFarmDao {
 		return sqlSession.selectOne("mapper.kockFarm.selectCountUserKockPost",param);
 	}
 
+	@Override
+	public Matching selectMatchingByKCNum(Long kockNum) throws Exception {
+		return sqlSession.selectOne("mapper.kockFarm.selectMatchingByKCNum",kockNum);
+	}
+
 }

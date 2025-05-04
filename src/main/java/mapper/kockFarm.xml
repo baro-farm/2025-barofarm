@@ -138,12 +138,17 @@
 		UPDATE kockFarm SET isMatched=1, updatedAt = NOW() WHERE kockNum=#{kockNum};
 	</update>
 	<insert id="insertMatching" parameterType="matching">
-		INSERT INTO matching (kockNum,kcNum,buyerNum,sellerNum) VALUES(#{kockNum},#{kcNum},#{buyerNum},#{sellerNum})	</insert>
+		INSERT INTO matching (kockNum,kcNum,buyerNum,sellerNum) VALUES(#{kockNum},#{kcNum},#{buyerNum},#{sellerNum})	
+	</insert>
 	<update id="updateKockMatched" parameterType="long">
 	  UPDATE kockfarm
 	  SET isMatched = 1, updatedAt = NOW()
 	  WHERE kockNum = #{kockNum}
 	</update>
+	<select id="selectMatchingByKCNum"  parameterType="long" resultType="matching">
+		SELECT * FROM matching 
+		WHERE kockNum=#{kockNum}
+	</select>
 	
 	<!-- 마이페이지 콕팜 관련 -->
 	<!-- 콕팜 게시글 리스트 -->
