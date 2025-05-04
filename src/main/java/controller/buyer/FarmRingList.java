@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.buyer;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +24,7 @@ import vo.SellerVO;
 /**
  * Servlet implementation class FarmRingList
  */
-@WebServlet("/farmRingList")
+@WebServlet("/buyerAlarmList")
 public class FarmRingList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,19 +40,17 @@ public class FarmRingList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("utf-8");
-		
-		HttpSession session = request.getSession(false);
-		User sessionUser =null;
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		User user =  null;
 		
 		if(session != null) {
-			sessionUser=(User)session.getAttribute("user");
+			user=(User)session.getAttribute("user");
 		}
-		if(sessionUser == null) {
+		if(user == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 			return;
 		}
-		
 		//searchDTO 세팅
 		SearchDtoSoy dto = new SearchDtoSoy();
 		String pageParam = request.getParameter("page");
@@ -62,24 +60,21 @@ public class FarmRingList extends HttpServlet {
 		dto.setSearchType(request.getParameter("searchType"));
 		dto.setStartDateFrom(request.getParameter("startDateFrom"));
 		dto.setStartDateTo(request.getParameter("startDateTo"));
-		dto.setUserNum(sessionUser.getUserNum());
+		dto.setUserNum(user.getUserNum());
 		dto.setStatus(request.getParameter("status"));
-		
+
 		try {
-			/*
-			 * SellerDetailService service = new SellerDetailServiceImpl(); List<SellerVO>
-			 * farmRingList = service.getAlarmList(dto);
-			 * request.setAttribute("farmRingList",farmRingList );
-			 * 
-			 * int cnt = service.countAlarmList(dto); PageInfoSoy pageInfo = new
-			 * PageInfoSoy(dto.getPage(), cnt, 5, dto.getRecordSize());
-			 * 
-			 * request.setAttribute("pi", pageInfo);
-			 */
-			request.getRequestDispatcher("/admin/farmRingList.jsp").forward(request, response);
+			AlarmService service = new AlarmServiceImpl();
+			request.setAttribute("alarmList", service.selectAlarmBySearchDto(dto));
+			
+			int cnt = service.countAlarmBySearchDto(dto);
+			PageInfoSoy pageInfo = new PageInfoSoy(dto.getPage(), cnt, 5, dto.getRecordSize());
+			
+			request.setAttribute("pi", pageInfo);
+			request.getRequestDispatcher("/buyer/alarmList.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "콕팜링 구독자 목록 조회에 실패했습니다");
+			request.setAttribute("err", "판매자 알림 목록 조회에 실패했습니다");
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		
 		}
