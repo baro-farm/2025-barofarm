@@ -1,6 +1,12 @@
-/* 제목 스타일 */
-body {
-	flex-direction: column;
+@charset "UTF-8";
+
+@media (max-width: 1200px) {
+    .table {
+        width: 1200px;  /* ✅ 1024px에서 멈춤 */
+    }
+}
+.table {
+    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
 }
 /*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
 #header {

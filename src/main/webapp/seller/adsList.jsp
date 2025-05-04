@@ -46,6 +46,8 @@
 			  <button type="submit">검색</button>
 			</form>
 		</div>
+   	<div class="tableWrapper">
+      
       <table id="banner-table" class="table">
           <thead>
               <tr>
@@ -78,7 +80,7 @@
 			    <c:when test="${ads.status == '이미지부적격' or ads.status == '상품링크오류'}">
 					N							
 			    </c:when>
-			    <c:when test="${ads.status == '승인'}">
+			    <c:when test="${ads.status == '승인' or ads.status == '종료'}">
 					Y						
 			    </c:when>
 			    <c:otherwise>
@@ -90,6 +92,7 @@
              </c:forEach>
          </tbody>
      </table>
+    </div>
      <div class="pagination" id="pagingArea" style="text-align: center; margin-top: 20px;">
  <c:if test="${pi.startPage > 1}">
    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>

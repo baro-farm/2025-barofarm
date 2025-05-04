@@ -1,5 +1,12 @@
 @charset "UTF-8";
-
+@media (max-width: 1200px) {
+    .table {
+        width: 1200px;  /* ✅ 1024px에서 멈춤 */
+    }
+}
+.table {
+    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
+}
 body {
 	flex-direction: column;
 }
@@ -18,17 +25,27 @@ body {
 }
 
 /* 내용 */
-
 #content {
   width: calc(100vw - 220px);
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 40px auto;
   padding-top: 80px;
   padding-left: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  right: 0;
 }
 .sideMenu {
 	position: relative;
     top: 200px;
+}
+.pkHeader {
+	width:100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
 }
 /*제목*/
 .title {
@@ -45,7 +62,12 @@ body {
 tbody tr:hover {
     background-color: #FBF6EE;
 }
-
+/* 꾸러미 목록 테이블  */
+.tableWrapper {
+    width: 100%;
+    margin-top: 10px;
+    overflow-x: auto;
+}
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -54,31 +76,8 @@ tbody tr:hover {
 
 .table th, .table td {
     border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-    font-size: 14px;
     text-align: left;
-}
-
-.table th:nth-child(1),.table td:nth-child(1){
-    width: 25px;
-    padding: 0 20px;
-    text-align: center;
-}
-
-.table th:nth-child(2),.table td:nth-child(2){
-    width: 60px;
-    text-align: center;
-}
-
-.table th:nth-child(3),.table td:nth-child(3){
-    padding-left: 20px;
-}
-
-.table th:nth-child(4),.table th:nth-child(5),
-.table td:nth-child(4),.table td:nth-child(5) {
-    text-align: right;
-    width: 80px;
-    padding-right: 20px;
+    font-weight: 600;
 }
 
 /* 오버플로우 방지 */
@@ -512,4 +511,31 @@ a:hover {
  a {
 	text-decoration: none;
 	color:black;
+}
+
+.selectBox {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.selectBox select, .selectBox input {
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 12px;
+    color: #333;
+    margin-bottom:5px;
+    text-align:left;
+}
+.selectBox input {
+	height: 17px;
+}
+.selectBox button {
+    background-color: #ffb534;
+    border: solid #ffb534;
+    border-radius: 4px;
+    height: 27px;
 }

@@ -18,34 +18,36 @@
 		<jsp:include page="/header/adminSellerTop.jsp" />
     </header>
 		<div id="content">
-	        <div class="point-header">
-	            <h1 class="title">팜포인트</h1>
-	            <c:if test="${isAlarm eq false }">
-		            <div class="subscribe-box">
-<!-- 		                <span class="question-icon">❓</span>
- -->		                <button class="subscribe-btn">
-		                    콕팜링 구독하기
-		                </button>
+			<div class="pkHeader">
+				<div class="point-header">
+		            <h1 class="title">팜포인트</h1>
+		            <c:if test="${isAlarm eq false }">
+			            <div class="subscribe-box">
+	<!-- 		                <span class="question-icon">❓</span>
+	 -->		                <button class="subscribe-btn">
+			                    콕팜링 구독하기
+			                </button>
+			            </div>
+		            </c:if>
+		            <c:if test="${isAlarm eq true }">
+			            <div class="subscribe-box">
+			                <button class="subscribed-btn">
+			                    ✔ 콕팜링 구독취소
+			                </button>
+			            </div>
+					</c:if>
+		        </div>
+		        <div class="point-box">
+		            <span class="point-label">보유 포인트</span>
+		            <div>
+		            <span class="point-value">💰 <fmt:formatNumber value="${point}" type="number" />P</span>
+		            <button class="charge-btn">충전하기</button>
 		            </div>
-	            </c:if>
-	            <c:if test="${isAlarm eq true }">
-		            <div class="subscribe-box">
-		                <button class="subscribed-btn">
-		                    ✔ 콕팜링 구독취소
-		                </button>
-		            </div>
-				</c:if>
-	        </div>
-	        <div class="point-box">
-	            <span class="point-label">보유 포인트</span>
-	            <div>
-	            <span class="point-value">💰 ${point }P</span>
-	            <button class="charge-btn">충전하기</button>
-	            </div>
-	        </div>
-
-	        <div class="history-section">
-	        	<div>
+		        </div>
+			
+			</div>
+	        
+	        	<div class="selectBox">
   			            <h3>포인트 내역</h3>
 	        		<form method="get" action="${contextPath}/farmPointList" >
 					  <select name="searchType">
@@ -60,8 +62,11 @@
 					</form>
 	        	</div>
 	            <hr>
+	            
+	            
+			<div class="tableWrapper">
 
-	            <table id="point-table" class="display nowrap" >
+	            <table id="point-table" class="table" >
 	                <thead >
 	                    <tr>
 	                        <th></th>
@@ -86,20 +91,21 @@
 	                        <td>${up.createdAt.toLocalDate()}</td>
 	                        <td>${up.type }</td>
 		              		<c:if test="${up.usedPoint < 0 }">				                        
-	                        <td class="minus">${up.usedPoint }P</td>
+	                        <td class="minus"><fmt:formatNumber value="${up.usedPoint}" type="number" />P</td>
 	                        </c:if>
 	                        <c:if test="${up.usedPoint > 0 && up.type eq '광고반려' }">				                        
-	                        <td class="replus">+${up.usedPoint }P</td>
+	                        <td class="replus">+<fmt:formatNumber value="${up.usedPoint}" type="number" />P</td>
 	                        </c:if>
 	                        <c:if test="${up.usedPoint > 0 && up.type ne '광고반려'  }">				                        
-	                        <td class="plus">+${up.usedPoint }P</td>
+	                        <td class="plus">+<fmt:formatNumber value="${up.usedPoint}" type="number" />P</td>
 	                        </c:if>
-	                        <td>${up.currPoint }P</td>
+	                        <td><fmt:formatNumber value="${up.currPoint}" type="number" />P</td>
 	                    </tr>
 		              </c:forEach>				                    
 	                </tbody>
 	            </table>
 	        </div>
+	        
 			<div class="pagination" id="pagingArea" style="text-align: center; margin-top: 20px;">
 			  <c:if test="${pi.startPage > 1}">
 			    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}">&laquo;</a>
@@ -214,18 +220,12 @@
 	        <div class="point-box">
 	            <span class="point-icon">💲</span>
 	            <span>보유 포인트</span>
-	            <span>${point }P</span>
+	            <span><fmt:formatNumber value="${point}" type="number" />P</span>
 	        </div>
 
 	        <div class="select-title">충전 금액을 선택하세요.</div>
 
             <div class="amount-container">
-            	<label class="amount">
-                    <input type="radio" name="charge_amount" value="0"> 0원
-                </label>
-                <label class="amount">
-                    <input type="radio" name="charge_amount" value="200"> 200원
-                </label>
                 <label class="amount">
                     <input type="radio" name="charge_amount" value="5000"> 5,000원
                 </label>
