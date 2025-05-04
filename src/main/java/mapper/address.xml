@@ -11,4 +11,13 @@
 	 <select id="selectAddress" parameterType="String" resultType="address">
         SELECT * FROM address WHERE userNum = #{userNum}
     </select>
+    <update id="updateDefaultAddressSeller" parameterType="map">
+	    UPDATE address
+	    SET postCode = #{postCode},
+	        addr1 = #{addr1},
+	        addr2 = #{addr2},
+	        updatedAt = NOW()
+	    WHERE userNum = #{userNum}
+	      AND isDefault = 1;
+</update>
 </mapper>

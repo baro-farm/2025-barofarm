@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import dto.buyer.PackageOrder;
 import dto.buyer.PackageSubscribe;
 import util.MybatisSqlSessionFactory;
+import vo.AdminPackOrderVO;
 import vo.PackOrderVO;
 import vo.ProdOrderVO;
 
@@ -70,4 +71,14 @@ public class PackageOrderDAOImpl implements PackageOrderDAO{
 	public void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception {
 		sqlSession.insert("mapper.packageSub.insertSubscription", sub);	
 	}
+	
+	@Override
+    public List<AdminPackOrderVO> selectAdminPackOrderList(Map<String, Object> paramMap) {
+        return sqlSession.selectList("mapper.packOrder.selectAdminPackOrderList", paramMap);
+    }
+
+    @Override
+    public int countAdminPackOrderList(Map<String, Object> paramMap) {
+        return sqlSession.selectOne("mapper.packOrder.countAdminPackOrderList", paramMap);
+    }
 }

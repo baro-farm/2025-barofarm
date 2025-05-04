@@ -1,11 +1,13 @@
 package service.buyer;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.PackageOrder;
 import dto.buyer.PackageSubscribe;
+import vo.AdminPackOrderVO;
 import vo.PackOrderVO;
 
 public interface PackOrderService {
@@ -27,4 +29,6 @@ public interface PackOrderService {
 	void updateSellerPackTrackingNum(Long pkOrderNum, Integer trackingNum) throws Exception;
 	void insertPackageOrder(SqlSession sqlSession, PackageOrder packOrder) throws Exception;
 	void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception;
+	List<AdminPackOrderVO> selectAdminPackOrderList(int offset, int pageSize, String startDate, String endDate, String searchType, String searchKeyword) throws Exception;
+	int countAdminPackOrderList(String startDate, String endDate, String searchType, String searchKeyword) throws Exception;
 }

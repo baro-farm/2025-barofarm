@@ -20,8 +20,8 @@
             <li><a href="${contextPath }/customerServiceList">고객센터</a></li>
             <li><a href="${contextPath }/adminAdsList">배너 광고</a></li>
             <li><a href="#">전체 매출</a></li>
-            <li><a href="#">일반 상품 주문 조회</a></li>
-            <li><a href="#">꾸러미 상품 주문 조회</a></li>
+            <li><a href="${contextPath }/adminProdOrderList">일반 상품 주문 조회</a></li>
+            <li><a href="${contextPath }/adminPackOrderList">꾸러미 상품 주문 조회</a></li>
         </ul>
     </div>
 </div>

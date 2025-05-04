@@ -10,12 +10,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 
+import dto.User;
 import dto.admin.Banner;
 import service.admin.BannerService;
 import service.admin.BannerServiceImpl;
@@ -40,6 +42,17 @@ public class BannerList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("application/json; charset=UTF-8");
+		HttpSession session = request.getSession();
+
+	    User user =  null;
+		
+		if(session != null) {
+			user=(User)session.getAttribute("user");
+		}
+		if(user == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+			return;
+		}
 		try {
 			BannerService service= new BannerServiceImpl();
 			List<Banner> bannerList = service.adminBannerList();

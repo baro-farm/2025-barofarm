@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import dto.admin.Notice;
 import service.admin.NoticeService;
 import service.admin.NoticeServiceImpl;
-import util.PageInfo;
 
 /**
  * Servlet implementation class NoticeList
@@ -33,40 +32,53 @@ public class NoticeList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		NoticeService service = new NoticeServiceImpl();
-		List<Notice> noticeList = null;
+		NoticeService noticeService = new NoticeServiceImpl();
+
 		try {
-			int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-			int itemsPerPage = 10;
-			int offset = (currentPage - 1) * itemsPerPage;
+			request.setCharacterEncoding("UTF-8");
 
-			// 총 게시글 수 구하기
-			Integer totalNotices = service.getNoticeCount();  // 이 메서드 추가 필요!
+			// 1. 기본값 설정
+			int page = 1;
+			int pageSize = 10;
+			if (request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+			int offset = (page - 1) * pageSize;
 
-			// 공지사항 목록 가져오기 (LIMIT, OFFSET 적용)
-			PageInfo pageInfo = new PageInfo(currentPage, itemsPerPage);
-			try {
-				noticeList = service.NoticeListByPage(pageInfo);  // 이 메서드도 LIMIT/OFFSET 적용!
- 			} catch (Exception e) {
- 				e.printStackTrace();
- 			}
+			// 2. 공지 목록 조회
+			List<Notice> noticeList = noticeService.allNotice(offset, pageSize);
 
+			// 3. 전체 공지 수 조회
+			int totalCount = noticeService.getNoticeCountAll();
+			int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+			if (page <= 0) page = 1;
+			if (page > totalPages && totalPages > 0) page = totalPages;
+
+			// 4. 페이지 그룹 계산
+			int pageGroupSize = 5;
+			int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
+			int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;
+			int groupEndPage = Math.min(groupStartPage + pageGroupSize - 1, totalPages);
+			int jumpPrevPage = Math.max(groupStartPage - pageGroupSize, 1);
+			int jumpNextPage = Math.min(groupStartPage + pageGroupSize, totalPages);
+
+			// 5. request에 담기
 			request.setAttribute("noticeList", noticeList);
-			request.setAttribute("totalNotices", totalNotices);
-			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("currentPage", page);
+			request.setAttribute("totalPages", totalPages);
+			request.setAttribute("groupStartPage", groupStartPage);
+			request.setAttribute("groupEndPage", groupEndPage);
+			request.setAttribute("pageGroupSize", pageGroupSize);
+			request.setAttribute("jumpPrevPage", jumpPrevPage);
+			request.setAttribute("jumpNextPage", jumpNextPage);
 
+			// 6. 포워딩
 			request.getRequestDispatcher("/admin/noticeList.jsp").forward(request, response);
+
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("error", "공지사항 목록 조회 중 오류가 발생했습니다.");
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
-
 }

@@ -17,8 +17,11 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public List<Notice> allNotice() throws Exception {
-		return noticeDao.selectNoticeList();
+	public List<Notice> allNotice(int offset, int pageSize) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("offset", offset);
+		param.put("pageSize", pageSize);
+		return noticeDao.selectNoticeList(param);
 	}
  
 	@Override
@@ -65,5 +68,8 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.selectNoticeCount();
 	}
 
-	
+	@Override
+	public Integer getNoticeCountAll() throws Exception {
+		return noticeDao.selectNoticeCountAll();
+	}
 }

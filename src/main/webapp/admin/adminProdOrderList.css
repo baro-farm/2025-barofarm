@@ -1,3 +1,9 @@
+@media (max-width: 1200px) {
+  .table {
+    width: 1200px;
+  }
+}
+
 @font-face {
   font-family: 'SUIT-Regular';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
@@ -6,10 +12,11 @@
 }
 
 * {
-  font-family: 'SUIT-Regular', sans-serif;
+  font-family: SUIT-Regular, sans-serif;
   box-sizing: border-box;
 }
 
+/* 헤더 */
 #header {
   position: fixed;
   top: 0;
@@ -24,31 +31,22 @@
   z-index: 10;
 }
 
+/* 콘텐츠 영역 */
 #content {
+	
   width: calc(100vw - 220px);
+  /* max-width: 1280px; */
   margin: 40px auto;
   padding-top: 80px;
   padding-left: 220px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 20px;
 }
 
-#wrapper {
-  width: 100%;
-  max-width: 1280px;
-  overflow-x: auto;
-}
-
-.store_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-#title {
+.title {
   font-size: 30px;
   color: #65B741;
   font-weight: bold;
@@ -56,14 +54,12 @@
   align-self: flex-start;
 }
 
-/* 필터 */
+/* 검색 필터 */
 .filter-form {
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .filter-top,
@@ -74,8 +70,8 @@
 }
 
 .filter-form select,
-.filter-form input[type="text"],
-.filter-form button {
+.filter-form input[type="date"],
+.filter-form input[type="text"] {
   padding: 6px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -83,8 +79,12 @@
 }
 
 .filter-form button {
+  padding: 6px 12px;
   background-color: #65B741;
   color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -94,6 +94,11 @@
 }
 
 /* 테이블 */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .table {
   width: 100%;
   min-width: 1200px;
@@ -117,6 +122,21 @@
 
 .table tbody tr:hover {
   background-color: #FBF6EE;
+}
+
+/* 긴 텍스트 처리 */
+.table td:nth-child(3) {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.table td:nth-child(3) a {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* 페이징 */
@@ -149,4 +169,12 @@
 .pagination a.active {
   background-color: #65B741;
   color: white;
+}
+
+/* 링크 컬러 */
+a {
+  color: black;
+}
+a:hover {
+  color: orange;
 }

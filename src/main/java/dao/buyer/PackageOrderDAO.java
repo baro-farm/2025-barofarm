@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.PackageOrder;
 import dto.buyer.PackageSubscribe;
+import vo.AdminPackOrderVO;
 import vo.PackOrderVO;
 
 public interface PackageOrderDAO {
@@ -25,4 +26,6 @@ public interface PackageOrderDAO {
 	void updatePackTrackingNum(Map<String,Object> param) throws Exception;
 	void insertPackageOrder(SqlSession sqlSession, PackageOrder packOrder) throws Exception;
 	void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception;
+	List<AdminPackOrderVO> selectAdminPackOrderList(Map<String, Object> paramMap);
+    int countAdminPackOrderList(Map<String, Object> paramMap);
 }

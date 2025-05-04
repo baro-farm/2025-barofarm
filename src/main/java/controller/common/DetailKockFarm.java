@@ -41,8 +41,15 @@ public class DetailKockFarm extends HttpServlet {
 		Long kockNum = Long.parseLong(request.getParameter("kockNum"));
 		
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		User user =  null;
 		
+		if(session != null) {
+			user=(User)session.getAttribute("user");
+		}
+		if(user == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+			return;
+		}
 		KockFarmService service = new KockFarmServiceImpl();
 		KockCommentService kcService = new KockCommentServiceImpl();
 		try {

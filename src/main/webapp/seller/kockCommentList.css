@@ -77,6 +77,12 @@
 .selectBox input {
 	height: 17px;
 }
+.selectBox button {
+    background-color: #ffb534;
+    border: solid #ffb534;
+    border-radius: 4px;
+    height: 27px;
+}
 /* 꾸러미 목록 테이블  */
 .tableWrapper {
     width: 100%;
