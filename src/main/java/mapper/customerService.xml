@@ -3,28 +3,61 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 	
 <mapper namespace="mapper.customerService">
-	<select id="selectAdminQuestionList" resultType="customerService">
-		SELECT 
-		  aq.questionNum,
-		  u.userId,  
-		  aq.title,
-		  aq.content AS questionContent,
-		  aq.createdAt AS questionCreatedAt,
-		  aq.updatedAt AS questionUpdatedAt,
-		  aq.type,
-		  aa.content AS answerContent,
-		  aa.createdAt AS answerCreatedAt,
-		  aa.updatedAt AS answerUpdatedAt,
-		  CASE 
-		    WHEN aa.aaNum IS NOT NULL THEN 1
-		    WHEN aa.aaNum IS NULL AND aq.questionNum IS NOT NULL THEN 0
-		    ELSE 0
-		  END AS answerStatus
-		FROM adminQuestion AS aq
-		LEFT JOIN adminAnswer AS aa ON aq.questionNum = aa.questionNum
-		JOIN user AS u ON aq.userNum = u.userNum 
-		ORDER BY aq.questionNum DESC;
-	</select>
+	
+  <!-- ✅ 페이징 + 필터링 쿼리 -->
+  <select id="selectAdminQuestionList" resultType="customerService" parameterType="map">
+    SELECT 
+      aq.questionNum,
+      u.userId,  
+      aq.title,
+      SUBSTRING(aq.content, 1, 100) AS previewContent,
+      aq.createdAt AS questionCreatedAt,
+      aq.updatedAt AS questionUpdatedAt,
+      aq.type,
+      aa.content AS answerContent,
+      aa.createdAt AS answerCreatedAt,
+      aa.updatedAt AS answerUpdatedAt,
+      CASE 
+        WHEN aa.aaNum IS NOT NULL THEN 1
+        ELSE 0
+      END AS answerStatus
+    FROM adminQuestion AS aq
+    LEFT JOIN adminAnswer AS aa ON aq.questionNum = aa.questionNum
+    JOIN user AS u ON aq.userNum = u.userNum 
+    <where>
+      <if test="answerStatus != null">
+        <choose>
+          <when test="answerStatus == 1">
+            aa.aaNum IS NOT NULL
+          </when>
+          <when test="answerStatus == 0">
+            aa.aaNum IS NULL
+          </when>
+        </choose>
+      </if>
+    </where>
+    ORDER BY aq.questionNum DESC
+    LIMIT #{pageSize} OFFSET #{offset}
+  </select>
+
+  <!-- ✅ 카운트 쿼리 -->
+  <select id="countAdminQuestion" resultType="int" parameterType="map">
+    SELECT COUNT(*)
+    FROM adminQuestion AS aq
+    LEFT JOIN adminAnswer AS aa ON aq.questionNum = aa.questionNum
+    <where>
+      <if test="answerStatus != null">
+        <choose>
+          <when test="answerStatus == 1">
+            aa.aaNum IS NOT NULL
+          </when>
+          <when test="answerStatus == 0">
+            aa.aaNum IS NULL
+          </when>
+        </choose>
+      </if>
+    </where>
+  </select>
 	<select id="selectAdminQuestion" resultType="adminQuestion">
 		select * from adminQuestion where questionNum=#{questionNum}
 	</select>

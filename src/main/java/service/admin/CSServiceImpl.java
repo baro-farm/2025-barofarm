@@ -1,6 +1,7 @@
 package service.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.admin.CustomerServiceDAO;
 import dao.admin.CustomerServiceDAOImpl;
@@ -16,8 +17,13 @@ public class CSServiceImpl implements CSService {
 	}
 	
 	@Override
-	public List<CustomerService> allCustomerService() throws Exception {
-		return csDao.selectCSList();
+	public List<CustomerService> allCustomerService(Map<String, Object> param) throws Exception {
+		return csDao.selectCSList(param);
+	}
+	
+	@Override
+	public int countCustomerService(Map<String, Object> param) throws Exception {
+		return csDao.countCustomerService(param);
 	}
 	
 	@Override

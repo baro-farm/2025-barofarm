@@ -1,16 +1,8 @@
-$(document).ready(function () {
-  $('#service_table').DataTable({
-    colReorder: true,
-    responsive: true,
-    scrollX: true,
-  });
-});
-
 document.addEventListener('DOMContentLoaded', () => {
   const rows = document.querySelectorAll('#service_table tbody tr');
 
   rows.forEach((row) => {
-    const answerStatus = row.children[7].textContent.trim();
+    const answerStatus = row.children[6].textContent.trim();
     const insertBtn = row.querySelector('.insertBtn');
     const updateBtn = row.querySelector('.updateBtn');
 
