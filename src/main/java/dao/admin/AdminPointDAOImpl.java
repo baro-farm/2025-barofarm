@@ -23,5 +23,15 @@ public class AdminPointDAOImpl implements AdminPointDAO {
 		
 	}
 
+	@Override
+	public List<PointVO> getMonthlyPoint() throws Exception {
+		return sqlSession.selectList("mapper.point.MonthlyPoint");
+	}
+
+	@Override
+	public PointVO currentMonthPoint() throws Exception {
+		return sqlSession.selectOne("mapper.point.currentMonthPoint");
+	}
+
 	
 }

@@ -50,6 +50,7 @@
 		<typeAlias type="dto.seller.Alarm" alias="alarm" />
 		<typeAlias type="vo.PackReviewVO" alias="packReviewVO" />
 		<typeAlias type="dto.buyer.PackageSubscribe" alias="packageSubscribe" />
+		<typeAlias type="vo.PointVO" alias="pointVO" />
 	</typeAliases>
 	
 	<environments default="development">

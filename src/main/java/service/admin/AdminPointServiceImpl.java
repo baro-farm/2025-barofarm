@@ -18,16 +18,27 @@ public class AdminPointServiceImpl implements AdminPointService {
     }
 	
 	@Override
-	public List<PointVO> totalSalesPointList(PageInfo pageInfo) throws Exception {
+	public List<PointVO> totalSalesPointList(PageInfo pageInfo, String sort) throws Exception {
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", pageInfo.getOffset());
         param.put("pageSize", pageInfo.getPageSize());
+        param.put("sort", sort);
 		return adminPointDao.totalSalesPointList(param);
 	}
 
 	@Override
 	public Integer countTotalSalesPoint() throws Exception {
 		return adminPointDao.countTotalSalesPoint();
+	}
+
+	@Override
+	public List<PointVO> getMonthlyPoint() throws Exception {
+		return adminPointDao.getMonthlyPoint();
+	}
+
+	@Override
+	public PointVO currentMonthPoint() throws Exception {
+		return adminPointDao.currentMonthPoint();
 	}
 
 }
