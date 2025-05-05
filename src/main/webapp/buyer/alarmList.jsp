@@ -55,7 +55,7 @@
          </thead>
          <tbody>
          <c:choose>
-          <c:when test="${empty farmRingList}">
+          <c:when test="${empty alarmList}">
 		    <tr>
 		      <td colspan="7" style="text-align: center;">알림이 없습니다.</td>
 		    </tr>

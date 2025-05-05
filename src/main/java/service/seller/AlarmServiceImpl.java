@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.seller.AlarmDAO;
 import dao.seller.AlarmDAOImpl;
+import dto.User;
 import dto.seller.Alarm;
 import dto.seller.UsePoint;
 import service.UserService;
@@ -84,6 +85,40 @@ public class AlarmServiceImpl implements AlarmService {
 	@Override
 	public int getUnreadAlarmCount(Long userNum) throws Exception {
         return alarmDAO.selectUnreadAlarmCount(userNum);
+	}
+	@Override
+	public int sendKockCommentAlarm(String fcmToken,Long sellerUserNum, Long buyerUserNum, String kockTitle,Long kockNum) throws Exception {
+		
+			int count = 0;
+
+			if (fcmToken != null) {
+				String title="콕팜 알림";
+				String body="콕팜에 새로운 댓글이 등록되었습니다!";
+				try {
+					System.out.println("=== sendKockFarmAlarm 호출됨 ===");
+					FcmUtil.sendMessageTo(fcmToken, title, body);
+					//알림 저장
+					Alarm alarm = new Alarm(buyerUserNum,sellerUserNum, "콕팜에 새로운 댓글이 등록되었습니다!", kockTitle, title, kockNum);
+					alarmDAO.insertAlarm(alarm);
+					//포인트 사용내역 저장
+					Integer currPoint = pointService.getPoint(sellerUserNum).getPoint();
+					UsePoint usePoint = new UsePoint(sellerUserNum, -500, "콕팜알림", currPoint);
+					usePointService.useByKockFarmAlarm(usePoint);
+				
+					count++;
+				} catch (Exception e) {
+		            System.err.println("알림 전송 실패: " + sellerUserNum + " / 이유: " + e.getMessage());
+		            // "UNREGISTERED"가 포함된 오류 메시지면 fcmToken 제거
+		            if (e.getMessage().contains("UNREGISTERED")) {
+		                System.out.println("무효한 FCM 토큰, DB에서 삭제합니다: " + sellerUserNum);
+		                userService.deleteFcmToken(sellerUserNum);
+		            }
+				}
+				
+			}
+			
+		
+		return count;
 	}
 
 }

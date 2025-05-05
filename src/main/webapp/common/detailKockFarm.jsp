@@ -58,6 +58,25 @@
 	                        $("#commentForm").hide(); // 또는 .remove();
 	                    	$("#commentList").append(comment);  // 댓글 리스트에 추가
 	                    	$(".comment-input").val("");  // 입력창 비우기
+	                    	
+	                        const buyerUserNum = "${kock.userNum}";
+	                        const kockTitle ="${kock.title }";
+
+	                        fetch("${contextPath}/sendKockCommentAlarm", {
+	                            method: "POST",
+	                            headers: { "Content-Type": "application/json" },
+	                            body: JSON.stringify({
+	                                buyerUserNum: buyerUserNum,
+	                                kockNum: kockNum,
+	                                kockTitle: kockTitle
+	                            })
+	                        }).then(res => {
+	                            if (!res.ok) {
+	                                console.warn("알림 발송 실패");
+	                            }
+	                        }).catch(err => {
+	                            console.error("알림 전송 오류", err);
+	                        });
 	                    } else {
 	                        console.error("댓글 데이터에 필요한 값이 누락되었습니다.");
 	                    }
@@ -389,11 +408,18 @@ document.getElementById('matchForm').addEventListener('submit', function (e) {
             // ✅ 매칭 성공 처리
 
             // 1. 모든 매칭 버튼 비활성화
-            document.querySelectorAll(".btn-match").forEach(btn => {
-                btn.disabled = true;
-                btn.classList.add('btn-matched');
-                btn.textContent = "매칭 완료"; // 버튼 텍스트 바꾸기
-            });
+			document.querySelectorAll(".btn-match").forEach(btn => {
+			    const sellerNum = btn.dataset.sellerNum;
+			
+			    if (sellerNum === selectedMatchInfo.sellerNum) {
+			        btn.disabled = true;
+			        btn.classList.add('btn-matched');
+			        btn.textContent = "매칭 완료";
+			    } else {
+			        btn.remove(); // 나머지 버튼 제거
+			    }
+			});
+
 
             // 2. 댓글 폼 제거
             const commentForm = document.getElementById("commentForm");
