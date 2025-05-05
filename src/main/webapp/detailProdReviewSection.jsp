@@ -9,7 +9,7 @@
 	<c:choose>
 		<c:when test="${not empty review}">
 			<c:forEach var="r" items="${review}">
-				<tr>
+				<tr style="border-bottom: 1px solid #ccc;">
 					<td class="reviewContent">
 						<div class="reviewId">
 							<strong>${r.userId }</strong> <span class="stars"> <c:forEach
@@ -34,6 +34,11 @@
 							src="${contextPath}${r.imgUrl}"></td>
 					</c:if>
 				</tr>
+				<c:if test="${ true == r.pdCommentStatus }">
+					<tr class="pd-c">
+						<td colspan="2">ㄴ 판매자: ${r.pdComment }</td>
+					</tr>
+				</c:if>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>

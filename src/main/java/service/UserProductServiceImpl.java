@@ -210,7 +210,7 @@ public class UserProductServiceImpl implements UserProductService{
 	    param.put("packNum", packNum);
 	    param.put("start", pageInfo.getOffset());
 	    param.put("pageSize", pageInfo.getPageSize());
-
+	    System.out.println("쿼리 실행 파라미터: " + param);
 	    return userProductDao.selectPackReview(param);
 	}
 

@@ -128,7 +128,7 @@ public class PaymentComplete extends HttpServlet {
 	    	    User user = (User) session.getAttribute("user");
 	            Long userNum = user.getUserNum();
 	            
-	            ProductOrder productOrder = new ProductOrder(userNum, totalPrice, rAddress, "배송준비", "결제완료", rName, rPhone);
+	            ProductOrder productOrder = new ProductOrder(userNum, totalPrice, rAddress, "준비중", "결제완료", rName, rPhone);
 	            prodOrderService.insertProductOrder(sqlSession, productOrder);
 	            Long orderNum = productOrder.getPdOrderNum();
 

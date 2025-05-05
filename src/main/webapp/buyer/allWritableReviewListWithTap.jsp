@@ -48,7 +48,7 @@
 	margin: 0 auto;
 }
 
-.content {
+#content {
 	flex: 1;
 	align-self: flex-start;
 	padding: 30px 0;
@@ -59,11 +59,13 @@
 	position: relative;
 }
 .header {
-    font-size: 30px;
-    color:#5cb85c;
+     font-size: 22px;
     font-weight: bold;
-    margin:20px;
+    margin-bottom: 35px;
 
+}
+#tab1, #tab2{
+	max-width:1000px;
 }
 </style>
 <script>
@@ -109,7 +111,7 @@
 	  </div>
 	
 	  <div id="content" style="width:100%;">
-	    <div class="header">작성가능한 리뷰 내역</div>
+	    <div class="header">작성 가능한 리뷰 내역</div>
 	
 	    <!-- 탭 메뉴 -->
 	    <div class="tabMenu">

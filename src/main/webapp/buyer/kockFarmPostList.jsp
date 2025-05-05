@@ -23,7 +23,7 @@
 				<jsp:include page="/header/buyerMenu.jsp" />
 			</div>
 			<div class="content">
-				<div class="header">내가 작성한 콕팜</div>
+				<div class="header">내가 작성한 콕팜 게시글</div>
 
 				<!-- 필터 섹션 -->
 				<form method="get" action="${contextPath }/kockFarmPostList"

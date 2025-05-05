@@ -1,6 +1,3 @@
-.reviewContent {
-  @import "bootstrap/scss/reboot";
-}
 .wrapper {
     display: flex;
     flex-direction: row;
@@ -159,15 +156,18 @@ a {
 /* 리뷰 */
 .reviewTable {
   margin: 0 auto;
-  width: 890px;
+  width: 900px;
   line-height: 1.2em;
 }
-.reviewTable tr {
-  border-bottom: 1px solid #ccc;
+.review1 {
+	border-bottom: 1px solid #ccc;
+	height:110px;
 }
-.reviewTable td {
+
+.reviewContent {
   vertical-align: top;
   padding: 10px 10px 0 10px;
+  width:700px;
 }
 .packName {
   font-size: 14px;
@@ -176,65 +176,28 @@ a {
 }
 .reviewText {
   margin-bottom: 10px;
+   -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
 }
 .reviewImg {
-  position: relative;
+  margin:auto;
 }
 .reviewImg img {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 4px;
+  margin:auto;
 }
-/* 문의하기  */
-.packQA {
-  margin: 20px auto;
-  width: 95%;
-  border-collapse: collapse;
+.pk-c{
+	background-color: #f8f8f8;
+	border-radius: 8px;
+	font-size: 12px;
+	padding:15px 30px;
 }
-.packQA th, .packQA td {
-  border-bottom: 1px solid #ddd;
-  padding: 15px 0;
-  font-size: 14px;
-  text-align: left;
-}
-.packQA th:nth-child(1),.packQA td:nth-child(1) {
-  width: 100px;
-  padding: 0 10px;
-}
-.packQA th:nth-child(3),.packQA th:nth-child(4),
-.packQA td:nth-child(3),.packQA td:nth-child(4) {
-  text-align: right;
-  width: 100px;
-  padding-right: 10px;
-}
-.answerRow {
-  display: none;
-  background-color: #f9f9f9;
-}
-.answerRow.active {
-  display: table-row;
-}
-.answer {
-  padding: 15px;
-  font-size: 14px;
-  line-height: 1.6;
-}
-.answerTitle {
-  background-color: #B0E57C;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-right: 10px;
-  font-weight: bold;
-}
-.answerInfo {
-  text-align: right;
-  margin-top: 10px;
-  color: #888;
-  font-size: 13px;
-}
-
 /* 안내사항 */
 .infoContent {
   margin: 10px;
@@ -250,9 +213,30 @@ a {
 }
 /* 페이징 */
 #paging {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+#paging a {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;  /* 버튼 사이 간격 */
-    margin-top: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#paging a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+#paging a.select {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
 }

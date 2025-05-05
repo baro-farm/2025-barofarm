@@ -23,16 +23,16 @@
 			<span id="title">전체 매출</span>
 		</div>
 		<div class="point-a">
-			<canvas id="pointChart" width="500" height="270"></canvas>
+			<canvas id="pointChart" width="470" height="250"></canvas>
 			<div class="point-b">
 				<div class="point-c">
 					<p class="p-title">당월 매출</p>
-					<p class="p-content">${curPoint.currentMonth } P </p>
+					<p class="p-content"><fmt:formatNumber value="${curPoint.currentMonth}" type="number" /> P </p>
 					<p class="p-small">( 전월 대비 : ${curPoint.increasePercentage }%)</p>
 				</div>
 				<div class="point-c">
 					<p class="p-title">전월 매출</p>
-					<p class="p-content">${curPoint.lastMonth } P</p>
+					<p class="p-content"><fmt:formatNumber value="${curPoint.lastMonth}" type="number" /> P</p>
 				</div>
 			</div>
 		</div>

@@ -75,7 +75,7 @@ button,
   align-items: center;
   right: 0;
 }
-.noticeHeader {
+.notice-header {
     width: 100%;
     display: flex;
     justify-content: flex-start;  /* ✅ 왼쪽 정렬 */

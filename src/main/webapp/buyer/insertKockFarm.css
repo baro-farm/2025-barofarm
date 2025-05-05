@@ -1,19 +1,21 @@
 
 
 .title_head {
-    border-bottom: 2px solid black;
     margin-bottom: 20px;
 }
 .title {
-    font-size: 30px;
-    font-weight: bold;
-    color: #69c048;
+   color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 .title_head p {
-    color: #4d4d4d;
-    font-size: 16px;
+     font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 30px;
 }
 .container {
+	padding: 30px 0;
   max-width: 800px;
   margin: 0 auto;
   font: unsest;
@@ -23,7 +25,9 @@
 h2 {
   color: #65B741;
 }
-
+#kockFarmForm{
+	margin-top: 30px;
+}
 .form-big {
   display: flex;
   justify-content: space-between;
@@ -44,6 +48,9 @@ label {
   /* margin-bottom: 5px; */
   font-weight: bold;
   width: 130px;
+  display: flex; 
+  align-items: center;
+  
 }
 
 input[type="text"],
@@ -70,19 +77,16 @@ textarea {
 }
 
 .button-group {
-  margin: 20px auto;
   float: right;
 }
 
 .btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+     font-size: 14px;
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 4px;
+  	text-decoration: none;
+  	border: none;
 }
 .btn-submit {
   background-color: #65B741;

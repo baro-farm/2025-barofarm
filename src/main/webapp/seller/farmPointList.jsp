@@ -19,36 +19,31 @@
     </header>
 		<div id="content">
 			<div class="pkHeader">
-				<div class="point-header">
-		            <h1 class="title">팜포인트</h1>
-		            <c:if test="${isAlarm eq false }">
-			            <div class="subscribe-box">
-	<!-- 		                <span class="question-icon">❓</span>
-	 -->		                <button class="subscribe-btn">
-			                    콕팜링 구독하기
-			                </button>
-			            </div>
-		            </c:if>
-		            <c:if test="${isAlarm eq true }">
-			            <div class="subscribe-box">
-			                <button class="subscribed-btn">
-			                    ✔ 콕팜링 구독취소
-			                </button>
-			            </div>
-					</c:if>
-		        </div>
-		        <div class="point-box">
-		            <span class="point-label">보유 포인트</span>
-		            <div>
-		            <span class="point-value">💰 <fmt:formatNumber value="${point}" type="number" />P</span>
-		            <button class="charge-btn">충전하기</button>
-		            </div>
-		        </div>
-			
+					<h1 class="title">팜포인트</h1>
 			</div>
-	        
-	        	<div class="selectBox">
-  			            <h3>포인트 내역</h3>
+		<div class="header-a">
+			<div class="point-box">
+				<span class="point-label">보유 포인트</span>
+				<div>
+					<span class="point-value">💰 <fmt:formatNumber value="${point}" type="number" />P
+					</span>
+					<button class="charge-btn">충전하기</button>
+				</div>
+			</div>
+			<c:if test="${isAlarm eq false }">
+				<div class="subscribe-box">
+					<!-- <span class="question-icon">❓</span>	 -->
+					<button class="subscribe-btn">콕팜링 구독하기</button>
+				</div>
+			</c:if>
+			<c:if test="${isAlarm eq true }">
+				<div class="subscribe-box">
+					<button class="subscribed-btn">✔ 콕팜링 구독취소</button>
+				</div>
+			</c:if>
+		</div>
+
+		<div class="selectBox">
 	        		<form method="get" action="${contextPath}/farmPointList" >
 					  <select name="searchType">
 					    <option value="usedPoint" ${param.searchType == 'usedPoint' ? 'selected' : ''}>사용/충전</option>
@@ -65,11 +60,10 @@
 	            
 	            
 			<div class="tableWrapper">
-
 	            <table id="point-table" class="table" >
 	                <thead >
 	                    <tr>
-	                        <th></th>
+	                        <th>유형</th>
 	                        <th>날짜</th>
 	                        <th>상세내역</th>
 	                        <th>포인트</th>

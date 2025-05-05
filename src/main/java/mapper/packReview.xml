@@ -198,13 +198,13 @@
            p.packageName,
            CONCAT(LEFT(u.userId, CHAR_LENGTH(u.userId) - 3), '***') AS userId,
            r.pkRating, 
-           r.pkReviewContent AS pkContent, 
-           r.createdAt,
-           r.pkReviewImgUrl AS imgUrl
+           r.pkReviewContent, 
+           r.createdAt, r.pkComment, r.pkCommentStatus,
+           r.pkReviewImgUrl
        FROM packReview r
        JOIN package p ON r.packageNum = p.packageNum
        JOIN user u ON r.userNum = u.userNum
-       WHERE r.packageNum = #{packageNum}
+       WHERE r.packageNum = #{packNum}
        ORDER BY r.createdAt DESC
        LIMIT #{start}, #{pageSize}
    </select>

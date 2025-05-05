@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>판매자|상품 주문 관리</title>
+    <title>판매자 | 상품 주문 관리</title>
 
     <link rel="stylesheet" href="${contextPath }/seller/productOrderList.css" />
 

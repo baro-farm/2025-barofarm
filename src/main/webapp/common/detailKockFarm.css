@@ -32,79 +32,55 @@
 .subtitle { 
     font-size: 16px;
     color: #4d4d4d;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #ddd;
 }
-
+.content-a{
+	border: 2px solid #ccc;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+.table-a{
+	display:flex;
+	height:250px;
+	margin: 15px 0;
+}
 /* 정보 섹션 전체 스타일 */
 .post-info {
     display: flex;
+   width:450px;
     flex-direction: column;
-    gap: 15px; /* 항목 간 간격 */
-    margin-bottom: 40px;
-    font-size: 16px;
+    padding: 0 30px;
+    line-height:1.6em;
+    margin: 20px 0;
+}
+.post-info tr + tr td {
+  padding-top: 10px;
+  padding-left: 10px;
 }
 
 /* 제목-값을 구분해서 정렬 */
-.post-info .info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.p-title {
+	font-size: 26px;
+	padding: 10px 0 10px 10px;
 }
-
-.post-info .p-strong {
-    font-weight: 600;
-    color: #65B741;
-    font-size: 18px;
-    width: 112px;
-    padding-right: 15px;
-    display: inline-block;
-}
-.post-info .image {
-	display: flex;
-}
-.post-info img {
+.table-a img {
     max-width: 100%;
-    border-radius: 12px;
-    height: auto;
+    border-radius: 8px;
+    width:auto;
+    height: 250px;
+    margin: 0 30px;
     display: block;
-    width: 200px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
-
-/* 정보 입력 박스 */
-.post-info .info-row {
-    display: flex;
-    flex-wrap: wrap; /* 작은 화면에서 줄바꿈 */
-    gap: 20px;
+.info-a {
+	width: 100px;
+	font-size: 14px;
 }
-
-.post-info .p-value {
-    font-size: 18px;
-    font-weight: 400;
-}
-
-.post-info .info-row span {
-    display: inline-block;
-    margin-bottom: 5px;
-}
-
-/* 가격 스타일 */
-.post-info .price {
-    font-weight: bold;
-    font-size: 20px;
-    color: #D72638;
-}
-
 /* 정보 테이블 같은 박스 스타일 */
 .content-box {
-    background-color: #f9f9f9;
     padding: 20px;
-    border-radius: 12px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.6;
-    margin: 25px auto;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
     height: 200px;
 }
 
@@ -113,22 +89,15 @@
     display: flex;
     justify-content: flex-end;
     gap: 15px;
-    margin-bottom: 30px;
-}
-
-.buttons .btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
 }
 .btn-list { 
+	font-size: 14px;
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 4px;
     background-color: #65B741; 
-    color: white; 
+  	border: none;
 }
 
 .btn-list:hover { 
@@ -136,13 +105,19 @@
 }
 
 .btn-edit { 
-    background-color: #FFB534; 
-    color: white; 
+   font-size: 14px;
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 4px;
+ 	background-color: #FFB534;
+  	border: none;
 }
 
 .btn-delete { 
-    background-color: #D72638; 
-    color: white; 
+   padding: 7px 14px;
+	border-radius: 4px;
+  	border: none;
+  	cursor: pointer;
 }
 
 .btn-edit:hover { 
@@ -177,8 +152,20 @@
 	font-size:large;
 	margin: 10px auto;
 }
+.date{
+	font-size: 14px;
+}
 .btn-submit:hover {
     background-color: #579d39;
+}
+#commentList{
+	border-top:1px solid #ccc;
+	padding: 10px 0;
+}
+.comments{
+	width:90%;
+	margin: 0 auto;
+	
 }
 /* 댓글 박스 */
 .message-box {
@@ -186,28 +173,24 @@
     align-items: center;
     padding: 15px;
     border-radius: 8px;
-    margin-bottom: 10px;
-    background-color: #f6f8fa;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* 판매자 댓글 */
 .message-box.seller {
-    background-color: #e6f4ea;
+    border: 2px solid #65B741;
     border-left: 10px solid #65B741; /* 녹색으로 강조 */
 }
 
 /* 구매자 댓글 */
 .message-box.buyer {
-    background-color: #fbf6ee;
+    border: 2px solid #fbf6ee;
     border-left: 5px solid #4caf50; /* 파란색으로 강조 */
 }
 
 
 /* 답글 (아기댓글) */
 .message-box.reply {
-    margin-left: 80px;
-    background-color: #fbf6ee;
+    margin-left: 30px;
 }
 
 .message-box.reply .re-icon {

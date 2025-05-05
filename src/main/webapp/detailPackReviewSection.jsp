@@ -9,13 +9,13 @@
 	<c:choose>
 		<c:when test="${not empty review}">
 			<c:forEach var="r" items="${review}">
-				<tr>
+				<tr class="review1">
 					<td class="reviewContent">
 						<div class="reviewId">
 							<strong>${r.userId }</strong> <span class="stars"> <c:forEach
 									var="i" begin="1" end="5">
 									<c:choose>
-										<c:when test="${i <= r.pdRating}">
+										<c:when test="${i <= r.pkRating}">
 											<i class="bi bi-star-fill" style="color: #FFB534;"></i>
 										</c:when>
 										<c:otherwise>
@@ -25,20 +25,30 @@
 								</c:forEach>
 							</span>
 						</div>
-						<div class="prodName">${r.productName}</div>
-						<div class="reviewText">${r.pdContent}</div> <span
+						<div class="prodName">${r.packageName}</div>
+						<div class="reviewText">${r.pkReviewContent}</div> <span
 						class="reviewDate">${r.createdAt }</span>
 					</td>
-					<c:if test="${not empty r.imgUrl}">
-						<td class="reviewImg"><img alt="리뷰이미지"
-							src="${contextPath}${r.imgUrl}"></td>
+					<c:if test="${not empty r.pkReviewImgUrl}">
+						<td class="reviewImg">
+							<img alt="리뷰이미지" src="${contextPath}${r.pkReviewImgUrl}">
+						</td>
 					</c:if>
 				</tr>
+				<c:if test="${ true == r.pkCommentStatus }">
+					<tr>
+						<td colspan="2">
+							<button type="button" class="toggle-comment-btn" onclick="toggleComment(this)">
+								답글 보기
+							</button>
+							<div class="pk-c" style="display: none;">ㄴ 판매자: ${r.pkComment }</div>
+						</td>
+					</tr>
+				</c:if>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-			<p style="width: 100%; text-align: center; margin: auto;">작성된 리뷰가
-				없습니다.</p>
+			<p style="width: 100%; text-align: center; margin: auto;">작성된 리뷰가 없습니다.</p>
 		</c:otherwise>
 	</c:choose>
 </table>
@@ -47,7 +57,7 @@
 	<!-- 이전 페이지 -->
 	<c:choose>
 		<c:when test="${pageInfo.curPage > 1}">
-			<a href="${contextPath}/detailPackage?productNum=${pack.packageNum}&reviewPage=${pageInfo.curPage - 10}"
+			<a href="${contextPath}/detailPackage?packageNum=${pack.packageNum}&reviewPage=${pageInfo.curPage - 10}"
 				class="reviewPageLink">&laquo;</a>
 		</c:when>
 		<c:otherwise>
@@ -56,7 +66,7 @@
 	</c:choose>
 	<c:choose>
 		<c:when test="${pageInfo.curPage > 1}">
-			<a href="${contextPath}/detailPackage?productNum=${pack.packageNum}&reviewPage=${pageInfo.curPage - 1}"
+			<a href="${contextPath}/detailPackage?packageNum=${pack.packageNum}&reviewPage=${pageInfo.curPage - 1}"
 				class="reviewPageLink">&lsaquo;</a>
 		</c:when>
 		<c:otherwise>
@@ -67,11 +77,11 @@
 	<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
 		<c:choose>
 			<c:when test="${page == pageInfo.curPage}">
-				<a href="${contextPath}/detailPackage?productNum=${pack.packageNum}&reviewPage=${page}"
+				<a href="${contextPath}/detailPackage?packageNum=${pack.packageNum}&reviewPage=${page}"
 					class="reviewPageLink select">${page}</a>
 			</c:when>
 			<c:otherwise>
-				<a href="${contextPath}/detailPackage?productNum=${pack.packageNum}&reviewPage=${page}"
+				<a href="${contextPath}/detailPackage?packageNum=${pack.packageNum}&reviewPage=${page}"
 					class="reviewPageLink btn">${page}</a>
 			</c:otherwise>
 		</c:choose>
@@ -79,7 +89,7 @@
 	<!-- 다음 페이지 -->
 	<c:choose>
 		<c:when test="${pageInfo.curPage < pageInfo.allPage}">
-			<a href="${contextPath}/detailPackage?productNum=${pack.packageNum}&reviewPage=${pageInfo.curPage + 1}"
+			<a href="${contextPath}/detailPackage?packageNum=${pack.packageNum}&reviewPage=${pageInfo.curPage + 1}"
 				class="reviewPageLink">&rsaquo;</a>
 		</c:when>
 		<c:otherwise>
@@ -88,7 +98,7 @@
 	</c:choose>
 	<c:choose>
 		<c:when test="${pageInfo.curPage < pageInfo.allPage}">
-			<a href="${contextPath}/detailPackage?productNum=${pack.packageNum}&reviewPage=${pageInfo.curPage + 10}"
+			<a href="${contextPath}/detailPackage?packageNum=${pack.packageNum}&reviewPage=${pageInfo.curPage + 10}"
 				class="reviewPageLink">&raquo;</a>
 		</c:when>
 		<c:otherwise>
@@ -96,3 +106,16 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+
+<script>
+	function toggleComment(button) {
+		const commentDiv = button.nextElementSibling;
+		if (commentDiv.style.display === "none") {
+			commentDiv.style.display = "block";
+			button.textContent = "답글 숨기기";
+		} else {
+			commentDiv.style.display = "none";
+			button.textContent = "답글 보기";
+		}
+	}
+</script>

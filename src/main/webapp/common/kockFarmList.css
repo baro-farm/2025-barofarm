@@ -84,7 +84,6 @@ tbody tr:hover {
   }
   
   .table td:nth-child(3) a {
-    display: block;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -93,19 +92,32 @@ tbody tr:hover {
     color: #a1a1a1;
 }
 
-/* 페이징 */
-.paging a {
-  margin: 0 5px;
-  text-decoration: none;
-  color: #333;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+#pagingArea {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
-.paging a.active {
-  background-color: #65B741;
-  color: white;
-  font-weight: bold;
+#pagingArea a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#pagingArea a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+#pagingArea a.select {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
 }
 
 a {
@@ -118,26 +130,16 @@ a {
     justify-content: space-between;
     align-items: center;
 }
-.buttons {
-    text-align: right;
-    margin-bottom: 20px;
-}
 .btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
     font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 4px;
+  	text-decoration: none;
+  	border: none;
 }
 .btn-list { background-color: #65B741; color: white; }
-.btn-edit { background-color: #FFB534; color: white; }
-.btn-delete { background-color: #D72638; color: white; }
 .btn-list:hover { background-color: #579d39;}
-.btn-edit:hover { background-color: #e6a42f;}
-.btn-delete:hover { background-color: #c1212f;}
 
 table.dataTable>tbody>tr:hover {
     background-color: #FBF6EE;
@@ -147,9 +149,13 @@ table.dataTable>tbody>tr:hover {
 }
 
 .searchDiv > form > input, select {
-	border: 1px solid #ddd;
-	padding: 5px;
-	border-radius: 4px;
+	 padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 12px;
+    color: #333;
+    text-align:left;
 }
 .searchDiv > form > button {
 	background-color: #65B741; color: white;

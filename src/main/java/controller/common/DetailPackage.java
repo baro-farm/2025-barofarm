@@ -41,7 +41,7 @@ request.setCharacterEncoding("utf-8");
 		
 		Long packageNum = Long.parseLong(request.getParameter("packageNum"));
 		String ajaxHeader = request.getHeader("X-Requested-With");
-		boolean isAjax = "XMLHttpRequest".equals(ajaxHeader);
+		boolean isAjax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
 		// 페이징
 		String pageStr = request.getParameter("page");
@@ -52,11 +52,11 @@ request.setCharacterEncoding("utf-8");
 		try {
 			PackageVO detailPackage = service.DetailPackage(packageNum);
 			
-			Integer totalCount = service.CountReview(packageNum);
-			PageInfo pageInfo = new PageInfo(curPage, 5,totalCount);
+			Integer totalCount = service.CountPackReview(packageNum);
+			PageInfo pageInfo = new PageInfo(curPage, 4,totalCount);
+			System.out.println("DetailPackage/curPage: "+curPage+", totalCount:"+totalCount+", packageNum: "+packageNum);
 			List<PackReviewVO> reviewList = service.PackReview(packageNum, pageInfo);
-			
-			
+			System.out.println("쿼리 결과 개수: " + reviewList.size());
 			if (isAjax) {
 				request.setAttribute("pack", detailPackage);
 	            request.setAttribute("review", reviewList);

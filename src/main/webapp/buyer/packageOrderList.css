@@ -31,12 +31,7 @@
     justify-content: flex-end;  /* ✅ 오른쪽 정렬 */
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
     padding: 10px;
-    border-radius: 8px;
-    margin-top: 10px;
-    background-color: #fafafa;
 }
 
 .FilterBox input[type="date"],
@@ -62,14 +57,10 @@
 }
 
 .orderList {
-    border-top: 2px solid black;
     padding-top: 10px;
-    
     display: flex;
     flex-direction: column;
 	align-items: center;
-    gap: 10px;
-    width:100%;
 }
 
 .orderItem {
@@ -82,7 +73,6 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    max-width: 900px; /* ✅ 너비 제한 */
     width:100%;
 }
 

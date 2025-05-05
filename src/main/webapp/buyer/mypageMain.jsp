@@ -27,17 +27,8 @@
 			
 			
 				<c:set var="summary" value="${myPageVo}" />
-		
-		        <!-- 요약 정보 -->
-		        <div class="box summary">
-		            <div><a href="prodOrderList">> 주문내역 <br><span>${summary.totalOrders }건</a></span></div>
-		            <div><a href="packOrderList">> 꾸러미 <br><span>${summary.totalPackages }건</a></span></div>
-		            <div>> 취소 내역 <br><span>${summary.totalCancels }건</span></div>
-		            <div><a href="prodWrittenReviewList">> 리뷰내역 <br><span>${summary.totalReviews }건</span></a></div>
-		            <div><a href="questionList">> 상품문의 <br><span>${summary.totalQuestions }건</span></a></div>
-		        </div>
-		        <!-- 배송 진행 상태 -->
-		        <div class="box">
+				<!-- 배송 진행 상태 -->
+				<div class="box-i">
 		            <div class="deliveryStatus">
 		                <div>
 		                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"
@@ -79,32 +70,61 @@
 		                </div>
 		            </div>
 		        </div>
-		
+		        
+		        <div class="box-i">
+		        <!-- 요약 정보 -->
+		        <div class="summary">
+		            <div> 주문내역 <br><a href="prodOrderList"><span>${summary.totalOrders }건</a></span></div>
+		            <div> 꾸러미 <br><a href="packOrderList"><span>${summary.totalPackages }건</a></span></div>
+		            <div> 취소 내역 <br><span>${summary.totalCancels }건</span></div>
+		            <div> 리뷰내역 <br><a href="prodWrittenReviewList"><span>${summary.totalReviews }건</span></a></div>
+		            <div> 상품문의 <br><a href="questionList"><span>${summary.totalQuestions }건</span></a></div>
+		        </div>
 		        <!-- 문의 및 리뷰 -->
 		        <div class="contentSection">
+		        
 		            <div class="contentBox">
 		                <div class="title">
 		                    내 상품 문의 내역
 		                    <span class="add-btn"><a href="questionList">+</a></span>
 		                </div>
 		                <ul>
-		                	<c:forEach var="pdQuestion" items="${prodQuestions }">
-		                    <li><a href="#">[${pdQuestion.title }] ${pdQuestion.content}</a></li>
-							</c:forEach>
-		                </ul>
+								<c:choose>
+									<c:when test="${not empty prodQuestions }">
+										<c:forEach var="pdQuestion" items="${prodQuestions }">
+											<li><a href="#">[${pdQuestion.title }]	${pdQuestion.content}</a></li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<p style="width:100%; padding: 20px 0; text-align: center;">작성된 문의가 없습니다.</p>
+									</c:otherwise>
+								</c:choose>
+							</ul>
 		            </div>
-		
+					
 		            <div class="contentBox">
 		                <div class="title">
 		                    내 리뷰 내역
 		                    <span class="add-btn"><a href="prodWrittenReviewList">+</a></span>
 		                </div>
 		                <ul>
-		                	<c:forEach var="pdReview" items="${prodReviews }">
-		                    <li><a href="#"><span>[${pdReview.storeName}]</span><span>${pdReview.productName}</span>${pdReview.pdReviewContent}</a></li>
-							</c:forEach>
-		                </ul>
+								<c:choose>
+									<c:when test="${not empty prodReviews }">
+										<c:forEach var="pdReview" items="${prodReviews }">
+											<li>
+												<a href="#"><span>[${pdReview.storeName}]</span>
+												<span>${pdReview.productName}</span>${pdReview.pdReviewContent}</a>
+											</li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<p style="width:100%; padding: 20px 0; text-align: center;">작성된 리뷰가 없습니다.</p>
+									</c:otherwise>
+								</c:choose>
+							</ul>
 		            </div>
+		            </div>
+		            
 		        </div>
 	        </div> <!-- end of content -->
 		</div> <!-- end of wrapper -->

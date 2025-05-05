@@ -12,9 +12,6 @@
   .tabMenu {
     display: flex;
     gap: 8px;
-    margin-bottom: 20px;
-    padding-bottom:10px;
-    border-bottom: 2px solid black;
   }
   .tabBtn {
     padding: 10px 20px;
@@ -48,7 +45,7 @@
 	margin: 0 auto;
 }
 
-.content {
+#content {
 	flex: 1;
 	align-self: flex-start;
 	padding: 30px 0;
@@ -57,14 +54,14 @@
 	margin-left: 20px;
 	margin-right: auto;
 	position: relative;
-	width:1000px;
 }
 .header {
-    font-size: 30px;
-    color:#5cb85c;
+    font-size: 22px;
     font-weight: bold;
-    margin:20px;
-
+    margin-bottom: 35px;
+}
+#tab1, #tab2{
+	max-width:1000px;
 }
 </style>
 <script>
