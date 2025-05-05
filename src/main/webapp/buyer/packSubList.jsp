@@ -104,7 +104,6 @@
 							<option value="">구독전체</option>
 							<option value="구독중">구독중</option>
 							<option value="구독종료">구독종료</option>
-							<option value="구독취소">구독취소</option>
 						</select>
 	
 						<button type="submit" id="searchBtn">검색</button>
@@ -124,8 +123,14 @@
 
 							<div class="orderCenter">
 								<div class="orderLeft">
-									<div class="orderStatus orderReady">${packSub.isSub }</div>
-
+									<c:choose>
+										<c:when test="${packSub.isSub eq true }">
+											<div class="orderStatus orderReady">구독중</div>
+										</c:when>
+										<c:otherwise>
+											<div class="orderStatus orderReady">구독종료</div>
+										</c:otherwise>
+									</c:choose>
 									<img src="${contextPath}${packSub.imgUrl }" alt="">
 								</div>
 								<div class="orderRight">
@@ -143,7 +148,6 @@
 									<c:choose>
 										<c:when test="${packSub.isSub eq true }">
 											<button class="btn btnGreen">구독 배송지 변경</button>
-											<button class="btn btnGreen">구독 취소</button>
 										</c:when>
 									</c:choose>
 								</div>

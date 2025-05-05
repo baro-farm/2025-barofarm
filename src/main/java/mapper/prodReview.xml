@@ -35,7 +35,7 @@
 		    pr.userNum,
 		    p.productNum,
 		    p.productName,
-		    pr.pdReviewImgUrl,
+		    pr.pdReviewImgUrl as imgUrl,
 		    pr.pdRating,
 		    pr.pdReviewContent,
 		    pr.createdAt,
@@ -214,5 +214,105 @@
         WHERE r.reviewNum = #{reviewNum}
 	</select>
 	
+	<!-- 페이징 -->
+		<select id="selectUserProdWrittenReviews" parameterType="map" resultType="prodReviewVO">
+	SELECT 
+		    pr.reviewNum,
+		    pr.userNum,
+		    p.productNum,
+		    p.productName,
+		    pr.pdReviewImgUrl as imgUrl,
+		    pr.pdRating,
+		    pr.pdReviewContent as pdContent,
+		    pr.createdAt,
+		    sd.storeName,
+		    sd.sellerNum
+	FROM 
+	    prodReview pr
+	JOIN 
+	    product p ON pr.productNum = p.productNum
+	JOIN 
+	    productorder po ON pr.pdOrderNum = po.pdOrderNum
+	JOIN 
+	    sellerdetail sd ON p.sellerNum = sd.sellerNum
+	WHERE 
+	    pr.userNum = #{userNum}
+	<if test="period == '1개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+	</if>
+	<if test="period == '3개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+	</if>
+	<if test="period == '6개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+	</if>
+	ORDER BY 
+	    pr.createdAt DESC
+	LIMIT #{pageSize} OFFSET #{offset}
+</select>
 	
+<select id="selectCountProdUserWrittenReviews" parameterType="map" resultType="Integer">
+	SELECT 
+	    COUNT(*) 
+	FROM 
+	    prodReview pr
+	WHERE 
+	    pr.userNum = #{userNum}
+	<if test="period == '1개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+	</if>
+	<if test="period == '3개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+	</if>
+	<if test="period == '6개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+	</if>
+</select>	
+
+<select id="selectUserProdWritableReviews" parameterType="map" resultType="prodReviewVO">
+	   SELECT 
+	        p.productName,
+	        p.imgUrl,
+	        s.storeName,
+	        po.orderedAt,
+	        po.pdOrderNum,
+	        poi.productNum,
+	        po.pdOrderNum,
+	        po.userNum,
+	        DATE_ADD(po.orderedAt, INTERVAL 30 DAY) AS deadline
+	    FROM productOrder po
+	    JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN product p ON poi.productNum = p.productNum
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	    WHERE po.userNum = #{userNum}
+	      AND po.deleveryStatus = '구매확정'
+	      AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	      AND NOT EXISTS (
+	          SELECT 1 
+	          FROM prodReview r
+	          WHERE r.userNum = po.userNum
+	            AND r.productNum = poi.productNum
+	      )	
+	ORDER BY po.orderedAt DESC
+	LIMIT #{pageSize} OFFSET #{offset}
+</select>
+<select id="selectCountProdUserWritableReviews" parameterType="map" resultType="Integer">
+	SELECT 
+	    COUNT(*)
+	    FROM productOrder po
+	    JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN product p ON poi.productNum = p.productNum
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	WHERE 
+	    po.userNum = #{userNum}
+	    AND po.deleveryStatus = '구매확정'
+	    AND po.orderedAt >= DATE_SUB(NOW(), INTERVAL #{period} MONTH)
+	    AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	    AND NOT EXISTS (
+	        SELECT 1 
+	        FROM prodReview r
+	        WHERE r.userNum = po.userNum
+	          AND r.productNum = p.productNum
+	    )
+</select>	
 </mapper>

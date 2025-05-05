@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import dto.buyer.ProdReview;
 import util.MybatisSqlSessionFactory;
+import vo.PackReviewVO;
 import vo.ProdReviewVO;
 
 public class ProdReviewDAOImple implements ProdReviewDAO {
@@ -54,6 +55,29 @@ public class ProdReviewDAOImple implements ProdReviewDAO {
 		return sqlSession.selectOne("mapper.prodReview.selectProdReviewDetailByReviewNum",reviewNum);
 		
 		
+	}
+	
+	
+	
+	@Override
+	public Integer selectCountUserWrittenReviews(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.prodReview.selectCountProdUserWrittenReviews", param);
+	}
+
+	@Override
+	public List<ProdReviewVO> selectUserWrittenReviews(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.prodReview.selectUserProdWrittenReviews", param);
+	}
+	
+
+	@Override
+	public Integer selectCountUserWritableReviews(Map<String, Object> param) throws Exception {
+		return sqlSession.selectOne("mapper.prodReview.selectCountProdUserWritableReviews",param);
+	}
+
+	@Override
+	public List<ProdReviewVO> selectUserWritableReviews(Map<String, Object> param) throws Exception {
+		return sqlSession.selectList("mapper.prodReview.selectUserProdWritableReviews", param);
 	}
 
 

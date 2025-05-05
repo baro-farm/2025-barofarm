@@ -39,10 +39,13 @@
 	<select id="selectUserProdOrderList" parameterType="map" resultType="prodOrderVo">
 	  SELECT poi.pdOrderNum, poi.amount, poi.price,
 	         p.productNum, p.sellerNum, p.productName, p.imgUrl,
-	         po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus
+	         po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus,
+	         s.sellerNum, s.storeName
+	         
 	  FROM `productOrder` po
 	  JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
 	  JOIN product p ON poi.productNum = p.productNum
+	  JOIN sellerDetail s on p.sellerNum = s.sellerNum
 	  WHERE po.userNum = #{userNum}
 	    <if test="startDate != null and startDate != ''">
 	      AND po.orderDate &gt;= #{startDate}

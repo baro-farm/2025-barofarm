@@ -163,7 +163,8 @@
     color: #82807C;
 }
 .productName{
-    font-size: 20px;
+    font-size: 18px;
+    margin-bottom:5px;
 }
 .productPrice{
     font-weight: bold;
@@ -212,4 +213,9 @@
 .pagination a.disabled {
     pointer-events: none;
     color: #ccc;
+}
+
+
+a:hover{
+	color:#FFB534;
 }

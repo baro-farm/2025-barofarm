@@ -13,7 +13,8 @@ import vo.PackOrderVO;
 public interface PackageOrderDAO {
 	List<PackOrderVO> selectPackOrderList(String userId) throws Exception;
 	void updateDeliveryStatus(PackageOrder pkOrder) throws Exception;
-	
+	List<PackOrderVO> selectPackDetailOrderList(Long pkOrderNum) throws Exception;
+
 	//user with paging
     Integer selectUserPackOrderCount(Map<String, Object> param);
     List<PackOrderVO> selectUserPackOrderList(Map<String, Object> param);	

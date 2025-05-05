@@ -7,6 +7,7 @@ import java.util.Map;
 import dao.buyer.ProdReviewDAO;
 import dao.buyer.ProdReviewDAOImple;
 import dto.buyer.ProdReview;
+import vo.PackReviewVO;
 import vo.ProdReviewVO;
 
 public class ProdReviewServiceImpl implements ProdReviewSerivce{
@@ -68,6 +69,45 @@ public class ProdReviewServiceImpl implements ProdReviewSerivce{
 	@Override
 	public ProdReviewVO selectProdReviewDetailByReviewNum(Long reviewNum) {
 		return pdReviewDao.selectProdReviewDetailByReviewNum(reviewNum);
+	}
+	
+	@Override
+	public Integer selectCountUserWrittenReviews(Long userNum, String period) throws Exception {
+	       Map<String, Object> param = new HashMap<>();
+	       param.put("userNum", userNum);
+	       param.put("period", period);		
+		return pdReviewDao.selectCountUserWrittenReviews(param);
+	}
+
+	@Override
+	public List<ProdReviewVO> selectUserWrittenReviews(Long userNum, String period, int offset, int pageSize)
+			throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("period", period);
+        param.put("offset", offset);
+        param.put("pageSize", pageSize);		
+        return pdReviewDao.selectUserWrittenReviews(param);
+	}	
+	
+
+	@Override
+	public Integer selectCountUserWritableReviews(Long userNum, String period) throws Exception {
+	       Map<String, Object> param = new HashMap<>();
+	       param.put("userNum", userNum);
+	       param.put("period", period);	
+		return pdReviewDao.selectCountUserWritableReviews(param);
+	}
+
+	@Override
+	public List<ProdReviewVO> selectUserWritableReviewList(Long userNum, String period, int offset, int pageSize)
+			throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userNum", userNum);
+        param.put("period", period);
+        param.put("offset", offset);
+        param.put("pageSize", pageSize);		
+		return pdReviewDao.selectUserWritableReviews(param);
 	}
 
 

@@ -140,4 +140,10 @@ public class PackOrderServiceImpl implements PackOrderService {
         paramMap.put("searchKeyword", searchKeyword);
         return packOrderDao.selectAdminPackOrderList(paramMap);
     }
+
+	@Override
+	public List<PackOrderVO> selectUserPackOrderDetailList(Long pkOrderNum) throws Exception {
+		// TODO Auto-generated method stub
+		return packOrderDao.selectPackDetailOrderList(pkOrderNum);
+	}
 }
