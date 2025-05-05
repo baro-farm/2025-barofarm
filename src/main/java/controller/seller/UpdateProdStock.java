@@ -41,13 +41,13 @@ public class UpdateProdStock extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/plain");
 		
-		Long productNum = Long.parseLong(request.getParameter("productNum"));
+		Long optionNum = Long.parseLong(request.getParameter("optionNum"));
 		Integer stock = Integer.parseInt(request.getParameter("stock"));
 		
 		ProductService service = new ProductServiceImpl();
 		
 		try {
-			service.updateProductStock(productNum, stock);
+			service.updateProductStock(optionNum, stock);
 			response.getWriter().write("success");
 			
 		} catch (Exception e) {

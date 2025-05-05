@@ -33,7 +33,7 @@ public interface ProdOrderService {
 	void insertProductOrder(SqlSession sqlSession, ProductOrder productOrder) throws Exception;
 //	void insertProductOrderItem(SqlSession sqlSession, ProductOrderItem poItem) throws Exception;
 	void insertProductOrderItem(SqlSession sqlSession, Long pdOrderNum, Long productNum, Long optionNum, int amount, int price) throws Exception;
-	void updateSellerProdTrackingNum(Long pdOrderNum, Integer trackingNum) throws Exception;
+	void updateSellerProdTrackingNum(Long pdOrderNum, String deleveryStatus) throws Exception;
 	
 	//취소처리
 	void cancelProdOrder(Long pdOrderNum, String reason, String reasonDetail) throws Exception;

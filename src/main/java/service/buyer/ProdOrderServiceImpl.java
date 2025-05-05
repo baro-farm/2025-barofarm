@@ -84,11 +84,11 @@ public class ProdOrderServiceImpl implements ProdOrderService {
 	}
 	
 	@Override
-	public void updateSellerProdTrackingNum(Long pdOrderNum, Integer trackingNum) throws Exception {
+	public void updateSellerProdTrackingNum(Long pdOrderNum, String deleveryStatus) throws Exception {
 		Map<String, Object> param = new HashMap<>();
 		param.put("pdOrderNum", pdOrderNum);
-		param.put("trackingNum", trackingNum);
-		prodOrderDao.updateProdTrackingNum(param);
+		param.put("deleveryStatus", deleveryStatus);
+		prodOrderDao.updateSellerProdeliveryStatus(param);
 	}
 	
 

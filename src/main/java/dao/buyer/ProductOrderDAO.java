@@ -23,7 +23,7 @@ public interface ProductOrderDAO {
 	//seller product order list
 	List<ProdOrderVO> selectSellerProductOrderList(Map<String,Object> param) throws Exception;
 	Integer sellectCountSellerProductOrderList(Map<String,Object> param) throws Exception;
-	void updateProdTrackingNum(Map<String, Object> param) throws Exception;
+	void updateSellerProdeliveryStatus(Map<String, Object> param) throws Exception;
 
 	Integer countSellerProductOrderList(Map<String,Object> param) throws Exception;
 	void insertProductOrder(SqlSession sqlSession, ProductOrder productOrder) throws Exception;
