@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>판매자|리뷰관리</title>
+<title>판매자 | 일반 리뷰 관리</title>
 
 <link rel="stylesheet" href="${contextPath}/seller/reviewList.css" />
 
@@ -167,7 +167,7 @@
 
 	<div id="content">
 		<div class="noticeHeader">
-			<span id="title">상품 리뷰 관리</span>
+			<span id="title">일반 상품 리뷰</span>
 		</div>
 
 		<div class="filterWrapper">

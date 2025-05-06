@@ -26,38 +26,24 @@ body {
 
 /* 내용 */
 #content {
-  width: calc(100vw - 220px);
-  max-width: 1400px;
-  margin: 40px auto;
-  padding-top: 80px;
-  padding-left: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  right: 0;
-}
-.sideMenu {
-	position: relative;
-    top: 200px;
+ margin: 80px 0 0 220px;
+  padding: 40px 50px;
 }
 .pkHeader {
-	width:100%;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
+	 display: flex;
+  align-items: center;
 }
 /*제목*/
 .title {
-  color: #65B741;
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 10px;
+   font-size:30px;
+    color:#65B741;
+    font-weight: bold;
+    align-self: flex-start;
 }
-.subtitle { /* 컨텐츠 부제목*/
-  font-size: 16px;
-  color: #4d4d4d;
-  margin-bottom: 60px;
+.header-a {
+	width:100%;
+	display:flex;
+	justify-content: space-between;
 }
 tbody tr:hover {
     background-color: #FBF6EE;
@@ -73,11 +59,17 @@ tbody tr:hover {
     border-collapse: collapse;
     margin-bottom: 20px;
 }
-
+.table th {
+	border-bottom: 2px solid #ccc;
+	background-color: #FCFCFC;
+	height: 30px;
+	vertical-align: middle;
+}
 .table th, .table td {
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-    font-weight: 600;
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
 }
 
 /* 오버플로우 방지 */
@@ -94,11 +86,6 @@ tbody tr:hover {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-
-.point-header {
-    display: flex;
-    justify-content: space-between;
-}
 .point-box {
     display: flex;
     align-items: center;
@@ -107,7 +94,7 @@ tbody tr:hover {
     background: #f8f8f8;
     border-radius: 8px;
     margin: 10px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 368px;
 }
 .point-box div {
 	display :flex;
@@ -145,20 +132,15 @@ tbody tr:hover {
 }
 
 .subscribe-btn {
-    background: #D72638;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: bold;
-    font-size: 16px;
+   font-size: 17px;
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 8px;
+ 	background-color: #FFB534;
+  	border: none;
 }
 .subscribe-btn:hover {
-    background-color: #c1212f;
+    background-color: #e6a42f;
 }
 .subscribed-btn {
     background: #FFB534;
@@ -222,7 +204,7 @@ th {
     justify-content: center;
     font-weight: bold;
     font-size: 16px;
-    margin-right: 8px;
+    margin: 0 auto;
 }
 
 .use {

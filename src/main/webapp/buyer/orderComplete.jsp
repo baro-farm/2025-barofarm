@@ -12,7 +12,7 @@
 <style>
     .complete-box {
         max-width: 600px;
-        margin: 0 auto;
+        margin: 130px;
         background-color: #f8fff3;
         border: 2px solid #cbe8b2;
         border-radius: 12px;

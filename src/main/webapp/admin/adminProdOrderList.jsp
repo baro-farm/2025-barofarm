@@ -9,6 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>관리자 | 상품 주문 목록</title>
+	<link rel="stylesheet" href="${contextPath}/header/reset.css">
 	<link rel="stylesheet" href="${contextPath}/admin/adminProdOrderList.css">
 </head>
 <body>
@@ -18,9 +19,10 @@
 	<jsp:include page="/header/adminSellerTop.jsp" />
 </header>
 <div id="content">
-	<h1 class="title">일반 상품 주문 조회</h1>
+	<h1 class="title">일반 주문 조회</h1>
 
 	<!-- 검색 필터 -->
+	<div class="filterBox">
 	<form method="get" action="${contextPath}/adminProdOrderList" class="filter-form">
 		<div class="filter-top">
 			<label for="dateType">날짜 기준:</label>
@@ -46,6 +48,7 @@
 			<button type="submit">검색</button>
 		</div>
 	</form>
+	</div>
 
 	<!-- 주문 리스트 테이블 -->
 	<div class="tableWrapper">
@@ -149,6 +152,6 @@
 			    <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&sellStat=${param.sellStat}&sort=${param.sort}">&raquo;</a>
 			</c:if>
 </div>
-
+</div>
 </body>
 </html>

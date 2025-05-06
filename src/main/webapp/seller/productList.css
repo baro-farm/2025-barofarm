@@ -37,22 +37,14 @@
 
 /* 내용 */
 #content {
-	width: calc(100vw - 220px);
-	max-width: 1280px;
-	margin: 40px auto;
-	padding-top: 80px;
-	gap: 20px;
-	padding-left: 220px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	margin: 80px 0 0 220px;
+  padding: 40px 50px;
 }
 
 .noticeHeader {
 	width: 100%;
 	display: flex;
-	justify-content: flex-start; /* ✅ 왼쪽 정렬 */
+	justify-content: flex-start; 
 }
 
 #title {
@@ -63,34 +55,20 @@
 }
 
 .filterWrapper {
-	width: 100%;
-	display: flex;
-	align-items: center; /* ✅ 가운데 정렬 */
-	justify-content: space-between;
+	margin-top: 30px;
+	width:100%;
+    display: flex;
+    justify-content: flex-end;
 }
-
-.leftSection {
-	display: flex;
-	align-items: center;
+.filterWrapper select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 12px;
+    color: #333;
+    text-align:left;
 }
-
-.rightSection {
-	display: flex;
-	gap: 10px; /* 셀렉트박스끼리 간격 */
-	align-items: center;
-	flex-wrap: nowrap;
-}
-
-.rightSection select {
-	padding: 6px 12px;
-	width: 110px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	background-color: white;
-	font-size: 14px;
-	color: #333;
-}
-
 .tableWrapper {
 	width: 100%;
 	margin-top: 10px;
@@ -236,10 +214,13 @@ input[type=number] {
 
 
 .btn {
-	padding: 4px 10px;
-	border: none;
-	cursor: pointer;
-	border-radius: 4px;
+	 padding: 6px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #65B741;
+    color: white;
+    margin-right: auto;
 }
 
 .delete {
@@ -262,13 +243,6 @@ input[type=number] {
 	background-color: #65B741;
 	border-radius: 50%;
 	float: right;
-}
-
-.edit {
-	background-color: #a8a8a8;
-	color: white;
-	font-size: 12px;
-	transition: background-color 0.2s ease;
 }
 
 .edit:hover {

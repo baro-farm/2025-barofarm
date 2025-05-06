@@ -12,23 +12,9 @@
 }
 
 #content {
-  width: calc(100vw - 220px);
-  padding-top: 80px;
-  padding-left: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#wrapper {
-	width: 1280px;
-	margin: 40px auto;
-	gap: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
+  overflow-x: auto;
 }
 
 #title {
@@ -39,7 +25,6 @@
 
 #notice_form {
 	width: 1280px;
-	
 	display: flex;
 	flex-direction: column;
   justify-content: center;

@@ -19,7 +19,6 @@
 			<jsp:include page="/header/adminSellerTop.jsp" />
     </header>
     <div id="content">
-    <div id="wrapper">
       <div id="title">공지사항 작성</div>
       <form id="notice_form" action="insertNotice" method="POST"> 
 	      <input type="text" id="notice_title" name="title" placeholder="제목을 입력하세요" />
@@ -35,7 +34,6 @@
 		      <button type="submit" id="insertBtn">작성하기</button>
 	      </div>
       </form>
-    </div>
     </div>
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script src="${contextPath }/admin/insertNotice.js"></script>

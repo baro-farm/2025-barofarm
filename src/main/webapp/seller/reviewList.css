@@ -36,17 +36,8 @@
 
 /* 내용 */
 #content {
-	width: calc(100vw - 220px);
-	max-width: 1280px;
-	margin: 40px auto;
-	padding-top: 80px;
-	gap: 20px;
-	padding-left: 220px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	right: 0;
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
 }
 
 .noticeHeader {
@@ -67,11 +58,7 @@
 	display: flex;
 	align-items: center; /* ✅ 가운데 정렬 */
 	justify-content: space-between;
-}
-
-.leftSection {
-	display: flex;
-	align-items: center;
+	margin-top:30px;
 }
 
 .rightSection {
@@ -182,16 +169,6 @@ tbody tr.hovered td {
 	color: white;
 }
 
-.comment {
-	width: 150px;
-	display: flex;
-	justify-content: flex-start;
-	gap: 10px;
-	margin-top: 10px;
-	padding-right: 10px;
-	margin-bottom: 10px;
-}
-
 .actions button {
 	margin-left: 10px; /* 버튼 간격 추가 */
 }
@@ -289,7 +266,6 @@ a:hover {
 }
 
 body.modal-open {
-	background-color: rgba(0, 0, 0, 0.5);
 	overflow: hidden;
 }
 

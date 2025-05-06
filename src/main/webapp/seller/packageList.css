@@ -30,16 +30,8 @@
 
 /* 내용 */
 #content {
-  width: calc(100vw - 220px);
-  max-width: 1400px;
-  margin: 40px auto;
-  padding-top: 80px;
-  padding-left: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  right: 0;
+ margin: 80px 0 0 220px;
+  padding: 40px 50px;
 }
 /* 타이틀 */
 .pkHeader {
@@ -54,7 +46,7 @@
     align-self: flex-start;
 }
 .btn {
-	 padding: 8px 15px;
+	 padding: 6px 15px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -73,13 +65,12 @@
 }
 
 .selectBox select {
-    padding: 4px 10px;
+    padding: 6px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: white;
     font-size: 12px;
     color: #333;
-    margin-bottom:5px;
     text-align:left;
 }
 /* 꾸러미 목록 테이블  */

@@ -32,7 +32,10 @@
   border-bottom: 1px solid #f3f3f3;
   background-color: white;
 }
-
+#content {
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
+}
 /* 공통 입력 요소 높이 통일 */
 input[type="date"],
 select,
@@ -75,7 +78,7 @@ button,
   align-items: center;
   right: 0;
 }
-.noticeHeader {
+.notice-header {
     width: 100%;
     display: flex;
     justify-content: flex-start;  /* ✅ 왼쪽 정렬 */
@@ -113,7 +116,7 @@ button,
   align-items: center;
   width: 100%;
   min-width: 1024px;
-  margin: 0 auto 20px;
+  margin-top: 30px; 
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;

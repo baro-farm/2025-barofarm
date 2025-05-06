@@ -82,7 +82,7 @@
 	      </div>
 	      <div class="form-row">
 	        <label for="ifile" >이미지첨부</label>
-	        <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="100px" 
+	        <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="65px" 
 					onclick="document.getElementById('ifile').click();"/> 
  
 	        <input type="file" id="ifile" name="ifile" accept="image/*" style="display:none" 

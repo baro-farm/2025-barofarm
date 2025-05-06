@@ -38,14 +38,14 @@ public class DetailPackageReview extends HttpServlet {
 		
 		long packNum = Long.parseLong(request.getParameter("packageNum"));
 		String pageStr = request.getParameter("page");
-		System.out.println("DetailProductReview/packNum: "+packNum+", pageStr: "+pageStr);
+		System.out.println("DetailPackReview/packNum: "+packNum+", pageStr: "+pageStr);
 		
 		Integer curPage = (pageStr == null || pageStr.trim().equals("")) ? 1 : Integer.parseInt(pageStr);
 		
 		UserProductService service = new UserProductServiceImpl();
 		try {
 			Integer totalCount = service.CountPackReview(packNum);
-			PageInfo pageInfo = new PageInfo(curPage, 5,totalCount);
+			PageInfo pageInfo = new PageInfo(curPage, 4,totalCount);
 			
 			List<PackReviewVO> reviewList = service.PackReview(packNum, pageInfo);
 			

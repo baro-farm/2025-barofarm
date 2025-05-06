@@ -1,6 +1,3 @@
-.reviewContent {
-  @import "bootstrap/scss/reboot";
-}
 .wrapper {
     display: flex;
     flex-direction: row;
@@ -156,15 +153,12 @@ a {
 /* 리뷰 */
 .reviewTable {
   margin: 0 auto;
-  width: 890px;
+  width: 900px;
   line-height: 1.2em;
-}
-.reviewTable tr {
-  border-bottom: 1px solid #ccc;
 }
 .reviewTable td {
   vertical-align: top;
-  padding: 10px 10px 0 10px;
+  padding: 10px;
 }
 .prodName {
   font-size: 14px;
@@ -173,6 +167,11 @@ a {
 }
 .reviewText {
   margin-bottom: 10px;
+   -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
 }
 .reviewImg {
   position: relative;
@@ -183,57 +182,12 @@ a {
   object-fit: cover;
   border-radius: 4px;
 }
-/* 문의하기  */
-.prodQA {
-  margin: 20px auto;
-  width: 95%;
-  border-collapse: collapse;
-}
-.prodQA th, .prodQA td {
-  border-bottom: 1px solid #ddd;
-  padding: 15px 0;
-  font-size: 14px;
-  text-align: left;
-}
-.prodQA th:nth-child(1),.prodQA td:nth-child(1) {
-  width: 100px;
-  padding: 0 10px;
-}
-.prodQA th:nth-child(3),.prodQA th:nth-child(4),
-.prodQA td:nth-child(3),.prodQA td:nth-child(4) {
-  text-align: right;
-  width: 100px;
-  padding-right: 10px;
-}
-.answerRow {
-  display: none;
-  background-color: #f9f9f9;
-}
-.answerRow.active {
-  display: table-row;
-}
-.answer {
-  padding: 15px;
-  font-size: 14px;
-  line-height: 1.6;
-}
-.answerTitle {
-  background-color: #B0E57C;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-right: 10px;
-  font-weight: bold;
-}
-.answerInfo {
-  text-align: right;
-  margin-top: 10px;
-  color: #888;
-  font-size: 13px;
-}
-.qa-none {
-	text-align:center;
-	height:30px;
+.pd-c{
+	background-color: #f8f8f8;
+	border-radius: 8px;
+	font-size: 12px;
+	width:100%;
+	padding:15px;
 }
 /* 안내사항 */
 .infoContent {

@@ -67,7 +67,7 @@
 	        CONCAT(LEFT(u.userId, CHAR_LENGTH(u.userId) - 3), '***') AS userId,
 	        r.pdRating, 
 	        r.pdReviewContent AS pdContent, 
-	        r.createdAt,
+	        r.createdAt, r.pdComment, r.pdCommentStatus,
 	        r.pdReviewImgUrl AS imgUrl
 	    FROM prodReview r
 	    JOIN product p ON r.productNum = p.productNum

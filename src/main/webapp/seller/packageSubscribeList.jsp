@@ -41,7 +41,7 @@
 
 	<div id="content">
 		<div class="notice-header">
-			<span id="title">상품 구독 관리</span>
+			<span id="title">꾸러미 구독 관리</span>
 		</div>
 		<div class="filterBox">
 			<form method="get" action="${contextPath}/sellerPackSubscribeList"
