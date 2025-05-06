@@ -145,7 +145,7 @@
 					      <td>${cancel.optionName}</td>
 					      <td>${cancel.cancelReason}</td>
 					      <td>${cancel.cancelReasonDetail}</td>
-					      <td><fmt:formatDate value="${cancel.cancelRequestedAt}" pattern="yyyy-MM-dd HH:mm" /></td>
+					      <td>${cancel.cancelRequestedAt}</td>
 					      <td>${cancel.cancelStatus}</td>
 					      <td>${cancel.userId}</td>
 					    </tr>

@@ -35,17 +35,17 @@
 						<img class="reviewImage" src="${contextPath}${packReview.imgUrl }" alt="img">
 						<div class="reviewContent">
 							<div class="storeName">[${packReview.storeName }]</div>
-							<div class="packuctName" style="margin-top:10px">${packReview.packuctName }</div>
+							<div class="packageName" style="margin-top:10px">${packReview.packageName }</div>
 							<div class="purchaseDate" style="margin-top:10px">${packReview.orderdAt }</div>
 							<div class="writeDeadline" style="margin-top:10px">작성 기한: ${packReview.deadline }</div>
 						</div>
 						<button class="reviewButton writeReviewBtn"
 							data-store-name="${packReview.storeName }"
-							data-packuct-name="${packReview.packuctName }"
-							data-packuct-num="${packReview.packuctNum }"
+							data-package-name="${packReview.packageName }"
+							data-package-num="${packReview.packageNum }"
 							data-img-url="${packReview.imgUrl }"
 							data-user-num="${packReview.userNum }"
-							data-pd-order-num="${packReview.pkOrderNum }"> 리뷰쓰기</button>
+							data-pk-order-num="${packReview.pkOrderNum }"> 리뷰쓰기</button>
 							
 					</div>
 					
@@ -108,21 +108,21 @@ $(function () {
 	    const $btn = $(this);
 	    
 	    const userNum = $.trim($btn.data("user-num"));
-	    const packuctNum = $.trim($btn.data("packuct-num"));
+	    const packageNum = $.trim($btn.data("package-num"));
 	    const storeName = $.trim($btn.data("store-name"));
-	    const packuctName = $.trim($btn.data("packuct-name"));
+	    const packageName = $.trim($btn.data("package-name"));
 	    const imgUrl = $.trim($btn.data("img-url"));
-	    const pdOrderNum = $.trim($btn.data("pd-order-num"));
+	    const pkOrderNum = $.trim($btn.data("pk-order-num"));
 
 	    const queryString = 
 	      "userNum=" + encodeURIComponent(userNum) +
-	      "&packuctNum=" + encodeURIComponent(packuctNum) +
+	      "&packageNum=" + encodeURIComponent(packageNum) +
 	      "&storeName=" + encodeURIComponent(storeName) +
-	      "&packuctName=" + encodeURIComponent(packuctName) +
+	      "&packageName=" + encodeURIComponent(packageName) +
 	      "&imgUrl=" + encodeURIComponent(imgUrl)+
-	      "&pdOrderNum="+ encodeURIComponent(pdOrderNum);
+	      "&pkOrderNum="+ encodeURIComponent(pkOrderNum);
 
-	    const destination = `\${contextPath}/insertPackReview?` + queryString;
+	    const destination = `\${contextPath}/insertPackReview?\${queryString}`;
 	    console.log("이동할 주소:", destination);
 	    location.href = destination;
 	  });

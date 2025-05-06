@@ -242,14 +242,14 @@
 				        <td><div class="uiGridCell id">${order.userName}</div></td>
 				        <td><div class="uiGridCell">${order.address}</div></td>
 				        <c:set var="rawPhone" value="${order.phone}" />
-							<c:if test="${not empty rawPhone and fn:length(rawPhone) == 11}">
-							  <td><div class="uiGridCell id">
-							    ${fn:substring(rawPhone, 0, 3)}-${fn:substring(rawPhone, 3, 7)}-${fn:substring(rawPhone, 7, 11)}
-							  </div></td>
-							</c:if>
-							<c:if test="${empty rawPhone or fn:length(rawPhone) != 11}">
-							  <td><div class="uiGridCell id">${order.phone}</div></td>
-							</c:if> 
+						<c:if test="${not empty rawPhone and fn:length(rawPhone) == 11}">
+						  <td><div class="uiGridCell id">
+						    ${fn:substring(rawPhone, 0, 3)}-${fn:substring(rawPhone, 3, 7)}-${fn:substring(rawPhone, 7, 11)}
+						  </div></td>
+						</c:if>
+						<c:if test="${empty rawPhone or fn:length(rawPhone) != 11}">
+						  <td><div class="uiGridCell id">${order.phone}</div></td>
+						</c:if> 
 				        <td><div class="uiGridCell">${order.orderStatus}</div></td>
 				        
 				        

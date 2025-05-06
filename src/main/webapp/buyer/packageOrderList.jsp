@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -35,27 +36,26 @@
 	  // 구매확정 버튼 클릭 시 모달 띄우기
 	  $(document).on("click", ".confirmBtn", function () {
 	    const orderItem = $(this).closest(".orderItem");
-	    selectedPkOrderNum = orderItem.attr("data-pk-order-num");
-	
-	    if (!selectedPkOrderNum) {
-	      alert("주문 번호를 찾을 수 없습니다.");
-	      return;
-	    }
+	    const selectedPkOrderNum = orderItem.attr("data-pk-order-num");
+
+	    console.log("🟢 orderItem:", orderItem.length);
+	    console.log("🟢 data-pk-order-num:", selectedPkOrderNum);
+
 	
 	    console.log("🟢 구매확정 클릭:", selectedPkOrderNum);
-	    $("#confirmModal").show();
+	    $("#confirmModal2").show();
 	  });
 	  
 	  
 	  
 	  
 	  // 모달 취소 버튼
-	  $("#confirmNo").click(function () {
-	    $("#confirmModal").hide();
+	  $("#confirmNo2").click(function () {
+	    $("#confirmModal2").hide();
 	  });
 	
 	  // 모달 확인 버튼
-	  $("#confirmYes").click(function () {
+	  $("#confirmYes2").click(function () {
 	    if (!selectedPkOrderNum) {
 	      alert("주문 번호가 없습니다.");
 	      return;
@@ -78,7 +78,7 @@
 	    	      orderItem.find(".orderStatus").text(res.status);
 
 	
-	    	      $("#confirmModal").hide();
+	    	      $("#confirmModal2").hide();
 	    	    }
 	    	  });
 	    	},
@@ -135,7 +135,7 @@
 							<path d="M6.75 16.5V9H11.25V16.5M2.25 6.75L9 1.5L15.75 6.75V15C15.75 15.3978 15.592 15.7794 15.3107 16.0607C15.0294 16.342 14.6478 16.5 14.25 16.5H3.75C3.35218 16.5 2.97064 16.342 2.68934 16.0607C2.40804 15.7794 2.25 15.3978 2.25 15V6.75Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 						</a></div>
 						<div class="packageName"><a href="${contextPath}/detailProduct?productNum=${packOrder.packageNum}">${packOrder.packageName }</a></div>
-						<div class="packagePrice">${packOrder.pkTotalPrice }원</div>
+						<div class="packagePrice"><fmt:formatNumber value="${packOrder.pkTotalPrice }" type="number" groupingUsed="true" />원</div>
 						<div class="orderDetail">
 							<a href="#" onclick="return openDetailPopup('${contextPath}/detailPackOrderInfo?pkOrderNum=${packOrder.pkOrderNum}')">상세보기></a>
 						</div>
@@ -283,11 +283,11 @@ $(document).on('click','button#searchBtn',function (e) {
   }
 </script>
 <!-- 모달 -->
-<div id="confirmModal" class="modal" style="display: none;">
+<div id="confirmModal2" class="modal" style="display: none;">
 	<div class="modalContent">
 		<p>구매를 확정하시겠습니까?</p>
-		<button id="confirmYes" class="btn btnGreen">확인</button>
-		<button id="confirmNo" class="btn btnRed">취소</button>
+		<button id="confirmYes2" class="btn btnGreen">확인</button>
+		<button id="confirmNo2" class="btn btnRed">취소</button>
 	</div>
 </div>
 

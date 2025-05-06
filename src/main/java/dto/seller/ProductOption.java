@@ -10,6 +10,7 @@ public class ProductOption {
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
 	Integer stock;
+	Integer optionPrice;
 
 	public Long getOptionNum() {
 		return optionNum;
@@ -65,6 +66,14 @@ public class ProductOption {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+	
+	public Integer getOptionPrice() {
+		return optionPrice;
+	}
+
+	public void setOptionPrice(Integer optionPrice) {
+		this.optionPrice = optionPrice;
 	}
 
 	public ProductOption() {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -204,7 +205,7 @@
 							<path d="M6.75 16.5V9H11.25V16.5M2.25 6.75L9 1.5L15.75 6.75V15C15.75 15.3978 15.592 15.7794 15.3107 16.0607C15.0294 16.342 14.6478 16.5 14.25 16.5H3.75C3.35218 16.5 2.97064 16.342 2.68934 16.0607C2.40804 15.7794 2.25 15.3978 2.25 15V6.75Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 						</a></div>
 						<div class="productName"><a href="${contextPath }/detailProduct?productNum=${prodOrder.productNum}">${prodOrder.productName }</a></div>
-						<div class="productPrice" data-price=${prodOrder.price }>${prodOrder.price }원</div>
+						<div class="productPrice" data-price=${prodOrder.price }><fmt:formatNumber value="${prodOrder.price }" type="number" groupingUsed="true" />원</div>
 						<div class="orderDetail">
 							<a href="#" onclick="return openDetailPopup('${contextPath}/detailOrderInfo?pdOrderNum=${prodOrder.pdOrderNum}')">상세보기></a>
 						</div>

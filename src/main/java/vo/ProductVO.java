@@ -36,7 +36,8 @@ public class ProductVO {
     private String option;
     private Integer optionPrice;
 
-    String content;
+    private String content;
+    private Integer pdPrice;
     
 	public Long getProductNum() {
 		return productNum;
@@ -161,5 +162,12 @@ public class ProductVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	    
+	public Integer getPdPrice() {
+		return pdPrice;
+	}
+	public void setPdPrice(Integer pdPrice) {
+		this.pdPrice = pdPrice;
+	}
+	 
+	
 }

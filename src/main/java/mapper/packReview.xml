@@ -54,8 +54,8 @@
 	</select>
 	
 	<insert id="insertPackReview" parameterType="packReviewVO">
-		insert into packReview (userNum,packageNum,pkRating,pkReviewContent,pkReviewImgUrl)
-			values(#{userNum},#{packageNum},#{pkRating},#{pkReviewContent},#{pkReviewImgUrl})
+		insert into packReview (userNum,packageNum,pkRating,pkReviewContent,pkReviewImgUrl,pkOrderNum)
+			values(#{userNum},#{packageNum},#{pkRating},#{pkReviewContent},#{pkReviewImgUrl},#{pkOrderNum})
 	</insert>
 	
 	<select id="countPackReview" resultType="Integer" parameterType="long">

@@ -81,7 +81,8 @@ public class ProdCancelList extends HttpServlet {
 		    	sort = "new";
 		    }
 		    
-		    prodCancelList = service.selectSellerCancelList(sellerNum, sort, offset, offset);
+		    prodCancelList = service.selectSellerCancelList(sellerNum, sort, offset, pageSize);
+		    System.out.println(prodCancelList);
 		    
 			int pageGroupSize = 5;
 			int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
