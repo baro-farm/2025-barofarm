@@ -49,45 +49,7 @@
 		                    <button type="button" id="writeButton" name="writeButton" class="btnWrite writeButton">글쓰기</button>
 		                </div>
 		            </div>
-		            <script type="text/javascript">
-						
-
-			            document.addEventListener("DOMContentLoaded", function () {
-			                const selectAllCheck = document.getElementById("selectAllCheck");
-			                const checkboxes = document.querySelectorAll('input[name="commentCheck"]');
-			                selectAllCheck.addEventListener("change", function (e) {
-			                  checkboxes.forEach(function (checkbox) {
-			                    checkbox.checked = selectAllCheck.checked;
-			                  });
-			                });
-			                
-			                const commentBoxes = document.querySelectorAll(".commentBox");
-			                commentBoxes.forEach(box =>{
-			                	box.addEventListener("click",function(e){
-			                		//체크박스 무시
-			                		if (e.target.tagName.toLowerCase() === "input") return;
-			                		
-			                		const kockNum=this.dataset.kocknum;
-			                		if(kockNum){
-			                			console.log();
-			                			window.location.href = `${contextPath}/detailKockFarm?kockNum=\${kockNum}`;
-			                			console.log(window.location.href);
-			                		
-			                		}
-			                	});
-			                	
-			                });
-			                
-			                const writeButton = document.getElementById("writeButton");
-			                if(writeButton){
-			                	writeButton.addEventListener("click", function(){
-			                		console.log("click");
-			                		window.location.href = `\${contextPath}/insertKockFarm`;
-			                	});
-			                }
-			                
-			              });
-		            </script>
+		            
 		
 
 		        </form>
@@ -153,4 +115,43 @@
     	</div><!-- end of wrapper -->    
     </div><!-- end of container-->
 </body>
+<script type="text/javascript">
+						
+
+			            document.addEventListener("DOMContentLoaded", function () {
+			                const selectAllCheck = document.getElementById("selectAllCheck");
+			                const checkboxes = document.querySelectorAll('input[name="commentCheck"]');
+			                selectAllCheck.addEventListener("change", function (e) {
+			                  checkboxes.forEach(function (checkbox) {
+			                    checkbox.checked = selectAllCheck.checked;
+			                  });
+			                });
+			                
+			                const commentBoxes = document.querySelectorAll(".commentBox");
+			                commentBoxes.forEach(box =>{
+			                	box.addEventListener("click",function(e){
+			                		//체크박스 무시
+			                		if (e.target.tagName.toLowerCase() === "input") return;
+			                		
+			                		const kockNum=this.dataset.kocknum;
+			                		if(kockNum){
+			                			console.log();
+			                			window.location.href = `${contextPath}/detailKockFarm?kockNum=\${kockNum}`;
+			                			console.log(window.location.href);
+			                		
+			                		}
+			                	});
+			                	
+			                });
+			                
+			                const writeButton = document.getElementById("writeButton");
+			                if(writeButton){
+			                	writeButton.addEventListener("click", function(){
+			                		console.log("click");
+			                		window.location.href = `\${contextPath}/insertKockFarm`;
+			                	});
+			                }
+			                
+			              });
+		            </script>
 </html>

@@ -64,7 +64,9 @@ public class PackageOrderList extends HttpServlet {
 	        String startDate = request.getParameter("searchStartDate");
 	        String endDate = request.getParameter("searchEndDate");
 	        String deliveryStatus = request.getParameter("deliveryStatus");			
-			Long userNum = userService.selectUserNumByUserId(sessionUser.getUserId());
+			
+	        Long userNum = userService.selectUserNumByUserId(sessionUser.getUserId());
+			System.out.println(deliveryStatus +""+startDate+""+endDate);
 			System.out.println(userNum);
 			
             if (request.getParameter("page") != null) {

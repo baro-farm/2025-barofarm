@@ -5,12 +5,6 @@
     font-style: normal;
 }
 *{font-family: SUIT-Regular, sans-serif;}
-body {
-    margin: 0;
-    display: flex;
-}
-
-
 
 .logo {
     width:220px;

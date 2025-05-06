@@ -42,8 +42,7 @@
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-			<p style="width: 100%; text-align: center; margin: auto;">작성된 리뷰가
-				없습니다.</p>
+			<p style="width: 100%; text-align: center; margin: auto;">작성된 리뷰가 없습니다.</p>
 		</c:otherwise>
 	</c:choose>
 </table>

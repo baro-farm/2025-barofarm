@@ -81,4 +81,10 @@ public class PackageOrderDAOImpl implements PackageOrderDAO{
     public int countAdminPackOrderList(Map<String, Object> paramMap) {
         return sqlSession.selectOne("mapper.packOrder.countAdminPackOrderList", paramMap);
     }
+
+	@Override
+	public List<PackOrderVO> selectPackDetailOrderList(Long pkOrderNum) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.packOrder.packDetailOrderList", pkOrderNum);
+	}
 }

@@ -10,22 +10,6 @@
 }
 
 
-.emptyMessage {
-    text-align: center;
-    padding: 50px 0;
-    color: #888;
-    font-size: 1.2em;
-}
-.content1 {
-	flex: 1;
-	align-self: flex-start;
-	max-width: 1000px;
-	min-width: 0;
-	margin-left: 20px;
-	margin-right: auto;
-	position: relative;
-}
-
 .FilterBox {
     display: flex;
     justify-content: flex-end;  /* ✅ 오른쪽 정렬 */
@@ -43,10 +27,6 @@
     background-color: white;
     color: #333;
 }
-.FilterBox input {
-    padding: 5px;
-}
-
 .FilterBox button {
     padding: 5px 10px;
     background-color: #65B741;
@@ -55,7 +35,31 @@
     cursor: pointer;
     border-radius: 8px;
 }
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
 
+.content1 {
+	flex: 1;
+	align-self: flex-start;
+	max-width: 1000px;
+	min-width: 0;
+	margin-left: 20px;
+	margin-right: auto;
+	position: relative;
+}
+
+
+
+
+.emptyMessage {
+    text-align: center;
+    padding: 50px 0;
+    color: #888;
+    font-size: 1.2em;
+}
 .orderList {
     padding-top: 10px;
     display: flex;
@@ -90,9 +94,6 @@
     padding-left: 10px; 
     width:200px;  
 }
-
-
-
 .orderStatus {
     font-weight: bold;
     font-size: 16px;
@@ -152,10 +153,11 @@
 .orderDate{
     color: #82807C;
 }
-.productName{
-    font-size: 20px;
+.packageName{
+    font-size: 18px;
+    margin-bottom:5px;
 }
-.productPrice{
+.packagePrice{
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 5px; 
@@ -167,8 +169,6 @@
     cursor: pointer;
     border-radius: 8px;
 }
-
-
 .pagination {
     display: flex;
     justify-content: center;
@@ -204,4 +204,9 @@
 .pagination a.disabled {
     pointer-events: none;
     color: #ccc;
+}
+
+
+a:hover{
+	color:#FFB534;
 }

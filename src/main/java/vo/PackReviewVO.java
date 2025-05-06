@@ -21,6 +21,7 @@ public class PackReviewVO {
 	private String packageUnit; //1인 2인 3인 ...
 	
 	private String storeName; // 스토어 이름
+	private Long sellerNum;
 	
 	private LocalDate orderdAt; // 구매일자
 	private LocalDate deadline; // 작성 기한 (구매일자 + 30일)
@@ -119,6 +120,12 @@ public class PackReviewVO {
 	}
 	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
+	}
+	public Long getSellerNum() {
+		return sellerNum;
+	}
+	public void setSellerNum(Long sellerNum) {
+		this.sellerNum = sellerNum;
 	}
 	
 	

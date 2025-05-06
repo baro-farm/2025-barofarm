@@ -44,10 +44,11 @@
 	    <collection property="optionList" ofType="productOption">
 		    <id property="optionNum" column="optionNum"/>
 		    <result property="productNum" column="productNum"/>
+		    <result property="optionNum" column="optionNum"/>
 		    <result property="option" column="option"/>
-		    <result property="price" column="price"/>  <!-- alias 줬으니까 -->
+		    <result property="price" column="price"/> 
 		    <result property="stock" column="stock"/>
-		    <result property="createdAt" column="createdAt"/> <!-- alias 줬으니까 -->
+		    <result property="createdAt" column="createdAt"/> 
 		    <result property="updatedAt" column="updatedAt"/>
 	    </collection>	
 	
@@ -57,7 +58,7 @@
 		select p.productNum, p.sellerNum, p.productName,p.status, 
 		p.price, p.imgUrl, p.createdAt, p.salesVolume,
 		c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount,
-		po.option,po.price,po.stock,po.createdAt,po.updatedAt
+		po.optionNum,po.option,po.price,po.stock,po.createdAt,po.updatedAt
 		
 		
 		from product p
@@ -91,8 +92,8 @@
 	</select>
 	
 	<update id="updateProductStock" parameterType="map">
-		update product set stock = #{stock}
-		where productNum = #{productNum}
+		update productOption set stock = #{stock}
+		where optionNum = #{optionNum}
 	</update>
 	
 	<update id="updateProductStatusBatch" parameterType="list">

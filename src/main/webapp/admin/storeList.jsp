@@ -19,30 +19,27 @@
 	</header>
 
 	<div id="content">
-		<div id="wrapper">
 			<div class="store_header">
 				<span id="title">스토어 정보 검색</span>
 			</div>
-
+			
 			<!-- 🔍 검색 및 필터 -->
-			<form method="get" action="${contextPath}/storeList"
-				class="filter-form" style="margin-bottom: 20px;">
-				<div style="display: flex; gap: 12px; align-items: center;">
-					<select name="searchType">
-						<option value="userId" ${searchType == 'userId' ? 'selected' : ''}>아이디</option>
-						<option value="storeName"
-							${searchType == 'storeName' ? 'selected' : ''}>스토어명</option>
-					</select> <input type="text" name="keyword" placeholder="검색어 입력"
-						value="${keyword}" /> <select name="isAlarm"
-						onchange="submitFormWithParams(this.form)">
-						<option value="">전체</option>
-						<option value="1" ${isAlarm == '1' ? 'selected' : ''}>팜링
-							구독</option>
-						<option value="0" ${isAlarm == '0' ? 'selected' : ''}>미구독</option>
-					</select>
-					<button type="submit">검색</button>
-				</div>
-			</form>
+			<form method="get" action="${contextPath}/storeList" class="filter-form">
+			<div style="display: flex; gap: 12px; justify-content: flex-end;">
+				<select name="isAlarm" onchange="submitFormWithParams(this.form)">
+					<option value="">전체</option>
+					<option value="1" ${isAlarm == '1' ? 'selected' : ''}>팜링 구독</option>
+					<option value="0" ${isAlarm == '0' ? 'selected' : ''}>미구독</option>
+				</select>
+				<select name="searchType">
+					<option value="userId" ${searchType == 'userId' ? 'selected' : ''}>아이디</option>
+					<option value="storeName" 	${searchType == 'storeName' ? 'selected' : ''}>스토어명</option>
+				</select> 
+				<input type="text" name="keyword" placeholder="검색어 입력" value="${keyword}" />
+				<button type="submit">검색</button>
+			</div>
+		</form>
+		
 			<table id="store_table" class="table display nowrap">
 				<thead>
 					<tr>
@@ -122,7 +119,6 @@
 						href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}">&raquo;</a>
 				</c:if>
 			</div>
-		</div>
 	</div>
 	<script>
 		function submitFormWithParams(form) {

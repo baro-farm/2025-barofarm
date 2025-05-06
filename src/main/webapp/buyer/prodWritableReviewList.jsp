@@ -10,7 +10,31 @@
 <script>
   const contextPath = '${contextPath}';
 </script>
+<script>
+$(document).on('click', '.pagination a', function (e) {
+    e.preventDefault();
+    const page = $(this).data('page');
+    const reviewFilterPeriod = $('#reviewFilterPeriod').val();
 
+
+    $.ajax({
+      url: '${contextPath}/prodWritableReviewList',
+      type: 'GET',
+      data: {
+    	reviewFilterPeriod:reviewFilterPeriod,
+        page: page
+      },
+      success: function (data) {
+        const $response = $('<div>').html(data);
+        $('.reviewList').html($response.find('.reviewList').html());
+        $('.pagination').html($response.find('.pagination').html());
+      },
+      error: function () {
+        alert("페이지 요청 실패");
+      }
+    });
+  });
+</script>
 	
 	<div class="container" id="reviewContainer" name="reviewContainer">
 	<div class="wrapper">
@@ -19,9 +43,8 @@
 			<!-- 필터 -->
 		    <div class="reviewFilter">
 		        <select id="reviewFilterPeriod" name="reviewFilterPeriod">
-		            <option value="6개월">6개월</option>
-		            <option value="1년">1년</option>
-		            <option value="전체">전체</option>
+		            <option value="1개월">1개월</option>
+		            <option value="3개월">3개월</option>
 		        </select>
 		    </div>			
 			<div class="reviewList">
@@ -55,9 +78,59 @@
 			</div>
 			</div>
 		</div>
-		<div class="pagination">
-			<span class="active">1</span> <span>2</span> <span>3</span> <span>4</span>
-			<span>5</span>
+
+
+			<div class="pagination">
+				<!-- << -->
+				<c:choose>
+					<c:when test="${currentPage > 1}">
+						<a
+							href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&period=${param.period}&matched=${param.matched}">&laquo;</a>
+					</c:when>
+					<c:otherwise>
+						<a class="disabled">&laquo;</a>
+					</c:otherwise>
+				</c:choose>
+
+				<!-- < -->
+				<c:choose>
+					<c:when test="${currentPage > 1}">
+						<a
+							href="?page=${currentPage - 1}&period=${param.period}&matched=${param.matched}">&lsaquo;</a>
+					</c:when>
+					<c:otherwise>
+						<a class="disabled">&lsaquo;</a>
+					</c:otherwise>
+				</c:choose>
+
+				<!-- 페이지 번호 -->
+				<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+					<a
+						href="?page=${i}&period=${param.period}&matched=${param.matched}"
+						class="${currentPage == i ? 'active' : ''}">${i}</a>
+				</c:forEach>
+
+				<!-- > -->
+				<c:choose>
+					<c:when test="${currentPage < totalPages}">
+						<a
+							href="?page=${currentPage + 1}&period=${param.period}&matched=${param.matched}">&rsaquo;</a>
+					</c:when>
+					<c:otherwise>
+						<a class="disabled">&rsaquo;</a>
+					</c:otherwise>
+				</c:choose>
+
+				<!-- >> -->
+				<c:choose>
+					<c:when test="${currentPage < totalPages}">
+						<a
+							href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&period=${param.period}&matched=${param.matched}">&raquo;</a>
+					</c:when>
+					<c:otherwise>
+						<a class="disabled">&raquo;</a>
+					</c:otherwise>
+				</c:choose>
 		</div>
 	</div>
 

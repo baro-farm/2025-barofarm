@@ -171,12 +171,10 @@
           <option value="userName" ${param.searchType == 'userName' ? 'selected' : ''}>구매자명</option>
           <option value="pdOrderNum" ${param.searchType == 'pdOrderNum' ? 'selected' : ''}>주문번호</option>
           <option value="productNum" ${param.searchType == 'productNum' ? 'selected' : ''}>상품번호</option>
-          <option value="trackingNum" ${param.searchType == 'trackingNum' ? 'selected' : ''}>송장번호</option>
         </select>
       </div>
       <input type="text" name="searchKeyword" id="searchKeyword" placeholder="검색어 입력" value="${param.searchKeyword}"   ${param.searchType == 'all' || empty param.searchType ? 'disabled' : ''}>
     </div>
-        <!-- 가운데: 검색 버튼 -->
     <div class="filterSection centerSection">
       <button type="submit" class="searchBtn">검색</button>
     </div>
@@ -230,8 +228,8 @@
 					<c:forEach var="order" items ="${prodOrderList }">
 					
 					    <tr>
-				        <td><div class="uiGridCell orderNum" data-pdordernum="${order.pdOrderNum}"><a href="#">${order.pdOrderNum}</a></div></td>
-				        <td><div class="uiGridCell">${order.productNum}</div></td>
+				        <td><div class="uiGridCell orderNum" data-pdordernum="${order.pdOrderNum}">${order.pdOrderNum}</div></td>
+				        <td><div class="uiGridCell"><a href="${contextPath }/detailProduct?productNum=${order.productNum}">${order.productNum}</a></div></td>
 				        <td><div class="uiGridCell">${order.option}</div></td>
 				        <td><div class="uiGridCell"><fmt:formatNumber value="${order.optionPrice}" type="number" groupingUsed="true" />원</div></td>
 				        <td><div class="uiGridCell">${order.amount}</div></td>

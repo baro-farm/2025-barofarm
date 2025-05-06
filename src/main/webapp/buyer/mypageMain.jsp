@@ -85,7 +85,7 @@
 		        
 		            <div class="contentBox">
 		                <div class="title">
-		                    내 상품 문의 내역
+		                    내 상품 내역
 		                    <span class="add-btn"><a href="questionList">+</a></span>
 		                </div>
 		                <ul>

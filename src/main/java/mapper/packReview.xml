@@ -225,7 +225,8 @@
 		    pr.pkRating,
 		    pr.pkReviewContent,
 		    pr.createdAt,
-		    sd.storeName
+		    sd.storeName,
+		    sd.sellerNum
 	FROM 
 	    packReview pr
 	JOIN 

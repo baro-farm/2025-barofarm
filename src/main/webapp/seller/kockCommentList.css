@@ -23,25 +23,9 @@
 }
 
 /* 내용 */
-
-/* #content {
-  width: calc(100vw - 220px);
-  max-width: 1280px;
-  margin: 40px auto;
-  padding-top: 80px;
-  padding-left: 220px;
-} */
 #content {
-  width: calc(100vw - 220px);
-  max-width: 1400px;
-  margin: 40px auto;
-  padding-top: 80px;
-  padding-left: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  right: 0;
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
 }
 .sideMenu {
 	position: relative;
@@ -59,7 +43,7 @@
     align-self: flex-start;
 }
 .selectBox{
-	margin-top: 15px;
+	margin-top: 30px;
 	width:100%;
     display: flex;
     justify-content: flex-end;

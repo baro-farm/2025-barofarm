@@ -101,9 +101,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void updateProductStock(Long productNum, Integer stock) throws Exception {
+	public void updateProductStock(Long optionNum, Integer stock) throws Exception {
 		Map<String, Object> param = new HashMap<>();
-		param.put("productNum", productNum);
+		param.put("optionNum", optionNum);
 		param.put("stock", stock);
 		productDao.updateProductStock(param);
 		

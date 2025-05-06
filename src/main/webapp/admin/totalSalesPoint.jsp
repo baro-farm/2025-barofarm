@@ -18,7 +18,6 @@
 			<jsp:include page="/header/adminSellerTop.jsp" />
 	</header>
 	<div id="content">
-		<div id="wrapper">
 		<div class="point_header">
 			<span id="title">전체 매출</span>
 		</div>
@@ -124,7 +123,6 @@
 				</c:otherwise>
 					</c:choose>
 				</div>
-		</div>
 	</div>
 	
 	<script>

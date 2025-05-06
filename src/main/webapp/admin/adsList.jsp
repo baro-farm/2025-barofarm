@@ -9,13 +9,11 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8" />
-	<title>광고 관리</title>
-		<link rel="stylesheet" href="${contextPath}/header/reset.css">
-	
+	<title>관리자 | 배너 광고</title>
+	<link rel="stylesheet" href="${contextPath}/header/reset.css">
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="${contextPath}/admin/adminAdsList.css" />
-    	<link rel="stylesheet" href="${contextPath }/common/modal.css">
- 
+    <link rel="stylesheet" href="${contextPath }/common/modal.css">
 </head>
 <body>
 	<jsp:include page="/header/adminHeader.jsp" />
@@ -25,7 +23,7 @@
     <div id="content">
 				<div class="hh">
 					<div class="pkHeader">
-						<span id="title">배너 관리</span>
+						<span id="title">배너 광고</span>
 					</div>
  					<div id="searchAndPagingWrapper" class="selectBox" style="display: none;">
 					 <form method="get" action="${contextPath}/adminAdsList" style="margin-bottom: 20px;">

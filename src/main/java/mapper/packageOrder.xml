@@ -30,7 +30,7 @@
 	      AND po.orderDate &lt;= #{endDate}
 	    </if>
 	    <if test="deliveryStatus != null and deliveryStatus != ''">
-	      AND po.deleveryStatus = #{deliveryStatus}
+	      AND po.deleveryStatus = #{deleveryStatus}
 	    </if>
 	</select>
 	
@@ -51,7 +51,7 @@
 	      AND po.orderedAt &lt;= #{endDate}
 	    </if>
 	    <if test="deliveryStatus != null and deliveryStatus != ''">
-	      AND po.deleveryStatus = #{deliveryStatus}
+	      AND po.deleveryStatus = #{deleveryStatus}
 	    </if>
 	  ORDER BY po.orderedAt DESC
 	</select>
@@ -248,6 +248,17 @@
 		    </choose>
 		</if>
 	</select>
-
+	<select id="packDetailOrderList" parameterType="Long" resultType="packOrderVo">
+		select
+			po.pkOrderNum, po.pkTotalPrice, po.orderedAt,po.subNum,
+			p.packageNum, p.sellerNum, p.packageName,p.imgUrl,
+			s.sellerNum, s.storeName,
+			ps.addr, ps.rname, ps.rphone
+		from packageOrder po
+		Join package p on po.packageNum = p.packageNum
+		Join sellerdetail s on p.sellerNum = s.sellerNum
+		Join pakageSubscribe ps on po.userNum = ps.userNum
+		where po.pkOrderNum = #{pkOrderNum}
+	</select>
 		
 </mapper>

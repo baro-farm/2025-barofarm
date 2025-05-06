@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +9,7 @@
 <title>관리자 | 공지사항</title>
 <link rel="stylesheet" href="${contextPath}/header/reset.css">
 <link rel="stylesheet" href="${contextPath}/admin/noticeList.css" />
-<link
-	href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css"
-	rel="stylesheet"
-	integrity="sha384-jFvlDSY24z+oXMByOoX2Z1gM+M5NMd0uG7sDa4skv2mHXPuS0/RYXwPGLK0+Mgdc"
-	crossorigin="anonymous" />
+<!-- <link href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css" rel="stylesheet"/> -->
 </head>
 <body>
 	<jsp:include page="/header/adminHeader.jsp" />
@@ -22,13 +17,14 @@
 		<jsp:include page="/header/adminSellerTop.jsp" />
 	</header>
 	<div id="content">
-		<div id="wrapper">
 			<div class="notice_header">
 				<span id="title">공지사항</span>
-				<button id="new_notice"
-					onclick="location.href='${contextPath}/insertNotice'">공지
-					작성</button>
 			</div>
+			
+			<div style="width:100%; margin: 20px 0;">
+				<button id="new_notice" onclick="location.href='${contextPath}/insertNotice'">작성하기</button>
+			</div>
+			
 			<table id="notice_table" class="table display nowrap">
 				<thead>
 					<tr class="tr">
@@ -107,7 +103,6 @@
 						href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}">&raquo;</a>
 				</c:if>
 			</div>
-		</div>
 	</div>
 	<script src="${contextPath}/admin/noticeList.js"></script>
 </body>

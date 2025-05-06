@@ -81,22 +81,40 @@
 }
 
 .pagination {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
     margin-top: 20px;
 }
 
-.pagination span {
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 0 3px;
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.pagination .active {
-    background-color: green;
+.pagination a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+
+.pagination a.active {
+    background-color: #65B741;  /* ✅ 메인 그린 */
     color: white;
-    border: none;
+}
+
+.pagination a.disabled {
+    pointer-events: none;
+    color: #ccc;
 }
 a{
 	text-decoration: none;

@@ -9,6 +9,7 @@ public class ProdReviewVO {
 	Long userNum; // 회원 번호
 	String productName; // 상품 이름
 	String storeName; // 스토어 이름
+	Long sellerNum;
 	String imgUrl;
 	LocalDate orderdAt; // 구매일자
 	LocalDate deadline; // 작성 기한 (구매일자 + 30일)
@@ -118,6 +119,12 @@ public class ProdReviewVO {
 	}
 	public void setPdComment(String pdComment) {
 		this.pdComment = pdComment;
+	}
+	public Long getSellerNum() {
+		return sellerNum;
+	}
+	public void setSellerNum(Long sellerNum) {
+		this.sellerNum = sellerNum;
 	}
 	
 	

@@ -241,3 +241,7 @@
     background-color: #65B741;  /* ✅ 메인 그린 */
     color: white;
 }
+.pagination a.disabled {
+    pointer-events: none;
+    color: #ccc;
+}

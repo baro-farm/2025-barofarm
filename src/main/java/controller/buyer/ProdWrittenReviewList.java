@@ -14,6 +14,9 @@ import dto.User;
 import dto.buyer.ProdReview;
 import service.buyer.ProdReviewSerivce;
 import service.buyer.ProdReviewServiceImpl;
+import service.buyer.UserService;
+import service.buyer.UserServiceImpl;
+import vo.ProdReviewVO;
 
 /**
  * Servlet implementation class ProdWrittenReviewList
@@ -52,11 +55,58 @@ public class ProdWrittenReviewList extends HttpServlet {
 		}
 		
 		ProdReviewSerivce service = new ProdReviewServiceImpl();
-		List<ProdReview> prodReviewList = null;
+		UserService userService = new UserServiceImpl();
+		List<ProdReviewVO> prodReviewList = null;
+		
+		int page=1;
+		int pageSize=5;
+		int totalCount=0;
+		
 		try {
 			
-			prodReviewList = service.selectUserWrittenReviewList(sessionUser.getUserId());
+            String period = request.getParameter("reviewFilterPeriod");
+            if (period == null) period = "1개월";
+			
+			Long userNum = userService.selectUserNumByUserId(sessionUser.getUserId());
+			System.out.println(userNum);
+			
+			if (request.getParameter("page") != null) {
+                page = Integer.parseInt(request.getParameter("page"));
+            }
+			
+			totalCount = service.selectCountUserWrittenReviews(userNum, period);
+			
+			int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+			
+			if (page > totalPages && totalPages > 0) {
+		        page = totalPages;
+		    }
+		    if (page <= 0) {
+		        page = 1;  // 페이지가 0 이하일 경우
+		    }
+		    
+		    
+			
+			int offset = (page - 1) * pageSize;
+		
+			
+			prodReviewList = service.selectUserWrittenReviews(userNum, period, offset, pageSize);
+            
+			int pageGroupSize = 5;
+            int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
+            int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;
+            int groupEndPage = Math.min(groupStartPage + pageGroupSize - 1, totalPages);
+
+			
 			request.setAttribute("prodReviewList", prodReviewList);
+			
+            request.setAttribute("currentPage", page);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("groupStartPage", groupStartPage);
+            request.setAttribute("groupEndPage", groupEndPage);
+            request.setAttribute("pageGroupSize", pageGroupSize);
+            request.setAttribute("reviewFilterPeriod", period);
+
 			request.getRequestDispatcher("/buyer/prodWrittenReviewList.jsp").forward(request, response);
 
 		} catch (Exception e) {

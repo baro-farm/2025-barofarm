@@ -26,26 +26,12 @@ body {
 
 /* 내용 */
 #content {
-  width: calc(100vw - 220px);
-  max-width: 1400px;
-  margin: 40px auto;
-  padding-top: 80px;
-  padding-left: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  right: 0;
-}
-.sideMenu {
-	position: relative;
-    top: 200px;
+ margin: 80px 0 0 220px;
+  padding: 40px 50px;
 }
 .pkHeader {
-	width:100%;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
+	 display: flex;
+  align-items: center;
 }
 /*제목*/
 .title {

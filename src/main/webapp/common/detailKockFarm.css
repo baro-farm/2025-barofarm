@@ -78,10 +78,11 @@
 /* 정보 테이블 같은 박스 스타일 */
 .content-box {
     padding: 20px;
+    margin-top: 40px;
     font-size: 18px;
     line-height: 1.6;
-    margin-bottom: 25px;
     height: 200px;
+    background-color: #f0f0f0;
 }
 
 /* 버튼 스타일 */
@@ -159,7 +160,6 @@
     background-color: #579d39;
 }
 #commentList{
-	border-top:1px solid #ccc;
 	padding: 10px 0;
 }
 .comments{

@@ -11,6 +11,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	<script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <link rel="stylesheet" href="${contextPath}/seller/farmPointList.css" />
+    <link rel="stylesheet" href="${contextPath }/reset.css">
 </head>
 <body>
 	<jsp:include page="/header/sellerHeader.jsp" />

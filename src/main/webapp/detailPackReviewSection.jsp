@@ -9,7 +9,7 @@
 	<c:choose>
 		<c:when test="${not empty review}">
 			<c:forEach var="r" items="${review}">
-				<tr class="review1">
+				<tr style="border-bottom: 1px solid #ccc;">
 					<td class="reviewContent">
 						<div class="reviewId">
 							<strong>${r.userId }</strong> <span class="stars"> <c:forEach
@@ -25,7 +25,7 @@
 								</c:forEach>
 							</span>
 						</div>
-						<div class="prodName">${r.packageName}</div>
+						<div class="packName">${r.packageName}</div>
 						<div class="reviewText">${r.pkReviewContent}</div> <span
 						class="reviewDate">${r.createdAt }</span>
 					</td>
@@ -38,10 +38,10 @@
 				<c:if test="${ true == r.pkCommentStatus }">
 					<tr>
 						<td colspan="2">
-							<button type="button" class="toggle-comment-btn" onclick="toggleComment(this)">
+							<!-- <button type="button" class="toggle-comment-btn" onclick="toggleComment(this)">
 								답글 보기
-							</button>
-							<div class="pk-c" style="display: none;">ㄴ 판매자: ${r.pkComment }</div>
+							</button> -->
+							<div class="pk-c">ㄴ 판매자: ${r.pkComment }</div>
 						</td>
 					</tr>
 				</c:if>
@@ -107,7 +107,7 @@
 	</c:choose>
 </div>
 
-<script>
+<!-- <script>
 	function toggleComment(button) {
 		const commentDiv = button.nextElementSibling;
 		if (commentDiv.style.display === "none") {
@@ -118,4 +118,4 @@
 			button.textContent = "답글 보기";
 		}
 	}
-</script>
+</script> -->
