@@ -26,21 +26,16 @@
     overflow-y: auto;
 }
 
-.sidebar h2 {
-    text-align: center;
-}
-
-.sidebar ul {
+.sidebar > ul {
     list-style-type: none;
     padding: 0;
-    margin-left: 5px;
-    margin-right: 5px;
-
+    margin-top: 30px;
 }
 
 .sidebar ul li {
-    padding: 15px;
+    padding: 10px 15px;
     text-align: left;
+    margin: 10px 0;
 }
 
 .sidebar ul li a {
@@ -49,14 +44,8 @@
     display: block;
 }
 
-.sidebar ul li:hover {
-    background-color: #117A65;
-}
-
-.content {
-    margin-left: 250px;
-    padding: 20px;
-    flex-grow: 1;
+.submenu li:hover {
+    background-color: #65B741;
 }
 
 .has-submenu > a::after {
@@ -71,10 +60,13 @@
 
 .submenu {
     display: none;
-    padding-left: 10px;
+    padding: 0;
+    margin-left: 10px;
+    margin-top:10px;
 }
 
 .submenu li {
+	list-style-type: none;
     padding: 10px 15px;
 }
 

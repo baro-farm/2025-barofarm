@@ -102,48 +102,28 @@ tbody tr.hovered td {
 	background-color: #FCFCFC;
 	height: 30px;
 }
-.table th:nth-child(1), .table td:nth-child(1) {
-	width: 5px;
+.table th:nth-child(1),.table td:nth-child(1){
+	width: 30px;
 }
-
-.table th:nth-child(2) .table td:nth-child(2) {
-	width: 70px;
+.table th:nth-child(2),.table td:nth-child(2),
+.table th:nth-child(3),.table td:nth-child(3),
+.table th:nth-child(11),.table td:nth-child(11),
+.table th:nth-child(12),.table td:nth-child(12){
+	width: 60px;
 }
-
-.table th:nth-child(3), .table td:nth-child(3) {
-	width: 75px;
-}
-
-.table th:nth-child(4), .table td:nth-child(4) {
-	width: 80px;
-}
-
-.table th:nth-child(5), .table td:nth-child(5) {
-	width: 150px;
-}
-
-.table th:nth-child(6), .table td:nth-child(6) {
-	width: 250px;
-}
-
-.table th:nth-child(9), .table td:nth-child(9) {
-	width: 90px;
-}
-
-.table th:nth-child(10), .table td:nth-child(10), .table th:nth-child(11),
-	.table td:nth-child(11), .table th:nth-child(12), .table td:nth-child(12)
-	{
-	width: 70px;
+.table th:nth-child(6),.table td:nth-child(6),
+.table th:nth-child(10),.table td:nth-child(10) {
+	width: 140px;
 }
 /* 오버플로우 방지 */
-.table td:nth-child(3) {
+.table td:nth-child(7) {
 	max-width: 200px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
-.table td:nth-child(3) a {
+.table td:nth-child(7) a {
 	display: block;
 	overflow: hidden;
 	white-space: nowrap;
@@ -157,16 +137,6 @@ tbody tr.hovered td {
 .status {
 	padding: 5px 10px;
 	border-radius: 5px;
-}
-
-.on-sale {
-	background-color: #65B741;
-	color: white;
-}
-
-.stopped {
-	background-color: #D72638;
-	color: white;
 }
 
 .actions button {
