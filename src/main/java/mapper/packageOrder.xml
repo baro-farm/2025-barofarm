@@ -30,7 +30,7 @@
 	      AND po.orderDate &lt;= #{endDate}
 	    </if>
 	    <if test="deliveryStatus != null and deliveryStatus != ''">
-	      AND po.deleveryStatus = #{deliveryStatus}
+	      AND po.deleveryStatus = #{deleveryStatus}
 	    </if>
 	</select>
 	
@@ -51,7 +51,7 @@
 	      AND po.orderedAt &lt;= #{endDate}
 	    </if>
 	    <if test="deliveryStatus != null and deliveryStatus != ''">
-	      AND po.deleveryStatus = #{deliveryStatus}
+	      AND po.deleveryStatus = #{deleveryStatus}
 	    </if>
 	  ORDER BY po.orderedAt DESC
 	</select>

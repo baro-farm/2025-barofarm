@@ -228,7 +228,7 @@
 					<c:forEach var="order" items ="${prodOrderList }">
 					
 					    <tr>
-				        <td><div class="uiGridCell orderNum" data-pdordernum="${order.pdOrderNum}"><a href="#">${order.pdOrderNum}</a></div></td>
+				        <td><div class="uiGridCell orderNum" data-pdordernum="${order.pdOrderNum}">${order.pdOrderNum}</div></td>
 				        <td><div class="uiGridCell"><a href="${contextPath }/detailProduct?productNum=${order.productNum}">${order.productNum}</a></div></td>
 				        <td><div class="uiGridCell">${order.option}</div></td>
 				        <td><div class="uiGridCell"><fmt:formatNumber value="${order.optionPrice}" type="number" groupingUsed="true" />원</div></td>

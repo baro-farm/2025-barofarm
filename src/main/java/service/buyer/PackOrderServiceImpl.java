@@ -90,7 +90,7 @@ public class PackOrderServiceImpl implements PackOrderService {
 	        param.put("userNum", userNum);
 	        param.put("startDate", startDate);
 	        param.put("endDate", endDate);
-	        param.put("deliveryStatus", deliveryStatus);			
+	        param.put("deleveryStatus", deliveryStatus);			
 	        return packOrderDao.selectUserPackOrderCount(param);
 	}
 

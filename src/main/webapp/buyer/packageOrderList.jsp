@@ -45,30 +45,8 @@
 	    console.log("🟢 구매확정 클릭:", selectedPkOrderNum);
 	    $("#confirmModal").show();
 	  });
-	  // 검색 버튼 클릭
-	  $('#searchBtn').click(function () {
-	    const startDate = $('#searchStartDate').val();
-	    const endDate = $('#searchEndDate').val();
-	    const deliveryStatus = $('#deliveryStatus').val();
-
-	    $.ajax({
-	      url: '${contextPath}/packOrderList',
-	      type: 'GET',
-	      data: {
-	        searchStartDate: startDate,
-	        searchEndDate: endDate,
-	        deliveryStatus: deliveryStatus,
-	        page: 1
-	      },
-	      success: function (data) {
-	        $('.orderList').html($(data).find('.orderList').html());
-	        $('.pagination').html($(data).find('.pagination').html());
-	      },
-	      error: function () {
-	        alert("검색 실패");
-	      }
-	    });
-	  });
+	  
+	  
 	  
 	  
 	  // 모달 취소 버튼
@@ -121,11 +99,13 @@
 
 <div class="content1">
 	<div class="FilterBox">
-		<label for="searchStartDate">조회 기간:</label> <input type="date"
-			id="searchStartDate" name="searchStartDate"> <span>~</span> <input
-			type="date" id="searchEndDate" name="searchEndDate"> <label
-			for="deliveryStatus">배송 상태:</label> <select id="deliveryStatus"
-			name="deliveryStatus">
+		<label for="searchStartDate">조회 기간:</label> 
+		<input type="date" id="searchStartDate" name="searchStartDate"> 
+		<span>~</span> 
+		<input type="date" id="searchEndDate" name="searchEndDate"> 
+		
+		<label for="deliveryStatus">배송 상태:</label> 
+		<select id="deliveryStatus" name="deliveryStatus">
 			<option value="">전체</option>
 			<option value="준비중">준비중</option>
 			<option value="배송중">배송중</option>
@@ -261,6 +241,31 @@ $(document).on('click', '.pagination a', function (e) {
       }
     });
   });
+  
+//검색 버튼 클릭
+$(document).on('click','button#searchBtn',function (e) {
+  const startDate = $('#searchStartDate').val();
+  const endDate = $('#searchEndDate').val();
+  const deliveryStatus = $('#deliveryStatus').val();
+  console.log("clicked");
+  $.ajax({
+    url: `${contextPath}/packOrderList`,
+    type: 'GET',
+    data: {
+      searchStartDate: startDate,
+      searchEndDate: endDate,
+      deliveryStatus: deliveryStatus,
+      page: 1
+    },
+    success: function (data) {
+      $('.orderList').html($(data).find('.orderList').html());
+      $('.pagination').html($(data).find('.pagination').html());
+    },
+    error: function () {
+      alert("검색 실패");
+    }
+  });
+});
 </script>
 <script>
   function openDetailPopup(url) {

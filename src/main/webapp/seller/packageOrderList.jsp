@@ -218,9 +218,9 @@
 					<c:forEach var="order" items ="${packOrderList }">
 					
 					    <tr>
-				        <td><div class="uiGridCell orderNum" data-pkordernum="${order.pkOrderNum}"><a href="#">${order.pkOrderNum}</a></div></td>
-				        <td><div class="uiGridCell packageNum" data-packagenum="${order.packageNum }">${order.packageNum}</div></td>
-				        <td><div class="uiGridCell packageNum">${order.packageName}</div></td>
+				        <td><div class="uiGridCell orderNum" data-pkordernum="${order.pkOrderNum}">${order.pkOrderNum}</div></td>
+				        <td><div class="uiGridCell packageNum" data-packagenum="${order.packageNum }"><a href="${contextPath }/detailPackage?packageNum=${order.packageNum}">${order.packageNum}</a></div></td>
+				        <td><div class="uiGridCell packageNum"><a href="${contextPath }/detailPackage?packageNum=${order.packageNum}">${order.packageName}</a></div></td>
 				        
 				        <td><div class="uiGridCell">${order.pkTotalPrice}원</div></td>
 

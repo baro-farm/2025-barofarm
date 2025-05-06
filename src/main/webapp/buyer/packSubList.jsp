@@ -10,72 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>내 정보</title>
 <link rel="stylesheet" href="${contextPath}/buyer/packSubList.css">
-
-<script>
-		$(function () {
-		  let selectedPdOrderNum = null;
-		
-		  // 구매확정 버튼 클릭 시 모달 띄우기
-		  $(document).on("click", ".confirmBtn", function () {
-		    const orderItem = $(this).closest(".orderItem");
-		    selectedPdOrderNum = orderItem.attr("data-pd-order-num");
-		
-		    if (!selectedPdOrderNum) {
-		      alert("주문 번호를 찾을 수 없습니다.");
-		      return;
-		    }
-		
-		    console.log("🟢 구매확정 클릭:", selectedPdOrderNum);
-		    $("#confirmModal").show();
-		  });
-		
-		  // 모달 취소 버튼
-		  $("#confirmNo").click(function () {
-		    $("#confirmModal").hide();
-		  });
-		
-		  // 모달 확인 버튼
-		  $("#confirmYes").click(function () {
-		    if (!selectedPdOrderNum) {
-		      alert("주문 번호가 없습니다.");
-		      return;
-		    }
-		
-		    $.ajax({
-		      url: "${contextPath}/updatePdDeliveryStatus",
-		      method: "POST",
-		      dataType: "json",
-		      data: {
-		        pdOrderNum: selectedPdOrderNum,
-		        deleveryStatus: "구매확정"
-		      },
-		      success: function (res) {
-		    	  console.log("✅ 응답:", res);
-		    	  $(".orderItem").each(function () {
-		    	    if ($(this).attr("data-pd-order-num") == res.pdOrderNum) {
-		    	      const orderItem = $(this);
-		
-		    	      orderItem.find(".orderStatus").text(res.status);
-		    	      orderItem.find(".orderButtons").html(`
-		    	        <button class="btn btnGreen">리뷰작성</button>
-	                    <button class="btn btnGreen">장바구니 담기</button>
-	                    <button class="btn btnGreen">바로 구매하기</button> 
-		    	      `);
-		
-		    	      $("#confirmModal").hide();
-		    	    }
-		    	  });
-		    	},
-		      error: function (err) {
-		        console.error("❌ AJAX 오류:", err);
-		        alert("서버 오류가 발생했습니다.");
-		      }
-		    });
-		  });
-		 
-		  
-		});
-	</script>
 </head>
 <body>
 
@@ -144,6 +78,7 @@
 									</div>
 
 								</div>
+								<!-- 
 								<div class="orderButtons">
 									<c:choose>
 										<c:when test="${packSub.isSub eq true }">
@@ -151,6 +86,7 @@
 										</c:when>
 									</c:choose>
 								</div>
+								 -->
 							</div>
 
 
@@ -177,29 +113,51 @@
 				
 				<div class="pagination">
 				    <!-- << -->
-				    <c:if test="${currentPage > 1}">
-				        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&searchStartDate=${param.searchStartDate}&searchEndDate=${param.searchEndDate}&deliveryStatus=${param.deliveryStatus}">&laquo;</a>
-				    </c:if>
+				    <c:choose>
+					    <c:when test="${currentPage > 1}">
+					        <a href="?page=${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}&searchStartDate=${param.searchStartDate}&searchEndDate=${param.searchEndDate}&deliveryStatus=${param.deliveryStatus}">&laquo;</a>
+					    </c:when>
+					    <c:otherwise>
+						    <a class="disabled">&laquo;</a>
+						</c:otherwise>
+					</c:choose>
 				
 				    <!-- < -->
-				    <c:if test="${currentPage > 1}">
-				        <a href="?page=${currentPage - 1}&searchStartDate=${param.searchStartDate}&searchEndDate=${param.searchEndDate}&deliveryStatus=${param.deliveryStatus}">&lsaquo;</a>
-				    </c:if>
-				
+				    <c:choose>
+					    <c:when test="${currentPage > 1}">
+					        <a href="?page=${currentPage - 1}&searchStartDate=${param.searchStartDate}&searchEndDate=${param.searchEndDate}&deliveryStatus=${param.deliveryStatus}">&lsaquo;</a>
+					    </c:when>
+						<c:otherwise>
+							 <a class="disabled">&lsaquo;</a>
+						</c:otherwise>
+					</c:choose>
 				    <!-- 번호 -->
 				    <c:forEach begin="${startPage}" end="${endPage}" var="i">
 				        <a href="?page=${i}&searchStartDate=${param.searchStartDate}&searchEndDate=${param.searchEndDate}&deliveryStatus=${param.deliveryStatus}" class="${currentPage == i ? 'active' : ''}">${i}</a>
 				    </c:forEach>
 				
 				    <!-- > -->
-				    <c:if test="${currentPage < totalPages}">
+				    <c:choose>
+				    
+				    <c:when test="${currentPage < totalPages}">
 				        <a href="?page=${currentPage + 1}&searchStartDate=${param.searchStartDate}&searchEndDate=${param.searchEndDate}&deliveryStatus=${param.deliveryStatus}">&rsaquo;</a>
-				    </c:if>
+				    </c:when>
+					<c:otherwise>
+						    <a class="disabled">&rsaquo;</a>
+					</c:otherwise>
+					</c:choose>
 				
 				    <!-- >> -->
-				    <c:if test="${currentPage < totalPages}">
+				    <c:choose>
+				    
+				    <c:when test="${currentPage < totalPages}">
 				        <a href="?page=${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}&searchStartDate=${param.searchStartDate}&searchEndDate=${param.searchEndDate}&deliveryStatus=${param.deliveryStatus}">&raquo;</a>
-				    </c:if>
+				    </c:when>
+					<c:otherwise>
+						    <a class="disabled">&raquo;</a>
+					</c:otherwise>				    
+				    </c:choose>
+				    
 				</div>
 			</div>
 			<!-- end of content -->

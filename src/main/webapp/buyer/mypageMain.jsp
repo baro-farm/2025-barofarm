@@ -32,9 +32,8 @@
 		        <div class="box summary">
 		            <div><a href="buyerOrderList">> 주문내역 <br><span>${summary.totalOrders }건</a></span></div>
 		            <div><a href="buyerOrderList">> 꾸러미 <br><span>${summary.totalPackages }건</a></span></div>
-		            <div>> 취소 내역 <br><span>${summary.totalCancels }건</span></div>
-		            <div><a href="prodWrittenReviewList">> 리뷰내역 <br><span>${summary.totalReviews }건</span></a></div>
-		            <div><a href="questionList">> 상품문의 <br><span>${summary.totalQuestions }건</span></a></div>
+		            <div><a href="allWrittenReviewList">> 리뷰내역 <br><span>${summary.totalReviews }건</span></a></div>
+		            <div><a href="#">> 상품문의 <br><span>${summary.totalQuestions }건</span></a></div>
 		        </div>
 		        <!-- 배송 진행 상태 -->
 		        <div class="box">
@@ -84,7 +83,7 @@
 		        <div class="contentSection">
 		            <div class="contentBox">
 		                <div class="title">
-		                    내 상품 문의 내역
+		                    내 상품 내역
 		                    <span class="add-btn"><a href="questionList">+</a></span>
 		                </div>
 		                <ul>
