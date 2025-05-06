@@ -8,21 +8,15 @@
   <meta charset="UTF-8">
   <title>광고 신청하기</title>
   <link rel="stylesheet" href="${contextPath}/seller/insertAds.css">
-
+<link rel="stylesheet" href="${contextPath}/reset.css">
 </head>
 <body>
-<div class="main">
-	<div class="wrapper">
 		<div class="sidebar">
 				<jsp:include page="/header/sellerHeader.jsp" />
         </div>	
         <header id="header">
-	        <div id="info">
-	            <span id="email">kosta@kosta.com</span>
-	            <span>내 정보</span>
-	            <span>로그아웃</span>
-	        </div>
-	    </header>	    
+			<jsp:include page="/header/adminSellerTop.jsp" />
+    	</header>   
 		<div class="content">
 		  <div class="content-header">
 		    <h2>광고 신청하기</h2>
@@ -53,7 +47,7 @@
 		      <label for="imgUrl">파일첨부</label>
 		      <input type="file" accept="image/*" name="imgUrl" id="ifile" style="display:none" required="required" onchange="readURL(this);"/>
 	<!-- 	      <button type="button" class="upload-btn" onclick="document.getElementById('ifile').click()">업로드</button> -->	      
-			  <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="100px" 
+			  <img src="${contextPath }/img/kockUpload.PNG" alt="이미지선택" id="preview" width="65px" 
 						onclick="document.getElementById('ifile').click();"/> 	
 		    </div>
 		
@@ -69,8 +63,6 @@
 		  </div>
 		  </form>
 		</div>
-	</div>
-</div>
 
 <script>
 	function readURL(input) {

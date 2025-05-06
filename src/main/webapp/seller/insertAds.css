@@ -27,26 +27,12 @@ body {
   font-size: 16px;
   color: #ffb534;
 }
-.wrapper {
-    display: flex;
-    flex-direction: row;
-    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+.content {
+	width: 1000px;
+    margin: 80px 0 0 220px;
+    padding: 70px 346px;
 }
 
-.content {
-    max-width: 1000px;
-    min-width: 0;
-    margin-left: 20px;
-    margin-right: auto;
-  	position: relative;
-  	padding-top: 80px !important;
-  	margin: 40px auto !important;
-    padding-left: 220px !important;
-}
-.sideMenu {
-	position: relative;
-    top: 200px;
-}
 .content-header {
   display: flex;
   justify-content: space-between;

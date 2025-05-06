@@ -87,6 +87,7 @@
 	height: 34px;
 }
 .table th {
+	vertical-align: middle;
 	border-bottom: 2px solid #ccc;
 	background-color: #FCFCFC;
 	height: 30px;

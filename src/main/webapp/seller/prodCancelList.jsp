@@ -133,7 +133,7 @@
 						<th style="font-weight: bold;">취소사유상세</th>
 						<th style="font-weight: bold;">취소일시</th>
 						<th style="font-weight: bold;">취소상태</th>
-						<th style="font-weight: bold;">구매자Id</th>
+						<th style="font-weight: bold;">구매자ID</th>
 
 					</tr>
 				</thead>
