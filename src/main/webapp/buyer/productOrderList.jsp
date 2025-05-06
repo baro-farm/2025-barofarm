@@ -184,23 +184,32 @@
 		<c:forEach var="prodOrder" items="${prodOrderList }">
 			<div class="orderItem" data-pd-order-num="${prodOrder.pdOrderNum}">
 
-
 				<div class="orderCenter">
 					<div class="orderLeft">
-						<div class="orderStatus orderReady">${prodOrder.deleveryStatus }
-						</div>
+						<c:choose>
+							<c:when test="${prodOrder.deleveryStatus eq '취소완료' }">
+								<div class="orderStatus orderCancel">${prodOrder.deleveryStatus }</div>
+							</c:when>
+							<c:otherwise>
+							<div class="orderStatus orderReady">${prodOrder.deleveryStatus }</div>
+							</c:otherwise>
+						</c:choose>
 
 						<img src="${contextPath}${prodOrder.imgUrl }" alt="">
 					</div>
 					<div class="orderRight">
-						<div>
-							<span class="orderDate">${prodOrder.orderDate } 주문</span>
-						</div>
-						<div class="productName">${prodOrder.productName }</div>
+						<div class="storeName"><a href="${contextPath }/storeProductList?sellerNum=${prodOrder.sellerNum}">
+							${prodOrder.storeName }
+							<svg width="15" height="15" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6.75 16.5V9H11.25V16.5M2.25 6.75L9 1.5L15.75 6.75V15C15.75 15.3978 15.592 15.7794 15.3107 16.0607C15.0294 16.342 14.6478 16.5 14.25 16.5H3.75C3.35218 16.5 2.97064 16.342 2.68934 16.0607C2.40804 15.7794 2.25 15.3978 2.25 15V6.75Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+						</a></div>
+						<div class="productName"><a href="${contextPath }/detailProduct?productNum=${prodOrder.productNum}">${prodOrder.productName }</a></div>
 						<div class="productPrice" data-price=${prodOrder.price }>${prodOrder.price }원</div>
 						<div class="orderDetail">
-							<a
-								href="${contextPath}/detailOrderInfo?pdOrderNum=${prodOrder.pdOrderNum}">상세보기></a>
+							<a href="#" onclick="return openDetailPopup('${contextPath}/detailOrderInfo?pdOrderNum=${prodOrder.pdOrderNum}')">상세보기></a>
+						</div>
+						<div>
+							<span class="orderDate">${prodOrder.orderDate } 주문</span>
 						</div>
 
 					</div>
@@ -212,12 +221,11 @@
 
 
 							<c:when test="${prodOrder.deleveryStatus eq '배송중' }">
-
-
+								<button class="btn btnGreen confirmBtn">구매 확정</button>
 							</c:when>
 
 							<c:when test="${prodOrder.deleveryStatus eq '배송완료' }">
-
+								<button class="btn btnGreen confirmBtn">구매 확정</button>
 							</c:when>
 
 							<c:when test="${prodOrder.deleveryStatus eq '구매확정' }">
@@ -307,10 +315,25 @@ $(document).on('click', '.pagination a', function (e) {
     });
   });
 </script>
+<script>
+  function openDetailPopup(url) {
+    const popupWidth = 600;
+    const popupHeight = 700;
+    const left = (screen.width - popupWidth) / 2;
+    const top = (screen.height - popupHeight) / 2;
+
+    window.open(
+      url,
+      '상세보기',
+      `width=\${popupWidth},height=\${popupHeight},left=\${left},top=\${top},scrollbars=yes,resizable=no`
+    );
+    return false;
+  }
+</script>
 <!-- 모달 -->
 <div id="confirmModal" class="prodModal" style="display: none;">
 	<div class="modalContent">
-		<p>구매를 확정하시겠습니까?</p>
+		<p style="margin-top:10px; margin-bottom:10px;">구매를 확정하시겠습니까?</p>
 		<button id="confirmYes" class="btn btnGreen">확인</button>
 		<button id="confirmNo" class="btn btnRed">취소</button>
 	</div>

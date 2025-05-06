@@ -69,9 +69,13 @@
 	    });
 	
 	    // 저장 버튼 클릭
-	    $('#notice_table').on('click', 'button:contains("저장")', function() {
-	        const $row = $(this).closest('tr');
+	    $('#notice_table').on('click', 'button.saveBtn', function() {
+	        const $btn = $(this); // ← 이 줄 추가해야 함!
+
+	    	const $row = $(this).closest('tr');
 	        const productNum = $row.find('.productNum a').text().trim();
+	        const optionNum = $btn.data('optionnum');
+	        console.log('옵션번호:', optionNum); // ← 찍어서 콘솔 확인
 	        const $stockInputBox = $row.find('.stock');
 	        let stock = parseInt($stockInputBox.val());
 	      
@@ -84,7 +88,7 @@
 	        $.ajax({
 	            url: '${contextPath}/updateStock',
 	            method: 'POST',
-	            data: { productNum: productNum, stock: stock },
+	            data: { optionNum: optionNum, stock: stock },
 	            success: function(response) {
 	                if (response ==='success') {
 	                    alert('재고가 성공적으로 저장되었습니다!');
@@ -98,7 +102,7 @@
 	        });
 	    });
 	    
-	 // 상태변경 버튼 클릭(여러개 선택 가능)
+	 // 상태변경 영역 클릭
 	    $('.status-toggle').on('click', function() {
 	    	const $el = $(this);
 	        const productNum = $el.data('productnum');
@@ -230,7 +234,7 @@
 					        <td data-optionnum="${option.optionNum }">${option.option}</td>
 					        <td>${option.price}원</td>
                        		<td>
-                       			<div class="uiGridCell"><button class="stockBtn">-</button> <input type='number' min='0'  class="stock" value="${option.stock}"> <button class="stockBtn">+</button> <button class="saveBtn">저장</button></div>
+                       			<div class="uiGridCell"><button class="stockBtn">-</button> <input type='number' min='0'  class="stock" value="${option.stock}"> <button class="stockBtn">+</button> <button class="saveBtn" data-optionnum="${option.optionNum }">저장</button></div>
                        		</td>
                    
 					        <!-- 

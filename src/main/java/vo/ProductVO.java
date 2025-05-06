@@ -32,6 +32,7 @@ public class ProductVO {
     private LocalDate createdAt;
     
     //상세 조회용
+    private Long optionNum;
     private String option;
     private Integer optionPrice;
 
@@ -148,6 +149,12 @@ public class ProductVO {
 	}
 
 
+	public Long getOptionNum() {
+		return optionNum;
+	}
+	public void setOptionNum(Long optionNum) {
+		this.optionNum = optionNum;
+	}
 	public String getContent() {
 		return content;
 	}

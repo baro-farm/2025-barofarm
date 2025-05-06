@@ -46,8 +46,8 @@ public class ProductOrderDAOImpl implements ProductOrderDAO {
 		return sqlSession.selectOne("mapper.prodOrder.sellectCountSellerProdOrderList", param);
 	}
 
-	public void updateProdTrackingNum(Map<String, Object> param) throws Exception {
-		sqlSession.update("mapper.prodOrder.updatePdTrackingNum", param);
+	public void updateSellerProdeliveryStatus(Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.prodOrder.updatePdDeliveryStatus", param);
 		sqlSession.commit();
 
 	}

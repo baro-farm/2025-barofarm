@@ -13,6 +13,7 @@ import vo.PackOrderVO;
 public interface PackOrderService {
 	List<PackOrderVO> selectUserPackOrderList(String userId) throws Exception;
 	void updateUserPackDeliveryStatus(Long pkOrderNum, String deliveryStatus) throws Exception;
+	List<PackOrderVO> selectUserPackOrderDetailList(Long pkOrderNum) throws Exception;
 
 	//구매자 페이징
     Integer selectUserPackOrderCount(Long userNum, String startDate, String endDate, String deliveryStatus);

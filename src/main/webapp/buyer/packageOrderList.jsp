@@ -45,30 +45,8 @@
 	    console.log("🟢 구매확정 클릭:", selectedPkOrderNum);
 	    $("#confirmModal").show();
 	  });
-	  // 검색 버튼 클릭
-	  $('#searchBtn').click(function () {
-	    const startDate = $('#searchStartDate').val();
-	    const endDate = $('#searchEndDate').val();
-	    const deliveryStatus = $('#deliveryStatus').val();
-
-	    $.ajax({
-	      url: '${contextPath}/packOrderList',
-	      type: 'GET',
-	      data: {
-	        searchStartDate: startDate,
-	        searchEndDate: endDate,
-	        deliveryStatus: deliveryStatus,
-	        page: 1
-	      },
-	      success: function (data) {
-	        $('.orderList').html($(data).find('.orderList').html());
-	        $('.pagination').html($(data).find('.pagination').html());
-	      },
-	      error: function () {
-	        alert("검색 실패");
-	      }
-	    });
-	  });
+	  
+	  
 	  
 	  
 	  // 모달 취소 버튼
@@ -121,17 +99,18 @@
 
 <div class="content1">
 	<div class="FilterBox">
-		<label for="searchStartDate">조회 기간:</label> <input type="date"
-			id="searchStartDate" name="searchStartDate"> <span>~</span> <input
-			type="date" id="searchEndDate" name="searchEndDate"> <label
-			for="deliveryStatus">배송 상태:</label> <select id="deliveryStatus"
-			name="deliveryStatus">
+		<label for="searchStartDate">조회 기간:</label> 
+		<input type="date" id="searchStartDate" name="searchStartDate"> 
+		<span>~</span> 
+		<input type="date" id="searchEndDate" name="searchEndDate"> 
+		
+		<label for="deliveryStatus">배송 상태:</label> 
+		<select id="deliveryStatus" name="deliveryStatus">
 			<option value="">전체</option>
 			<option value="준비중">준비중</option>
 			<option value="배송중">배송중</option>
 			<option value="배송완료">배송완료</option>
 			<option value="구매확정">구매확정</option>
-			<option value="취소완료">취소완료</option>
 		</select>
 
 		<button type="button" id="searchBtn">검색</button>
@@ -147,33 +126,26 @@
 				<div class="orderCenter">
 					<div class="orderLeft">
 						<div class="orderStatus">${packOrder.deleveryStatus }</div>
-						<img src="${packOrder.imgUrl }" alt="상품 이미지">
+						<img src="${contextPath}${packOrder.imgUrl }" alt="상품 이미지">
 					</div>
 					<div class="orderRight">
+						<div class="storeName"><a href="${contextPath }/storeProductList?sellerNum=${packOrder.sellerNum}">
+							${packOrder.storeName }
+							<svg width="15" height="15" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6.75 16.5V9H11.25V16.5M2.25 6.75L9 1.5L15.75 6.75V15C15.75 15.3978 15.592 15.7794 15.3107 16.0607C15.0294 16.342 14.6478 16.5 14.25 16.5H3.75C3.35218 16.5 2.97064 16.342 2.68934 16.0607C2.40804 15.7794 2.25 15.3978 2.25 15V6.75Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+						</a></div>
+						<div class="packageName"><a href="${contextPath}/detailProduct?productNum=${packOrder.packageNum}">${packOrder.packageName }</a></div>
+						<div class="packagePrice">${packOrder.pkTotalPrice }원</div>
+						<div class="orderDetail">
+							<a href="#" onclick="return openDetailPopup('${contextPath}/detailPackOrderInfo?pkOrderNum=${packOrder.pkOrderNum}')">상세보기></a>
+						</div>
 						<div>
 							<span class="orderDate">${packOrder.orderedAt } 주문</span>
 						</div>
-						<div class="productName">${packOrder.packageName }</div>
-						<div class="productPrice">${packOrder.pkTotalPrice }원</div>
-						<div class="orderDetail">
-							<a
-								href="${contextPath}/detailOrderInfo?pdOrderNum=${prodOrder.pdOrderNum}">상세보기></a>
-						</div>
-
 					</div>
 					<div class="orderButtons">
 						<c:choose>
-							<c:when test="${packOrder.deleveryStatus eq '준비중' }">
-								<button class="btn btnRed">취소 신청</button>
-							</c:when>
 
-							<c:when test="${packOrder.deleveryStatus eq '취소신청' }">
-							</c:when>
-
-							<c:when test="${packOrder.deleveryStatus eq '취소완료' }">
-								<button class="btn btnRed">취소 정보</button>
-
-							</c:when>
 
 							<c:when test="${packOrder.deleveryStatus eq '배송중' }">
 								<button class="btn btnGreen confirmBtn">구매 확정</button>
@@ -251,7 +223,7 @@ $(document).on('click', '.pagination a', function (e) {
     const deliveryStatus = $('#deliveryStatus').val();
 
     $.ajax({
-      url: '${contextPath}/prodOrderList',
+      url: '${contextPath}/packOrderList',
       type: 'GET',
       data: {
         searchStartDate: startDate,
@@ -269,8 +241,47 @@ $(document).on('click', '.pagination a', function (e) {
       }
     });
   });
+  
+//검색 버튼 클릭
+$(document).on('click','button#searchBtn',function (e) {
+  const startDate = $('#searchStartDate').val();
+  const endDate = $('#searchEndDate').val();
+  const deliveryStatus = $('#deliveryStatus').val();
+  console.log("clicked");
+  $.ajax({
+    url: `${contextPath}/packOrderList`,
+    type: 'GET',
+    data: {
+      searchStartDate: startDate,
+      searchEndDate: endDate,
+      deliveryStatus: deliveryStatus,
+      page: 1
+    },
+    success: function (data) {
+      $('.orderList').html($(data).find('.orderList').html());
+      $('.pagination').html($(data).find('.pagination').html());
+    },
+    error: function () {
+      alert("검색 실패");
+    }
+  });
+});
 </script>
+<script>
+  function openDetailPopup(url) {
+    const popupWidth = 600;
+    const popupHeight = 700;
+    const left = (screen.width - popupWidth) / 2;
+    const top = (screen.height - popupHeight) / 2;
 
+    window.open(
+      url,
+      '상세보기',
+      `width=\${popupWidth},height=\${popupHeight},left=\${left},top=\${top},scrollbars=yes,resizable=no`
+    );
+    return false;
+  }
+</script>
 <!-- 모달 -->
 <div id="confirmModal" class="modal" style="display: none;">
 	<div class="modalContent">

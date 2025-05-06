@@ -29,8 +29,8 @@
 				    <div class="reviewBox">
 				        <img src="${contextPath}/upload/${packReview.pkReviewImgUrl }" alt="${packReview.pkReviewImgUrl }" class="packuctImage">
 				        <div class="reviewContent">
-				            <div class="storeName"><a href="#">[${packReview.storeName }]</a></div>
-				            <div class="packuctName"><a href="#">${packReview.packageName }</a></div>
+				            <div class="storeName"><a href="${contextPath }/storeProductList?sellerNum=${prodReview.sellerNum}">[${packReview.storeName }]</a></div>
+				            <div class="packuctName"><a href="${contextPath }/detailPackage?packageNum=${prodReview.packageNum}">${packReview.packageName }</a></div>
 				            <div class="pkRating">
 					            <c:forEach var="i" begin="1" end="5">
 								    <c:choose>
@@ -44,7 +44,7 @@
 								  </c:forEach>
 								  ${packReview.pkRating }
 				            </div>
-				            <div class="pkReviewContent">
+				            <div class="pkReviewContent" style="min-height:150px;">
 				                ${packReview.pkReviewContent }
 				            </div>
 				            <div class="reviewDate">${packReview.createdAt }</div>

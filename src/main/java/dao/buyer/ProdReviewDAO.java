@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import dto.buyer.ProdReview;
+import vo.PackReviewVO;
 import vo.ProdReviewVO;
 
 public interface ProdReviewDAO {
@@ -17,4 +18,11 @@ public interface ProdReviewDAO {
 	
 	void insertSellerProdReviewComment(Map<String,Object> param) throws Exception;
 	ProdReviewVO selectProdReviewDetailByReviewNum(Long reviewNum);
+
+    Integer selectCountUserWritableReviews(Map<String, Object> param) throws Exception;
+    List<ProdReviewVO> selectUserWritableReviews(Map<String, Object> param) throws Exception;
+	
+    Integer selectCountUserWrittenReviews(Map<String, Object> param) throws Exception;
+	List<ProdReviewVO> selectUserWrittenReviews(Map<String, Object> param) throws Exception;
+
 }

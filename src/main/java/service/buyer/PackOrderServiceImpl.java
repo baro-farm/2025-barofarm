@@ -90,7 +90,7 @@ public class PackOrderServiceImpl implements PackOrderService {
 	        param.put("userNum", userNum);
 	        param.put("startDate", startDate);
 	        param.put("endDate", endDate);
-	        param.put("deliveryStatus", deliveryStatus);			
+	        param.put("deleveryStatus", deliveryStatus);			
 	        return packOrderDao.selectUserPackOrderCount(param);
 	}
 
@@ -140,4 +140,10 @@ public class PackOrderServiceImpl implements PackOrderService {
         paramMap.put("searchKeyword", searchKeyword);
         return packOrderDao.selectAdminPackOrderList(paramMap);
     }
+
+	@Override
+	public List<PackOrderVO> selectUserPackOrderDetailList(Long pkOrderNum) throws Exception {
+		// TODO Auto-generated method stub
+		return packOrderDao.selectPackDetailOrderList(pkOrderNum);
+	}
 }

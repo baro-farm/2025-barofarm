@@ -54,7 +54,6 @@
 }
 
 .reviewList {
-	border-top: 2px solid black;
 	padding-top: 10px;
 	display: flex;
 	flex-direction: column;

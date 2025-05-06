@@ -34,16 +34,16 @@ public class UpdateProductTrackNum extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		Long pdOrderNum = Long.parseLong(request.getParameter("pdOrderNum"));
-		Integer trackingNum = Integer.parseInt(request.getParameter("trackingNum"));
-		System.out.println(pdOrderNum +" "+trackingNum);
+		String deleveryStatus = request.getParameter("deleveryStatus");
+		System.out.println(pdOrderNum +" "+deleveryStatus);
 		ProdOrderService service = new ProdOrderServiceImpl();
 		try {
-			service.updateSellerProdTrackingNum(pdOrderNum, trackingNum);
+			service.updateSellerProdTrackingNum(pdOrderNum, deleveryStatus);
 			response.setContentType("application/json; charset=utf-8");
 			JSONObject json = new JSONObject();
 			json.put("success", true);
 			json.put("pdOrderNum", pdOrderNum);
-			json.put("trackingNum", trackingNum);
+			json.put("deleveryStatus", deleveryStatus);
 
 			response.getWriter().write(json.toString());
 		}
