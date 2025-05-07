@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -46,8 +47,7 @@
 		    <c:forEach var="storeEntry" items="${sessionScope.paymentCartMap}">
 		        <div class="store-group">
 		            <h2>${storeEntry.key}</h2> <!-- ✅ 가게 이름 -->
-		            <hr class="hr">
-		            
+		            <hr class="hr">		            
 		            <c:forEach var="product" items="${storeEntry.value}">
 		                <c:set var="productSum" value="0" />
 		                <div class="cart-item">
@@ -55,12 +55,12 @@
 		                    <div class="cart-item-info">
 		                        <div class="info-1">
 		                            <p class="product-title">${product.productName}</p>
-		                            <p class="price">${product.basePrice}원</p>
+		                            <p class="price"><fmt:formatNumber value="${product.basePrice}" type="number" />원</p>
 		                        </div>
 		                        <div class="info-2">
 		                            <div class="option-list">
 		                                <c:forEach var="opt" items="${product.options}">
-		                                    <p>${opt.option} / ${opt.quantity}개 (+${opt.optionPrice}원)</p>
+		                                    <p>${opt.option} / ${opt.quantity}개 (+<fmt:formatNumber value="${opt.optionPrice}" type="number" />원)</p>
 		                                    <c:set var="productSum" value="${productSum + opt.totalPrice}" />
 		                                    <input type="hidden" name="optionNums" value="${opt.optionNum}" />
 		                                    <input type="hidden" name="quantities" value="${opt.quantity}" />
@@ -68,7 +68,7 @@
 		                            </div>
 		                        </div>
 		                        <div class="info-3">
-		                            <p class="total">${productSum}원</p>
+		                            <p class="total"><fmt:formatNumber value="${productSum}" type="number" />원</p>
 		                        </div>
 		                    </div>
 		                </div>
@@ -78,7 +78,7 @@
 		    </c:forEach>
 		
 		    <div class="all-total-div">
-		        <p class="all-total">총 결제 금액: ${totalSum}원</p>
+		        <p class="all-total">총 결제 금액: <fmt:formatNumber value="${totalSum}" type="number" />원</p>
 		        <button type="button" id="payment">결제하기</button>
 		    </div>
 		</c:if>
