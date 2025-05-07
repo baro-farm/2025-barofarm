@@ -13,8 +13,8 @@ public class UserVO {
 	String phone;
 	Date birthDate;
 	String email;
-	boolean isSeller;
-	boolean isDeleted;
+	Boolean isSeller;
+	Boolean isDeleted;
 	List<Address> addresses;
 	public Long getUserNum() {
 		return userNum;
@@ -58,16 +58,16 @@ public class UserVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean getIsSeller() {
+	public Boolean getIsSeller() {
 		return isSeller;
 	}
-	public void setIsSeller(boolean isSeller) {
+	public void setIsSeller(Boolean isSeller) {
 		this.isSeller = isSeller;
 	}
-	public boolean getIsDeleted() {
+	public Boolean getIsDeleted() {
 		return isDeleted;
 	}
-	public void setIsDeleted(boolean isDeleted) {
+	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 	public List<Address> getAddresses() {

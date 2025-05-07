@@ -22,7 +22,7 @@
 	
 	<select id="selectUserWithAddress" parameterType="String" resultMap="userWithAddressResultMap">
 		select	    
-	     u.UserNum, u.userId,u.pwd, u.userName, u.phone, u.email, a.postCode, a.addr1, a.addr2
+	     u.UserNum, u.userId,u.pwd, u.userName, u.phone, u.email, a.postCode, a.addr1, a.addr2, u.isSeller
 	     from user u
 	     Left join address a
 	     on u.userNum = a.userNum

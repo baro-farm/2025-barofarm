@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -34,9 +34,9 @@
 	  let selectedPkOrderNum = null;
 	
 	  // 구매확정 버튼 클릭 시 모달 띄우기
-	  $(document).on("click", ".confirmBtn", function () {
+	  $(document).on("click", ".confirmBtnPack", function () {
 	    const orderItem = $(this).closest(".orderItem");
-	    const selectedPkOrderNum = orderItem.attr("data-pk-order-num");
+	    selectedPkOrderNum = orderItem.attr("data-pk-order-num");
 
 	    console.log("🟢 orderItem:", orderItem.length);
 	    console.log("🟢 data-pk-order-num:", selectedPkOrderNum);
@@ -46,9 +46,6 @@
 	    $("#confirmModal2").show();
 	  });
 	  
-	  
-	  
-	  
 	  // 모달 취소 버튼
 	  $("#confirmNo2").click(function () {
 	    $("#confirmModal2").hide();
@@ -56,10 +53,14 @@
 	
 	  // 모달 확인 버튼
 	  $("#confirmYes2").click(function () {
+
+	    console.log("모달 확인 클릭 data-pk-order-num:", selectedPkOrderNum);
+
 	    if (!selectedPkOrderNum) {
-	      alert("주문 번호가 없습니다.");
+	      alert("pk주문 번호가 없습니다.");
 	      return;
 	    }
+	   
 	
 	    $.ajax({
 	      url: "${contextPath}/updatePkDeliveryStatus",
@@ -99,13 +100,11 @@
 
 <div class="content1">
 	<div class="FilterBox">
-		<label for="searchStartDate">조회 기간:</label> 
-		<input type="date" id="searchStartDate" name="searchStartDate"> 
-		<span>~</span> 
-		<input type="date" id="searchEndDate" name="searchEndDate"> 
-		
-		<label for="deliveryStatus">배송 상태:</label> 
-		<select id="deliveryStatus" name="deliveryStatus">
+		<label for="searchStartDate">조회 기간:</label> <input type="date"
+			id="searchStartDate" name="searchStartDate"> <span>~</span> <input
+			type="date" id="searchEndDate" name="searchEndDate"> <label
+			for="deliveryStatus">배송 상태:</label> <select id="deliveryStatus"
+			name="deliveryStatus">
 			<option value="">전체</option>
 			<option value="준비중">준비중</option>
 			<option value="배송중">배송중</option>
@@ -113,7 +112,7 @@
 			<option value="구매확정">구매확정</option>
 		</select>
 
-		<button type="button" id="searchBtn">검색</button>
+		<button type="button" id="searchBtnPk">검색</button>
 	</div>
 
 	<div class="orderList">
@@ -129,15 +128,30 @@
 						<img src="${contextPath}${packOrder.imgUrl }" alt="상품 이미지">
 					</div>
 					<div class="orderRight">
-						<div class="storeName"><a href="${contextPath }/storeProductList?sellerNum=${packOrder.sellerNum}">
-							${packOrder.storeName }
-							<svg width="15" height="15" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M6.75 16.5V9H11.25V16.5M2.25 6.75L9 1.5L15.75 6.75V15C15.75 15.3978 15.592 15.7794 15.3107 16.0607C15.0294 16.342 14.6478 16.5 14.25 16.5H3.75C3.35218 16.5 2.97064 16.342 2.68934 16.0607C2.40804 15.7794 2.25 15.3978 2.25 15V6.75Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-						</a></div>
-						<div class="packageName"><a href="${contextPath}/detailProduct?productNum=${packOrder.packageNum}">${packOrder.packageName }</a></div>
-						<div class="packagePrice"><fmt:formatNumber value="${packOrder.pkTotalPrice }" type="number" groupingUsed="true" />원</div>
+						<div class="storeName">
+							<a
+								href="${contextPath }/storeProductList?sellerNum=${packOrder.sellerNum}">
+								${packOrder.storeName } <svg width="15" height="15"
+									viewBox="0 0 18 18" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+							<path
+										d="M6.75 16.5V9H11.25V16.5M2.25 6.75L9 1.5L15.75 6.75V15C15.75 15.3978 15.592 15.7794 15.3107 16.0607C15.0294 16.342 14.6478 16.5 14.25 16.5H3.75C3.35218 16.5 2.97064 16.342 2.68934 16.0607C2.40804 15.7794 2.25 15.3978 2.25 15V6.75Z"
+										stroke="#1E1E1E" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round"></path></svg>
+							</a>
+						</div>
+						<div class="packageName">
+							<a
+								href="${contextPath}/detailProduct?productNum=${packOrder.packageNum}">${packOrder.packageName }</a>
+						</div>
+						<div class="packagePrice">
+							<fmt:formatNumber value="${packOrder.pkTotalPrice }"
+								type="number" groupingUsed="true" />
+							원
+						</div>
 						<div class="orderDetail">
-							<a href="#" onclick="return openDetailPopup('${contextPath}/detailPackOrderInfo?pkOrderNum=${packOrder.pkOrderNum}')">상세보기></a>
+							<a href="#"
+								onclick="return openDetailPopup('${contextPath}/detailPackOrderInfo?pkOrderNum=${packOrder.pkOrderNum}')">상세보기></a>
 						</div>
 						<div>
 							<span class="orderDate">${packOrder.orderedAt } 주문</span>
@@ -148,11 +162,11 @@
 
 
 							<c:when test="${packOrder.deleveryStatus eq '배송중' }">
-								<button class="btn btnGreen confirmBtn">구매 확정</button>
+								<button class="btn btnGreen confirmBtnPack">구매 확정</button>
 
 							</c:when>
 							<c:when test="${packOrder.deleveryStatus eq '배송완료' }">
-								<button class="btn btnGreen confirmBtn">구매 확정</button>
+								<button class="btn btnGreen confirmBtnPack">구매 확정</button>
 
 							</c:when>
 							<c:when test="${packOrder.deleveryStatus eq '구매확정' }">
@@ -169,50 +183,53 @@
 </div>
 
 <div class="pagination">
-    <!-- << -->
-    <c:choose>
-        <c:when test="${currentPage > 1}">
-            <a href="#" class="page-link" data-page="${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}">&laquo;</a>
-        </c:when>
-        <c:otherwise>
-            <a class="disabled">&laquo;</a>
-        </c:otherwise>
-    </c:choose>
+	<!-- << -->
+	<c:choose>
+		<c:when test="${currentPage > 1}">
+			<a href="#" class="page-link"
+				data-page="${currentPage - pageGroupSize < 1 ? 1 : currentPage - pageGroupSize}">&laquo;</a>
+		</c:when>
+		<c:otherwise>
+			<a class="disabled">&laquo;</a>
+		</c:otherwise>
+	</c:choose>
 
-    <!-- < -->
-    <c:choose>
-        <c:when test="${currentPage > 1}">
-            <a href="#" class="page-link" data-page="${currentPage - 1}">&lsaquo;</a>
-        </c:when>
-        <c:otherwise>
-            <a class="disabled">&lsaquo;</a>
-        </c:otherwise>
-    </c:choose>
+	<!-- < -->
+	<c:choose>
+		<c:when test="${currentPage > 1}">
+			<a href="#" class="page-link" data-page="${currentPage - 1}">&lsaquo;</a>
+		</c:when>
+		<c:otherwise>
+			<a class="disabled">&lsaquo;</a>
+		</c:otherwise>
+	</c:choose>
 
-    <!-- 번호 -->
-    <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
-        <a href="#" class="page-link ${currentPage == i ? 'active' : ''}" data-page="${i}">${i}</a>
-    </c:forEach>
+	<!-- 번호 -->
+	<c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
+		<a href="#" class="page-link ${currentPage == i ? 'active' : ''}"
+			data-page="${i}">${i}</a>
+	</c:forEach>
 
-    <!-- > -->
-    <c:choose>
-        <c:when test="${currentPage < totalPages}">
-            <a href="#" class="page-link" data-page="${currentPage + 1}">&rsaquo;</a>
-        </c:when>
-        <c:otherwise>
-            <a class="disabled">&rsaquo;</a>
-        </c:otherwise>
-    </c:choose>
+	<!-- > -->
+	<c:choose>
+		<c:when test="${currentPage < totalPages}">
+			<a href="#" class="page-link" data-page="${currentPage + 1}">&rsaquo;</a>
+		</c:when>
+		<c:otherwise>
+			<a class="disabled">&rsaquo;</a>
+		</c:otherwise>
+	</c:choose>
 
-    <!-- >> -->
-    <c:choose>
-        <c:when test="${currentPage < totalPages}">
-            <a href="#" class="page-link" data-page="${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}">&raquo;</a>
-        </c:when>
-        <c:otherwise>
-            <a class="disabled">&raquo;</a>
-        </c:otherwise>
-    </c:choose>
+	<!-- >> -->
+	<c:choose>
+		<c:when test="${currentPage < totalPages}">
+			<a href="#" class="page-link"
+				data-page="${currentPage + pageGroupSize > totalPages ? totalPages : currentPage + pageGroupSize}">&raquo;</a>
+		</c:when>
+		<c:otherwise>
+			<a class="disabled">&raquo;</a>
+		</c:otherwise>
+	</c:choose>
 </div>
 <script>
 $(document).on('click', '.pagination a', function (e) {
@@ -243,7 +260,7 @@ $(document).on('click', '.pagination a', function (e) {
   });
   
 //검색 버튼 클릭
-$(document).on('click','button#searchBtn',function (e) {
+$(document).on('click','button#searchBtnPk',function (e) {
   const startDate = $('#searchStartDate').val();
   const endDate = $('#searchEndDate').val();
   const deliveryStatus = $('#deliveryStatus').val();
