@@ -146,8 +146,7 @@
 						</div>
 						<div class="packagePrice">
 							<fmt:formatNumber value="${packOrder.pkTotalPrice }"
-								type="number" groupingUsed="true" />
-							원
+								type="number" groupingUsed="true" />원
 						</div>
 						<div class="orderDetail">
 							<a href="#"
