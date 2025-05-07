@@ -49,12 +49,13 @@ public class PackageSubscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			response.sendRedirect("/barofarm/login");
 			return;
 		}
-
 		request.setCharacterEncoding("UTF-8");
 		BufferedReader reader = request.getReader();
 		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false);

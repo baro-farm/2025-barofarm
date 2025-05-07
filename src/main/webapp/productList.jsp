@@ -7,22 +7,22 @@
 <c:set var="pagingUrl">
   <c:choose>
     <c:when test="${listType == 'search'}">
-      ${contextPath}/searchProductList?keyword=${keyword}
+      ${contextPath}/searchProductList?keyword=${keyword}&
     </c:when>
     <c:when test="${listType == 'best'}">
-      ${contextPath}/bestProductList
+      ${contextPath}/bestProductList?
     </c:when>
     <c:when test="${listType == 'new'}">
-      ${contextPath}/newProductList
+      ${contextPath}/newProductList?
     </c:when>
     <c:when test="${listType == 'store'}">
-      ${contextPath}/storeProductList?sellerNum=${sellerNum}
+      ${contextPath}/storeProductList?sellerNum=${sellerNum}&
     </c:when>
     <c:when test="${listType == 'package'}">
-      ${contextPath}/packageListByAll
+      ${contextPath}/packageListByAll?
     </c:when>
     <c:otherwise>
-      ${contextPath}/productList?cateNum=${cateNum}
+      ${contextPath}/productList?cateNum=${cateNum}&
     </c:otherwise>
   </c:choose>
 </c:set>
@@ -54,18 +54,9 @@
         		<div class="searchSorting">
         		<c:if test="${listType != 'best' and listType != 'new'}">
 				  <ul class="searchList">
-					    <c:choose>
-						  <c:when test="${fn:contains(pagingUrl, '?')}">
-						    <li><a href="${pagingUrl}&page=1&sort=createdAt">신상품</a></li>
-						    <li><a href="${pagingUrl}&page=1&sort=priceAsc">낮은가격</a></li>
-						    <li><a href="${pagingUrl}&page=1&sort=priceDesc">높은가격</a></li>
-						  </c:when>
-						  <c:otherwise>
-						    <li><a href="${pagingUrl}?page=1&sort=createdAt">신상품</a></li>
-						    <li><a href="${pagingUrl}?page=1&sort=priceAsc">낮은가격</a></li>
-						    <li><a href="${pagingUrl}?page=1&sort=priceDesc">높은가격</a></li>
-						  </c:otherwise>
-						</c:choose>
+						    <li><a href="${pagingUrl}page=1&sort=createdAt">신상품</a></li>
+						    <li><a href="${pagingUrl}page=1&sort=priceAsc">낮은가격</a></li>
+						    <li><a href="${pagingUrl}page=1&sort=priceDesc">높은가격</a></li>
 				  </ul>
 				  </c:if>
 				</div>
@@ -123,35 +114,47 @@
 					<!-- 이전 페이지 -->
 					<c:choose>
 					  <c:when test="${pageInfo.curPage > 10}">
-					    <a href="${pagingUrl}&page=${pageInfo.curPage - 10}&sort=${sort}">&laquo;</a>
+					    <a href="${pagingUrl}page=${pageInfo.curPage - 10}&sort=${sort}">&laquo;</a>
 					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&laquo;</a>
+					  </c:otherwise>
 					</c:choose>
 					<c:choose>
 					  <c:when test="${pageInfo.curPage > 1}">
-					    <a href="${pagingUrl}&page=${pageInfo.curPage - 1}&sort=${sort}">&lsaquo;</a>
+					    <a href="${pagingUrl}page=${pageInfo.curPage - 1}&sort=${sort}">&lsaquo;</a>
 					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&lsaquo;</a>
+					  </c:otherwise>
 					</c:choose>
 					<!-- 페이지 번호 -->
 					<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
 					  <c:choose>
 					    <c:when test="${page == pageInfo.curPage}">
-					      <a href="${pagingUrl}&page=${page}&sort=${sort}" class="select">${page}</a>
+					      <a href="${pagingUrl}page=${page}&sort=${sort}" class="select">${page}</a>
 					    </c:when>
 					    <c:otherwise>
-					      <a href="${pagingUrl}&page=${page}&sort=${sort}" class="btn">${page}</a>
+					      <a href="${pagingUrl}page=${page}&sort=${sort}" class="btn">${page}</a>
 					    </c:otherwise>
 					  </c:choose>
 					</c:forEach>
 					<!-- 다음 페이지 -->
 					<c:choose>
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-					    <a href="${pagingUrl}&page=${pageInfo.curPage + 1}&sort=${sort}">&rsaquo;</a>
+					    <a href="${pagingUrl}page=${pageInfo.curPage + 1}&sort=${sort}">&rsaquo;</a>
 					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&rsaquo;</a>
+					  </c:otherwise>
 					</c:choose>
 					<c:choose>
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-					    <a href="${pagingUrl}&page=${pageInfo.curPage + 10}&sort=${sort}">&raquo;</a>
+					    <a href="${pagingUrl}page=${pageInfo.curPage + 10}&sort=${sort}">&raquo;</a>
 					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&raquo;</a>
+					  </c:otherwise>
 					</c:choose>
 				</div>
 				

@@ -59,7 +59,7 @@ public class DetailStoreInfo extends HttpServlet {
 			SellerVO seller = sellerService.getSerllerDetail(user.getUserNum());
 			UserVO userVo = userService.selectUserInfo(user.getUserId());
 			request.setAttribute("seller", seller);
-			userVo.setIsSeller(true);
+			System.out.println(userVo);
 			request.setAttribute("user", userVo);
 			request.getRequestDispatcher("/seller/detailStoreInfo.jsp").forward(request, response);
 		} catch (Exception e) {

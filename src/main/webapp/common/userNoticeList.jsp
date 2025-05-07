@@ -50,7 +50,7 @@
 					<!-- 이전 페이지 -->
 					<c:choose>
 					  <c:when test="${pageInfo.curPage > 10}">
-					    <a href="${pagingUrl}&page=${pageInfo.curPage - 10}&sort=${sort}">&laquo;</a>
+					    <a href="${contextPath}/userNoticeList?page=${pageInfo.curPage - 10}&sort=${sort}">&laquo;</a>
 					  </c:when>
 					  <c:otherwise>
 					    <a class="disabled">&laquo;</a>
@@ -58,7 +58,7 @@
 					</c:choose>
 					<c:choose>
 					  <c:when test="${pageInfo.curPage > 1}">
-					    <a href="${pagingUrl}&page=${pageInfo.curPage - 1}&sort=${sort}">&lsaquo;</a>
+					    <a href="${contextPath}/userNoticeList?page=${pageInfo.curPage - 1}&sort=${sort}">&lsaquo;</a>
 					  </c:when>
 					  <c:otherwise>
 					    <a class="disabled">&lsaquo;</a>
@@ -68,17 +68,17 @@
 					<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
 					  <c:choose>
 					    <c:when test="${page == pageInfo.curPage}">
-					      <a href="${pagingUrl}&page=${page}&sort=${sort}" class="select">${page}</a>
+					      <a href="${contextPath}/userNoticeList?page=${page}&sort=${sort}" class="select">${page}</a>
 					    </c:when>
 					    <c:otherwise>
-					      <a href="${pagingUrl}&page=${page}&sort=${sort}" class="btn">${page}</a>
+					      <a href="${contextPath}/userNoticeList?page=${page}&sort=${sort}" class="btn">${page}</a>
 					    </c:otherwise>
 					  </c:choose>
 					</c:forEach>
 					<!-- 다음 페이지 -->
 					<c:choose>
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-					    <a href="${pagingUrl}&page=${pageInfo.curPage + 1}&sort=${sort}">&rsaquo;</a>
+					    <a href="${contextPath}/userNoticeList?page=${pageInfo.curPage + 1}&sort=${sort}">&rsaquo;</a>
 					  </c:when>
 					  <c:otherwise>
 					    <a class="disabled">&rsaquo;</a>
@@ -86,7 +86,7 @@
 					</c:choose>
 					<c:choose>
 					  <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-					    <a href="${pagingUrl}&page=${pageInfo.curPage + 10}&sort=${sort}">&raquo;</a>
+					    <a href="${contextPath}/userNoticeList?page=${pageInfo.curPage + 10}&sort=${sort}">&raquo;</a>
 					  </c:when>
 					  <c:otherwise>
 					    <a class="disabled">&raquo;</a>
