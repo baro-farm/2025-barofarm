@@ -250,15 +250,15 @@
 	</select>
 	<select id="packDetailOrderList" parameterType="Long" resultType="packOrderVo">
 		select
-			po.pkOrderNum, po.pkTotalPrice, po.orderedAt,po.subNum,
-			p.packageNum, p.sellerNum, p.packageName,p.imgUrl,
+			po.pkOrderNum, po.pkTotalPrice, po.orderedAt, po.subNum,
+			p.packageNum, p.sellerNum, p.packageName, p.imgUrl,
 			s.sellerNum, s.storeName,
 			ps.addr, ps.rname, ps.rphone
 		from packageOrder po
-		Join package p on po.packageNum = p.packageNum
-		Join sellerdetail s on p.sellerNum = s.sellerNum
-		Join pakageSubscribe ps on po.userNum = ps.userNum
-		where po.pkOrderNum = #{pkOrderNum}
+		join package p on po.packageNum = p.packageNum
+		join sellerdetail s on p.sellerNum = s.sellerNum
+		join pakageSubscribe ps on po.subNum = ps.subNum
+		where po.pkOrderNum =#{pkOrderNum}
 	</select>
 		
 </mapper>
