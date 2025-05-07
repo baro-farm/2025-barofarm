@@ -59,12 +59,12 @@ public class DetailKockFarm extends HttpServlet {
 			
 			boolean hasComment =false;
 			
-			if(kock.getUserNum()==user.getUserNum()) {
+			if(kock.getUserNum().equals(user.getUserNum())) {
 				request.setAttribute("isWriter", true);
 			}
 			else {
 				for (KockComment cm : commentList) {
-					if (cm.getUserNum()==user.getUserNum()) {
+					if (cm.getUserNum().equals(user.getUserNum())) {
 						hasComment = true;
 						break;
 					}
