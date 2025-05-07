@@ -70,7 +70,8 @@ public class UpdateProduct extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		if (sellerNum.equals( product.getSellerNum()) ) {
+
+		if (sellerNum.equals(product.getSellerNum())) {
 			request.setAttribute("product", product);
 			request.setAttribute("productOption", productOption);
 			request.getRequestDispatcher("/seller/updateProduct.jsp").forward(request, response);
@@ -114,7 +115,8 @@ public class UpdateProduct extends HttpServlet {
 			existingProduct = productService.selectProduct(productNum);
 			sellerNum = sellerService.selectSellerNum(userNum);
 			
-			if (!existingProduct.getSellerNum().equals( sellerNum)) {
+
+			if (!existingProduct.getSellerNum().equals(sellerNum)) {
 //				response.sendRedirect("/barofarm/login");
 				response.sendRedirect("/barofarm/updateProduct?error=unauthorized");
 //			    return;
