@@ -29,6 +29,11 @@ $(document).on('click', '.pagination a', function (e) {
       }
     });
   });
+  
+$(document).on('click', '.toggleAnswerBtn', function () {
+	const $answer = $(this).next('.answerContent');
+	$answer.slideToggle(200);
+});
 </script>
 <title>내가 작성한 리뷰</title>
 <link rel="stylesheet" href="${contextPath}/buyer/prodWrittenReviewList.css">
@@ -72,6 +77,17 @@ $(document).on('click', '.pagination a', function (e) {
 				                ${prodReview.pdContent }
 				            </div>
 				            <div class="reviewDate">${prodReview.createdAt }</div>
+				                <!-- 답변 보기 버튼 + 내용 -->
+					        
+			        
+					        <c:if test="${prodReview.pdCommentStatus eq 'true'}">
+						        <div class="answerSection">
+						            <button type="button" class="toggleAnswerBtn">답변 보기</button>
+						            <div class="answerContent" style="display:none;">
+						                ${prodReview.pdComment}
+						            </div>
+						        </div>
+					        </c:if>
 				        </div>
 				    </div>
 			    </c:forEach>

@@ -38,7 +38,9 @@
 		    pr.pkReviewContent,
 		    pr.createdAt,
 		    u.userName,
-		    s.storeName
+		    s.storeName,
+		    pr.pkCommentStatus,
+		    pr.pkComment
 		FROM 
 		    packReview pr
 		JOIN 
@@ -226,7 +228,9 @@
 		    pr.pkReviewContent,
 		    pr.createdAt,
 		    sd.storeName,
-		    sd.sellerNum
+		    sd.sellerNum,
+		   	pr.pkCommentStatus,
+		    pr.pkComment
 	FROM 
 	    packReview pr
 	JOIN 

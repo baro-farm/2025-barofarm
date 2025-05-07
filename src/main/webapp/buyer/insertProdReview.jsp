@@ -45,6 +45,18 @@
 	    }
 	});
 	</script>
+	  	<script>
+		function readURL(input) {
+			if(input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					document.getElementById("preview").src = e.target.result;
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+   	</script>
 </head>
 <body>
 <jsp:include page="/header/mainHeader.jsp"/>
@@ -58,7 +70,7 @@
 					<div class="header">리뷰 작성</div>
 		
 				    <div class="productInfo">
-				        <img src="${contextPath }${imgUrl }" alt="고구마" class="productImage">
+				        <img src="${contextPath }${imgUrl }" alt="" class="productImage">
 				        <div class="productDetails">
 				        	<div>${storeName }</div>
 				            <div>${productName }</div>
@@ -91,7 +103,11 @@
 			            <!-- <label>내용</label> -->
 			            <textarea class="reviewTextarea" placeholder="리뷰를 작성해주세요." name="pdReviewContent"></textarea>
 			        </div>
-			
+												<!-- 이미지 input은 숨기고 -->
+						<input type="file" name="reviewImage" id="reviewImageInput" accept="image/*"style="display:none" onchange="readURL(this);"  />
+				        <img src="" alt="" id="preview" width="65px" 
+					onclick="document.getElementById('ifile').click();"/> 
+					
 			        <div class="fileUploadBox" id="fileUploadTrigger">
 			            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
 			                <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4z"/>
@@ -99,9 +115,7 @@
 			              </svg>
 			            <label>이미지 첨부</label>
 			        </div>
-									<!-- 이미지 input은 숨기고 -->
-						<input type="file" name="reviewImage" id="reviewImageInput" accept="image/*" style="display: none;" />
-			
+
 			        <div class="buttonGroup">
 			            <button type="submit" class="btn btnSubmit">등록하기</button>
 			            <button type="button" class="btn btnCancel"  onclick="history.back()">취소</button>

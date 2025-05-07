@@ -126,6 +126,15 @@ public class ProdReviewVO {
 	public void setSellerNum(Long sellerNum) {
 		this.sellerNum = sellerNum;
 	}
+	@Override
+	public String toString() {
+		return "ProdReviewVO [productNum=" + productNum + ", pdOrderNum=" + pdOrderNum + ", userNum=" + userNum
+				+ ", productName=" + productName + ", storeName=" + storeName + ", sellerNum=" + sellerNum + ", imgUrl="
+				+ imgUrl + ", orderdAt=" + orderdAt + ", deadline=" + deadline + ", createdAt=" + createdAt
+				+ ", userId=" + userId + ", pdRating=" + pdRating + ", pdContent=" + pdContent + ", optionName="
+				+ optionName + ", reviewNum=" + reviewNum + ", pdCommentStatus=" + pdCommentStatus + ", pdComment="
+				+ pdComment + "]";
+	}
 	
 	
 
