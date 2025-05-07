@@ -55,6 +55,7 @@ public class PackageSubscription extends HttpServlet {
 			return;
 		}
 
+		request.setCharacterEncoding("UTF-8");
 		BufferedReader reader = request.getReader();
 		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false);
 		

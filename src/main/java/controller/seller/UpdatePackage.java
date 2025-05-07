@@ -63,7 +63,7 @@ public class UpdatePackage extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if (sellerNum == packageProduct.getSellerNum()) {
+		if (packageProduct.getSellerNum().equals(sellerNum)) {
 			request.setAttribute("packageProduct", packageProduct);
 			request.getRequestDispatcher("/seller/updatePackage.jsp").forward(request, response);
 		} else {
@@ -106,7 +106,7 @@ public class UpdatePackage extends HttpServlet {
 			existingPackage = packageService.selectPackageProduct(packageNum);
 			sellerNum = sellerService.selectSellerNum(userNum);
 			
-			if(existingPackage.getSellerNum() != sellerNum) {
+			if(!existingPackage.getSellerNum().equals(sellerNum)) {
 				response.sendRedirect("/barofarm/updatePackage?error=unauthorized");
 				return;
 			}
