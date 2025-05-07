@@ -17,11 +17,11 @@
             <li><a href="${contextPath }/userList">회원 정보 검색</a></li>
             <li><a href="${contextPath }/storeList">스토어 정보 검색</a></li>
             <li><a href="${contextPath }/noticeList">공지사항</a></li>
-            <li><a href="${contextPath }/customerServiceList">고객센터</a></li>
+            <li><a href="${contextPath }/customerServiceList">고객 센터</a></li>
             <li><a href="${contextPath }/adminAdsList">배너 광고</a></li>
             <li><a href="${contextPath }/totalSalesPoint">전체 매출</a></li>
-            <li><a href="${contextPath }/adminProdOrderList">일반 상품 주문 조회</a></li>
-            <li><a href="${contextPath }/adminPackOrderList">꾸러미 상품 주문 조회</a></li>
+            <li><a href="${contextPath }/adminProdOrderList">일반 주문 조회</a></li>
+            <li><a href="${contextPath }/adminPackOrderList">꾸러미 주문 조회</a></li>
         </ul>
     </div>
 </div>

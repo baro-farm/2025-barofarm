@@ -9,6 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>관리자 | 꾸러미 주문 목록</title>
+	<link rel="stylesheet" href="${contextPath}/header/reset.css">
 	<link rel="stylesheet" href="${contextPath}/admin/adminProdOrderList.css">
 </head>
 <body>
@@ -20,6 +21,7 @@
 <div id="content">
 	<h1 class="title">꾸러미 주문 조회</h1>
 
+	<div class="filterBox">
 	<form method="get" action="${contextPath}/adminPackOrderList" class="filter-form">
 		<div class="filter-top">
 			<label>기간:</label>
@@ -40,6 +42,7 @@
 			<button type="submit">검색</button>
 		</div>
 	</form>
+	</div>
 
 	<div class="tableWrapper">
 		<table class="table">

@@ -16,35 +16,32 @@
 	<header id="header">
 		<jsp:include page="/header/adminSellerTop.jsp" />
 	</header>
-	<div id="content" class="table display nowrap">
-		<div id="wrapper">
+	
+	<div id="content" >
 			<div class="user_header">
 				<span id="title">회원 정보 검색</span>
 			</div>
+			
 			<!-- 검색 및 필터 -->
-			<form method="get" action="${contextPath}/userList"
-				class="filter-form" style="margin-bottom: 20px;">
-				<div style="display: flex; gap: 12px; align-items: center;">
-					<!-- 검색 조건 -->
-					<select name="searchType">
-						<option value="userId"
-							${param.searchType == 'userId' ? 'selected' : ''}>아이디</option>
-						<option value="userName"
-							${param.searchType == 'userName' ? 'selected' : ''}>이름</option>
-					</select> <input type="text" name="keyword" placeholder="검색어 입력"
-						value="${param.keyword}" />
-
+			<form method="get" action="${contextPath}/userList" class="filter-form">
+				<div style="display: flex; gap: 12px; justify-content: flex-end;">
 					<!-- 구매자/판매자 선택 시 바로 전송 -->
 					<select name="isSeller" onchange="submitFormWithInput(this.form)">
 						<option value="">전체</option>
 						<option value="0" ${param.isSeller == '0' ? 'selected' : ''}>구매자</option>
 						<option value="1" ${param.isSeller == '1' ? 'selected' : ''}>판매자</option>
 					</select>
-
+					<!-- 검색 조건 -->
+					<select name="searchType">
+						<option value="userId" ${param.searchType == 'userId' ? 'selected' : ''}>아이디</option>
+						<option value="userName" ${param.searchType == 'userName' ? 'selected' : ''}>이름</option>
+					</select>
+					 <input type="text" name="keyword" placeholder="검색어 입력" value="${param.keyword}" />
 					<button type="submit">검색</button>
 				</div>
 			</form>
-			<table id="user_table" class="table display nowrap" width="100%">
+			
+			<table id="user_table" class="table display nowrap">
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -64,14 +61,19 @@
 							<td>${row.userName }</td>
 							<td>${row.phone }</td>
 							<td>${row.email }</td>
-							<td><c:if test="${row.isSeller eq true}">판매자</c:if> <c:if
-									test="${row.isSeller eq false}">구매자</c:if></td>
-							<td><c:if test="${row.isDeleted eq true}">O</c:if> <c:if
-									test="${row.isDeleted eq false}">X</c:if></td>
+							<td>
+								<c:if test="${row.isSeller eq true}">판매자</c:if> 
+								<c:if test="${row.isSeller eq false}">구매자</c:if>
+							</td>
+							<td>
+								<c:if test="${row.isDeleted eq true}">O</c:if> 
+								<c:if test="${row.isDeleted eq false}">X</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			
 			<!-- 페이징 -->
 			<c:set var="startPage" value="${currentPage - 2}" />
 			<c:set var="endPage" value="${currentPage + 2}" />
@@ -122,7 +124,6 @@
 						href="?page=${jumpNextPage}&searchType=${param.searchType}&keyword=${param.keyword}&isSeller=${param.isSeller}">&raquo;</a>
 				</c:if>
 			</div>
-		</div>
 	</div>
 	<script>
 		function submitFormWithInput(form) {

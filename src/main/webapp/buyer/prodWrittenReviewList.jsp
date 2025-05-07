@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script>
@@ -30,14 +30,9 @@ $(document).on('click', '.pagination a', function (e) {
     });
   });
 </script>
-    <title>내가 작성한 리뷰</title>
-    <link rel="stylesheet" href="${contextPath}/buyer/prodWrittenReviewList.css">
+<title>내가 작성한 리뷰</title>
+<link rel="stylesheet" href="${contextPath}/buyer/prodWrittenReviewList.css">
 
-
-	
-
-
-			
 			<div class="content1">
 				<!-- 필터 -->
 			    <div class="reviewFilter">
@@ -80,8 +75,6 @@ $(document).on('click', '.pagination a', function (e) {
 				        </div>
 				    </div>
 			    </c:forEach>
-				
-			
 			</div>
 		
 

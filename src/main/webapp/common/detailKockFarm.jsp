@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" /> 
 <!DOCTYPE html>
 <html>
@@ -173,24 +174,7 @@ $(document).on("submit", ".babyForm", function (e) {
 			        <h1 class="title">콕팜</h1>
 			        <p class="subtitle">거래를 제안하세요!</p>
 			    </div>
-			
-			    <div class="post-info">
-			        <p class="p-value"><strong class="p-strong">제목</strong>${kock.title } </p>
-			        <p class="p-value"><strong class="p-strong">카테고리</strong>${kock.name }</p>
-			        <p class="p-value"><strong class="p-strong">수량</strong>${kock.quantity } </p>
-			        <p class="p-value"><strong class="p-strong">희망 배송일자</strong>${kock.shipDate }</p>
-			        <p class="p-value"><strong class="p-strong">가격</strong>${kock.price }원</p>
-		  	        <p class="image"><strong class="p-strong">이미지</strong>  
-		        	<c:if test="${kock.imgUrl ne null}">
-						<img src="kockImg?imgUrl=${kock.imgUrl }" width="100px" />
-					</c:if>
-					</p>     
-			    </div>
-			
-			    <div class="content-box">
-			        ${kock.content }
-			    </div>
-			
+			    
 			    <div class="buttons">
 			        <button class="btn btn-list" onclick="location.href='kockFarmList'">글 목록</button>
 			        <c:if test="${isWriter && fn:length(commentList) == 0 }">
@@ -201,6 +185,25 @@ $(document).on("submit", ".babyForm", function (e) {
 			        </form>
 			        </c:if>
 			    </div>
+			    
+				<div class="content-a">
+				<div class="table-a">
+					<table class="post-info">
+						<tr style="border-bottom: 1px solid #ccc; width: 100%;"><td class="p-title" colspan="2"> ${kock.title}</td></tr>
+						<tr><td class="info-a">카테고리 </td><td>${kock.name}</td></tr>
+						<tr><td class="info-a">수량</td><td> ${kock.quantity}</td></tr>
+						<tr><td class="info-a">희망 배송일자 </td><td>${kock.shipDate}</td></tr>
+						<tr><td class="info-a">가격</td><td> <fmt:formatNumber value="${kock.price}" type="number" />원</td></tr>
+					</table>
+					<c:if test="${kock.imgUrl ne null}">
+						<img src="kockImg?imgUrl=${kock.imgUrl}" width="100px" style="margin: 20px;" />
+					</c:if>
+				</div>
+
+			
+			    <div class="content-box">
+			        ${kock.content }
+			    </div>
 			
 			    <!-- 댓글 목록 -->
 				<div id="commentList">
@@ -209,8 +212,9 @@ $(document).on("submit", ".babyForm", function (e) {
 				        <div class="message-box seller" >
 				            <div class="sell-com">
 				            	<div class="text-box">
-				                	<div class="user-info">${comment.storeName }</div>
+				                	<div class="user-info">상점명 : ${comment.storeName }</div>
 				                	<div class="message">${comment.content }</div>
+				                	<div class="date">${comment.createdAt }</div>
 					            </div>
 					            <div>
 					            	<c:if test="${user.userNum eq comment.userNum || isWriter  }">
@@ -242,7 +246,7 @@ $(document).on("submit", ".babyForm", function (e) {
 				                    <div class="message-box buyer-sec reply">
 				                        <div class="re-icon">↪</div>
 				                        <div class="text-box">
-				                            <div class="user-info">${baby.userName}</div>
+				                            <div class="user-info">${baby.userName} [작성자]</div>
 				                            <div class="message">${baby.content}</div>
 				                        </div>
 				                    </div>
@@ -253,7 +257,7 @@ $(document).on("submit", ".babyForm", function (e) {
 				                    <div class="message-box seller-sec reply">
 				                        <div class="re-icon">↪</div>
 				                        <div class="text-box">
-				                            <div class="user-info">${baby.storeName}</div>
+				                            <div class="user-info">${baby.storeName} [작성자]</div>
 				                            <div class="message">${baby.content}</div>
 				                        </div>
 				                    </div>
@@ -288,6 +292,7 @@ $(document).on("submit", ".babyForm", function (e) {
 				    </form>
 				</div>
 				</c:if>
+			</div>
 			</div>
 			</div>
 		<jsp:include page="/header/footer.jsp" />

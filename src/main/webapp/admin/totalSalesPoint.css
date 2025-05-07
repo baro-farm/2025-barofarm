@@ -12,32 +12,22 @@
 }
 
 #content {
-	width: calc(100vw - 220px);
-	padding-top: 80px;
-	padding-left: 220px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-#wrapper {
-	width: 1280px;
-	margin: 40px auto;
-	gap: 20px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
+  overflow-x: auto;
 }
 .point_header {
-	width: 1280px;
-	display: flex;
-	margin-bottom: 10px;
+	width:100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-bottom:5px;
 }
 #title {
-	width: 1280px;
-	font-size: 32px;
-	align-self: flex-start; 
+	font-size:30px;
+    color:#65B741;
+    font-weight: bold;
+    align-self: flex-start;
 }
 
 #point_table{
@@ -51,7 +41,7 @@
   align-items: center;
   width: 100%;
   min-width: 1024px;
-  margin: 0 auto 20px;
+  margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -73,21 +63,21 @@
 .point-c{
 	width: 295px;
 	height: 80px;
-	line-height:1.6em;
+	text-align:center;
+	line-height:1.8em;
 	padding: 10px;
   	background-color: white;
   	border-radius: 8px;
     box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);
 }
 .p-content {
-	font-size: 25px;
-  	font-weight:bold;
+	font-size: 35px;
 }
 .p-small{
 	font-size:12px;
 }
 #sortForm{
-	margin-top: 30px;
+	margin-top: 5px;
 	width:100%;
     display: flex;
     justify-content: flex-end;

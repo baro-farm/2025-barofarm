@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -13,13 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>판매자|상품관리</title>
     <link rel="stylesheet" href="${contextPath }/seller/productList.css" />
-
-    <link href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css" rel="stylesheet"
-        integrity="sha384-jFvlDSY24z+oXMByOoX2Z1gM+M5NMd0uG7sDa4skv2mHXPuS0/RYXwPGLK0+Mgdc" crossorigin="anonymous" />
-
-    <script src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"
-        integrity="sha384-FcKnveOKVsyQDhaxWTmHPNxY0wtv3QwEmOUwRZ5g+QqTQvSKKmnkT0NiFcDCCIvg"
-        crossorigin="anonymous"></script>
+    <link href="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.css" rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/v/ju/jq-3.7.0/dt-2.2.2/datatables.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     
 	<script>
@@ -146,26 +142,19 @@
 </head>
 
 <body>
-	
 	<jsp:include page="/header/sellerHeader.jsp" />
-    
     <header id="header">
 			<jsp:include page="/header/adminSellerTop.jsp" />
     </header>
-    
     <div id="content">
+    
         <div class="noticeHeader">
             <span id="title">상품 관리</span>
         </div>
-
         
 		<div class="filterWrapper">
-		       	<div class="actions leftSection">
 					<button class="btn add">상품등록</button>
-				</div>
-				<div class="rightSection">
 				    <form id="sortForm" method="get" action="${contextPath}/sellerProductList">
-		
 				       	<select name="sellStat" id="sellStat" onchange="this.form.submit()">
 				            <option value="all" ${param.sellStat == 'all' ? 'selected' : ''}>전체</option>
 				            <option value="sales" ${param.sellStat == 'sales' ? 'selected' : ''}>판매중</option>
@@ -179,13 +168,11 @@
 				            <option value="reviewCount" ${param.sort == 'reviewCount' ? 'selected' : ''}>리뷰많은순</option>
 				            <option value="rating" ${param.sort == 'rating' ? 'selected' : ''}>평점높은순</option>
 				        </select>
-
 		    </form>
-		    </div>
 		</div>
-		<div class="tableWrapper">
 		
-		<table id="notice_table" class="table">
+		<div class="tableWrapper">
+		<table id="notice_table" class="table" >
 				<thead>
 		          <tr>
 		            <th style="font-weight: bold;">품번</th>
@@ -197,11 +184,8 @@
 		          	<th style="font-weight: bold;">가격</th>
 		          	<th style="font-weight: bold;">재고</th>
 		            <th style="font-weight: bold;">판매건수</th>
-		            <th style="font-weight: bold;">리뷰건수</th>
-		          	<th style="font-weight: bold;">리뷰평균</th>
+		            <th style="font-weight: bold;">리뷰평점</th>
 		          	<th style="font-weight: bold;">등록일자</th>
-		          	
-		          	
 		          </tr>
 		        </thead>
 		        <tbody>
@@ -217,6 +201,7 @@
 		          			</c:if>
 					          <td rowspan="${fn:length(product.optionList)}"><fmt:formatNumber value="${product.pdPrice}" type="number" groupingUsed="true" />원</td>
 					          <td rowspan="${fn:length(product.optionList)}" class="statusToggle">		          			
+
 							     <c:choose>
 					              <c:when test="${product.status == true}">
 					                <div class="${product.status == true ? 'green' : 'red' }"></div>
@@ -245,17 +230,7 @@
 					        <!-- 리뷰, 판매건수 등: 첫 옵션일 때만 출력 -->
 					        <c:if test="${status.first}">
 					          <td rowspan="${fn:length(product.optionList)}">${product.salesVolume}건</td>
-					          <td rowspan="${fn:length(product.optionList)}">${product.reviewCount}건</td>
-					          <td rowspan="${fn:length(product.optionList)}">
-					           
-					            <c:forEach var="i" begin="1" end="5">
-					              <c:choose>
-					                <c:when test="${i <= product.avgRating}">★</c:when>
-					                <c:otherwise>☆</c:otherwise>
-					              </c:choose>
-					            </c:forEach>
-					            <br> <span>${product.avgRating}</span>
-					          </td>
+					          <td rowspan="${fn:length(product.optionList)}">★ ${product.avgRating} (${product.reviewCount}건)</td>
 					          <td rowspan="${fn:length(product.optionList)}">${product.createdAt}</td>
 					        </c:if>
 

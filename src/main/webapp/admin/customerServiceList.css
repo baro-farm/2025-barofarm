@@ -1,15 +1,3 @@
-@font-face {
-  font-family: 'SUIT-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-* {
-  font-family: 'SUIT-Regular', sans-serif;
-  box-sizing: border-box;
-}
-
 #header {
   position: fixed;
   top: 0;
@@ -21,34 +9,17 @@
   align-items: center;
   border-bottom: 1px solid #f3f3f3;
   background-color: white;
-  z-index: 10;
 }
 
 #content {
-  width: calc(100vw - 220px);
-  max-width: 1280px;
-  margin: 40px auto;
-  padding-top: 80px;
-  padding-left: 220px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#wrapper {
-  width: 1280px;
-  max-width: 1280px;
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
   overflow-x: auto;
 }
 
 .notice-header {
-  max-width: 1920px;
-  min-width: 1280px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  flex-direction: column;
 }
 
 #title {
@@ -57,10 +28,22 @@
   color: #65B741;
   align-self: flex-start;
 }
+/* 🔍 필터 */
+.filter-form {
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+}
 
+.filter-form select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
 /* 테이블 */
 .table {
-  width: 100%;
   min-width: 1200px;
   border-collapse: collapse;
   background-color: white;
@@ -221,12 +204,4 @@
 .pagination a.active {
   background-color: #65B741;
   color: white;
-}
-
-#answerFilter {
-  padding: 6px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-  margin-bottom: 20px;
 }

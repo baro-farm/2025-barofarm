@@ -13,6 +13,7 @@
     <!-- ✅ jQuery & DataTables 라이브러리 -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="${contextPath }/seller/adsList.css">
+     <link rel="stylesheet" href="${contextPath }/reset.css">
 	<link rel="stylesheet" href="${contextPath }/common/modal.css">
 </head>
 <body>
@@ -26,7 +27,9 @@
          <div class="subscribe-box">
 <!--              <span class="question-icon">❓</span>
  -->             <c:if test="${bannerCnt <5 }">
-   	                <button class="btn-apply" onclick="location.href='${contextPath}/insertAdsBySeller'">📢 광고 신청하기</button>
+   	                <button class="btn-apply" onclick="location.href='${contextPath}/insertAdsBySeller'">
+   	                	<p style="background-color: white; border-radius:50%; padding: 3px;margin-right:3px;">📢</p> 광고 신청하기
+   	                </button>
              </c:if>
              <c:if test="${bannerCnt >=5 }">
              	<p class="interruption">광고 마감입니다.</p>

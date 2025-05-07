@@ -80,31 +80,52 @@
 			                </c:forEach>
 			            </tbody>
 			        </table>
-			        <div class="paging" id="pagingArea" style="text-align: center; margin-top: 20px;">
-				    	  <c:if test="${pi.currentPage > 1}">
-						    <a href="?page=1&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&laquo;</a>
-						  </c:if>
-						  <c:if test="${pi.startPage > 1}">
-						    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&lt;</a>
-						  </c:if>
-						
-						  <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
-						    <a href="?page=${p}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}"
-						       class="${p == pi.currentPage ? 'active' : ''}">${p}</a>
-						  </c:forEach>
-						
-						  <c:if test="${pi.endPage < pi.maxPage}">
-						    <a href="?page=${pi.endPage + 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&gt;</a>
-						  </c:if>
-						  <c:if test="${pi.currentPage < pi.maxPage}">
-						    <a href="?page=${pi.maxPage}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&raquo;</a>
-						  </c:if>
-					</div>
-					<c:if test="${isSeller eq false }">
+			        
+			        <c:if test="${isSeller eq false }">
 			        <div class="buttons">
 			            <button class="btn btn-list" onclick="location.href='insertKockFarm'">글 등록</button>
 			        </div>
 			        </c:if>
+			        
+			        <div id="pagingArea">
+					<c:choose>
+						<c:when test="${pi.currentPage > 10}">
+							<a href="?page=${pi.startPage - 10}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&laquo;</a>
+						</c:when>
+						<c:otherwise>
+							<a class="disabled">&laquo;</a>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+					  <c:when test="${pageInfo.curPage > 1}">
+					    <a href="?page=${pi.startPage - 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&lsaquo;</a>
+					  </c:when>
+					  <c:otherwise>
+					    <a class="disabled">&lsaquo;</a>
+					  </c:otherwise>
+					</c:choose>
+					<c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
+						    <a href="?page=${p}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}"
+						       class="${p == pi.currentPage ? 'active' : ''}">${p}</a>
+					</c:forEach>
+					
+					<c:choose>
+						<c:when test="${pi.endPage < pi.maxPage}">
+							<a href="?page=${pi.endPage + 1}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&rsaquo;</a>
+						</c:when>
+						<c:otherwise>
+							<a class="disabled">&rsaquo;</a>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${pi.endPage < pi.maxPage}">
+							<a href="?page=${pi.endPage + 10}&searchType=${param.searchType}&keyword=${param.keyword}&startDateFrom=${param.startDateFrom}&startDateTo=${param.startDateTo}&status=${param.status}">&raquo;</a>
+						</c:when>
+						<c:otherwise>
+							<a class="disabled">&raquo;</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			    </div>
 	    	</div>
    		<jsp:include page="/header/footer.jsp" />

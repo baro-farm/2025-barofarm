@@ -7,10 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 | 고객센터 문의글 조회</title>
+<title>관리자 | 고객센터</title>
 <link rel="stylesheet" href="${contextPath}/header/reset.css">
-<link rel="stylesheet"
-	href="${contextPath}/admin/customerServiceList.css" />
+<link rel="stylesheet" 	href="${contextPath}/admin/customerServiceList.css" />
 </head>
 <body>
 	<jsp:include page="/header/adminHeader.jsp" />
@@ -18,14 +17,12 @@
 		<jsp:include page="/header/adminSellerTop.jsp" />
 	</header>
 	<div id="content" class="table display nowrap">
-		<div id="wrapper">
 			<div class="notice-header">
-				<span id="title">고객센터 문의글 조회</span>
+				<span id="title">고객센터</span>
 			</div>
 			<!-- 검색 및 필터 -->
-			<form method="get" action="${contextPath}/customerServiceList" id="answerFilterForm">
-				<select id="answerFilter" name="answerStatus"
-					onchange="submitAnswerFilter(this.form)">
+			<form method="get" action="${contextPath}/customerServiceList" id="answerFilterForm" class="filter-form">
+				<select id="answerFilter" name="answerStatus" onchange="submitAnswerFilter(this.form)">
 					<option value="" ${empty answerStatus ? 'selected' : ''}>전체</option>
 					<option value="1" ${answerStatus == '1' ? 'selected' : ''}>답변완료</option>
 					<option value="0" ${answerStatus == '0' ? 'selected' : ''}>미답변</option>

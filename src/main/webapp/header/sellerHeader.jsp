@@ -47,9 +47,9 @@ $(document).ready(function () {
 			data-menu="normal-product">일반 상품</a>
 			<ul class="submenu">
 				<li><a href="${contextPath }/sellerProductList">상품 관리</a></li>
-				<li><a href="${contextPath }/sellerProdOrderList">상품 주문관리</a></li>
-				<li><a href="${contextPath }/sellerProdReviewList">일반 상품 리뷰</a></li>
-				<li><a href="${contextPath }/sellerCancelList">일반 상품 취소내역</a></li>
+				<li><a href="${contextPath }/sellerProdOrderList">주문 관리</a></li>
+				<li><a href="${contextPath }/sellerProdReviewList">리뷰 관리</a></li>
+				<li><a href="${contextPath }/sellerCancelList">취소 내역</a></li>
 			</ul>
 		</li>
 
@@ -57,15 +57,15 @@ $(document).ready(function () {
 		<li class="has-submenu"><a href="javascript:void(0)"
 			data-menu="package">꾸러미</a>
 			<ul class="submenu">
-				<li><a href="${contextPath}/sellerPackageList">꾸러미 판매 관리</a></li>
-				<li><a href="${contextPath}/sellerPackOrderList">꾸러미 주문 관리</a></li>
-				<li><a href="${contextPath }/sellerPackReviewList">꾸러미 리뷰</a></li>
-				<li><a href="${contextPath}/sellerPackSubscribeList">꾸러미 구독관리</a></li>
+				<li><a href="${contextPath}/sellerPackageList">판매 관리</a></li>
+				<li><a href="${contextPath}/sellerPackOrderList">주문 관리</a></li>
+				<li><a href="${contextPath }/sellerPackReviewList">리뷰 관리</a></li>
+				<li><a href="${contextPath}/sellerPackSubscribeList">구독관리</a></li>
 			</ul>
 		</li>
 
 		<!-- 기타 -->
-		<li><a href="${contextPath }/farmPointList">팜포인트</a></li>
+		<li><a href="${contextPath }/farmPointList">팜 포인트</a></li>
 	    <li><a href="${contextPath}/sellerKCList">콕팜 댓글</a></li>
 		<li><a href="${contextPath }/sellerAlarmList">알림 내역</a></li>
 		<li><a href="${contextPath }/detailStoreInfo">스토어 정보</a></li>

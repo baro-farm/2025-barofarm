@@ -27,7 +27,7 @@
 		</c:if>
         <div class="user-buttons">
             <button onclick="location.href='${contextPath}/myPageMain'">마이페이지</button>
-            <button onclick="location.href='${contextPath}/logout'">로그아웃</button>
+            <button onclick="location.href='${contextPath}/infoFoam'">정보 수정</button>
         </div>
     </div>
 
@@ -37,26 +37,24 @@
     </div>
     <ul class="menu-list">
         <li><a href="buyerOrderList" >주문내역</a></li>
-        <li><a href="infoFoam">회원 정보 수정</a></li>
-        
-        <li class="dropdown">
+        <li>
             <a style="text-decoration: none;">리뷰</a>
             <ul class="submenu">
-                <li><a href="allWritableReviewList">&gt; 작성 가능한 리뷰</a></li>
-                <li><a href="allWrittenReviewList">&gt; 내가 작성한 리뷰</a></li>
+                <li><a href="allWritableReviewList">&rsaquo; 작성 가능한 리뷰</a></li>
+                <li><a href="allWrittenReviewList">&rsaquo; 내가 작성한 리뷰</a></li>
             </ul>
         </li>
-        <li class="dropdown">
+        <li>
             <a style="text-decoration: none;">꾸러미</a>
             <ul class="submenu">
-                <li><a href="packSubList">&gt;구독 관리</a></li>
+                <li><a href="packSubList">&rsaquo; 구독 관리</a></li>
             </ul>
         </li>
-        <li class="dropdown">
+        <li>
             <a style="text-decoration: none;">콕팜</a>
             <ul class="submenu">
-                <li><a href="kockFarmPostList">&gt;내 게시글</a></li>
-                <li><a href="kockCommentList">&gt;내 댓글</a></li>
+                <li><a href="kockFarmPostList">&rsaquo; 내 게시글</a></li>
+                <li><a href="kockCommentList">&rsaquo; 내 댓글</a></li>
             </ul>
         </li>
         <li><a href="addressList">배송지 주소관리</a></li>

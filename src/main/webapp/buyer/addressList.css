@@ -13,11 +13,9 @@ body {
     margin: 20px;
 }
 .header {
-    font-size: 30px;
-    color:#5cb85c;
+    font-size: 22px;
     font-weight: bold;
-    margin-top:20px;
-	margin-bottom:20px;
+    margin-bottom: 35px;
 }
 .container {
     max-width: 1300px;

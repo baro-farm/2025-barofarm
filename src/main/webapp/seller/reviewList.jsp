@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>판매자|리뷰관리</title>
+<title>판매자 | 일반 리뷰 관리</title>
 
 <link rel="stylesheet" href="${contextPath}/seller/reviewList.css" />
 
@@ -167,7 +167,7 @@
 
 	<div id="content">
 		<div class="noticeHeader">
-			<span id="title">상품 리뷰 관리</span>
+			<span id="title">일반 상품 리뷰</span>
 		</div>
 
 		<div class="filterWrapper">
@@ -216,17 +216,17 @@
 				<thead>
 					<tr>
 						<th><input type="checkbox"></th>
+						<th style="font-weight: bold;">주문번호</th>
 						<th style="font-weight: bold;">상품번호</th>
 						<th style="font-weight: bold;">상품명</th>
 						<th style="font-weight: bold;">상품옵션</th>
 						<th style="font-weight: bold;">구매자평점</th>
 						<th style="font-weight: bold;">리뷰내용</th>
 						<th style="font-weight: bold;">포토</th>
-						<th style="font-weight: bold;">등록자</th>
+						<th style="font-weight: bold;">작성 ID</th>
 						<th style="font-weight: bold;">등록일자</th>
-						<th style="font-weight: bold;">리뷰글번호</th>
+						<th style="font-weight: bold;">글번호</th>
 						<th style="font-weight: bold;">답글여부</th>
-						<th style="font-weight: bold;">상품주문번호</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -234,6 +234,11 @@
 						<tr>
 							<td>
 								<div class="uiGridCell"><input type="checkbox"></div>
+							</td>
+							<td>
+								<div class="uiGridCell orderNum">
+									<a href="#">${review.pdOrderNum }</a>
+								</div>
 							</td>
 							<td>
 								<div class="uiGridCell productNum">
@@ -256,7 +261,7 @@
 										<c:when test="${i <= review.pdRating}">★</c:when>
 										<c:otherwise>☆</c:otherwise>
 									</c:choose>
-								</c:forEach><span>&nbsp;&nbsp;${review.pdRating}</span>
+								</c:forEach><span>&nbsp;&nbsp;(${review.pdRating})</span>
 							</td>
 							<td>
 								<div class="uiGridCell reviewDetail">
@@ -287,12 +292,6 @@
 										</c:when>
 										<c:otherwise><span>N</span></c:otherwise>
 									</c:choose>
-								</div>
-							</td>
-
-							<td>
-								<div class="uiGridCell orderNum">
-									<a href="#">${review.pdOrderNum }</a>
 								</div>
 							</td>
 						</tr>

@@ -30,7 +30,7 @@
 	        <p>거래를 제안하세요!</p>
 	    </div>
 	
-	    <form action="updateKockFarm" method="post" enctype="multipart/form-data">
+	    <form action="updateKockFarm" method="post" enctype="multipart/form-data"  id="kockFarmForm">
 	        <input type="hidden" name="kockNum" value="${kock.kockNum }">
 	      <div class="form-big">
 	        <div class="form-group">

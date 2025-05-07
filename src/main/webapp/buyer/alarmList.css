@@ -14,11 +14,9 @@ body {
     margin: 20px;
 }
 .header {
-    font-size: 30px;
-    color:#5cb85c;
+     font-size: 22px;
     font-weight: bold;
-    margin-top:20px;
-	margin-bottom:20px;
+    margin-bottom: 35px;
 }
 .container {
     max-width: 1300px;
@@ -40,15 +38,8 @@ body {
 	margin-right: auto;
 	position: relative;
 }
-
 .sideMenu {
 	position: relative;
-}
-#title{
-    font-size:30px;
-    color:#65B741;
-    font-weight: bold;
-    align-self: flex-start;
 }
 .selectBox{
 	margin-top: 15px;
@@ -70,10 +61,13 @@ body {
 	height: 17px;
 }
 .selectBox button {
-    background-color: #ffb534;
-    border: solid #ffb534;
-    border-radius: 4px;
-    height: 27px;
+    font-size: 14px;
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 4px;
+  	text-decoration: none;
+  	border: none;
+  	background-color: #65B741;
 }
 /* 꾸러미 목록 테이블  */
 .tableWrapper {
@@ -91,6 +85,7 @@ body {
     padding: 5px;
     font-size: 14px;
     text-align: center;
+    vertical-align: middle;
 }
 .table td {
 	height: 34px;
