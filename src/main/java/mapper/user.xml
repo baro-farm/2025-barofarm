@@ -7,6 +7,7 @@
 	<resultMap id="userWithAddressResultMap" type="userVo">
 		<id property="userNum" column="userNum"/>
 	    <result property="userId" column="userId"/>
+	    <result property="pwd" column="pwd"/>
 	    <result property="userName" column="userName"/>
 	    <result property="phone" column="phone"/>
 	    <result property="email" column="email"/>
@@ -21,7 +22,7 @@
 	
 	<select id="selectUserWithAddress" parameterType="String" resultMap="userWithAddressResultMap">
 		select	    
-	     u.UserNum, u.userId, u.userName, u.phone, u.email, a.postCode, a.addr1, a.addr2
+	     u.UserNum, u.userId,u.pwd, u.userName, u.phone, u.email, a.postCode, a.addr1, a.addr2
 	     from user u
 	     Left join address a
 	     on u.userNum = a.userNum
@@ -29,7 +30,7 @@
 	</select>
 	<update id="updateUser" parameterType="userVo">
 		update user 
-		set userName=#{userName}, phone=#{phone}, email =#{email} 
+		set userName=#{userName},pwd=#{pwd}, phone=#{phone}, email =#{email} 
 		where userId=#{userId}
 	</update>
 	<update id="updateAddress" parameterType="address">

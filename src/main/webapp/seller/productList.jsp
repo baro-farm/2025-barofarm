@@ -216,7 +216,7 @@
 					          <td rowspan="${fn:length(product.optionList)}" ><button class="btn edit" data-productnum="${product.productNum}">수정</button></td>		          		
 		          			</c:if>
 					          <td rowspan="${fn:length(product.optionList)}"><fmt:formatNumber value="${product.pdPrice}" type="number" groupingUsed="true" />원</td>
-					          <td rowspan="${fn:length(product.optionList)}">		          			
+					          <td rowspan="${fn:length(product.optionList)}" class="statusToggle">		          			
 							     <c:choose>
 					              <c:when test="${product.status == true}">
 					                <div class="${product.status == true ? 'green' : 'red' }"></div>
