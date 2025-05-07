@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.banner">
+	<insert id="insertBannerByAdmin" parameterType="banner"  useGeneratedKeys="true" keyProperty="bannerNum">
+		INSERT INTO banner (title, imgUrl, targetUrl, isPosted, userNum, endDate)
+		VALUES (#{title}, #{imgUrl}, #{targetUrl}, 1, #{userNum},NOW());
+ 	</insert>
+	<select id="adminBannerList" resultType="banner">
+		SELECT * FROM banner WHERE adsNum IS NULL AND isPosted=1
+	</select>
+	<update id="updateBannerPosted" parameterType="Long" >
+	  	UPDATE banner SET isPosted = 0 , endDate = NOW() WHERE bannerNum=#{bannerNum}
+	</update>
+	<insert id="insertBannerBySellerAds" parameterType="banner" useGeneratedKeys="true" keyProperty="bannerNum">
+  		INSERT INTO banner VALUES (NULL, #{adsNum}, #{title}, #{imgUrl}, #{targetUrl} ,NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY) ,1,#{userNum}  )
+	</insert>
+	<update id="updateExpiredBannerIsPosted">
+		UPDATE banner
+		SET isPosted = 0
+		WHERE endDate &lt; NOW()
+		AND isPosted = 1
+		AND adsNum IS NOT NULL
+	</update>
+	<select id="countSellerBanner" resultType="int">
+		SELECT COUNT(*) 
+		FROM banner 
+		WHERE isPosted = TRUE 
+		AND adsNum IS NOT NULL
+	</select>
+	<select id="selectBannerByIsPosted" resultType="banner">
+		SELECT * FROM banner WHERE isPosted=1
+		order by createdAt desc
+	</select>
+</mapper>

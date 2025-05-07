@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.prodOrder">
+	<select id="prodOrderList" parameterType="Long" resultType="prodOrderVo">
+		select
+			poi.pdOrderNum, poi.amount, poi.price,
+			p.productNum, p.sellerNum, p.productName,
+			s.sellerNum, s.storeName,
+			po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus, po.orderStatus
+		from productOrderItem poi
+		Join product p on poi.productNum = p.productNum
+		Join sellerdetail s on p.sellerNum = s.sellerNum
+		join productOrder po on poi.pdOrderNum = po.pdOrderNum
+		where po.userNum = #{userNum}
+		order by po.orderDate desc
+	</select>
+	
+	<!-- Count 쿼리 -->
+	<select id="selectUserProdOrderCount" parameterType="map" resultType="Integer">
+	  SELECT COUNT(*)
+	  FROM productOrder po
+	  JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	  JOIN product p ON poi.productNum = p.productNum
+	  WHERE po.userNum = #{userNum}
+	    <if test="startDate != null and startDate != ''">
+	      AND po.orderDate &gt;= #{startDate}
+	    </if>
+	    <if test="endDate != null and endDate != ''">
+	      AND po.orderDate &lt;= #{endDate}
+	    </if>
+	    <if test="deliveryStatus != null and deliveryStatus != ''">
+	      AND po.deleveryStatus = #{deliveryStatus}
+	    </if>
+	</select>	
+	
+	<!-- 리스트 쿼리 -->
+	<select id="selectUserProdOrderList" parameterType="map" resultType="prodOrderVo">
+	  SELECT poi.pdOrderNum, poi.amount, poi.price,
+	         p.productNum, p.sellerNum, p.productName, p.imgUrl,
+	         po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus,
+	         s.sellerNum, s.storeName
+	         
+	  FROM `productOrder` po
+	  JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	  JOIN product p ON poi.productNum = p.productNum
+	  JOIN sellerDetail s on p.sellerNum = s.sellerNum
+	  WHERE po.userNum = #{userNum}
+	    <if test="startDate != null and startDate != ''">
+	      AND po.orderDate &gt;= #{startDate}
+	    </if>
+	    <if test="endDate != null and endDate != ''">
+	      AND po.orderDate &lt;= #{endDate}
+	    </if>
+	    <if test="deliveryStatus != null and deliveryStatus != ''">
+	      AND po.deleveryStatus = #{deliveryStatus}
+	    </if>
+	  ORDER BY po.orderDate DESC
+	  LIMIT #{offset}, #{limit}
+	</select>
+	
+	<select id="prodDetailOrderList" parameterType="Long" resultType="prodOrderVo">
+		select
+			poi.pdOrderNum, poi.amount, poi.price,
+			p.productNum, p.sellerNum, p.productName,p.imgUrl,po.rname,po.rphone, po.address,
+			s.sellerNum, s.storeName,
+			po.userNum, po.pdTotalPrice, po.orderDate, po.deleveryStatus, po.orderStatus
+		from productOrderItem poi
+		Join product p on poi.productNum = p.productNum
+		Join sellerdetail s on p.sellerNum = s.sellerNum
+		join productOrder po on poi.pdOrderNum = po.pdOrderNum
+		where poi.pdOrderNum = #{pdOrderNum}
+	</select>
+	
+	<update id="updatePdDeliveryStatus" parameterType="prodOrder">
+		update productOrder
+		set deleveryStatus = #{deleveryStatus}
+		where pdOrderNum = #{pdOrderNum}
+	</update>
+	
+	<update id="updatePdTrackingNum" parameterType="map">
+		update productOrder
+		set trackingNum =#{trackingNum}
+		where pdOrderNum = #{pdOrderNum}
+	</update>
+	
+	<select id="selectSellerProdOrderList" parameterType="map" resultType="prodOrderVo">
+		SELECT 
+		    po.pdOrderNum,              
+		    poi.orderItem,              
+		    poi.productNum,            
+		    pOpt.option,  
+		    (pOpt.price + p.price) AS optionPrice,  
+		    poi.amount,                 
+		    ((pOpt.price + p.price) * poi.amount) AS totalPrice,
+		    po.orderDate,             
+		    CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
+		    u.userName, 
+		    po.address,
+		    u.phone,
+		    po.orderStatus, 
+		    po.deleveryStatus,
+		    po.trackingNum
+		FROM 
+		    productorder po
+		JOIN 
+		    productorderitem poi ON po.pdOrderNum = poi.pdOrderNum
+		JOIN 
+		    productoption pOpt ON poi.optionNum = pOpt.optionNum
+		JOIN 
+		    product p ON poi.productNum = p.productNum
+		JOIN 
+		    user u ON po.userNum = u.userNum
+		WHERE 
+		    p.sellerNum = #{sellerNum}
+		<if test="startDate != null and endDate != null">
+		  <if test="dateType == 'paymentDate'">
+		    AND DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
+		  </if>
+		  <if test="dateType == 'orderDate'">
+		    AND DATE(po.orderedAt) BETWEEN #{startDate} AND #{endDate}
+		  </if>
+		</if>
+		<if test="searchType != null and searchType != '' and searchType != 'all' and searchKeyword != null and searchKeyword != ''">
+		  <choose>
+		    <when test="searchType == 'userName'">
+		      AND u.userName LIKE CONCAT('%', #{searchKeyword}, '%')
+		    </when>
+		    <when test="searchType == 'pdOrderNum'">
+		      AND po.pdOrderNum = #{searchKeyword}
+		    </when>
+		    <when test="searchType == 'productNum'">
+		      AND poi.productNum = #{searchKeyword}
+		    </when>
+		    <when test="searchType == 'trackingNum'">
+		      AND po.trackingNum = #{searchKeyword}
+		    </when>
+		  </choose>
+		</if>
+		ORDER BY po.orderDate DESC
+		LIMIT #{offset}, #{pageSize}
+				
+	</select>
+	
+	<select id="sellectCountSellerProdOrderList" parameterType="map" resultType="Integer">
+	    SELECT 
+	        COUNT(DISTINCT po.pdOrderNum)
+	    FROM 
+	        productorder po
+	    JOIN 
+	        productorderitem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN 
+	    	productoption pOpt ON poi.optionNum = pOpt.optionNum
+	    JOIN 
+	        product p ON poi.productNum = p.productNum
+	        
+	    JOIN 
+	        user u ON po.userNum = u.userNum
+	    WHERE 
+	        p.sellerNum = #{sellerNum}
+		<choose>
+		  <when test="startDate != null and endDate != null">
+		    <choose>
+		      <when test="dateType == 'paymentDate'">
+		        AND DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
+		      </when>
+		      <when test="dateType == 'orderDate'">
+		        AND DATE(po.orderedAt) BETWEEN #{startDate} AND #{endDate}
+		      </when>
+		    </choose>
+		  </when>
+		  <otherwise>
+		    <!-- 날짜 조건 없음 -->
+		  </otherwise>
+		</choose>
+	    <if test="searchType != null and searchType != '' and searchType != 'all' and searchKeyword != null and searchKeyword != ''">
+	        <choose>
+	            <when test="searchType == 'userName'">
+	                AND u.userName LIKE CONCAT('%', #{searchKeyword}, '%')
+	            </when>
+	            <when test="searchType == 'pdOrderNum'">
+	                AND po.pdOrderNum = #{searchKeyword}
+	            </when>
+	            <when test="searchType == 'productNum'">
+	                AND poi.productNum = #{searchKeyword}
+	            </when>
+	            <when test="searchType == 'trackingNum'">
+	                AND po.trackingNum = #{searchKeyword}
+	            </when>
+	        </choose>
+	    </if>	
+	</select>
+	<insert id="insertProductOrder" parameterType="map" useGeneratedKeys="true" keyProperty="pdOrderNum">
+	    INSERT INTO productorder (userNum, pdTotalPrice, address, deleveryStatus, orderStatus, rName, rPhone)
+	    VALUES (#{userNum}, #{pdTotalPrice}, #{address}, #{deleveryStatus}, #{orderStatus}, #{rName}, #{rPhone})
+	</insert>
+	<insert id="insertProductOrderItem" parameterType="prodOrderItem">
+        INSERT INTO productorderitem (pdOrderNum, productNum, optionNum, amount, price)
+        VALUES (#{pdOrderNum}, #{productNum}, #{optionNum}, #{amount}, #{price})
+    </insert>
+	
+	<!-- 취소신청 -->
+	 <!-- 1. 해당 주문번호의 orderItem 조회 -->
+    <select id="selectOrderItemsByOrderNum" parameterType="long" resultType="long">
+        SELECT orderItem FROM productorderitem WHERE pdOrderNum = #{pdOrderNum}
+    </select>
+
+    <!-- 2. 취소 로그 insert -->
+	<insert id="insertCancelLog" parameterType="map">
+	    INSERT INTO productordercancel (
+	        orderItem,
+	        cancelStatus,
+	        cancelReason,
+	        cancelReasonDetail,
+	        cancelRequestedAt,
+	        refundPrice
+	    ) VALUES (
+	        #{orderItem},
+	        #{cancelStatus},
+	        #{cancelReason},
+	        #{cancelReasonDetail},
+	        #{cancelRequestedAt},
+	        #{refundPrice}
+	    )
+	</insert>
+
+    <!-- 3. 재고 복구용 정보 조회 -->
+    <select id="selectOptionAndAmountByOrderItem" parameterType="long" resultType="map">
+	  SELECT po.optionNum, po.amount, o.price
+	  FROM productorderitem po
+	  JOIN productoption o ON po.optionNum = o.optionNum
+	  WHERE po.orderItem = #{orderItem}
+    </select>
+
+    <!-- 4. 재고 복구 -->
+    <update id="restoreStock" parameterType="map">
+        UPDATE productoption
+        SET stock = stock + #{amount}
+        WHERE optionNum = #{optionNum}
+    </update>
+
+    <!-- 5. 주문 상태 업데이트 -->
+    <update id="updateOrderStatus" parameterType="long">
+        UPDATE productorder
+        SET orderStatus = '취소완료',
+            deleveryStatus = '취소완료'
+        WHERE pdOrderNum = #{pdOrderNum}
+    </update>
+    
+    
+    <!-- 취소 리스트 -->
+    <select id="countSellerCancelList" parameterType="map" resultType="Integer">
+        SELECT COUNT(*) 
+        FROM productordercancel pc
+        JOIN productorderitem poi ON pc.orderItem = poi.orderItem
+        JOIN productoption po ON poi.optionNum = po.optionNum
+        JOIN product p ON poi.productNum = p.productNum
+        JOIN productorder o ON poi.pdOrderNum = o.pdOrderNum
+        JOIN user u ON o.userNum = u.userNum
+        WHERE p.sellerNum = #{sellerNum}    
+    </select>
+    
+	<select id="selectSellerCancelList" parameterType="map" resultType="prodCancelVO">
+       SELECT 
+            pc.pdCancelNum,
+            pc.orderItem,
+            pc.cancelStatus,
+            pc.cancelReason,
+            pc.cancelReasonDetail,
+            pc.cancelRequestedAt,
+            poi.pdOrderNum,
+            poi.productNum,
+            p.productName,
+            po.option AS optionName,
+            poi.amount,
+            poi.price,
+            CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
+            o.rname,
+            o.rphone,
+            o.address
+        FROM productordercancel pc
+        JOIN productorderitem poi ON pc.orderItem = poi.orderItem
+        JOIN productoption po ON poi.optionNum = po.optionNum
+        JOIN product p ON poi.productNum = p.productNum
+        JOIN productorder o ON poi.pdOrderNum = o.pdOrderNum
+        JOIN user u ON o.userNum = u.userNum
+        WHERE p.sellerNum = #{sellerNum}
+        <choose>
+            <when test="sort == 'old'">
+                ORDER BY pc.cancelRequestedAt ASC
+            </when>
+            <otherwise>
+                ORDER BY pc.cancelRequestedAt DESC
+            </otherwise>
+        </choose>
+        LIMIT #{offset}, #{limit}
+
+	</select> 
+	<select id="selectAdminOrderList" parameterType="map" resultType="adminProdOrderVO">
+		SELECT 
+		    po.pdOrderNum,
+		    p.productName AS productName,
+		    p.price AS productPrice,
+		    pOpt.price AS optionPrice,
+		    poi.orderItem,
+		    poi.productNum,
+		    pOpt.option,
+		    pOpt.price AS optionPrice,
+		    poi.amount,
+		    (p.price + pOpt.price * poi.amount) AS totalPrice,
+		    po.orderDate,
+		    CONCAT(
+			    LEFT(buyer.userId, 1),
+			    REPEAT('*', CHAR_LENGTH(buyer.userId) - 2),
+			    RIGHT(buyer.userId, 1)
+			) as buyerId,
+		    buyer.userName AS buyerName,
+		    seller.userId AS sellerId,
+		    sellerDetail.storeName,
+		    po.address,
+		    buyer.phone,
+		    po.orderStatus,
+		    po.deleveryStatus,
+		    po.trackingNum
+		FROM productorder po
+		JOIN productorderitem poi ON po.pdOrderNum = poi.pdOrderNum
+		JOIN productoption pOpt ON poi.optionNum = pOpt.optionNum
+		JOIN product p ON poi.productNum = p.productNum
+		JOIN user buyer ON po.userNum = buyer.userNum
+		JOIN sellerdetail sellerDetail ON p.sellerNum = sellerDetail.sellerNum
+		JOIN user seller ON sellerDetail.userNum = seller.userNum
+		
+		<if test="startDate != null and endDate != null">
+			AND DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
+		</if>
+		<if test="searchType != null and searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<when test="searchType == 'buyerId'">
+					AND buyer.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'sellerId'">
+					AND seller.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'storeName'">
+					AND sellerDetail.storeName LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'pdOrderNum'">
+					AND po.pdOrderNum = #{searchKeyword}
+				</when>
+			</choose>
+		</if>
+		ORDER BY po.orderDate DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	<select id="countAdminOrderList" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM productorder po
+	    JOIN productorderitem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN productoption pOpt ON poi.optionNum = pOpt.optionNum
+	    JOIN product p ON poi.productNum = p.productNum
+	    JOIN user buyer ON po.userNum = buyer.userNum
+	    JOIN sellerdetail sellerDetail ON p.sellerNum = sellerDetail.sellerNum
+	    JOIN user seller ON sellerDetail.userNum = seller.userNum AND seller.isSeller = 1
+	    <where>
+	        <if test="startDate != null and endDate != null">
+	            AND DATE(po.orderDate) BETWEEN #{startDate} AND #{endDate}
+	        </if>
+	        <if test="searchType != null and searchKeyword != null and searchKeyword != ''">
+	            <choose>
+	                <when test="searchType == 'buyerId'">
+	                    AND buyer.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	                <when test="searchType == 'sellerId'">
+	                    AND seller.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	                <when test="searchType == 'storeName'">
+	                    AND sellerDetail.storeName LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	                <when test="searchType == 'pdOrderNum'">
+	                    AND po.pdOrderNum = #{searchKeyword}
+	                </when>
+	            </choose>
+	        </if>
+	    </where>
+	</select>
+	
+</mapper>

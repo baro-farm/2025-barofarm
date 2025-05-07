@@ -1,0 +1,170 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: SUIT-Regular, sans-serif;
+}
+
+body {
+    
+    margin: 20px;
+}
+.emptyMessage {
+    text-align: center;
+    padding: 50px 0;
+    color: #888;
+    font-size: 1.2em;
+}
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+
+.content {
+	flex: 1;
+	align-self: flex-start;
+	padding: 30px 0;
+	max-width: 1000px;
+	min-width: 0;
+	margin-left: 20px;
+	margin-right: auto;
+	position: relative;
+}
+
+.sideMenu {
+	position: relative;
+}
+.header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: flex-end;  /* ✅ 오른쪽 정렬 */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-section select {
+    padding: 6px 10px;
+    font-size: 14px;
+    height: 36px;                 /* ✅ 통일된 세로 길이 */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+}
+
+.post {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:5px;
+}
+
+.category {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    
+}
+
+.tag {
+    display: inline-block;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+.complete{
+    background-color: #2eb82e;
+}
+.apply{
+    background-color: #888;
+
+}
+
+.kockContent {
+    display: none;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.toggle-btn {
+    cursor: pointer;
+    font-size: 18px;
+    color: #888;
+}
+
+.date {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+}
+.tag a{
+    text-decoration: none;
+    color:white;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+
+.pagination a.active {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
+}
+
+a:hover{
+    color:#FFB534;
+}

@@ -1,0 +1,146 @@
+#header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: calc(100% - 220px);
+	height: 80px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	border-bottom: 1px solid #f3f3f3;
+	background-color: white;
+}
+
+#content {
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
+  overflow-x: auto;
+}
+.point_header {
+	width:100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-bottom:5px;
+}
+#title {
+	font-size:30px;
+    color:#65B741;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+#point_table{
+	min-width: 1280px;
+	width: 100%;
+	overflow-y: auto;
+}
+.point-a {
+	display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  min-width: 1024px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+#pointChart {
+	background-color: white;
+	padding: 3px 10px;
+	border-radius: 8px;
+    box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);
+}
+.point-b{
+	margin: auto 0;
+	display: flex;
+ 	flex-direction: column;
+  	gap: 10px;
+}
+.point-c{
+	width: 295px;
+	height: 80px;
+	text-align:center;
+	line-height:1.8em;
+	padding: 10px;
+  	background-color: white;
+  	border-radius: 8px;
+    box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);
+}
+.p-content {
+	font-size: 35px;
+}
+.p-small{
+	font-size:12px;
+}
+#sortForm{
+	margin-top: 5px;
+	width:100%;
+    display: flex;
+    justify-content: flex-end;
+}
+#sortForm select{
+	 padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 12px;
+    color: #333;
+    text-align:left;
+}
+tbody tr.hovered td {
+    background-color: #FBF6EE;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5px 0;
+}
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+.table th {
+	border-bottom: 2px solid #ccc;
+	background-color: #FCFCFC;
+	height: 30px;
+	vertical-align: middle;
+}
+a{
+	color: black;
+	text-decoration: none;
+}
+/* 페이징 */
+#paging {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+#paging a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#paging a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+#paging a.select {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
+}

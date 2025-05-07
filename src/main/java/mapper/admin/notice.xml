@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.notice">
+	<select id="selectNoticeList" resultType="notice" parameterType="map">
+		select * from notice
+		ORDER BY noticeNum DESC
+	    LIMIT #{offset}, #{pageSize}
+	</select>
+	<select id="selectNotice" parameterType="Integer" resultType="notice">
+		select * from notice where noticeNum=#{noticeNum}
+	</select>
+	<insert id="insertNotice" parameterType="notice">
+		insert into notice (userNum, title, content, fixed) 
+		values (#{userNum}, #{title}, #{content}, #{fixed})
+	</insert>
+	<delete id="deleteNotice" parameterType="Integer">
+		delete from notice where noticeNum=#{noticeNum}
+	</delete>
+	<update id="updateNotice" parameterType="notice">
+		update notice set userNum=#{userNum}, title=#{title}, content=#{content}, fixed=#{fixed} where noticeNum=#{noticeNum}
+	</update>
+	<select id="selectRecentNotices" resultType="notice">
+	  SELECT noticeNum, title, createdAt
+	  FROM notice
+	  ORDER BY createdAt DESC
+	  LIMIT 3
+	</select>
+	<select id="selectFixNoticeList" resultType="notice">
+		SELECT * 
+		FROM notice 
+		WHERE fixed = 1 
+		ORDER BY noticeNum DESC
+	</select>
+	<select id="selectNoticeListByPage" resultType="notice">
+		 SELECT * 
+	    FROM notice 
+	    WHERE fixed = 0
+	    ORDER BY noticeNum DESC
+	    LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="selectNoticeCount" resultType="Integer">
+		select count(*) from notice WHERE fixed = 0
+	</select>
+	<select id="selectNoticeCountAll" resultType="Integer">
+		select count(*) from notice
+	</select>
+</mapper>

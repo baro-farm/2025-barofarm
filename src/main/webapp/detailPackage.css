@@ -1,0 +1,236 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+    flex: 1;
+    align-self: flex-start;
+    padding: 30px 0 0 0;
+    max-width: 1000px;
+    min-width: 800px;
+    margin-left: 20px;
+    margin-right: auto;
+  	position: relative;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+html {
+    scroll-behavior: smooth;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+/* 상품 정보 */
+.packInfoBox {
+    display: flex;
+    height: 420px;
+}
+.packImg {
+	width:400px;
+}
+.packImg img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+/* 상품정보 상세 */
+.packInfo{
+  margin:0 auto;
+  width: 480px;
+  line-height: 1.5;
+  position: relative;
+}
+.packTitle {
+    font-size: 20px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.additional {
+    display: flex;
+    justify-content: space-between;
+}
+/* 주문 옵션 */
+  .selectBox {
+  	width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 120px 0 20px 0;
+    cursor: pointer;
+  }
+  #selectedOptions {
+    padding: 5px 0;
+    font-size: 15px;
+  }
+  .selectedOptionItem {
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    display: flex;
+    padding: 5px 0;
+  }
+  .selectedOptionItem div:not(:first-child){
+    margin-left: auto;
+  }
+  .date-range{
+  width:fit-content;
+  }
+  .i-box{
+  	border: 2px solid #ccc;
+  	background-color: #fcfcfc;
+  	border-radius: 4px;
+  	padding: 10px;
+  	margin: 156px 0 20px 0;
+  }
+  /* 총 가격 */
+  .totalPrice {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  /* 버튼 영역 */
+  .actionButtons {
+    display: flex; /* 버튼을 가로로 배치 */
+    justify-content: space-between; /* 양 끝으로 벌리기 */
+    align-items: center; /* 수직 가운데 정렬 */
+    gap: 10px; /* 버튼 사이 여백 */
+  }
+  
+  .actionButtons a {
+    flex: 1;
+    height: 40px;
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid #FFB534;
+    cursor: pointer;
+    line-height: 40px; 
+    transition: background-color 0.2s ease; /* 부드러운 전환 효과 */
+  }
+
+  .actionButtons a:last-child {
+    background-color: #FFB534;
+    color: white;
+  }
+
+  .tabs {
+    border-bottom: 2px solid #65B741;
+    margin: 50px 0;
+  }
+  .tabList {
+    display: flex;
+    justify-content: space-between;
+  }
+  .tab {
+    flex: 1; /* 동일한 너비 */
+    text-align: center;
+  }
+  .tab a {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+  }
+  .focus {
+    background-color: #65B741;
+    border-radius: 5px 5px 0 0;
+  }
+  .focus a {
+    color: white;
+  }
+/* 상품내용 */
+.contentDetail {
+	text-align: center;
+}
+.contentDetail img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* 리뷰 */
+.reviewTable {
+  margin: 0 auto;
+  width: 900px;
+  line-height: 1.2em;
+}
+.reviewTable td {
+  vertical-align: top;
+  padding: 10px;
+}
+.packName {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 8px;
+}
+.reviewText {
+  margin-bottom: 10px;
+   -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+.reviewImg {
+  text-align: right;
+}
+.reviewImg img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.pk-c{
+	background-color: #f8f8f8;
+	border-radius: 8px;
+	font-size: 12px;
+	width:100%;
+	padding:15px;
+}
+/* 안내사항 */
+.infoContent {
+  margin: 10px;
+}
+.infoContent div p:first-child {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 2em;
+}
+.infoContent div p:not(:first-child) {
+  padding: 0 10px;
+  line-height: 1.6em;
+}
+/* 페이징 */
+#paging {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+#paging a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#paging a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+#paging a.select {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
+}

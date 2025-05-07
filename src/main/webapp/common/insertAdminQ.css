@@ -1,0 +1,72 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+    flex: 1;
+    align-self: flex-start;
+    padding: 30px 0;
+    max-width: 1000px;
+    min-width: 0;
+    margin-left: 20px;
+    margin-right: auto;
+  	position: relative;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+/*제목*/
+.title { /* 컨텐츠 제목*/
+  color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.subtitle { /* 컨텐츠 부제목*/
+  font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 60px;
+}
+form label {
+	display: inline-block;
+	width:70px;
+	margin-bottom: 10px;
+}
+
+#qContent {
+	border: 1px solid #ccc;
+    border-radius: 8px;
+    height: 200px;
+    width: 100%;
+    line-height: 1.6;
+    padding: 20px;
+}
+form input[type="text"], #qa_category {
+	padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+    margin-bottom:5px;
+    text-align:left;
+}
+/* 하단 메뉴 */
+#bottom {
+    margin-top: 10px ;
+}
+#insertBtn {
+  	font-size: 14px;
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 4px;
+ 	background-color: #FFB534;
+  	text-decoration: none;
+  	border: none;
+}
+#backBtn {
+	padding: 6px 14px;
+	border-radius: 4px;
+  	border: none;
+  	cursor: pointer;
+}

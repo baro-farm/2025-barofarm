@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.advertisement">
+	<insert id="insertAds" parameterType="advertisement" useGeneratedKeys="true" keyProperty="adsNum">
+		insert into advertisement (title, content, productName, imgUrl, productUrl, userNum) values(#{title}, #{content}, #{productName}, #{imgUrl}, #{productUrl},#{userNum})
+	</insert>
+	<select id="selectAdsByUserNum" parameterType="Long" resultType="advertisement">
+		select * from advertisement where userNum=#{userNum} ORDER BY adsNum desc
+	</select>
+	<update id="updateAdsStatus" parameterType="map">
+		update advertisement set status=#{status}, updatedAt = NOW()
+		 <if test="status == '승인'">
+	       , startDate = NOW(),
+	         endDate = DATE_ADD(NOW(), INTERVAL 7 DAY)
+	     </if>
+		 where adsNum=#{adsNum} 
+	</update>
+	<select id="selectAdsByAdsNum" parameterType="Long" resultType="advertisement">
+		select * from advertisement where adsNum=#{adsNum}
+	</select>
+	<update id="updateAds" parameterType="advertisement">
+		UPDATE advertisement
+		<set>
+		  <if test="title != null and title != ''"> title = #{title}, </if>
+		  <if test="content != null and content != ''"> content = #{content}, </if>
+		  <if test="productName != null and productName != ''"> productName = #{productName}, </if>
+		  <if test="imgUrl != null and imgUrl != ''"> imgUrl = #{imgUrl}, </if>
+		  <if test="productUrl != null and productUrl != ''"> productUrl = #{productUrl}, </if>
+		  updatedAt = NOW()
+		</set>
+		WHERE adsNum = #{adsNum}
+	</update>
+	
+	<!-- 관리자 -->
+	<select id="selectAdsWithPosting" resultType="advertisement">
+			SELECT a.*, s.storeName  FROM advertisement a
+	  JOIN sellerdetail s ON s.userNum=a.userNum WHERE STATUS='승인' or STATUS='승인대기'
+	</select>
+	<select id="countAdsWithPosting" resultType="int">
+		SELECT COUNT(*) FROM advertisement a
+		  JOIN sellerdetail s ON s.userNum=a.userNum WHERE STATUS='승인' or STATUS='승인대기'
+	</select>
+	<select id="selectAdsBySearchDto" resultType="advertisement" parameterType="searchDtoSoy">
+		SELECT a.*, s.storeName  FROM advertisement a
+	  JOIN sellerdetail s ON s.userNum=a.userNum
+	  <where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'store'">
+	          s.storeName LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	        <when test="searchType == 'product'">
+	          a.productName LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	        <when test="searchType == 'status'">
+	          a.status LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+	
+	    <!-- 📅 날짜 검색 조건 -->
+	    <if test="startDateFrom != null and startDateFrom != ''">
+	      AND a.startDate &gt;= #{startDateFrom}
+	    </if>
+	    <if test="startDateTo != null and startDateTo != ''">
+	      AND a.startDate &lt;= #{startDateTo}
+	    </if>
+	
+	    <!-- 👤 특정 유저 광고만 조회할 경우 -->
+	    <if test="userNum != null">
+	      AND a.userNum = #{userNum}
+	    </if>
+	    <if test="userNum == null">
+	     AND STATUS!='승인' and STATUS!='승인대기'
+	    </if>
+	  </where>
+	  ORDER BY a.createdAt DESC
+	  LIMIT #{recordSize} OFFSET #{offset}
+	</select>
+	
+	<select id="countAdsBySearchDto" resultType="int" parameterType="searchDtoSoy">
+		SELECT count(*)  FROM advertisement a
+	  JOIN sellerdetail s ON s.userNum=a.userNum
+	  <where>
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'store'">
+	          s.storeName LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	        <when test="searchType == 'product'">
+	          a.productName LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	        <when test="searchType == 'status'">
+	          a.status LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+	
+	    <if test="startDateFrom != null and startDateFrom != ''">
+	      AND a.startDate &gt;= #{startDateFrom}
+	    </if>
+	    <if test="startDateTo != null and startDateTo != ''">
+	      AND a.startDate &lt;= #{startDateTo}
+	    </if>
+	
+	    <if test="userNum != null">
+	      AND a.userNum = #{userNum} 
+	    </if>
+	    <if test="userNum == null">
+	     AND STATUS!='승인' and STATUS!='승인대기'
+	    </if>
+	  </where>
+	</select>
+	<update id="updateExpiredAdsStatus">
+	  UPDATE advertisement
+	  SET status = '종료'
+	  WHERE endDate &lt; NOW()
+	  AND status = '승인'
+	</update>
+</mapper>

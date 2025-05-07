@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.usePoint">
+	<insert id="insertUsePointHistory" parameterType="usePoint" useGeneratedKeys="true" keyProperty="upNum">
+    	INSERT INTO usePoint (userNum, usedPoint, type, currPoint, payInfo, impUid, merchantUid)
+    	VALUES (#{userNum}, #{usedPoint}, #{type}, #{currPoint}, #{payInfo}, #{impUid}, #{merchantUid})	
+    </insert>
+	<select id="selectUsePointListBySearchDto" resultType="usePoint" parameterType="searchDtoSoy">
+		SELECT * FROM usePoint u
+		<where>
+			userNum=#{userNum}
+	            <if test="keyword != null and keyword != ''">
+		            <choose>
+                        <!-- type 검색 (광고등록, 광고취소 등) -->
+		                <when test="searchType == 'type'">
+		                    AND type LIKE CONCAT('%', #{keyword}, '%')
+		                </when>
+                        <!-- 충전/사용 여부 (usedPoint > 0 or < 0) -->
+		                <when test="searchType == 'point'">
+		                    <choose>
+		                        <when test="keyword == '충전'">
+		                            AND usedPoint &gt; 0
+		                        </when>
+		                        <when test="keyword == '사용'">
+		                            AND usedPoint &lt; 0
+		                        </when>
+		                    </choose>
+		                </when>
+		            </choose>
+		        </if>
+		
+		    <if test="startDateFrom != null and startDateFrom != ''">
+		      AND Date(createdAt) &gt;= #{startDateFrom}
+		    </if>
+		    <if test="startDateTo != null and startDateTo != ''">
+		      AND Date(createdAt) &lt;= #{startDateTo}
+		    </if>
+		  </where>
+			ORDER BY createdAt DESC
+			LIMIT #{offset}, #{recordSize}
+	</select>
+	<select id="countUsePointBySearchDto" resultType="int" parameterType="searchDtoSoy">
+		SELECT count(*) FROM usePoint 
+		<where>
+			userNum=#{userNum}
+	            <if test="keyword != null and keyword != ''">
+		            <choose>
+                        <!-- type 검색 (광고등록, 광고취소 등) -->
+		                <when test="searchType == 'type'">
+		                    AND type LIKE CONCAT('%', #{keyword}, '%')
+		                </when>
+                        <!-- 충전/사용 여부 (usedPoint > 0 or < 0) -->
+		                <when test="searchType == 'point'">
+		                    <choose>
+		                        <when test="keyword == '충전'">
+		                            AND usedPoint &gt; 0
+		                        </when>
+		                        <when test="keyword == '사용'">
+		                            AND usedPoint &lt; 0
+		                        </when>
+		                    </choose>
+		                </when>
+		            </choose>
+		        </if>
+		
+		    <if test="startDateFrom != null and startDateFrom != ''">
+		      AND Date(createdAt) &gt;= #{startDateFrom}
+		    </if>
+		    <if test="startDateTo != null and startDateTo != ''">
+		      AND Date(createdAt) &lt;= #{startDateTo}
+		    </if>
+		  </where>
+	</select>
+	<insert id="insertKockFarmAlarm" parameterType="alarm">
+		INSERT INTO usePoint (userNum, usedPoint, type, currPoint)
+    	VALUES (#{userNum}, #{usedPoint}, #{type}, #{currPoint})	
+	</insert>
+</mapper>

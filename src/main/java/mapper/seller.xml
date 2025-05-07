@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.seller">
+	<insert id="insertSeller" parameterType="seller" useGeneratedKeys="true" keyProperty="sellerNum">
+		insert into sellerDetail (userNum, storeName, businessNum)
+				values (#{userNum}, #{storeName}, #{businessNum})
+	</insert>
+	<select id="selectStoreList" resultType="store" parameterType="map">
+		SELECT 
+		    s.sellerNum,
+		    u.userId,
+		    u.userName,
+		    u.phone,
+		    u.birthDate,
+		    u.email,
+		    u.createdAt,
+		    u.isDeleted,
+		    s.storeName,
+		    s.businessNum,
+		    s.isAlarm,
+		    COALESCE(totalSales.totalSalesAmount, 0) AS totalSalesAmount
+		FROM 
+		    user u
+		JOIN 
+		    sellerDetail s ON u.userNum = s.userNum
+	
+		LEFT JOIN (
+		    SELECT 
+		        sellerNum,
+		        SUM(salesAmount) AS totalSalesAmount
+		    FROM (
+		        SELECT sellerNum, salesVolume * price AS salesAmount FROM product
+		        UNION ALL
+		        SELECT sellerNum, salesVolume * packagePrice AS salesAmount FROM package
+		    ) combined
+		    GROUP BY sellerNum
+		) totalSales ON s.sellerNum = totalSales.sellerNum
+		<where>
+		<if test="isAlarm != null">
+	      AND s.isAlarm = #{isAlarm}
+	    </if>
+		  <if test="keyword != null and keyword != ''">
+		    <choose>
+		      <when test="searchType == 'storeName'">
+		        AND s.storeName LIKE CONCAT('%', #{keyword}, '%')
+		      </when>
+		      <when test="searchType == 'userId'">
+		        AND u.userId LIKE CONCAT('%', #{keyword}, '%')
+		      </when>
+		    </choose>
+		  </if>
+		</where>
+		ORDER BY s.sellerNum DESC
+		LIMIT #{offset}, #{pageSize}				
+	</select>
+	
+	<select id="selectSellerNumByUserID" parameterType="String" resultType="Long">
+		select sellerNum
+		from sellerDetail s
+		join user u on s.userNum = u.userNum
+		where u.userId=#{userId}
+	</select>
+	
+	<select id="selectSellerNum" parameterType="Long" resultType="Long">
+		select sellerNum from sellerDetail where userNum=#{userNum}
+	</select>
+	
+	<select id="selectStoreByName" parameterType="String" resultType="seller">
+    	SELECT * FROM sellerDetail WHERE storeName = #{storeName}
+	</select>
+	
+	<select id="selectSellerVO" parameterType="Long" resultType="sellerVO">
+		SELECT * FROM user u
+		JOIN sellerdetail s ON u.userNum=s.userNum
+		WHERE s.userNum = #{userNum}
+	</select>
+	<update id="updateIsAlarm" parameterType="Long">
+		UPDATE sellerdetail SET isAlarm=NOT isAlarm WHERE userNum = #{userNum}
+	</update>
+	<select id="selectAlarmList" parameterType="searchDtoSoy" resultType="sellerVO">
+		SELECT 
+		    u.*, sd.*
+		FROM sellerdetail sd
+		JOIN user u ON sd.userNum = u.userNum
+		WHERE sd.isAlarm = 1
+		  AND u.isSeller = 1
+		  AND u.isDeleted = 0
+		  <where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'storeName'">
+	          AND sd.storeName LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+
+	  </where>
+	  ORDER BY a.createdAt DESC
+	  LIMIT #{recordSize} OFFSET #{offset}
+	</select>
+	<select id="countAlarmList" parameterType="searchDtoSoy" resultType="int">
+		SELECT 
+		    count(*)
+		FROM sellerdetail sd
+		JOIN user u ON sd.userNum = u.userNum
+		WHERE sd.isAlarm = 1
+		  AND u.isSeller = 1
+		  AND u.isDeleted = 0
+		  <where>
+	    <!-- 🔍 키워드 검색 조건 -->
+	    <if test="keyword != null and keyword != ''">
+	      <choose>
+	        <when test="searchType == 'storeName'">
+	          AND sd.storeName LIKE CONCAT('%', #{keyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+
+	  </where>
+	</select>
+	<select id="selectSellerDetail" parameterType="Long" resultType="seller">
+	  SELECT * FROM sellerDetail WHERE sellerNum = #{sellerNum}
+	</select>
+	<select id="countStoreList" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM user u
+		JOIN sellerDetail s ON u.userNum = s.userNum		
+		<where>
+		<if test="isAlarm != null">
+	      AND s.isAlarm = #{isAlarm}
+	    </if>
+		  <if test="keyword != null and keyword != ''">
+		    <choose>
+		      <when test="searchType == 'storeName'">
+		        AND s.storeName LIKE CONCAT('%', #{keyword}, '%')
+		      </when>
+		      <when test="searchType == 'userId'">
+		        AND u.userId LIKE CONCAT('%', #{keyword}, '%')
+		      </when>
+		    </choose>
+		  </if>
+		</where>
+	</select>	
+</mapper>

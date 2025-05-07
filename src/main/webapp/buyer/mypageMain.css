@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    font-family: SUIT-Regular, sans-serif;
+}
+.container {
+	max-width: 1300px;
+	margin: 0 auto;
+}
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+	flex: 1;
+	align-self: flex-start;
+	padding: 30px 0;
+	max-width: 1000px;
+	min-width: 0;
+	margin-left: 20px;
+	margin-right: auto;
+	position: relative;
+}
+
+.sideMenu {
+	position: relative;
+}
+
+.header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 35px;
+}
+
+.box-i {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 상단 요약 정보 */
+.summary {
+    display: flex;
+    gap: 15px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.summary div {
+    background-color: #f0f8f5;
+    padding: 15px;
+    border-radius: 8px;
+    color: #333;
+    width: -webkit-fill-available;
+    line-height:1.6em;
+}
+
+.summary span {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* 배송 진행 상태 */
+.deliveryStatus {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.deliveryStatus div {
+    flex: 1;
+    line-height: 1.6em;
+}
+
+.deliveryStatus img {
+    width: 35px;
+    height: 35px;
+}
+
+.deliveryStatus span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+.contentSection{
+	margin-top: 20px;
+	padding: 20px 0;
+	display: flex;
+	justify-content: space-evenly;
+	border-top: 1px solid #c0c0c0;
+}
+.contentBox{
+	width:430px;
+}
+.contentBox .title {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.contentBox ul {
+	line-height: 1.6em;
+}
+.contentBox li {
+	width: 400px;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.add-btn {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50;
+    cursor: pointer;
+}
+
+a{
+	color:black;
+	text-decoration:none;
+}
+
+a:hover{
+	color:#FFB534;
+}

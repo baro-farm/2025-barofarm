@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	
+<mapper namespace="mapper.adminQuestion">
+	<insert id="insertAdminQA" parameterType="adminQuestion" useGeneratedKeys="true" keyProperty="questionNum">
+		insert into adminQuestion (userNum,title,content,type)
+		values(#{userNum},#{title},#{content},#{type})
+	</insert>
+	<select id="adminQList" resultType="AdminQuestionVO">
+	  SELECT 
+	    a.questionNum,
+	    a.title,
+	    a.type,
+	    a.createdAt,
+	    u.userId,
+	    
+	    CASE 
+	      WHEN ans.aaNum IS NOT NULL THEN '1'
+	      ELSE '0'
+	    END AS answerStatus
+	
+	  FROM adminquestion a
+	  JOIN user u ON a.userNum = u.userNum
+	  LEFT JOIN adminanswer ans ON a.questionNum = ans.questionNum
+	  ORDER BY a.questionNum DESC
+	</select>
+	<select id="selectAdminQA" resultType="AdminQuestionVO">
+		SELECT 
+	    a.questionNum,
+	    a.title,
+	    a.content,
+	    a.createdAt,
+	    u.userId,
+	    ans.content AS aContent,
+	    ans.updatedAt AS aUpdatedAt
+	
+	  FROM adminquestion a
+	  JOIN user u ON a.userNum = u.userNum
+	  LEFT JOIN adminanswer ans ON a.questionNum = ans.questionNum
+	  Where a.questionNum =#{questionNum}
+	</select>
+	<select id="selectRecentAdminQA" resultType="AdminQuestion">
+	  SELECT questionNum, title, createdAt
+	  FROM adminquestion
+	  ORDER BY createdAt DESC
+	  LIMIT 3
+	</select>
+	<select id="selectAdminQAListByPage" resultType="AdminQuestionVO">
+	SELECT 
+	    a.questionNum,
+	    a.title,
+	    a.type,
+	    a.createdAt,
+	    u.userId,
+	    
+	    CASE 
+	      WHEN ans.aaNum IS NOT NULL THEN '1'
+	      ELSE '0'
+	    END AS answerStatus
+	
+	  FROM adminquestion a
+	  JOIN user u ON a.userNum = u.userNum
+	  LEFT JOIN adminanswer ans ON a.questionNum = ans.questionNum
+	  order by a.questionNum desc 
+	  limit #{start}, #{pageSize}
+	</select>
+	
+	<select id="selectAdminQACount" resultType="Integer">
+		select count(*) from adminquestion
+	</select>
+	<delete id="deleteAdminQA" parameterType="long">
+		DELETE FROM adminquestion
+    	WHERE questionNum = #{questionNum}
+	</delete>
+</mapper>

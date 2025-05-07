@@ -1,0 +1,133 @@
+
+
+.title_head {
+    margin-bottom: 20px;
+}
+.title {
+   color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.title_head p {
+     font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 30px;
+}
+.container {
+	padding: 30px 0;
+  max-width: 800px;
+  margin: 0 auto;
+  font: unsest;
+  vertical-align: baseline;
+  min-height: 550px;
+}
+h2 {
+  color: #65B741;
+}
+#kockFarmForm{
+	margin-top: 30px;
+}
+.form-big {
+  display: flex;
+  justify-content: space-between;
+}
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  width: 50%;
+  padding-right: 10px;
+}
+.form-content {
+  margin-bottom: 15px;
+  display: flex;
+}
+
+label {
+  /* display: block; */
+  /* margin-bottom: 5px; */
+  font-weight: bold;
+  width: 130px;
+  display: flex; 
+  align-items: center;
+  
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input_div input {
+  border-radius: 4px;
+  border: 1px solid #c2c2c2;
+  width: 240px;
+  padding: 6px 10px;
+}
+
+textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.button-group {
+  float: right;
+}
+
+.btn {
+     font-size: 14px;
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 4px;
+  	text-decoration: none;
+  	border: none;
+}
+.btn-submit {
+  background-color: #65B741;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-submit:hover {
+  background-color: #579d39;
+}
+
+.btn-cancel {
+  background-color: #FFB534;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #e6a42f;
+}
+
+.form-row {
+  display: flex;
+  margin-bottom: 10px;
+  padding-right: 10px;
+  align-items: center;
+}
+
+.form-row .half {
+  flex: 1;
+}
+
+.form-row .half input {
+  width: 90%;
+}
+
+.upload-btn {
+  background-color: #b9eaa3;
+  border: none;
+  padding: 6px 12px;
+  margin-right: 25px;
+  margin-left: -20px;
+  border-radius: 4px;
+  cursor: pointer;
+}

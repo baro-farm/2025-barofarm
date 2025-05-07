@@ -1,0 +1,185 @@
+@charset "UTF-8";
+/*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+/* 내용 */
+
+#content {
+  max-width: 1280px;
+  margin: 40px auto;
+  padding-top: 80px;
+  padding-left: 220px;
+}
+/*제목*/
+.title {
+  color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.subtitle { /* 컨텐츠 부제목*/
+  font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 60px;
+}
+.form-group {
+  display: flex;
+  margin-bottom: 16px;
+  align-items: center;
+}
+.form-group label {
+  width: 100px;
+  font-weight: bold;
+}
+.form-group input {
+  padding: 6px;
+  width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.readonly-text {
+  padding: 6px 0;
+}
+.address-group {
+  display: flex;
+  gap: 5px;
+}
+.address-group input {
+  width: auto;
+}
+.address-group2 {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+.submit-btn {
+  background-color: #65b741;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 100px;
+}
+.submit-btn:hover {
+    background-color: #579d39;
+}
+.address-group button {
+  background-color: #ccc;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.del-btn {
+  background-color: #ccc;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 100px;
+}
+.address-group button:hover, .del-btn:hover {
+    background-color: #999999;
+}
+.bttn {
+	justify-content: space-between;
+}
+
+/* 모달 */
+.modal-wrapper {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal {
+    background: white;
+    padding: 20px 40px;
+    border-radius: 8px;
+    width: 60%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.modal-wrapper p {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.modal ul {
+    padding: 0;
+    text-align: left;
+    margin: 20px 20px;
+}
+
+.modal-wrapper ul li {
+    font-size: 12px;
+    color: #4d4d4d;
+    margin: 5px 0;
+}
+
+.modal-wrapper .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-wrapper .btn {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal-wrapper .btn-subscribe {
+    background: #65B741;
+    color: white;
+}
+
+.modal-wrapper .btn-cancel {
+    background: #D3D3D3;
+    color: black;
+}
+
+.modal .btn-subscribe:hover {
+    background-color: #579d39;
+}
+
+.modal .btn-cancel:hover {
+    background-color: #c0c0c0;
+}
+
+.phone-group input,
+.biz-group input {
+  width: 60px;
+  text-align: center;
+}
+.phone-group,
+.biz-group {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.prodReview">
+	<select id="selectWritableReview" parameterType="Long" resultType="prodReviewVO">
+	   SELECT 
+	        p.productName,
+	        p.imgUrl,
+	        s.storeName,
+	        po.orderedAt,
+	        po.pdOrderNum,
+	        poi.productNum,
+	        po.pdOrderNum,
+	        po.userNum,
+	        DATE_ADD(po.orderedAt, INTERVAL 30 DAY) AS deadline
+	    FROM productOrder po
+	    JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN product p ON poi.productNum = p.productNum
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	    WHERE po.userNum = #{userNum}
+	      AND po.deleveryStatus = '구매확정'
+	      AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	      AND NOT EXISTS (
+	          SELECT 1 
+	          FROM prodReview r
+	          WHERE r.userNum = po.userNum
+	            AND r.productNum = poi.productNum
+	      )	
+	</select>
+	
+	<select id="selectWrittenReviewList" parameterType="Long" resultType="prodReview">
+		SELECT 
+		    pr.reviewNum,
+		    pr.userNum,
+		    p.productNum,
+		    p.productName,
+		    pr.pdReviewImgUrl as imgUrl,
+		    pr.pdRating,
+		    pr.pdReviewContent,
+		    pr.createdAt,
+		    u.userName AS buyerName,
+		    s.storeName
+		FROM 
+		    prodReview pr
+		JOIN 
+		    product p ON pr.productNum = p.productNum
+		JOIN 
+		    user u ON pr.userNum = u.userNum
+		JOIN 
+		    sellerdetail s ON p.sellerNum = s.sellerNum
+		WHERE 
+		    pr.userNum = #{userNum}  -- 여기 ?는 구매자 userNum
+		ORDER BY 
+		    pr.createdAt DESC;
+	</select>
+	
+	<insert id="insertProdReview" parameterType="prodReview">
+		insert into prodReview (userNum,productNum,pdRating,pdReviewContent,pdReviewImgUrl,pdOrderNum)
+			values(#{userNum},#{productNum},#{pdRating},#{pdReviewContent},#{pdReviewImgUrl},#{pdOrderNum})
+	</insert>
+	
+	<select id="selectProdReview" parameterType="map" resultType="prodReviewVO">
+		SELECT 
+			r.productNum, 
+	        p.productName,
+	        CONCAT(LEFT(u.userId, CHAR_LENGTH(u.userId) - 3), '***') AS userId,
+	        r.pdRating, 
+	        r.pdReviewContent AS pdContent, 
+	        r.createdAt, r.pdComment, r.pdCommentStatus,
+	        r.pdReviewImgUrl AS imgUrl
+	    FROM prodReview r
+	    JOIN product p ON r.productNum = p.productNum
+	    JOIN user u ON r.userNum = u.userNum
+	    WHERE r.productNum = #{productNum}
+	    ORDER BY r.createdAt DESC
+	    LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countProdReview" resultType="Integer" parameterType="long">
+	    SELECT COUNT(*) FROM prodReview WHERE productNum = #{productNum}
+	</select>
+	
+	<!-- seller List -->
+	<select id="selectSellerProdReviewList" parameterType="map" resultType="prodReviewVO">
+	    SELECT
+	        pr.productNum,
+	        pr.pdOrderNum,
+	        pr.userNum,
+	        p.productName,
+	        pr.pdReviewImgUrl AS imgUrl,
+	        po.option AS optionName,
+	        pr.createdAt,
+	        u.userId,
+	        pr.pdRating,
+	        pr.pdReviewContent AS pdContent,
+	        pr.reviewNum,
+	        pr.pdCommentStatus
+	    FROM prodreview pr
+	    JOIN productorderitem poi ON pr.pdOrderNum = poi.pdOrderNum AND pr.productNum = poi.productNum
+	    JOIN product p ON pr.productNum = p.productNum
+	    JOIN productoption po ON poi.optionNum = po.optionNum
+	    JOIN user u ON pr.userNum = u.userNum
+	    WHERE p.sellerNum = #{sellerNum}
+	      <if test="commentStat != null and commentStat != 'all'">
+			<if test="commentStat != null and commentStat.equals('answered')">
+			    AND pr.pdCommentStatus = 1
+			</if>
+			<if test="commentStat != null and commentStat.equals('unanswered')">
+			    AND (pr.pdCommentStatus IS NULL OR pr.pdCommentStatus = 0)
+			</if>
+	      </if>
+			<if test="ratingFilter != null and ratingFilter != 'all'">
+			    <if test="'5'.equals(ratingFilter)">
+			        AND pr.pdRating = 5
+			    </if>
+			    <if test="'4'.equals(ratingFilter)">
+			        AND pr.pdRating = 4
+			    </if>
+			    <if test="'3'.equals(ratingFilter)">
+			        AND pr.pdRating = 3
+			    </if>
+			    <if test="'2'.equals(ratingFilter)">
+			        AND pr.pdRating = 2
+			    </if>
+			    <if test="'1'.equals(ratingFilter)">
+			        AND pr.pdRating = 1
+			    </if>
+			</if>
+	    <choose>
+	        <when test="sort == 'new'">
+	            ORDER BY pr.createdAt DESC
+	        </when>
+	        <when test="sort == 'old'">
+	            ORDER BY pr.createdAt ASC
+	        </when>
+	        <when test="sort == 'rating'">
+	            ORDER BY pr.pdRating DESC
+	        </when>
+	        <when test="sort == 'lowRating'">
+	            ORDER BY pr.pdRating ASC
+	        </when>
+	        <otherwise>
+	            ORDER BY pr.createdAt DESC
+	        </otherwise>
+	    </choose>
+	    LIMIT #{offset}, #{pageSize}	
+	</select>
+	
+	<select id="selectSellerCountProdReview" parameterType="map" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM prodreview pr
+	    JOIN productorderitem poi ON pr.pdOrderNum = poi.pdOrderNum AND pr.productNum = poi.productNum
+	    JOIN product p ON pr.productNum = p.productNum
+	    JOIN productoption po ON poi.optionNum = po.optionNum
+	    JOIN user u ON pr.userNum = u.userNum
+	    WHERE p.sellerNum = #{sellerNum}
+	      <if test="commentStat != null and commentStat != 'all'">
+	          <if test="commentStat == 'answered'">
+	              AND pr.pdCommentStatus = 1
+	          </if>
+	          <if test="commentStat == 'unanswered'">
+	              AND (pr.pdCommentStatus IS NULL OR pr.pdCommentStatus = 0)
+	          </if>
+	      </if>
+			<if test="ratingFilter != null and ratingFilter != 'all'">
+			    <if test="'5'.equals(ratingFilter)">
+			        AND pr.pdRating = 5
+			    </if>
+			    <if test="'4'.equals(ratingFilter)">
+			        AND pr.pdRating = 4
+			    </if>
+			    <if test="'3'.equals(ratingFilter)">
+			        AND pr.pdRating = 3
+			    </if>
+			    <if test="'2'.equals(ratingFilter)">
+			        AND pr.pdRating = 2
+			    </if>
+			    <if test="'1'.equals(ratingFilter)">
+			        AND pr.pdRating = 1
+			    </if>
+			</if>
+	</select>
+	
+	<update  id="insertSellerProdReviewComment" parameterType="map">
+		update prodReview
+		set pdComment = #{commentContent},
+			pdCommentStatus=1
+		WHERE reviewNum IN
+	    <foreach item="reviewNum" collection="reviewNums" open="(" separator="," close=")">
+	        #{reviewNum}
+	    </foreach>	
+	</update >
+	
+	<select id="selectProdReviewDetailByReviewNum" parameterType="long" resultType="prodReviewVO">
+		SELECT
+            r.reviewNum,
+            r.productNum,
+            r.userNum,
+            r.pdRating,
+            r.pdReviewContent as pdContent,
+            r.pdReviewimgUrl as imgUrl,
+            r.pdComment,
+            r.pdCommentStatus,
+            r.createdAt,
+            CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
+            p.productName
+        FROM prodReview r
+        JOIN user u ON r.userNum = u.userNum
+        JOIN product p ON r.productNum = p.productNum
+        WHERE r.reviewNum = #{reviewNum}
+	</select>
+	
+	<!-- 페이징 -->
+		<select id="selectUserProdWrittenReviews" parameterType="map" resultType="prodReviewVO">
+	SELECT 
+		    pr.reviewNum,
+		    pr.userNum,
+		    p.productNum,
+		    p.productName,
+		    pr.pdReviewImgUrl as imgUrl,
+		    pr.pdRating,
+		    pr.pdReviewContent as pdContent,
+		    pr.createdAt,
+		    sd.storeName,
+		    sd.sellerNum
+	FROM 
+	    prodReview pr
+	JOIN 
+	    product p ON pr.productNum = p.productNum
+	JOIN 
+	    productorder po ON pr.pdOrderNum = po.pdOrderNum
+	JOIN 
+	    sellerdetail sd ON p.sellerNum = sd.sellerNum
+	WHERE 
+	    pr.userNum = #{userNum}
+	<if test="period == '1개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+	</if>
+	<if test="period == '3개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+	</if>
+	<if test="period == '6개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+	</if>
+	ORDER BY 
+	    pr.createdAt DESC
+	LIMIT #{pageSize} OFFSET #{offset}
+</select>
+	
+<select id="selectCountProdUserWrittenReviews" parameterType="map" resultType="Integer">
+	SELECT 
+	    COUNT(*) 
+	FROM 
+	    prodReview pr
+	WHERE 
+	    pr.userNum = #{userNum}
+	<if test="period == '1개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+	</if>
+	<if test="period == '3개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+	</if>
+	<if test="period == '6개월'">
+	    AND pr.createdAt >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+	</if>
+</select>	
+
+<select id="selectUserProdWritableReviews" parameterType="map" resultType="prodReviewVO">
+	   SELECT 
+	        p.productName,
+	        p.imgUrl,
+	        s.storeName,
+	        po.orderedAt,
+	        po.pdOrderNum,
+	        poi.productNum,
+	        po.pdOrderNum,
+	        po.userNum,
+	        DATE_ADD(po.orderedAt, INTERVAL 30 DAY) AS deadline
+	    FROM productOrder po
+	    JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN product p ON poi.productNum = p.productNum
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	    WHERE po.userNum = #{userNum}
+	      AND po.deleveryStatus = '구매확정'
+	      AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	      AND NOT EXISTS (
+	          SELECT 1 
+	          FROM prodReview r
+	          WHERE r.userNum = po.userNum
+	            AND r.productNum = poi.productNum
+	      )	
+	ORDER BY po.orderedAt DESC
+	LIMIT #{pageSize} OFFSET #{offset}
+</select>
+<select id="selectCountProdUserWritableReviews" parameterType="map" resultType="Integer">
+	SELECT 
+	    COUNT(*)
+	    FROM productOrder po
+	    JOIN productOrderItem poi ON po.pdOrderNum = poi.pdOrderNum
+	    JOIN product p ON poi.productNum = p.productNum
+	    JOIN sellerDetail s ON p.sellerNum = s.sellerNum
+	WHERE 
+	    po.userNum = #{userNum}
+	    AND po.deleveryStatus = '구매확정'
+	    AND po.orderedAt >= DATE_SUB(NOW(), INTERVAL #{period} MONTH)
+	    AND DATE_ADD(po.orderedAt, INTERVAL 30 DAY) >= NOW()
+	    AND NOT EXISTS (
+	        SELECT 1 
+	        FROM prodReview r
+	        WHERE r.userNum = po.userNum
+	          AND r.productNum = p.productNum
+	    )
+</select>	
+</mapper>

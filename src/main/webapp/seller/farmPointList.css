@@ -1,0 +1,523 @@
+@charset "UTF-8";
+@media (max-width: 1200px) {
+    .table {
+        width: 1200px;  /* ✅ 1024px에서 멈춤 */
+    }
+}
+.table {
+    min-width: 1200px;  /* ✅ 1024px 이하로는 안 줄어듦 */
+}
+body {
+	flex-direction: column;
+}
+/*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+}
+
+/* 내용 */
+#content {
+ margin: 80px 0 0 220px;
+  padding: 40px 50px;
+}
+.pkHeader {
+	 display: flex;
+  align-items: center;
+}
+/*제목*/
+.title {
+   font-size:30px;
+    color:#65B741;
+    font-weight: bold;
+    align-self: flex-start;
+}
+.header-a {
+	width:100%;
+	display:flex;
+	justify-content: space-between;
+}
+tbody tr:hover {
+    background-color: #FBF6EE;
+}
+/* 꾸러미 목록 테이블  */
+.tableWrapper {
+    width: 100%;
+    margin-top: 10px;
+    overflow-x: auto;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.table th {
+	border-bottom: 2px solid #ccc;
+	background-color: #FCFCFC;
+	height: 30px;
+	vertical-align: middle;
+}
+.table th, .table td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
+}
+
+/* 오버플로우 방지 */
+.table td:nth-child(3) {
+    max-width: 200px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .table td:nth-child(3) a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+.point-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    margin: 10px 0;
+    width: 368px;
+}
+.point-box div {
+	display :flex;
+	align-items: center;
+}
+.point-label {
+    font-weight: bold;
+    color: #65B741;
+    font-size: 18px;
+}
+
+.point-value {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.charge-btn {
+    background: #65B741;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.charge-btn:hover {
+    background-color: #579d39;
+}
+.subscribe-box {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+}
+
+.subscribe-btn {
+   font-size: 17px;
+	color: white;
+	padding: 6px 14px;
+  	border-radius: 8px;
+ 	background-color: #FFB534;
+  	border: none;
+}
+.subscribe-btn:hover {
+    background-color: #e6a42f;
+}
+.subscribed-btn {
+    background: #FFB534;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.subscribed-btn:hover {
+    background-color: #e6a42f;
+}
+
+.question-icon {
+    padding: 4px 4px;
+    border: 2px solid #D72638;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4px;
+    margin-top: 6px;
+}
+
+
+.history-section {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+    cursor: pointer !important; /* 정렬 활성화 */
+}
+
+.status {
+    padding: 4px 4px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+.use {
+    color: #D72638;
+    border: 2px solid #D72638;
+}
+
+.charge {
+    color: #65B741;
+    border: 2px solid #65B741;
+}
+
+.rere {
+    color: #e6a42f;
+    border: 2px solid #e6a42f;
+}
+.minus {
+    color: #D72638;
+    font-weight: bold;
+}
+
+.plus {
+    color: #65B741;
+    font-weight: bold;
+}
+.replus {
+    color: #e6a42f;
+    font-weight: bold;
+}
+/* 페이징 */
+.paging a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #333;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.paging a.active {
+  background-color: #65B741;
+  color: white;
+  font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+}
+
+/* 검색 */
+.history-section div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 모달 */
+.modal-wrapper {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal {
+    background: white;
+    padding: 20px 40px;
+    border-radius: 8px;
+    width: 60%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.modal-wrapper p {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.modal ul {
+    padding: 0;
+    text-align: left;
+    margin: 20px 20px;
+}
+
+.modal-wrapper ul li {
+    font-size: 12px;
+    color: #4d4d4d;
+    margin: 5px 0;
+}
+
+.modal-wrapper .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-wrapper .btn {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal-wrapper .btn-subscribe {
+    background: #65B741;
+    color: white;
+}
+
+.modal-wrapper .btn-cancel {
+    background: #D3D3D3;
+    color: black;
+}
+
+.modal .btn-subscribe:hover {
+    background-color: #579d39;
+}
+
+.modal .btn-cancel:hover {
+    background-color: #c0c0c0;
+}
+
+
+/* 충전 모달 */
+#chargeModal .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+#chargeModal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #65B741;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+#chargeModal .close-btn {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#chargeModal .close-btn:hover {
+    color: #ddd;
+}
+
+.point-box {
+    background: #f5f5f5;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#chargeModal .point-icon {
+    color: #65B741;
+    font-size: 24px;
+}
+
+#chargeModal .select-title {
+    background: #65B741;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#chargeModal .amount-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: left;
+}
+
+#chargeModal .amount {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 30px;
+}
+
+#chargeModal .amount input {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+#chargeModal .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#chargeModal .buttons .btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    margin: 0 5px;
+}
+
+#chargeModal .buttons .pay {
+    background: #65B741;
+    color: white;
+}
+
+#chargeModal .buttons .cancel {
+    background: #ccc;
+    color: black;
+}
+
+/* 페이징 */
+.paging a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #333;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+
+.pagination a.active {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
+}
+
+
+a:hover {
+    color: #65B741;
+}
+ a {
+	text-decoration: none;
+	color:black;
+}
+
+.selectBox {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.selectBox select, .selectBox input {
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 12px;
+    color: #333;
+    margin-bottom:5px;
+    text-align:left;
+}
+.selectBox input {
+	height: 17px;
+}
+.selectBox button {
+    background-color: #ffb534;
+    border: solid #ffb534;
+    border-radius: 4px;
+    height: 27px;
+}

@@ -1,0 +1,125 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 200px); /* 헤더 높이만큼 빼기 */
+}
+.content {
+    flex: 1;
+    align-self: flex-start;
+    padding: 30px 0;
+    max-width: 1000px;
+    min-width: 0;
+    margin-left: 20px;
+    margin-right: auto;
+  	position: relative;
+}
+.sideMenu {
+	position: relative;
+    top: 200px;
+}
+a {
+	color:black;
+	text-decoration: none;
+}
+/*제목*/
+.title { /* 컨텐츠 제목*/
+  color: #65B741;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.subtitle { /* 컨텐츠 부제목*/
+  font-size: 16px;
+  color: #4d4d4d;
+  margin-bottom: 30px;
+}
+tbody tr:hover {
+    background-color: #FBF6EE;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    font-size: 14px;
+    text-align: left;
+}
+
+.table th:nth-child(1),.table td:nth-child(1){
+    width: 45px;
+    padding: 0 20px;
+    text-align: center;
+}
+.table th:nth-child(2),.table td:nth-child(2){
+    padding-left: 20px;
+}
+
+.table th:nth-child(3),.table th:nth-child(4),
+.table td:nth-child(3),.table td:nth-child(4) {
+    text-align: right;
+    width: 100px;
+    padding-right: 20px;
+}
+
+/* 오버플로우 방지 */
+.table td:nth-child(2) {
+    max-width: 200px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+.table td:nth-child(2) a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+.fixedList{
+  background-color: #F5F5F5;
+  
+  }
+.fixed{
+	background-color: #FFB534;
+	padding: 3px 5px;
+	border: 1px solid #EEA527;
+	border-radius: 2px;
+	color: white;
+ }
+ .fixTitle {
+ 	font-color: FFB534;
+ }
+/* 페이징 */
+#paging {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+#paging a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#paging a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+#paging a.select {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
+}

@@ -1,0 +1,302 @@
+@media ( max-width : 1200px) {
+	.table {
+		width: 1200px; /* ✅ 1024px에서 멈춤 */
+	}
+}
+
+.table {
+	min-width: 1200px; /* ✅ 1024px 이하로는 안 줄어듦 */
+}
+
+@font-face {
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	font-family: SUIT-Regular, sans-serif;
+}
+
+/*사용자의 로그인 정보(adminSellerTop) 감싸는 부분*/
+#header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: calc(100% - 220px);
+	height: 80px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	border-bottom: 1px solid #f3f3f3;
+	background-color: white;
+}
+
+/* 내용 */
+#content {
+	margin: 80px 0 0 220px;
+  padding: 40px 50px;
+}
+
+.noticeHeader {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start; 
+}
+
+#title {
+	font-size: 30px;
+	color: #65B741;
+	font-weight: bold;
+	align-self: flex-start;
+}
+
+.filterWrapper {
+	margin-top: 30px;
+	width:100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.filterWrapper select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 12px;
+    color: #333;
+    text-align:left;
+}
+.tableWrapper {
+	width: 100%;
+	margin-top: 10px;
+	overflow-x: auto;
+}
+
+tbody tr.hovered td {
+	background-color: #FBF6EE;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+.table th, .table td {
+	border: 1px solid #ddd;
+	padding: 5px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.table th {
+	border-bottom: 2px solid #ccc;
+	background-color: #FCFCFC;
+	height: 30px;
+}
+
+.table th:nth-child(1), .table td:nth-child(1) {
+	width: 30px;
+	padding: 0 20px;
+}
+
+.table th:nth-child(2) .table td:nth-child(2) {
+	width: 70px;
+}
+
+.table th:nth-child(3), .table td:nth-child(3) {
+	width: 80px;
+}
+
+.table th:nth-child(4), .table td:nth-child(4), .table th:nth-child(9),
+	.table td:nth-child(9) {
+	width: 60px;
+}
+
+.table th:nth-child(5), .table td:nth-child(5) {
+	width: 80px;
+}
+
+.table th:nth-child(6), .table td:nth-child(6) {
+	width: 90px;
+}
+
+/* 오버플로우 방지 */
+.table td:nth-child(3) {
+	max-width: 200px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.table td:nth-child(3) a {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.status {
+	padding: 5px 10px;
+	border-radius: 5px;
+}
+.statusToggle{
+	cursor: pointer;
+}
+
+.on-sale {
+	background-color: #65B741;
+	color: white;
+}
+
+.stopped {
+	background-color: #D72638;
+	color: white;
+}
+
+input.stock {
+	width: 30px; /* 너비 조정 */
+	text-align: center; /* 가운데 정렬 */
+}
+
+/* 스피너 없애기 (Chrome, Safari) */
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* 스피너 없애기 (Firefox) */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+.stockBtn {
+	padding: 4px 8px;
+	border: 1px solid #ccc;
+	background-color: white;
+	color: #333;
+	border-radius: 4px;
+	font-size: 12px;
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.stockBtn:hover {
+	background-color: #65B741; /* ✅ 메인 그린 톤 */
+	color: white;
+	border-color: #65B741;
+}
+
+.saveBtn {
+	padding: 4px 10px;
+	background-color: #65B741; /* ✅ 메인 그린 */
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-size: 12px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.saveBtn:hover {
+	background-color: #4e9e32; /* ✅ 조금 더 진한 그린 */
+}
+
+.actions {
+	justify-content: flex-start;
+	gap: 10px;
+	margin-top: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+}
+
+
+
+.btn {
+	 padding: 6px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #65B741;
+    color: white;
+    margin-right: auto;
+}
+
+.delete {
+	background-color: #D72638;
+	color: white;
+}
+
+.red {
+	width: 5px;
+	height: 5px;
+	background-color: red;
+	opacity: 50%;
+	border-radius: 50%;
+	float: right;
+}
+
+.green {
+	width: 5px;
+	height: 5px;
+	background-color: #65B741;
+	border-radius: 50%;
+	float: right;
+}
+
+.edit:hover {
+	background-color: #F4A72D;
+}
+
+.add {
+	background-color: #65B741;
+	color: white;
+}
+
+a {
+	color: black
+}
+
+a:hover {
+	color: orange;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px; /* 버튼 사이 간격 */
+	margin-top: 20px;
+}
+
+.pagination a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%; /* 동그랗게 */
+	border: none;
+	background-color: transparent; /* 기본은 투명 */
+	color: #333;
+	text-decoration: none;
+	font-size: 14px;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+	background-color: #f0f0f0; /* 살짝 회색 호버 효과 */
+}
+
+.pagination a.active {
+	background-color: #65B741; /* ✅ 메인 그린 */
+	color: white;
+}
+.pagination a.disabled {
+    pointer-events: none;
+    color: #ccc;
+}

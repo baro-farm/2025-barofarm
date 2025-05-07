@@ -1,0 +1,168 @@
+@media (max-width: 1200px) {
+  .table {
+    width: 1200px;
+  }
+}
+/* 헤더 */
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  background-color: white;
+  z-index: 10;
+}
+
+/* 콘텐츠 영역 */
+#content {
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
+}
+
+.title {
+  font-size: 30px;
+  color: #65B741;
+  font-weight: bold;
+  margin-bottom: 10px;
+  align-self: flex-start;
+}
+.filterBox {
+	display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  min-width: 1024px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+/* 검색 필터 */
+.filter-form {
+	display: flex;
+	width: 100%;
+	justify-content: end;
+	gap: 10px;
+}
+
+.filter-top,
+.filter-bottom {
+  width: fit-content;
+}
+
+.filter-form select,
+.filter-form input[type="date"],
+.filter-form input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.filter-form button {
+  padding: 6px 12px;
+  background-color: #65B741;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter-form button:hover {
+  background-color: #4e9e32;
+}
+
+/* 테이블 */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f7f7f7;
+  font-weight: bold;
+}
+
+.table tbody tr:hover {
+  background-color: #FBF6EE;
+}
+
+/* 긴 텍스트 처리 */
+.table td:nth-child(3) {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.table td:nth-child(3) a {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 페이징 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination a.active {
+  background-color: #65B741;
+  color: white;
+}
+
+/* 링크 컬러 */
+a {
+  color: black;
+}
+a:hover {
+  color: orange;
+}

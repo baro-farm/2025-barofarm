@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.shoppingCart">
+	<select id="selectCartByUser" parameterType="Long"
+		resultType="shoppingCartItem">
+		SELECT
+		sc.cartNum,
+		sc.sellerNum,
+		p.productNum,
+		p.productName,
+		p.imgUrl,
+		p.price,
+		po.optionNum,
+		po.option,
+		po.price AS optionPrice,
+		sc.quantity,
+		((p.price + po.price) * sc.quantity) AS totalPrice,
+		s.storeName
+		FROM
+		shoppingcart sc
+		JOIN productoption po ON sc.optionNum = po.optionNum
+		JOIN product p ON po.productNum = p.productNum
+		JOIN sellerdetail s ON
+		sc.sellerNum = s.sellerNum
+		WHERE sc.userNum = #{userNum}
+		ORDER BY
+		sc.createdAt DESC
+	</select>
+	<select id="selectCartOptionsByProduct" parameterType="map"
+		resultType="shoppingCartItem">
+		SELECT sc.cartNum, po.optionNum, po.option, sc.quantity,
+		po.price
+		FROM shoppingcart sc
+		JOIN productoption po ON sc.optionNum =
+		po.optionNum
+		WHERE po.productNum = #{productNum}
+		AND sc.userNum =
+		#{userNum}
+	</select>
+	<update id="updateCartOption" parameterType="map">
+		UPDATE shoppingcart
+		SET optionNum = #{newOptionNum},
+		quantity = #{newQuantity}
+		WHERE cartNum
+		= #{cartNum}
+	</update>
+	<update id="updateCartQuantity" parameterType="map">
+		UPDATE
+		shoppingcart
+		SET quantity = #{quantity}
+		WHERE cartNum = #{cartNum}
+	</update>
+
+	<insert id="insertCartOption" parameterType="map">
+		INSERT INTO
+		shoppingcart (sellerNum, userNum, optionNum, quantity)
+		SELECT
+		s.sellerNum, #{userNum}, po.optionNum, #{quantity}
+		FROM productoption
+		po
+		JOIN product p ON po.productNum = p.productNum
+		JOIN sellerdetail s ON
+		p.sellerNum = s.sellerNum
+		WHERE po.optionNum = #{optionNum}
+	</insert>
+
+	<delete id="deleteCartOption" parameterType="Long">
+		DELETE FROM
+		shoppingcart
+		WHERE cartNum = #{cartNum}
+	</delete>
+	<select id="selectCartByCartNums" parameterType="List"
+		resultType="shoppingCartItem">
+		SELECT
+		sc.cartNum,
+		p.productNum,
+		p.productName,
+		p.imgUrl,
+		p.price,
+		po.optionNum,
+		po.option,
+		po.price AS optionPrice,
+		sc.quantity,
+		((p.price + po.price) * sc.quantity) AS totalPrice,
+		s.storeName
+		FROM
+		shoppingcart sc
+		JOIN productoption po ON sc.optionNum = po.optionNum
+		JOIN product p ON po.productNum = p.productNum
+		JOIN sellerdetail s ON sc.sellerNum = s.sellerNum
+		WHERE sc.cartNum IN
+		<foreach collection="list" item="cartNum" open="("
+			separator="," close=")">
+			#{cartNum}
+		</foreach>
+	</select>
+	<delete id="deleteCartItems" parameterType="map">
+	    DELETE FROM shoppingcart
+	    WHERE cartNum IN
+	    <foreach item="cartNum" collection="cartNums" open="(" separator="," close=")">
+	        #{cartNum}
+	    </foreach>
+	</delete>
+	<select id="getCartNum" parameterType="map" resultType="long">
+        SELECT cartNum
+        FROM shoppingcart
+        WHERE userNum = #{userNum} AND optionNum = #{optionNum}
+        LIMIT 1
+    </select>
+	<insert id="insertCart" parameterType="map">
+        INSERT INTO shoppingcart (sellerNum, userNum, optionNum, quantity)
+        VALUES (#{sellerNum}, #{userNum}, #{optionNum}, #{quantity})
+    </insert>
+    <select id="isProductInCart" resultType="boolean" parameterType="map">
+        SELECT COUNT(*) > 0 
+        FROM shoppingcart
+        WHERE userNum = #{userNum} AND optionNum = #{optionNum}
+    </select>
+    <update id="updateCartQuantityIncrease" parameterType="map">
+        UPDATE shoppingcart
+        SET quantity = quantity + #{quantity}
+        WHERE cartNum=#{cartNum}
+    </update>
+    <select id="selectTempItem" parameterType="map" resultType="shoppingCartItem">
+	    SELECT
+	        p.productNum,
+	        p.productName,
+	        p.imgUrl,
+	        p.price as basePrice,
+	        po.optionNum,
+	        po.option,
+	        <!-- po.price AS optionPrice,
+	        #{quantity} AS quantity,
+	        ((p.price + po.price) * #{quantity}) AS totalPrice,
+	        s.storeName -->
+	        po.price AS optionPrice,
+		    1 AS quantity,
+		    ((p.price + po.price) * 1) AS totalPrice,
+		    s.storeName
+	    FROM productoption po
+	    JOIN product p ON po.productNum = p.productNum
+	    JOIN sellerdetail s ON p.sellerNum = s.sellerNum
+	    WHERE po.optionNum = #{optionNum}
+	</select>
+
+</mapper>

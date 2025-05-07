@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.point">
+	<select id="getPoint" parameterType="Long" resultType="point">
+		select * from point where userNum=#{userNum}
+	</select>
+	<update id="updatePoint" parameterType="map">
+		update point set point = point + #{point}, updatedAt = NOW() where userNum = #{userNum}
+	</update>
+	<insert id="insertPoint" parameterType="point">
+		INSERT INTO point (userNum,point) VALUES(#{userNum}, #{point})
+	</insert>
+	<select id="totalSalesPointList" parameterType="map" resultType="pointVO">
+		SELECT u.userId, s.storeName, up.type, u.username,
+	    CASE 
+	        WHEN up.usedPoint &gt; 0 THEN '충전'
+	        WHEN up.usedPoint &lt; 0 THEN '사용'
+	        ELSE '기타'
+	    END AS pType,
+		    up.usedPoint,
+		    up.currPoint, up.createdAt
+		FROM usepoint up
+		JOIN sellerdetail s ON up.userNum=s.userNum
+		JOIN user u ON u.userNum=up.userNum
+		<choose>
+	        <when test="sort == 'charging'">WHERE up.usedPoint &gt; 0</when>
+	        <when test="sort == 'use'">WHERE up.usedPoint &lt; 0</when>
+	        <when test="sort == 'all'"></when>
+	       </choose>
+		ORDER BY createdAt DESC
+		LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countTotalSalesPoint" resultType="Integer">
+		select COUNT(*) from usepoint
+	</select>
+	<select id="MonthlyPoint" resultType="pointVO">
+		SELECT
+		  DATE_FORMAT(createdAt, '%Y-%m') AS month,
+		  SUM(CASE WHEN usedPoint &gt; 0 THEN usedPoint ELSE 0 END) AS chargePoint,
+		  SUM(CASE WHEN usedPoint &lt; 0 THEN usedPoint ELSE 0 END) AS usePoint
+		FROM usepoint
+		WHERE createdAt &gt;= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 4 MONTH), '%Y-%m-01')
+		  AND createdAt &lt; DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
+		GROUP BY month
+		ORDER BY month;
+	</select>
+	<select id="currentMonthPoint" resultType="pointVO">
+		SELECT 
+		    SUM(CASE WHEN createdAt BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND LAST_DAY(CURDATE()) THEN usedpoint ELSE 0 END) AS currentMonth,
+		    SUM(CASE WHEN createdAt BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') AND LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) THEN usedpoint ELSE 0 END) AS lastMonth,
+		    SUM(CASE WHEN createdAt BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND LAST_DAY(CURDATE()) THEN usedpoint ELSE 0 END) - 
+		    SUM(CASE WHEN createdAt BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') AND LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) THEN usedpoint ELSE 0 END) AS increaseLastMonth,
+		    CASE 
+		        WHEN SUM(CASE WHEN createdAt BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') AND LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) THEN usedpoint ELSE 0 END) > 0 
+		        THEN ROUND((SUM(CASE WHEN createdAt BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND LAST_DAY(CURDATE()) THEN usedpoint ELSE 0 END) - 
+		                    SUM(CASE WHEN createdAt BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') AND LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) THEN usedpoint ELSE 0 END)) / 
+		                   SUM(CASE WHEN createdAt BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') AND LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) THEN usedpoint ELSE 0 END) * 100, 0)
+		        ELSE 0 
+		    END AS increasePercentage
+		FROM usepoint
+		WHERE (createdAt BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND LAST_DAY(CURDATE()) 
+		       OR createdAt BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') AND LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)))
+		  AND usedpoint > 0;
+	</select>
+</mapper>

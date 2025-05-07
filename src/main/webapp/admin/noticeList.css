@@ -1,0 +1,146 @@
+#header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: calc(100% - 220px);
+	height: 80px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	border-bottom: 1px solid #f3f3f3;
+	background-color: white;
+}
+
+#content {
+  margin: 80px 0 0 220px;
+  padding: 40px 50px;
+  overflow-x: auto;
+}
+
+.notice_header {
+	display: flex;
+	align-items: center;
+}
+
+#title {
+    font-size: 30px;
+    color: #65B741;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+#new_notice {
+	height: 36px;
+	font-size: 14px;
+	border-radius: 5px;
+	border: none;
+	background-color: #65B741;
+	color: white;
+	cursor: pointer;
+	padding: 6px 20px;
+  transition: background-color 0.2s ease;
+	
+}
+
+#notice_table {
+	min-width: 1280px;
+	width: 100%;
+	overflow-y: auto;
+}
+
+#new_notice:hover {
+	background-color: #579d39;
+}
+/* 테이블 */
+.table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.table th {
+	vertical-align: middle;
+	font-weight: bold;
+	border-bottom: 2px solid #ccc;
+	background-color: #FCFCFC;
+	height: 30px;
+}
+
+.table tbody tr:hover {
+  background-color: #FBF6EE;
+}
+
+.ellipsis {
+	max-width: 400px; /* 적당히 조절 가능 */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.updateBtn {
+	width: 46px;
+	height: 26px;
+	background-color: #ffb534;
+	border: 0;
+	border-radius: 4px;
+	color: white;
+}
+
+.deleteBtn {
+	width: 46px;
+	height: 26px;
+	background-color: #d72638;
+	border: 0;
+	border-radius: 4px;
+	color: white;
+}
+
+.updateBtn:hover {
+	background-color: #e6a42f;
+}
+
+.deleteBtn:hover {
+	background-color: #c1212f;
+}
+
+/* 페이징 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination a.active {
+  background-color: #65B741;
+  color: white;
+}

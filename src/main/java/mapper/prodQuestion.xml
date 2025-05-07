@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.prodQuestion">
+	<select id="selectQuestionListWithProduct" parameterType="Long" resultType="questionVo">
+		select 
+			q.qaNum, q.content, q.createdAt ,p.productNum, p.productName, p.imgUrl, s.sellerNum, s.storeName
+		from prodquestion q
+		join product p On q.productNum = p.productNum
+		join sellerdetail s on p.sellerNum = s.sellerNum
+		where q.userNum = #{userNum}
+		order by q.createdAt DESC
+	</select>
+	
+	<select id="selectAnswer" parameterType="Long" resultType="questionAnswer">
+		select qaNum,content,createdAt
+		from prodanswer
+		where qaNum = #{qaNum}
+	</select>
+	
+	<select id="selectAnswerCount" parameterType="Long" resultType="Integer">
+		select count(*)
+		from prodanswer
+		where qaNum = #{qaNum}
+	</select>
+	<select id="selectProdQA" parameterType="Map" resultType="questionVo">
+		SELECT q.qaNum, q.userNum, q.productNum, q.title, q.content, q.createdAt,
+			pa.paNum, pa.content AS Acontent, pa.createdAt AS AcreatedAt,
+			u.userId
+		FROM prodquestion q
+		left join prodanswer pa ON q.qaNum = pa.qaNum
+		JOIN user u ON q.userNum = u.userNum
+		where q.productNum = #{prodNum}
+		order by q.createdAt DESC
+		LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countProdQA" parameterType="Long" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM prodquestion
+	    WHERE productNum = #{prodNum}
+	</select>
+	
+	
+</mapper>

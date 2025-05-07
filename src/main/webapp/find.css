@@ -1,0 +1,81 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.content{
+  flex: 1;
+}
+.findContainer {
+  margin: 100px auto;
+  padding: 20px;
+  width: 297px;
+  border-radius: 8px;
+  box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* 로그인 제목 */
+.findTitle {
+    color: #65B741;
+  	font-size: 30px;
+  	font-weight: bold;
+  	margin-bottom: 40px;
+  	text-align: center;
+}
+/* 입력 필드 스타일 */
+.inputField {
+    display: block;
+    width: 275px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+/* 찾기 버튼 */
+.findBtn {
+    display: block;
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #FFB534;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+}
+.resultBox {
+	margin-top: 10px;
+  	padding: 10px 0;
+  	display: none;
+  	font-size: 14px;
+}
+.resultBox strong {
+	color: #65B741;
+	font-size: 16px;
+	font-weight: bold;
+}
+.resultBox.fail {
+  color: red;
+}
+/* 하단 메뉴 */
+.bottomMenu {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 5px;
+    font-size: 14px;
+}
+
+.bottomMenu a {
+    text-decoration: none;
+    color: #4d4d4d;
+}
+
+.bottomMenu a:first-child {
+    margin-right: auto;
+}
+
+.bottomMenu a:not(:first-child) {
+    margin-left: 10px;
+}

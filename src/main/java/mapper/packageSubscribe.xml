@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.packageSub">
+	<insert id="insertSubscription" parameterType="packageSubscribe"
+	        useGeneratedKeys="true" keyProperty="subNum">
+	    INSERT INTO pakagesubscribe (
+	        userNum, packageNum, sellerNum, subStartDate, subEndDate,
+	        isSub, subRound, deleveryDate, deleveryCycle,
+	        rname, rphone, addr
+	    ) VALUES (
+	        #{userNum}, #{packageNum}, #{sellerNum}, #{subStartDate}, #{subEndDate},
+	        #{isSub}, #{subRound}, #{deleveryDate}, #{deleveryCycle},
+	        #{rname}, #{rphone}, #{addr}
+	    )
+	</insert>
+	<select id="packageSubList" resultType="PackSubVo" parameterType="map">
+	SELECT 
+	    ps.subnum, ps.usernum,
+	    CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
+	    u.username, u.phone,
+	    ps.packagenum,
+	    p.packagename,  p.packageUnit,  p.startdate,  p.enddate,
+	    ps.sellernum, ps.substartdate, ps.subenddate,  ps.subround
+	FROM pakagesubscribe ps
+	LEFT JOIN user u ON ps.usernum = u.usernum
+	JOIN package p ON ps.packagenum = p.packagenum
+	WHERE ps.sellernum = #{sellerNum}
+	<if test="startDate != null and startDate != ''">
+	      AND ps.substartdate &gt;= #{startDate}
+	</if>
+	<if test="endDate != null and endDate != ''">
+	 	 AND ps.substartdate &lt;= #{endDate}
+	</if>
+	    
+	<if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+	<choose>
+		<when test="searchType == 'userName'">
+			AND u.username LIKE CONCAT('%', #{searchKeyword}, '%')
+		</when>
+		<when test="searchType == 'packageName'">
+			AND p.packagename LIKE CONCAT('%', #{searchKeyword}, '%')
+		</when>
+		<when test="searchType == 'packageNum'">
+			AND ps.packagenum = #{searchKeyword}
+		</when>
+	</choose>
+</if>
+	ORDER BY ps.substartdate DESC
+	LIMIT #{start}, #{pageSize}
+	</select>
+	<select id="countPackageSubList" parameterType="Long" resultType="Integer">
+		select count(*) from pakagesubscribe WHERE sellernum = #{sellerNum}
+	</select>
+</mapper>

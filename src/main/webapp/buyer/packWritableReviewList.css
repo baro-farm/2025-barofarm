@@ -1,0 +1,132 @@
+body {
+    margin: 20px;
+}
+
+
+.content1 {
+	flex: 1;
+	align-self: flex-start;
+	max-width: 1000px;
+	min-width: 0;
+	margin-left: 20px;
+	margin-right: auto;
+	position: relative;
+}
+.emptyMessage {
+    text-align: center;
+    padding: 50px 0;
+    color: #888;
+    font-size: 1.2em;
+}
+
+.reviewHeader {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.reviewFilter {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px; /* 옵션 간 간격 */
+}
+.reviewFilter select {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.reviewBox {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.productImage {
+    width: 150px;
+    height: 150px;
+    background-color: #eee;
+    border-radius: 8px;
+    margin-top: 25px;
+}
+
+.reviewContent {
+    flex-grow: 1;
+}
+
+.storeName {
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 5px;
+}
+
+.productName {
+    font-weight: bold;
+}
+
+.pdRating {
+    color: orange;
+    font-size: 16px;
+}
+
+.pdReviewContent {
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.reviewDate {
+    font-size: 12px;
+    color: gray;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* 버튼 사이 간격 */
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;  /* 동그랗게 */
+    border: none;
+    background-color: transparent;  /* 기본은 투명 */
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;  /* 살짝 회색 호버 효과 */
+}
+
+.pagination a.active {
+    background-color: #65B741;  /* ✅ 메인 그린 */
+    color: white;
+}
+
+.pagination a.disabled {
+    pointer-events: none;
+    color: #ccc;
+}
+a{
+	text-decoration: none;
+	color:black;
+}
+a:hover{
+	color:orange;
+}

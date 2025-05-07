@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.packOrder">
+	<select id="packOrderList" parameterType="Long" resultType="packOrderVo">
+		select
+			p.packageNum, p.sellerNum, p.packageName,
+			s.sellerNum, s.storeName,
+			po.userNum, po.pkTotalPrice, po.pkOrderNum ,po.orderedAt, po.deleveryStatus
+		from packageOrder po
+		Join package p on po.packageNum = p.packageNum
+		Join sellerdetail s on p.sellerNum = s.sellerNum
+		where po.userNum = #{userNum}
+		order by po.orderedAt desc
+	</select>
+	
+	<!-- count 쿼리 -->
+	<select id="selectUserPackOrderCount" parameterType="map" resultType="Integer">
+	
+		select count(*)
+		from packageOrder po
+		Join package p on po.packageNum = p.packageNum
+		Join sellerdetail s on p.sellerNum = s.sellerNum
+		where po.userNum = #{userNum}
+	    <if test="startDate != null and startDate != ''">
+	      AND po.orderDate &gt;= #{startDate}
+	    </if>
+	    <if test="endDate != null and endDate != ''">
+	      AND po.orderDate &lt;= #{endDate}
+	    </if>
+	    <if test="deliveryStatus != null and deliveryStatus != ''">
+	      AND po.deleveryStatus = #{deleveryStatus}
+	    </if>
+	</select>
+	
+	<!-- 리스트 -->
+	<select id="selectUserPackOrderList" parameterType="map"  resultType="packOrderVo">
+			select
+			p.packageNum, p.sellerNum, p.packageName, p.imgUrl,
+			s.sellerNum, s.storeName,
+			po.userNum, po.pkTotalPrice, po.pkOrderNum ,po.orderedAt, po.deleveryStatus
+		from packageOrder po
+		Join package p on po.packageNum = p.packageNum
+		Join sellerdetail s on p.sellerNum = s.sellerNum
+		where po.userNum = #{userNum}
+	    <if test="startDate != null and startDate != ''">
+	      AND po.orderedAt &gt;= #{startDate}
+	    </if>
+	    <if test="endDate != null and endDate != ''">
+	      AND po.orderedAt &lt;= #{endDate}
+	    </if>
+	    <if test="deliveryStatus != null and deliveryStatus != ''">
+	      AND po.deleveryStatus = #{deleveryStatus}
+	    </if>
+	  ORDER BY po.orderedAt DESC
+	</select>
+	
+	<update id="updatePkDeliveryStatus" parameterType="packOrder">
+		update packageOrder
+		set deleveryStatus = #{deleveryStatus}
+		where pkOrderNum = #{pkOrderNum}
+	</update>
+	
+	<update id="updatePkTrackingNum" parameterType="map">
+		update packageOrder
+		set trackingNum =#{trackingNum}
+		where pkOrderNum=#{pkOrderNum}
+	</update>
+	
+	<select id="selectSellerPackOrderList" parameterType="map" resultType="packOrderVo">
+		SELECT 
+		    po.pkOrderNum,
+		    po.packageNum,
+		    p.packageName,
+		    po.pkTotalPrice,
+		    CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
+		    ps.rname,
+		    ps.addr,
+		    ps.rphone,
+		    ps.deleveryDate,
+		    ps.subStartDate,
+		    ps.subRound, 
+		    po.deleveryStatus,          
+		    po.trackingNum,
+		    po.orderedAt
+		FROM 
+		    packageOrder po
+		JOIN 
+		    pakageSubscribe ps ON po.subNum = ps.subNum
+		JOIN 
+		    package p ON po.packageNum = p.packageNum
+		JOIN
+			user u ON po.userNum = u.userNum
+		WHERE 
+		    p.sellerNum = #{sellerNum}
+		<if test="dateType != null and dateType != '' and startDate != null and endDate != null">
+		    AND 
+		    <choose>
+		        <when test="dateType == 'paymentDate'">
+		            po.orderedAt BETWEEN #{startDate} AND #{endDate}
+		        </when>
+
+		    </choose>
+		</if>
+		<if test="deliveryDay != null and deliveryDay != ''">
+		    AND ps.deleveryDate = #{deliveryDay}
+		</if>
+		<if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+		    <choose>
+		        <when test="searchType == 'userName'">
+		            AND ps.rname LIKE CONCAT('%', #{searchKeyword}, '%')
+		        </when>
+		        <when test="searchType == 'pdOrderNum'">
+		            AND po.pkOrderNum = #{searchKeyword}
+		        </when>
+		        <when test="searchType == 'productNum'">
+		            AND po.packageNum = #{searchKeyword}
+		        </when>
+		        <when test="searchType == 'trackingNum'">
+		            AND po.trackingNum = #{searchKeyword}
+		        </when>
+		    </choose>
+		</if>
+		ORDER BY po.pkOrderNum DESC
+		LIMIT #{offset}, #{pageSize}		
+	</select>
+	
+	<select id="selectCountSellerPackOrder" parameterType="map" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM packageorder po
+	    JOIN pakagesubscribe ps ON po.subNum = ps.subNum
+	    JOIN package p ON po.packageNum = p.packageNum
+	    WHERE p.sellerNum = #{sellerNum}
+   		<if test="dateType != null and dateType != '' and startDate != null and endDate != null">
+	    	AND 
+		    <choose>
+		        <when test="dateType == 'paymentDate'">
+		            po.orderedAt BETWEEN #{startDate} AND #{endDate}
+		        </when>
+
+		    </choose>
+		</if>
+		<if test="deliveryDay != null and deliveryDay != ''">
+		    AND ps.deleveryDate = #{deliveryDay}
+		</if>
+		<if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+		    <choose>
+		        <when test="searchType == 'userName'">
+		            AND ps.rname LIKE CONCAT('%', #{searchKeyword}, '%')
+		        </when>
+		        <when test="searchType == 'pdOrderNum'">
+		            AND po.pkOrderNum = #{searchKeyword}
+		        </when>
+		        <when test="searchType == 'productNum'">
+		            AND po.packageNum = #{searchKeyword}
+		        </when>
+		        <when test="searchType == 'trackingNum'">
+		            AND po.trackingNum = #{searchKeyword}
+		        </when>
+		    </choose>
+		</if>
+	</select>
+	
+	<insert id="insertPackOrder" parameterType="map" useGeneratedKeys="true" keyProperty="pkOrderNum">
+		INSERT INTO packageorder (packageNum, userNum, subNum, pkTotalPrice, deleveryStatus) VALUES 
+		(#{packageNum}, #{userNum}, #{subNum}, #{pkTotalPrice}, #{deleveryStatus})
+	</insert>
+	<select id="selectAdminPackOrderList" parameterType="map" resultType="adminPackOrderVO">
+		SELECT 
+		    po.pkOrderNum,
+		    p.packageName,
+		    CONCAT(
+		        LEFT(u.userId, 1),
+		        REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+		        RIGHT(u.userId, 1)
+		    ) as userId,
+		    u.userName,
+		    s.storeName,
+    		seller.userId AS sellerId,
+		    ps.rname,
+		    ps.addr,
+		    ps.rphone,
+		    ps.deleveryDate,
+		    ps.subStartDate,
+		    ps.subEndDate,
+		    ps.subRound,
+		    po.deleveryStatus,
+		    po.trackingNum,
+		    po.orderedAt,
+		    po.pkTotalPrice
+		FROM packageorder po
+		JOIN pakagesubscribe ps ON po.subNum = ps.subNum
+		JOIN package p ON po.packageNum = p.packageNum
+		JOIN sellerdetail s ON p.sellerNum = s.sellerNum
+		JOIN user seller ON s.userNum = seller.userNum
+		JOIN user u ON po.userNum = u.userNum
+		<if test="startDate != null and endDate != null">
+		    AND DATE(po.orderedAt) BETWEEN #{startDate} AND #{endDate}
+		</if>
+		<if test="searchType != null and searchKeyword != null and searchKeyword != ''">
+		    <choose>
+		        <when test="searchType == 'userId'">
+		            AND u.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+		        </when>
+		        <when test="searchType == 'packageName'">
+		            AND p.packageName LIKE CONCAT('%', #{searchKeyword}, '%')
+		        </when>
+		        <when test="searchType == 'pkOrderNum'">
+		            AND po.pkOrderNum = #{searchKeyword}
+		        </when>
+		    </choose>
+		</if>
+		ORDER BY po.orderedAt DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	
+	<select id="countAdminPackOrderList" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM packageorder po
+		JOIN pakagesubscribe ps ON po.subNum = ps.subNum
+		JOIN package p ON po.packageNum = p.packageNum
+		JOIN sellerdetail s ON p.sellerNum = s.sellerNum
+		JOIN user seller ON s.userNum = seller.userNum
+		JOIN user u ON po.userNum = u.userNum
+		WHERE 1=1
+		<if test="startDate != null and endDate != null">
+		    AND DATE(po.orderedAt) BETWEEN #{startDate} AND #{endDate}
+		</if>
+		<if test="searchType != null and searchKeyword != null and searchKeyword != ''">
+		    <choose>
+		        <when test="searchType == 'userId'">
+		            AND u.userId LIKE CONCAT('%', #{searchKeyword}, '%')
+		        </when>
+		        <when test="searchType == 'storeName'">
+		            AND s.storeName LIKE CONCAT('%', #{searchKeyword}, '%')
+		        </when>
+		        <when test="searchType == 'trackingNum'">
+		            AND po.trackingNum LIKE CONCAT('%', #{searchKeyword}, '%')
+		        </when>
+		        <when test="searchType == 'pkOrderNum'">
+		            AND po.pkOrderNum = #{searchKeyword}
+		        </when>
+		    </choose>
+		</if>
+	</select>
+	<select id="packDetailOrderList" parameterType="Long" resultType="packOrderVo">
+		select
+			po.pkOrderNum, po.pkTotalPrice, po.orderedAt, po.subNum,
+			p.packageNum, p.sellerNum, p.packageName, p.imgUrl,
+			s.sellerNum, s.storeName,
+			ps.addr, ps.rname, ps.rphone
+		from packageOrder po
+		join package p on po.packageNum = p.packageNum
+		join sellerdetail s on p.sellerNum = s.sellerNum
+		join pakageSubscribe ps on po.subNum = ps.subNum
+		where po.pkOrderNum =#{pkOrderNum}
+	</select>
+		
+</mapper>
