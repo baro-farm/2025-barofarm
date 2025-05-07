@@ -16,8 +16,8 @@ public interface PackageDAO {
 	List<PackageVO> selectPackageList(Map<String, Object> param) throws Exception;
 	Integer countPackageList(Map<String, Object> param) throws Exception;
 	void updatePackageStock(Map<String, Object> param) throws Exception;
-	void adjustStock(SqlSession sqlSession, Map<String, Object> param) throws Exception;
-	void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception;
+	void adjustStock(Map<String, Object> param) throws Exception;
+	void adjustSalesVolume(Map<String, Object> param) throws Exception;
 	List<PackSubVO> selectPackageSubList(Map<String, Object> param)throws Exception;
 	Integer countPackageSubList(Long sellernum)throws Exception;
 }
