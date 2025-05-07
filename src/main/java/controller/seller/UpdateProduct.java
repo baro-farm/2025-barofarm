@@ -114,7 +114,7 @@ public class UpdateProduct extends HttpServlet {
 			existingProduct = productService.selectProduct(productNum);
 			sellerNum = sellerService.selectSellerNum(userNum);
 			
-			if (existingProduct.getSellerNum() != sellerNum) {
+			if (!existingProduct.getSellerNum().equals(sellerNum)) {
 //				response.sendRedirect("/barofarm/login");
 				response.sendRedirect("/barofarm/updateProduct?error=unauthorized");
 //			    return;
