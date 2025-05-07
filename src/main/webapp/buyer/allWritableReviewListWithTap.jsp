@@ -12,9 +12,6 @@
   .tabMenu {
     display: flex;
     gap: 8px;
-    margin-bottom: 20px;
-    padding-bottom:10px;
-    border-bottom: 2px solid black;
   }
   .tabBtn {
     padding: 10px 20px;
@@ -111,7 +108,7 @@
 	  </div>
 	
 	  <div id="content" style="width:100%;">
-	    <div class="header">작성 가능한 리뷰 내역</div>
+	    <div class="header">작성 가능한 리뷰</div>
 	
 	    <!-- 탭 메뉴 -->
 	    <div class="tabMenu">

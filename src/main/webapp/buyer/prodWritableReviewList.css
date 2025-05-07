@@ -146,8 +146,3 @@
     pointer-events: none;
     color: #ccc;
 }
-
-.active {
-	font-weight: bold;
-	color: green;
-}

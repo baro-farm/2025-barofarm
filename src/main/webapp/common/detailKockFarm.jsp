@@ -214,7 +214,6 @@ $(document).on("submit", ".babyForm", function (e) {
 				            	<div class="text-box">
 				                	<div class="user-info">상점명 : ${comment.storeName }</div>
 				                	<div class="message">${comment.content }</div>
-				                	<div class="date">${comment.createdAt }</div>
 					            </div>
 					            <div>
 					            	<c:if test="${user.userNum eq comment.userNum || isWriter  }">
@@ -257,7 +256,7 @@ $(document).on("submit", ".babyForm", function (e) {
 				                    <div class="message-box seller-sec reply">
 				                        <div class="re-icon">↪</div>
 				                        <div class="text-box">
-				                            <div class="user-info">${baby.storeName} [작성자]</div>
+				                            <div class="user-info">${baby.storeName}</div>
 				                            <div class="message">${baby.content}</div>
 				                        </div>
 				                    </div>

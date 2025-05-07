@@ -33,6 +33,8 @@ a:hover{
 }
 /* 캐러셀 */
 .carousel {
+	width:1280px;
+	margin: 0 auto;
 	min-width:1000px;
 }
 .carousel-item{
