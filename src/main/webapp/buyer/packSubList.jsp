@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -71,7 +70,11 @@
 								<div class="orderRight">
 
 									<div class="productName">${packSub.packageName }</div>
+<<<<<<< HEAD
 									<div class="productPrice"><fmt:formatNumber value="${packSub.packagePrice }" type="number" groupingUsed="true" />원</div>
+=======
+									<div class="productPrice"><fmt:formatNumber value="${packSub.packagePrice }" type="number" />원</div>
+>>>>>>> 341908ca4804a5908948d169bb6ce2a95aa6ef86
 									<div>
 									<span class="subStartDate">구독 시작일:
 											${packSub.subStartDate}</span><br> <span class="subEndDate">구독

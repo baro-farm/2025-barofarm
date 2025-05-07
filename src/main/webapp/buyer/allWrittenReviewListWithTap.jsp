@@ -110,7 +110,7 @@
 	  </div>
 	
 	  <div id="content" style="width:100%;">
-	    <div class="header">작성한 리뷰 내역</div>
+	    <div class="header">작성한 리뷰</div>
 	
 	    <!-- 탭 메뉴 -->
 	    <div class="tabMenu">
