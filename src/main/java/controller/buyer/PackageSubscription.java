@@ -56,7 +56,6 @@ public class PackageSubscription extends HttpServlet {
 			response.sendRedirect("/barofarm/login");
 			return;
 		}
-
 		request.setCharacterEncoding("UTF-8");
 		BufferedReader reader = request.getReader();
 		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false);
