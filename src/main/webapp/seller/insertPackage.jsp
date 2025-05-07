@@ -44,10 +44,10 @@
 			</div>
 			<div class="input_div" style="display:none;">
 				<label for="max_people">판매 단위</label> <select id="package_unit" name="package_unit">
-					<option value="1인">1인</option>
-					<option value="2인">2인</option>
-					<option value="3인">3인</option>
-					<option value="4인">4인</option>
+					<option value="혼밥 (1인 꾸러미)">1인</option>
+					<option value="커플 (2인 꾸러미)">2인</option>
+					<option value="트리오 (3인 꾸러미)">3인</option>
+					<option value="패밀리 (4인 꾸러미)">4인</option>
 				</select>
 			</div>
 			<div id="options_container">
@@ -101,5 +101,31 @@
 	<script
 		src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 	<script src="${contextPath }/seller/insertPackage.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+		    const productCategory = document.getElementById("product_category");
+		    const packageUnit = document.getElementById("package_unit");
+		
+		    const unitMap = {
+		        "8": "혼밥 (1인 꾸러미)",
+		        "9": "커플 (2인 꾸러미)",
+		        "10": "트리오 (3인 꾸러미)",
+		        "11": "패밀리 (4인 꾸러미)"
+		    };
+		
+		    // ✅ 초기 설정
+		    if (unitMap[productCategory.value]) {
+		        packageUnit.value = unitMap[productCategory.value];
+		    }
+		
+		    // ✅ 선택 변경 시에도 반영
+		    productCategory.addEventListener("change", function () {
+		        if (unitMap[productCategory.value]) {
+		            packageUnit.value = unitMap[productCategory.value];
+		        }
+		    });
+		});
+	</script>
+	
 </body>
 </html>

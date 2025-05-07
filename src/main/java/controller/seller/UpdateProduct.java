@@ -70,7 +70,7 @@ public class UpdateProduct extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		if (sellerNum == product.getSellerNum()) {
+		if (sellerNum.equals(product.getSellerNum())) {
 			request.setAttribute("product", product);
 			request.setAttribute("productOption", productOption);
 			request.getRequestDispatcher("/seller/updateProduct.jsp").forward(request, response);

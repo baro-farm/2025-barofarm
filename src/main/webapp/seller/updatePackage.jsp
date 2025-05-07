@@ -29,22 +29,22 @@
 				<label for="product_name">상품명</label> <input type="text"
 					id="product_name" name="product_name" required value=${packageProduct.packageName }>
 			</div>
-			<!-- 최대 인원 선택 -->
-			<div class="input_div" style="display:none;">
-				<label for="max_people">판매 단위</label> <select id="package_unit" name="package_unit">
-					<option value="1인" ${packageProduct.packageUnit == "1인" ? 'selected': ''}>1인</option>
-					<option value="2인" ${packageProduct.packageUnit == "2인" ? 'selected': ''}>2인</option>
-					<option value="3인" ${packageProduct.packageUnit == "3인" ? 'selected': ''}>3인</option>
-					<option value="4인" ${packageProduct.packageUnit == "4인" ? 'selected': ''}>4인</option>
-				</select>
-			</div>
 			<div class="input_div">
 				<label for="product_category">판매 단위</label> <select
 					name="product_category" id="product_category">
-					<option value="8" ${product.cateNum == 8 ? 'selected' : ''}>혼밥 (1인 꾸러미)</option>
-					<option value="9" ${product.cateNum == 9 ? 'selected' : ''}>커플 (2인 꾸러미)</option>
-					<option value="10" ${product.cateNum == 10 ? 'selected' : ''}>트리오 (3인 꾸러미)</option>
-					<option value="11" ${product.cateNum == 11 ? 'selected' : ''}>패밀리 (4인 꾸러미)</option>
+					<option value="8" ${packageProduct.cateNum == 8 ? 'selected' : ''}>혼밥 (1인 꾸러미)</option>
+					<option value="9" ${packageProduct.cateNum == 9 ? 'selected' : ''}>커플 (2인 꾸러미)</option>
+					<option value="10" ${packageProduct.cateNum == 10 ? 'selected' : ''}>트리오 (3인 꾸러미)</option>
+					<option value="11" ${packageProduct.cateNum == 11 ? 'selected' : ''}>패밀리 (4인 꾸러미)</option>
+				</select>
+			</div>
+			<!-- 최대 인원 선택 -->
+			<div class="input_div" style="display:none;">
+				<label for="max_people">판매 단위</label> <select id="package_unit" name="package_unit">
+					<option value="혼밥 (1인 꾸러미)">1인</option>
+					<option value="커플 (2인 꾸러미)">2인</option>
+					<option value="트리오 (3인 꾸러미)">3인</option>
+					<option value="패밀리 (4인 꾸러미)">4인</option>
 				</select>
 			</div>
 			<div id="options_container">
@@ -105,5 +105,31 @@
 	<script
 		src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 	<script src="${contextPath }/seller/updatePackage.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+		    const productCategory = document.getElementById("product_category");
+		    const packageUnit = document.getElementById("package_unit");
+		
+		    const unitMap = {
+		        "8": "혼밥 (1인 꾸러미)",
+		        "9": "커플 (2인 꾸러미)",
+		        "10": "트리오 (3인 꾸러미)",
+		        "11": "패밀리 (4인 꾸러미)"
+		    };
+		
+		    // ✅ 초기 설정
+		    if (unitMap[productCategory.value]) {
+		        packageUnit.value = unitMap[productCategory.value];
+		    }
+		
+		    // ✅ 선택 변경 시에도 반영
+		    productCategory.addEventListener("change", function () {
+		        if (unitMap[productCategory.value]) {
+		            packageUnit.value = unitMap[productCategory.value];
+		        }
+		    });
+		});
+	</script>
+	
 </body>
 </html>
