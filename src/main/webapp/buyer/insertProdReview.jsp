@@ -88,7 +88,7 @@
 			        </div>
 			
 			        <div class="formGroup">
-			            <label>내용</label>
+			            <!-- <label>내용</label> -->
 			            <textarea class="reviewTextarea" placeholder="리뷰를 작성해주세요." name="pdReviewContent"></textarea>
 			        </div>
 			

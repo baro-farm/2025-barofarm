@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -70,7 +70,7 @@
 								<div class="orderRight">
 
 									<div class="productName">${packSub.packageName }</div>
-									<div class="productPrice">${packSub.packagePrice }원</div>
+									<div class="productPrice"><fmt:formatNumber value="${packSub.packagePrice }" type="number" />원</div>
 									<div>
 										<span class="subStartDate">구독 시작일:
 											${packSub.subStartDate}</span><br> <span class="subEndDate">구독

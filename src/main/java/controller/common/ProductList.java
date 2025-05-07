@@ -50,10 +50,10 @@ public class ProductList extends HttpServlet {
 		    case 5: cateName = "양상추/양배추/새싹채소"; break;
 		    case 6: cateName = "당근/연근/뿌리채소"; break;
 		    case 7: cateName = "마늘/양파/생강/파"; break;
-		    case 8: cateName = "1인 꾸러미"; break;
-		    case 9: cateName = "2인 꾸러미"; break;
-		    case 10: cateName = "3인 꾸러미"; break;
-		    case 11: cateName = "4인 꾸러미"; break;
+		    case 8: cateName = "혼밥 꾸러미"; break;
+		    case 9: cateName = "커플 꾸러미"; break;
+		    case 10: cateName = "트리오 꾸러미"; break;
+		    case 11: cateName = "패밀리 꾸러미"; break;
 		}
 		
 		// 페이징
