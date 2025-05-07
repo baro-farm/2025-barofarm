@@ -25,8 +25,8 @@ public interface PackageOrderDAO {
 	Integer selectCountSellerPackOrderList(Map<String,Object> param) throws Exception;
 	
 	void updatePackTrackingNum(Map<String,Object> param) throws Exception;
-	void insertPackageOrder(SqlSession sqlSession, PackageOrder packOrder) throws Exception;
-	void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception;
+	void insertPackageOrder( PackageOrder packOrder) throws Exception;
+	void insertSubscription( PackageSubscribe sub) throws Exception;
 	List<AdminPackOrderVO> selectAdminPackOrderList(Map<String, Object> paramMap);
     int countAdminPackOrderList(Map<String, Object> paramMap);
 }

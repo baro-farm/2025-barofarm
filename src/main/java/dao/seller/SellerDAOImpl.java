@@ -7,12 +7,15 @@ import util.MybatisSqlSessionFactory;
 import vo.SellerVO;
 
 public class SellerDAOImpl implements SellerDAO {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+    private final SqlSession sqlSession;
 
+    public SellerDAOImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
+    
 	@Override
 	public void insertSellerDetail(SellerDetail seller) throws Exception {
 		sqlSession.insert("mapper.seller.insertSeller", seller);
-		sqlSession.commit();
 	}
 
 	@Override
@@ -40,7 +43,6 @@ public class SellerDAOImpl implements SellerDAO {
 	@Override
 	public void updateIsAlarm(Long userNum) throws Exception {
 		sqlSession.update("mapper.seller.updateIsAlarm",userNum);
-		sqlSession.commit();
 	}
 
 	@Override

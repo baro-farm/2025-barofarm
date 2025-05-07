@@ -5,64 +5,93 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dao.buyer.UserDAO;
 import dao.buyer.UserDAOImpl;
 import dto.buyer.Address;
+import util.MybatisSqlSessionFactory;
 import vo.UserVO;
 
 public class UserServiceImpl implements UserService {
-	private UserDAO userDao;
-	 
-	public UserServiceImpl() {
-		userDao = new UserDAOImpl();
+
+	private UserDAO userDao(SqlSession sqlSession) {
+		return new UserDAOImpl(sqlSession);
 	}
-	
+
 	@Override
 	public UserVO selectUserInfo(String userId) throws Exception {
-		// TODO Auto-generated method stub
-		return userDao.selectUser(userId);
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			return userDao(sqlSession).selectUser(userId);
+		}
 	}
 
 	@Override
 	public void updateUserInfo(UserVO user) throws Exception {
-		userDao.updateUser(user);
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false)) {
+
+			userDao(sqlSession).updateUser(user);
+			sqlSession.commit();
+		}
 	}
-	
-	public void insertUserAddress(Address address) throws Exception{
-		userDao.insertAddress(address);
+
+	public void insertUserAddress(Address address) throws Exception {
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false)) {
+
+			userDao(sqlSession).insertAddress(address);
+			sqlSession.commit();
+		}
 	}
 
 	@Override
 	public List<Address> selectUserAddressList(String userId) throws Exception {
-		List<Address> addressList = new ArrayList<>();
-		addressList = userDao.selectAddressList(userId);
-		return addressList;
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
+			List<Address> addressList = new ArrayList<>();
+			addressList = userDao(sqlSession).selectAddressList(userId);
+			return addressList;
+		}
 	}
 
 	@Override
 	public Address selectUserAddress(Long addrNum) throws Exception {
-		return userDao.selectAddress(addrNum);
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
+			return userDao(sqlSession).selectAddress(addrNum);
+		}
 	}
 
 	@Override
 	public Address selectDefaultAddress(Long userNum) throws Exception {
-		return userDao.selectDefaultAddress(userNum);
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
+			return userDao(sqlSession).selectDefaultAddress(userNum);
+		}
 	}
-	
+
 	@Override
 	public void updateUserAddress(Address address) throws Exception {
-		 userDao.updateAddress(address);
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false)) {
+
+			userDao(sqlSession).updateAddress(address);
+			sqlSession.commit();
+		}
 	}
 
 	@Override
 	public void deleteUserAddress(Long addrNum) throws Exception {
-		userDao.deleteAddress(addrNum);
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(false)) {
+
+			userDao(sqlSession).deleteAddress(addrNum);
+			sqlSession.commit();
+		}
 	}
 
 	@Override
 	public Long selectUserNumByUserId(String userId) throws Exception {
-		// TODO Auto-generated method stub
-		return userDao.selectUserNumById(userId);
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			return userDao(sqlSession).selectUserNumById(userId);
+		}
 	}
 
 }

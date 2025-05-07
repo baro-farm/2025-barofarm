@@ -11,12 +11,15 @@ import util.MybatisSqlSessionFactory;
 import vo.ProductVO;
 
 public class ProductDAOImpl implements ProductDAO {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+	
+    private final SqlSession sqlSession;
 
+    public ProductDAOImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 	@Override
 	public void insertProduct(Product product) throws Exception {
 		sqlSession.insert("mapper.product.insertProduct", product);
-		sqlSession.commit();
 	}
 
 	@Override
@@ -31,19 +34,16 @@ public class ProductDAOImpl implements ProductDAO {
 		System.out.println("product.getSalesVolume() = " + product.getSalesVolume());
 
 		sqlSession.update("mapper.product.updateProduct", product);
-		sqlSession.commit();
 	}
 
 	@Override
 	public void updateProductStatus(Product product) throws Exception {
 		sqlSession.update("mapper.product.stopProduct", product);
-		sqlSession.commit();
 	}
 
 	@Override
 	public void insertProductOption(ProductOption productOption) throws Exception {
 		sqlSession.insert("mapper.product.insertProductOption", productOption);
-		sqlSession.commit();
 	}
 
 	@Override
@@ -54,13 +54,11 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void updateProductOption(ProductOption productOption) throws Exception {
 		sqlSession.update("mapper.product.updateProductOption", productOption);
-		sqlSession.commit();
 	}
 
 	@Override
 	public void deleteProductOption(Long optionNum) throws Exception {
 		sqlSession.delete("mapper.product.deleteProductOption", optionNum);
-		sqlSession.commit();
 	}
 
 
@@ -74,13 +72,11 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void updateProductStock(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.product.updateProductStock",param);
-		sqlSession.commit();
 	}
 
 	@Override
 	public void updateProductStatusBatch(List<Map<String, Object>> productList) throws Exception {
 		sqlSession.update("mapper.product.updateProductStatusBatch", productList);
-		sqlSession.commit();
 	}
 
 	@Override
@@ -89,12 +85,12 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
-	public void adjustStock(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+	public void adjustStock(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.product.adjustStock", param);
 	}
 	
 	@Override
-    public void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+    public void adjustSalesVolume( Map<String, Object> param) throws Exception {
         sqlSession.update("mapper.product.adjustSalesVolume", param);
     }
 }

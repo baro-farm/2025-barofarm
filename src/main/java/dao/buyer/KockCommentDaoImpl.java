@@ -12,12 +12,15 @@ import util.SearchDtoSoy;
 import vo.KockCommentVO;
 
 public class KockCommentDaoImpl implements KockCommentDao {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+	private SqlSession sqlSession;
 
+	public KockCommentDaoImpl(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
 	@Override
 	public boolean insertKockComment(KockComment kComment) throws Exception {
 		int result = sqlSession.insert("mapper.kockFarm.insertKockComment",kComment);
-		sqlSession.commit();
 		return result >0;
 	}
 
@@ -34,7 +37,6 @@ public class KockCommentDaoImpl implements KockCommentDao {
 	@Override
 	public boolean insertBabyComment(BabyComment bComment) throws Exception {
 		int result = sqlSession.insert("mapper.kockFarm.insertBabyComment",bComment);
-		sqlSession.commit();
 		return result >0 ;
 	}
 

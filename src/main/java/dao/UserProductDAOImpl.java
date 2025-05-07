@@ -13,25 +13,27 @@ import vo.ProdReviewVO;
 import vo.ProductVO;
 import vo.QuestionVO;
 
-public class UserProductDAOImpl implements UserProductDAO{
+public class UserProductDAOImpl implements UserProductDAO {
 
 	@Override
 	public List<ProductVO> selectProductByCategory(Map<String, Object> param) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
-            return sqlSession.selectList("mapper.product.selectProductByCategory", param);
-        }
+			return sqlSession.selectList("mapper.product.selectProductByCategory", param);
+		}
 	}
 
 	@Override
 	public Integer countProductByCategory(Integer cateNum) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
-            return sqlSession.selectOne("mapper.product.countProductByCategory", cateNum);
-        }
+
+			return sqlSession.selectOne("mapper.product.countProductByCategory", cateNum);
+		}
 	}
 
 	@Override
 	public List<ProductVO> selectBest5() throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.product.selectBest5");
 		}
 	}
@@ -39,6 +41,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<ProductVO> selectNew5() throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.product.selectNew5");
 		}
 	}
@@ -46,6 +49,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<ProductVO> selectBestProductByPage() throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.product.selectBestProductsByPage");
 		}
 	}
@@ -53,6 +57,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<ProductVO> selectNewProductByPage() throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.product.selectNewProductsByPage");
 		}
 	}
@@ -60,6 +65,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<ProductVO> searchProducts(Map<String, Object> param) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.product.searchProduct", param);
 		}
 	}
@@ -67,6 +73,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countProductsByKeyword(String keyword) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectOne("mapper.product.countProductsByKeyword", keyword);
 		}
 	}
@@ -74,6 +81,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<ProdReviewVO> selectProdReview(Map<String, Object> param) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.prodReview.selectProdReview", param);
 		}
 	}
@@ -81,6 +89,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countProdReview(Long prodNum) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectOne("mapper.prodReview.countProdReview", prodNum);
 		}
 	}
@@ -88,6 +97,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public ProductVO selectDetailProduct(Long productNum) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectOne("mapper.product.selectDetailProduct", productNum);
 		}
 	}
@@ -95,6 +105,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<ProductOption> selectProductOption(Long productNum) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.product.selectProductOption", productNum);
 		}
 	}
@@ -102,6 +113,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<ProductVO> selectProductBySellerNum(Map<String, Object> param) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.product.selectProductBySellerNum", param);
 		}
 	}
@@ -109,6 +121,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countProductBySellerNum(Long sellerNum) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectOne("mapper.product.countProductBySellerNum", sellerNum);
 		}
 	}
@@ -116,6 +129,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public PackageVO selectDetailPackage(Long packageNum) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectOne("mapper.packageProduct.selectDetailPackage", packageNum);
 		}
 	}
@@ -123,6 +137,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<PackageVO> selectPackageByCategory(Map<String, Object> param) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.packageProduct.selectPackageByCategory", param);
 		}
 	}
@@ -130,6 +145,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countPackageByCategory(Integer packNum) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectOne("mapper.packageProduct.countPackageByCategory", packNum);
 		}
 	}
@@ -137,6 +153,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<PackageVO> selectPackageByAll(Map<String, Object> param) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.packageProduct.selectPackageByAll", param);
 		}
 	}
@@ -144,6 +161,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countPackageByAll() throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectOne("mapper.packageProduct.countPackageByAll");
 		}
 	}
@@ -151,6 +169,7 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public List<PackReviewVO> selectPackReview(Map<String, Object> param) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectList("mapper.packReview.selectPackReview", param);
 		}
 	}
@@ -158,10 +177,9 @@ public class UserProductDAOImpl implements UserProductDAO{
 	@Override
 	public Integer countPackReview(Long packNum) throws Exception {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+
 			return sqlSession.selectOne("mapper.packReview.countPackReview", packNum);
 		}
 	}
-
-	
 
 }

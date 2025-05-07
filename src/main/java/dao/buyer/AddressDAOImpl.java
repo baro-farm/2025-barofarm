@@ -9,12 +9,14 @@ import dto.buyer.Address;
 import util.MybatisSqlSessionFactory;
 
 public class AddressDAOImpl implements AddressDAO {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+    private final SqlSession sqlSession;
 
+    public AddressDAOImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 	@Override
 	public void insertAddress(Address address) throws Exception {
 		 sqlSession.insert("mapper.address.insertAddress", address);
-		 sqlSession.commit();
 	}
 
 	@Override
@@ -23,7 +25,6 @@ public class AddressDAOImpl implements AddressDAO {
 	    param.put("addr1", addr1);
 	    param.put("addr2", addr2);
         int res = sqlSession.update("mapper.address.updateDefaultAddressSeller", param);
-        sqlSession.commit();
         return res ==1;
 	}
 

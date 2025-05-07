@@ -10,11 +10,13 @@ import dto.buyer.PackageSubscribe;
 import util.MybatisSqlSessionFactory;
 import vo.AdminPackOrderVO;
 import vo.PackOrderVO;
-import vo.ProdOrderVO;
 
 public class PackageOrderDAOImpl implements PackageOrderDAO{
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+	private SqlSession sqlSession;
 
+	public PackageOrderDAOImpl(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 	@Override
 	public List<PackOrderVO> selectPackOrderList(String userId) throws Exception{
 		Long userNum = sqlSession.selectOne("mapper.user.selectUserNumById",userId);
@@ -24,7 +26,6 @@ public class PackageOrderDAOImpl implements PackageOrderDAO{
 	@Override
 	public void updateDeliveryStatus(PackageOrder pkOrder) throws Exception {
 		sqlSession.update("mapper.packOrder.updatePkDeliveryStatus", pkOrder);
-		sqlSession.commit();
 		
 	}
 	
@@ -44,7 +45,6 @@ public class PackageOrderDAOImpl implements PackageOrderDAO{
 	@Override
 	public void updatePackTrackingNum(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.packOrder.updatePkTrackingNum",param);
-		sqlSession.commit();
 	}
 
 	//user list
@@ -63,12 +63,12 @@ public class PackageOrderDAOImpl implements PackageOrderDAO{
 	}
 
 	@Override
-	public void insertPackageOrder(SqlSession sqlSession, PackageOrder packOrder) throws Exception {
+	public void insertPackageOrder(PackageOrder packOrder) throws Exception {
 		sqlSession.insert("mapper.packOrder.insertPackOrder", packOrder);
 	}
 	
 	@Override
-	public void insertSubscription(SqlSession sqlSession, PackageSubscribe sub) throws Exception {
+	public void insertSubscription( PackageSubscribe sub) throws Exception {
 		sqlSession.insert("mapper.packageSub.insertSubscription", sub);	
 	}
 	

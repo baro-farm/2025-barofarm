@@ -9,8 +9,12 @@ import util.MybatisSqlSessionFactory;
 import vo.PackReviewVO;
 
 public class PackReviewDAOImple implements PackReviewDAO {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+    private final SqlSession sqlSession;
 
+    public PackReviewDAOImple(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
+    
 	@Override
 	public List<PackReviewVO> selectWritableReviewList(String userId) throws Exception {
 		Long userNum = sqlSession.selectOne("mapper.user.selectUserNumById",userId);
@@ -26,7 +30,6 @@ public class PackReviewDAOImple implements PackReviewDAO {
 	@Override
 	public void inserPackReview(PackReviewVO packReview) throws Exception {
 		sqlSession.insert("mapper.packReview.insertPackReview",packReview);	
-		sqlSession.commit();
 	}
 
 	//seller List
@@ -44,7 +47,6 @@ public class PackReviewDAOImple implements PackReviewDAO {
 	@Override
 	public void insertSellerPackReviewComment(Map<String, Object> param) throws Exception {
 		sqlSession.insert("mapper.packReview.insertSellerPackReviewComment",param);
-		sqlSession.commit();
 	}
 
 	@Override

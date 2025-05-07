@@ -14,12 +14,15 @@ import util.MybatisSqlSessionFactory;
 import vo.AdminQuestionVO;
 
 public class UserDAOImpl implements UserDAO {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
-	
+    private final SqlSession sqlSession;
+
+    public UserDAOImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
+    
 	@Override
 	public void insertUser(User user) throws Exception {
 			sqlSession.insert("mapper.user.insertUser", user);
-			sqlSession.commit();
 	}
 
 	@Override
@@ -30,13 +33,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void deleteUser(String userId) throws Exception {
 			sqlSession.update("mapper.user.deleteUser", userId);
-			sqlSession.commit();
 	}
 
 	@Override
 	public void insertAdminQA(AdminQuestion adminQuestion) throws Exception {
 		sqlSession.insert("mapper.adminQuestion.insertAdminQA", adminQuestion);
-		sqlSession.commit();
 	}
 
 	@Override
@@ -72,13 +73,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void resetPwdToken(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.user.resetPwdToken", param);
-		sqlSession.commit();
 	}
 	
 	@Override
 	public void resetPwd(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.user.resetPwd", param);
-		sqlSession.commit();		
 	}
 
 	@Override
@@ -103,7 +102,6 @@ public class UserDAOImpl implements UserDAO {
         param.put("fcmToken", newFcmToken);
         
 		sqlSession.update("mapper.user.updateFcmToken", param);
-		sqlSession.commit();	
 	}
 
 	@Override
@@ -114,7 +112,6 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void deleteAdminQA(Long questionNum) throws Exception {
 		sqlSession.delete("mapper.adminQuestion.deleteAdminQA", questionNum);
-		sqlSession.commit();
 	}
 
 	@Override
@@ -129,14 +126,12 @@ public class UserDAOImpl implements UserDAO {
         param.put("postCode", postCode);
 
         int res = sqlSession.update("mapper.user.updateSellerAccountInfo", param);
-        sqlSession.commit();
         return res ==1;
 	}
 
 	@Override
 	public void deleteFcmToken(Long userNum) throws Exception{
 		sqlSession.update("mapper.user.deleteFcmToken",userNum);
-		sqlSession.commit();
 	}
 
 }

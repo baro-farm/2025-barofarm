@@ -11,8 +11,12 @@ import util.MybatisSqlSessionFactory;
 import vo.UserVO;
 
 public class UserDAOImpl implements UserDAO {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+    private final SqlSession sqlSession;
 
+    public UserDAOImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
+    
 	@Override
 	public UserVO selectUser(String userId) throws Exception {
 		return  sqlSession.selectOne("mapper.user.selectUserWithAddress",userId);
@@ -29,13 +33,11 @@ public class UserDAOImpl implements UserDAO {
 		user.getAddresses().get(0).setUserNum(userNum);
 		sqlSession.update("mapper.user.updateUser",user);
 		sqlSession.update("mapper.user.updateAddress",user.getAddresses().get(0));
-		sqlSession.commit();
 	}
 
 	@Override
 	public void insertAddress(Address address) throws Exception {
 		sqlSession.insert("mapper.user.insertAddress",address);
-		sqlSession.commit();
 		
 	}
 
@@ -58,13 +60,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void updateAddress(Address address) throws Exception {
 		sqlSession.update("mapper.user.updateAddressByAddrNum",address);
-		sqlSession.commit();
 	}
 
 	@Override
 	public void deleteAddress(Long addrNum) throws Exception {
 		sqlSession.delete("mapper.user.deleteAddress",addrNum);
-		sqlSession.commit();
 	}
 
 }

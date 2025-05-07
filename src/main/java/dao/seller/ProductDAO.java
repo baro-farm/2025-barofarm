@@ -24,6 +24,6 @@ public interface ProductDAO {
 	void updateProductStock(Map<String, Object> param) throws Exception;
 	void updateProductStatusBatch(List<Map<String, Object>> productList) throws Exception;
 	Integer countProductList(Map<String, Object> param) throws Exception;
-	void adjustStock(SqlSession sqlSession, Map<String, Object> param) throws Exception;
-	void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception;
+	void adjustStock( Map<String, Object> param) throws Exception;
+	void adjustSalesVolume( Map<String, Object> param) throws Exception;
 }

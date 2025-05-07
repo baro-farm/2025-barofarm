@@ -15,12 +15,14 @@ import vo.KockCommentVO;
 import vo.KockFarmVO;
 
 public class KockFarmDaoImpl implements KockFarmDao {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+	private SqlSession sqlSession;
 
+	public KockFarmDaoImpl(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 	@Override
 	public Long insertKockFarm(KockFarm kock) throws Exception {
 		Long num = (long) sqlSession.insert("mapper.kockFarm.insertKockFarm",kock);
-		sqlSession.commit();
 		return num;
 	}
 
@@ -32,13 +34,11 @@ public class KockFarmDaoImpl implements KockFarmDao {
 	@Override
 	public void updateKockFarm(KockFarm kockFarm) {
 		sqlSession.update("mapper.kockFarm.updateKockFarm", kockFarm);
-		sqlSession.commit();
 	}
 
 	@Override
 	public void deleteKockFarm(Long kockNum) throws Exception {
 		sqlSession.delete("mapper.kockFarm.deleteKockFarm", kockNum);
-		sqlSession.commit();
 	}
 
 	@Override
@@ -55,13 +55,11 @@ public class KockFarmDaoImpl implements KockFarmDao {
 	@Override
 	public void insertMatching(Matching matching) throws Exception {
 		sqlSession.insert("mapper.kockFarm.insertMatching",matching);
-		sqlSession.commit();
 	}
 
 	@Override
 	public void updateKockMatched(Long kockNum) throws Exception {
 		sqlSession.update("mapper.kockFarm.updateKockMatched", kockNum);
-		sqlSession.commit();
 	}
 
 	@Override

@@ -8,19 +8,23 @@ import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
 import vo.PackSubVO;
 
-public class PackageSubDAOImpl implements PackageSubDAO{
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+public class PackageSubDAOImpl implements PackageSubDAO {
+	private final SqlSession sqlSession;
+
+	public PackageSubDAOImpl(SqlSession sqlSession) {
+
+		this.sqlSession = sqlSession;
+
+	}
 
 	@Override
 	public List<PackSubVO> selectUserPackSubList(Map<String, Object> param) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("mapper.packageProduct.selectPackSubList",param);
+		return sqlSession.selectList("mapper.packageProduct.selectPackSubList", param);
 	}
 
 	@Override
 	public Integer selectUserPackSubCount(Map<String, Object> param) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.packageProduct.selectPackSubCount",param);
+		return sqlSession.selectOne("mapper.packageProduct.selectPackSubCount", param);
 	}
 
 }
