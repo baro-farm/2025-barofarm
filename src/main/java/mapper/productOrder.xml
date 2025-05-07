@@ -91,9 +91,9 @@
 		    poi.orderItem,              
 		    poi.productNum,            
 		    pOpt.option,  
-		    pOpt.price AS optionPrice,  
+		    (pOpt.price + p.price) AS optionPrice,  
 		    poi.amount,                 
-		    (pOpt.price * poi.amount) AS totalPrice,
+		    ((pOpt.price + p.price) * poi.amount) AS totalPrice,
 		    po.orderDate,             
 		    CONCAT(
 			    LEFT(u.userId, 1),        
@@ -279,7 +279,11 @@
             po.option AS optionName,
             poi.amount,
             poi.price,
-            u.userId,
+            CONCAT(
+			    LEFT(u.userId, 1),        
+			    REPEAT('*', CHAR_LENGTH(u.userId) - 2),
+			    RIGHT(u.userId, 1)
+			) as userId,
             o.rname,
             o.rphone,
             o.address

@@ -27,11 +27,11 @@
 			
 				    <!-- 리뷰 리스트 -->
 				    <div class="reviewBox">
-				        <img src="${contextPath}/upload/${packReview.pkReviewImgUrl }" alt="${packReview.pkReviewImgUrl }" class="packuctImage">
-				        <div class="reviewContent">
-				            <div class="storeName"><a href="${contextPath }/storeProductList?sellerNum=${prodReview.sellerNum}">[${packReview.storeName }]</a></div>
-				            <div class="packuctName"><a href="${contextPath }/detailPackage?packageNum=${prodReview.packageNum}">${packReview.packageName }</a></div>
-				            <div class="pkRating">
+				        <img src="${contextPath}/upload/${packReview.pkReviewImgUrl }" alt="${packReview.pkReviewImgUrl }" class="productImage">
+				        <div class="reviewContent ">
+				            <div class="storeName" style="margin-top:10px; margin-bottom:5px;"><a href="${contextPath }/storeProductList?sellerNum=${packReview.sellerNum}">[${packReview.storeName }]</a></div>
+				            <div class="productName" style="margin-top:10px;"><a href="${contextPath }/detailPackage?packageNum=${packReview.packageNum}">${packReview.packageName }</a></div>
+				            <div class="pdRating" style="margin-top:10px;">
 					            <c:forEach var="i" begin="1" end="5">
 								    <c:choose>
 								      <c:when test="${i <= packReview.pkRating}">
@@ -44,7 +44,7 @@
 								  </c:forEach>
 								  ${packReview.pkRating }
 				            </div>
-				            <div class="pkReviewContent" style="min-height:150px;">
+				            <div class="pdReviewContent" style="min-height:100px;margin-top:10px;">
 				                ${packReview.pkReviewContent }
 				            </div>
 				            <div class="reviewDate">${packReview.createdAt }</div>

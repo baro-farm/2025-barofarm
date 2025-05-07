@@ -143,6 +143,9 @@ tbody tr.hovered td {
 	padding: 5px 10px;
 	border-radius: 5px;
 }
+.statusToggle{
+	cursor: pointer;
+}
 
 .on-sale {
 	background-color: #65B741;

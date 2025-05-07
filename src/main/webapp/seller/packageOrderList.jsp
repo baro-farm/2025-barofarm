@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -199,8 +200,8 @@
 	        <table id="notie_table" class="table">
 	            <thead>
 	            	<tr>
-		            <th style="font-weight: bold;">주문번호</th>
-		            <th style="font-weight: bold;">제품번호</th>
+		            <th style="font-weight: bold;">주문<br>번호</th>
+		            <th style="font-weight: bold;">품번</th>
 		            <th style="font-weight: bold;">제품명</th>
 		            <th style="font-weight: bold;">가격</th>
 		            <th style="font-weight: bold;">결제일</th>		            
@@ -208,8 +209,8 @@
 		            <th style="font-weight: bold;">수령인</th>
 		            <th style="font-weight: bold;">주소</th>
 		            <th style="font-weight: bold;">전화번호</th>
-		            <th style="font-weight: bold;">발송요일</th>
-		            <th style="font-weight: bold;">구독시작일</th>
+		            <th style="font-weight: bold;">발송<br>요일</th>
+		            <th style="font-weight: bold;">구독<br>시작일</th>
 		            <th style="font-weight: bold;">회차정보</th>
 		            <th style="font-weight: bold;">배송상태</th>
 		          </tr>
@@ -222,14 +223,14 @@
 				        <td><div class="uiGridCell packageNum" data-packagenum="${order.packageNum }"><a href="${contextPath }/detailPackage?packageNum=${order.packageNum}">${order.packageNum}</a></div></td>
 				        <td><div class="uiGridCell packageNum"><a href="${contextPath }/detailPackage?packageNum=${order.packageNum}">${order.packageName}</a></div></td>
 				        
-				        <td><div class="uiGridCell">${order.pkTotalPrice}원</div></td>
+				        <td><div class="uiGridCell"><fmt:formatNumber value="${order.pkTotalPrice}" type="number" groupingUsed="true" />원</div></td>
 
 				        <td><div class="uiGridCell">${order.orderedAt}</div></td>
 				        <td><div class="uiGridCell id">${order.userId}</div></td>
 
 				        <td><div class="uiGridCell id">${order.rname}</div></td>
 				        <td><div class="uiGridCell">${order.addr}</div></td>
-				        <c:set var="rPhone" value="${order.rphone}" />
+				        <c:set var="rphone" value="${order.rphone}" />
 							<c:if test="${not empty rphone and fn:length(rphone) == 11}">
 							  <td><div class="uiGridCell id">
 							    ${fn:substring(rphone, 0, 3)}-${fn:substring(rphone, 3, 7)}-${fn:substring(rphone, 7, 11)}

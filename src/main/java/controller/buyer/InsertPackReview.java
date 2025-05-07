@@ -49,10 +49,11 @@ public class InsertPackReview extends HttpServlet {
 		request.setCharacterEncoding("utf-8");	    
 
 	    System.out.println("userNum param: " + request.getParameter("userNum"));
-	    System.out.println("productNum param: " + request.getParameter("packageNum"));
+	    System.out.println("packageNum param: " + request.getParameter("packageNum"));
 
 	    Long packageNum = Long.parseLong(request.getParameter("packageNum"));
 	    Long pkOrderNum=Long.parseLong(request.getParameter("pkOrderNum"));
+	    Long userNum = Long.parseLong(request.getParameter("userNum"));
 	    String storeName = request.getParameter("storeName");
 	    String packageName = request.getParameter("packageName");
 	    String imgUrl = request.getParameter("imgUrl");
@@ -61,10 +62,11 @@ public class InsertPackReview extends HttpServlet {
 	    try {
 			request.setAttribute("packageNum", packageNum);
 			request.setAttribute("packageName", packageName);
+			request.setAttribute("userNum", userNum);
 			request.setAttribute("storeName", storeName);
 			request.setAttribute("imgUrl", imgUrl);
 			request.setAttribute("pkOrderNum", pkOrderNum);
-		    request.getRequestDispatcher("/buyer/insertProdReview.jsp").forward(request, response);
+		    request.getRequestDispatcher("/buyer/insertPackReview.jsp").forward(request, response);
 
 			
 		} catch (Exception e) {
@@ -90,7 +92,7 @@ public class InsertPackReview extends HttpServlet {
 	    Long pkOrderNum = Long.parseLong(multi.getParameter("pkOrderNum"));
 	    int pkRating = Integer.parseInt(multi.getParameter("pkRating"));
 	    String pkReviewContent = multi.getParameter("pkReviewContent");
-	    String imgUrl = multi.getFilesystemName("pkReviewImage");		
+	    String imgUrl = multi.getFilesystemName("reviewImage");		
 	    
 	    
 	    PackReviewVO pkReview = new PackReviewVO();

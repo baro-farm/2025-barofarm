@@ -39,6 +39,7 @@ public class UpdateInfoFoam extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			
 			String userId= request.getParameter("userId");
+			String pwd = request.getParameter("pwd");
 			String userName= request.getParameter("userName");
 			String phone= request.getParameter("phone");
 			String email= request.getParameter("email");
@@ -49,6 +50,7 @@ public class UpdateInfoFoam extends HttpServlet {
 			
 			UserVO userVo=new UserVO();
 			userVo.setUserId(userId);
+			userVo.setPwd(pwd);
 			userVo.setUserName(userName);
 			userVo.setPhone(phone);
 			userVo.setEmail(email);

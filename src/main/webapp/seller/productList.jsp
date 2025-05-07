@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
@@ -198,8 +199,9 @@
 					          					        <c:if test="${status.first }">
 					          <td rowspan="${fn:length(product.optionList)}" ><button class="btn edit" data-productnum="${product.productNum}">수정</button></td>		          		
 		          			</c:if>
-					          <td rowspan="${fn:length(product.optionList)}"><fmt:formatNumber value="${product.price}" type="number" />원</td>
-					          <td rowspan="${fn:length(product.optionList)}">		          			
+					          <td rowspan="${fn:length(product.optionList)}"><fmt:formatNumber value="${product.pdPrice}" type="number" groupingUsed="true" />원</td>
+					          <td rowspan="${fn:length(product.optionList)}" class="statusToggle">		          			
+
 							     <c:choose>
 					              <c:when test="${product.status == true}">
 					                <div class="${product.status == true ? 'green' : 'red' }"></div>
@@ -216,7 +218,8 @@
 					        </c:if>      			
 					        <!-- 옵션 정보: 항상 출력 -->
 					        <td data-optionnum="${option.optionNum }">${option.option}</td>
-					        <td><fmt:formatNumber value="${option.price}" type="number" />원</td>
+					        <c:set var="optionTotalPrice" value="${product.pdPrice + option.optionPrice }"/>
+					        <td><fmt:formatNumber value="${optionTotalPrice}" type="number" groupingUsed="true" />원</td>
                        		<td>
                        			<div class="uiGridCell"><button class="stockBtn">-</button> <input type='number' min='0'  class="stock" value="${option.stock}"> <button class="stockBtn">+</button> <button class="saveBtn" data-optionnum="${option.optionNum }">저장</button></div>
                        		</td>

@@ -33,7 +33,7 @@
 	    <result property="sellerNum" column="sellerNum"/>
 	    <result property="productName" column="productName"/>
 	    <result property="status" column="status"/>
-	    <result property="price" column="price"/>
+	    <result property="pdPrice" column="pdPrice"/>
 	    <result property="imgUrl" column="imgUrl"/>
 	    <result property="createdAt" column="createdAt"/>
 	    <result property="salesVolume" column="salesVolume"/>
@@ -46,7 +46,7 @@
 		    <result property="productNum" column="productNum"/>
 		    <result property="optionNum" column="optionNum"/>
 		    <result property="option" column="option"/>
-		    <result property="price" column="price"/> 
+		    <result property="optionPrice" column="optionPrice"/> 
 		    <result property="stock" column="stock"/>
 		    <result property="createdAt" column="createdAt"/> 
 		    <result property="updatedAt" column="updatedAt"/>
@@ -55,10 +55,10 @@
 	</resultMap>
 	
 	<select id="selectProductList" parameterType="map" resultMap="productWithOptionResultMap">
-		select p.productNum, p.sellerNum, p.productName,p.status, 
+		select p.productNum, p.sellerNum, p.productName,p.status, p.price as pdPrice,
 		p.price, p.imgUrl, p.createdAt, p.salesVolume,
 		c.name as cateName, COALESCE(pr.avgRating, 0) AS avgRating, COALESCE(pr.reviewCount, 0) as reviewCount,
-		po.optionNum,po.option,po.price,po.stock,po.createdAt,po.updatedAt
+		po.optionNum,po.option,po.price as optionPrice,po.stock,po.createdAt,po.updatedAt
 		
 		
 		from product p

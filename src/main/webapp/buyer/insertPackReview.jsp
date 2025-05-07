@@ -15,7 +15,7 @@
 	<script>
 	$(document).ready(function () {
 	    const stars = $("#starRating span");
-	    const hiddenInput = $("#pdRating");
+	    const hiddenInput = $("#pkRating");
 	    let currentRating = 0;
 
 	    // 클릭 시 input file 열기
@@ -58,24 +58,25 @@
 					<div class="header">리뷰 작성</div>
 		
 				    <div class="productInfo">
-				        <img src="${contextPath }${imgUrl }" alt="고구마" class="productImage">
+				        <img src="${contextPath }${imgUrl }" alt="" class="productImage">
 				        <div class="productDetails">
 				        	<div>${storeName }</div>
-				            <div>${productName }</div>
+				            <div>${packageName }</div>
 				        </div>
 				    </div>
 		
-			    <form action="${contextPath }/insertProdReview" method="post" enctype="multipart/form-data">
+			    <form action="/barofarm/insertPackReview" method="post" enctype="multipart/form-data">
 			        <div class="formGroup">
-			        	<input type="hidden" name="pdOrderNum" value="${pdOrderNum}">
+			        	<input type="hidden" name="pkOrderNum" value="${pkOrderNum}">
 			        
 				        <input type="hidden" name="userNum" value="${userNum}">
-						<input type="hidden" name="productNum" value="${productNum}">
+						<input type="hidden" name="packageNum" value="${packageNum}">
 						
 					    <!-- 추가: storeName, productName, imgUrl -->
 					    <input type="hidden" name="storeName" value="${storeName}">
-					    <input type="hidden" name="productName" value="${productName}">
+					    <input type="hidden" name="packageName" value="${packageName}">
 					    <input type="hidden" name="imgUrl" value="${imgUrl}">
+					    
 			            <label>만족도</label>
 			            <div id="starRating" class="ratingStars">
 					        <span data-value="1">☆</span>
@@ -84,12 +85,12 @@
 					        <span data-value="4">☆</span>
 					        <span data-value="5">☆</span>
 					    </div>
-					    <input type="hidden" name="pdRating" id="pdRating" value="0">
+					    <input type="hidden" name="pkRating" id="pkRating" value="0">
 			        </div>
 			
 			        <div class="formGroup">
 			            <label>내용</label>
-			            <textarea class="reviewTextarea" placeholder="리뷰를 작성해주세요." name="pdReviewContent"></textarea>
+			            <textarea class="reviewTextarea" placeholder="리뷰를 작성해주세요." name="pkReviewContent"></textarea>
 			        </div>
 			
 			        <div class="fileUploadBox" id="fileUploadTrigger">
@@ -104,7 +105,7 @@
 			
 			        <div class="buttonGroup">
 			            <button type="submit" class="btn btnSubmit">등록하기</button>
-			            <button type="button" class="btn btnCancel">취소</button>
+			            <button type="button" class="btn btnCancel"  onclick="history.back()">취소</button>
 			        </div>
 			    </form>
 			    

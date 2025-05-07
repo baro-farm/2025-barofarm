@@ -14,6 +14,7 @@ public class PackReviewVO {
 	private LocalDate createdAt;
 	private String pkComment;
 	private Boolean pkCommentStatus;
+	private String imgUrl;
 	
 	private Long pkOrderNum; // 주문 번호
 	
@@ -127,8 +128,31 @@ public class PackReviewVO {
 	public void setSellerNum(Long sellerNum) {
 		this.sellerNum = sellerNum;
 	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	@Override
+	public String toString() {
+		return "PackReviewVO [pkReviewNum=" + pkReviewNum + ", userNum=" + userNum + ", userId=" + userId
+				+ ", packageNum=" + packageNum + ", pkRating=" + pkRating + ", pkReviewContent=" + pkReviewContent
+				+ ", pkReviewImgUrl=" + pkReviewImgUrl + ", createdAt=" + createdAt + ", pkComment=" + pkComment
+				+ ", pkCommentStatus=" + pkCommentStatus + ", imgUrl=" + imgUrl + ", pkOrderNum=" + pkOrderNum
+				+ ", packageName=" + packageName + ", packageUnit=" + packageUnit + ", storeName=" + storeName
+				+ ", sellerNum=" + sellerNum + ", orderdAt=" + orderdAt + ", deadline=" + deadline
+				+ ", getPkReviewNum()=" + getPkReviewNum() + ", getUserNum()=" + getUserNum() + ", getUserId()="
+				+ getUserId() + ", getPackageNum()=" + getPackageNum() + ", getPkRating()=" + getPkRating()
+				+ ", getPkReviewContent()=" + getPkReviewContent() + ", getPkReviewImgUrl()=" + getPkReviewImgUrl()
+				+ ", getCreatedAt()=" + getCreatedAt() + ", getPkComment()=" + getPkComment()
+				+ ", getPkCommentStatus()=" + getPkCommentStatus() + ", getPkOrderNum()=" + getPkOrderNum()
+				+ ", getPackageName()=" + getPackageName() + ", getPackageUnit()=" + getPackageUnit()
+				+ ", getStoreName()=" + getStoreName() + ", getOrderdAt()=" + getOrderdAt() + ", getDeadline()="
+				+ getDeadline() + ", getSellerNum()=" + getSellerNum() + ", getImgUrl()=" + getImgUrl()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
 	
-	
-
 	
 }

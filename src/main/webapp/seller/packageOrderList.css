@@ -258,7 +258,33 @@ tbody tr.hovered td {
 	background-color: #FCFCFC;
 	height: 30px;
 }
+.table th:nth-child(1),.table td:nth-child(1),
+.table th:nth-child(2), .table td:nth-child(2),
+.table th:nth-child(12),.table td:nth-child(12){
+	width: 35px;    
+    padding: 0 20px;
+}
+.table th:nth-child(7),.table td:nth-child(7),
+.table th:nth-child(3),.table td:nth-child(3){
+    width: 50px;    
+    padding: 0 20px;
+}
 
+.table th:nth-child(4),.table td:nth-child(4),
+.table th:nth-child(9),.table td:nth-child(9){
+	width:100px;
+	padding: 0 20px;
+}
+.table th:nth-child(6),.table td:nth-child(6){
+	width:25px;
+	padding: 0 20px;
+	
+}
+
+.table th:nth-child(10),.table td:nth-child(10){
+    width: 40px;
+    padding: 0 20px;	
+}
 .table th:nth-child(5),.table td:nth-child(5),
 .table th:nth-child(11),.table td:nth-child(11){
 	width: 100px;

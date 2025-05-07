@@ -39,7 +39,7 @@ UserVO user = (UserVO)request.getAttribute("user");
 		
 		        <div class="formGroup">
 		            <label>비밀번호</label>
-		            <input type="password" name="pwd">
+		            <input type="password" value="${user.pwd }" name="pwd" >
 		        </div>
 		
 		        <div class="formGroup">
@@ -77,7 +77,6 @@ UserVO user = (UserVO)request.getAttribute("user");
 				
 		        <div class="btn-group">
 		            <button type="submit" class="btn btn-save">저장</button>
-		            <button type="button" class="btn btn-cancel">취소</button>
 		            
 		        </div>
 		        
@@ -98,6 +97,16 @@ UserVO user = (UserVO)request.getAttribute("user");
         <p style="margin-bottom:20px;">정말로 회원 탈퇴하시겠습니까?</p>
         <button id="confirmDelete" class="btn btn-delete" style="margin-right:10px;">확인</button>
         <button id="cancelDelete" class="btn btn-cancel">취소</button>
+    </div>
+</div>
+
+<!-- 정보 수정 확인 모달 -->
+<div id="updateConfirmModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 9999;">
+    <div style="background:#fff; padding:30px; border-radius:10px; text-align:center; width:300px;">
+        <p style="margin-bottom:20px;">정말로 정보를 수정하시겠습니까?</p>
+        <button id="confirmUpdate" class="btn btn-save" style="margin-right:10px;">확인</button>
+        <button id="cancelUpdate" class="btn">취소</button>
     </div>
 </div>
 
@@ -135,6 +144,33 @@ UserVO user = (UserVO)request.getAttribute("user");
         }).then(() => {
             window.location.href = "${contextPath}/main.jsp";
         });
+    });
+    
+    document.querySelector('.btn-save').addEventListener('click', function (e) {
+        e.preventDefault(); // 기본 submit 막기
+        document.getElementById('updateConfirmModal').style.display = 'flex';
+    });
+    
+    document.getElementById('cancelUpdate').addEventListener('click', function () {
+        document.getElementById('updateConfirmModal').style.display = 'none';
+    });
+
+    document.getElementById('confirmUpdate').addEventListener('click', function () {
+        const phone1 = document.getElementById('phone1').value.trim();
+        const phone2 = document.getElementById('phone2').value.trim();
+        const phone3 = document.getElementById('phone3').value.trim();
+
+        let hiddenPhone = document.getElementById('phone');
+        if (!hiddenPhone) {
+            hiddenPhone = document.createElement('input');
+            hiddenPhone.type = 'hidden';
+            hiddenPhone.name = 'phone';
+            hiddenPhone.id = 'phone';
+            document.querySelector('form').appendChild(hiddenPhone);
+        }
+        hiddenPhone.value = phone1 + phone2 + phone3;
+
+        document.querySelector('form').submit(); // 수동 submit
     });
 </script>
 <script>
@@ -183,5 +219,6 @@ UserVO user = (UserVO)request.getAttribute("user");
         }).open();
     }
 </script>
+
 </body>
 </html>

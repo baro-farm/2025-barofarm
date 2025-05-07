@@ -80,7 +80,7 @@ public class PackWrittenReviewList extends HttpServlet {
             }
 			
 			totalCount = service.selectCountUserWrittenReviews(userNum, period);
-			
+			System.out.println(totalCount);
 			int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 			
 			if (page > totalPages && totalPages > 0) {
@@ -95,7 +95,7 @@ public class PackWrittenReviewList extends HttpServlet {
 			int offset = (page - 1) * pageSize;
 		
 			packReviewList = service.selectUserWrittenReviews(userNum, period, offset, pageSize);
-
+			System.out.println(packReviewList);
 			// 페이지 그룹 계산
             int pageGroupSize = 5;
             int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
@@ -115,7 +115,7 @@ public class PackWrittenReviewList extends HttpServlet {
 			
 			
 			
-			request.getRequestDispatcher("/buyer/prodWrittenReviewList.jsp").forward(request, response);
+			request.getRequestDispatcher("/buyer/packWrittenReviewList.jsp").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();

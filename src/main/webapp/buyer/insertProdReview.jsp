@@ -104,7 +104,7 @@
 			
 			        <div class="buttonGroup">
 			            <button type="submit" class="btn btnSubmit">등록하기</button>
-			            <button type="button" class="btn btnCancel">취소</button>
+			            <button type="button" class="btn btnCancel"  onclick="history.back()">취소</button>
 			        </div>
 			    </form>
 			    
