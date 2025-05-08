@@ -35,8 +35,6 @@
 
             </table>
             <div class="actions">
-
-                <button class="btn addBtn">등록</button>
                 <button class="btn closeBtn">닫기</button>
 
             </div>
