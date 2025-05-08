@@ -91,7 +91,7 @@ public class ProdWrittenReviewList extends HttpServlet {
 		
 			
 			prodReviewList = service.selectUserWrittenReviews(userNum, period, offset, pageSize);
-            
+            System.out.println(prodReviewList);
 			int pageGroupSize = 5;
             int currentGroup = (int) Math.ceil((double) page / pageGroupSize);
             int groupStartPage = (currentGroup - 1) * pageGroupSize + 1;

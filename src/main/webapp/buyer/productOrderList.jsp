@@ -74,8 +74,7 @@
 		    	      const orderItem = $(this);
 		
 		    	      orderItem.find(".orderStatus").text(res.status);
-		    	      orderItem.find(".orderButtons").html(`
-		    	        <button class="btn btnGreen">리뷰작성</button>`);
+		    	      
 		
 		    	      $("#confirmModal").hide();
 		    	    }

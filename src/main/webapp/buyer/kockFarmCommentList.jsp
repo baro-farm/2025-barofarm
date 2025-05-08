@@ -148,7 +148,7 @@
 			                if(writeButton){
 			                	writeButton.addEventListener("click", function(){
 			                		console.log("click");
-			                		window.location.href = `\${contextPath}/insertKockFarm`;
+			                		window.location.href = `${contextPath}/insertKockFarm`;
 			                	});
 			                }
 			                

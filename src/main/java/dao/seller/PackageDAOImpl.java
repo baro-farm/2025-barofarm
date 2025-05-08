@@ -11,48 +11,49 @@ import vo.PackSubVO;
 import vo.PackageVO;
 
 public class PackageDAOImpl implements PackageDAO {
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
-	
+	private final SqlSession sqlSession;
+
+	public PackageDAOImpl(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+
 	@Override
 	public void insertPackageProduct(PackageProduct packageProduct) throws Exception {
 		sqlSession.insert("mapper.packageProduct.insertPackageProduct", packageProduct);
-		sqlSession.commit();
 	}
 
 	@Override
 	public PackageProduct selectPackageProduct(Long packageNum) throws Exception {
-		return sqlSession.selectOne("mapper.packageProduct.selectPackageProduct", packageNum);	
+		return sqlSession.selectOne("mapper.packageProduct.selectPackageProduct", packageNum);
 	}
-	
+
 	@Override
 	public void updatePackageProduct(PackageProduct packageProduct) throws Exception {
 		sqlSession.update("mapper.packageProduct.updatePackageProduct", packageProduct);
-		sqlSession.commit();
 	}
 
 	@Override
 	public List<PackageVO> selectPackageList(Map<String, Object> param) throws Exception {
-		return sqlSession.selectList("mapper.packageProduct.selectPackageList",param);
+		return sqlSession.selectList("mapper.packageProduct.selectPackageList", param);
 	}
-	
+
 	@Override
 	public Integer countPackageList(Map<String, Object> param) throws Exception {
-		return sqlSession.selectOne("mapper.packageProduct.countPackageList",param);
+		return sqlSession.selectOne("mapper.packageProduct.countPackageList", param);
 	}
 
 	@Override
 	public void updatePackageStock(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.packageProduct.updatePackageStock", param);
-		sqlSession.commit();		
 	}
 
 	@Override
-	public void adjustStock(SqlSession sqlSession, Map<String, Object> param) throws Exception {
-		sqlSession.update("mapper.packageProduct.adjustStock", param);		
+	public void adjustStock(Map<String, Object> param) throws Exception {
+		sqlSession.update("mapper.packageProduct.adjustStock", param);
 	}
-	
+
 	@Override
-	public void adjustSalesVolume(SqlSession sqlSession, Map<String, Object> param) throws Exception {
+	public void adjustSalesVolume(Map<String, Object> param) throws Exception {
 		sqlSession.update("mapper.packageProduct.adjustSalesVolume", param);
 	}
 
@@ -63,6 +64,6 @@ public class PackageDAOImpl implements PackageDAO {
 
 	@Override
 	public Integer countPackageSubList(Long sellernum) throws Exception {
-		return sqlSession.selectOne("mapper.packageSub.countPackageSubList",sellernum);
+		return sqlSession.selectOne("mapper.packageSub.countPackageSubList", sellernum);
 	}
 }

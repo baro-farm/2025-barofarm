@@ -40,7 +40,9 @@
 		    pr.pdReviewContent,
 		    pr.createdAt,
 		    u.userName AS buyerName,
-		    s.storeName
+		    s.storeName,
+		    pr.pdCommentStatus,
+		    pr.pdComment
 		FROM 
 		    prodReview pr
 		JOIN 
@@ -226,7 +228,9 @@
 		    pr.pdReviewContent as pdContent,
 		    pr.createdAt,
 		    sd.storeName,
-		    sd.sellerNum
+		    sd.sellerNum,
+		   	pr.pdCommentStatus,
+		    pr.pdComment
 	FROM 
 	    prodReview pr
 	JOIN 

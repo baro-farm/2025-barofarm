@@ -4,6 +4,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script>
 	const contextPath = ${contextPath};
+
 </script>
 
     <title>내가 작성한 리뷰</title>
@@ -48,6 +49,14 @@
 				                ${packReview.pkReviewContent }
 				            </div>
 				            <div class="reviewDate">${packReview.createdAt }</div>
+				            <c:if test="${packReview.pkCommentStatus eq 'true'}">
+						        <div class="answerSection">
+						            <button type="button" class="toggleAnswerBtn">답변 보기</button>
+						            <div class="answerContent" style="display:none;">
+						                ${packReview.pkComment}
+						            </div>
+						        </div>
+					        </c:if>
 				        </div>
 				    </div>
 			    </c:forEach>

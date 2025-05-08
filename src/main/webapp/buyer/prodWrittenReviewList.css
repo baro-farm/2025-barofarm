@@ -79,7 +79,40 @@
     font-size: 12px;
     color: gray;
 }
+/* 답변 보기 버튼 */
+.toggleAnswerBtn {
+    background-color: #ddd;
+    color: white;
+    border: none;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
 
+.toggleAnswerBtn:hover {
+    background-color: #569e38;
+}
+
+/* 답변 전체 영역 */
+.answerSection {
+    margin-top: 10px;
+}
+
+/* 답변 내용 */
+.answerContent {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin-top: 2px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    white-space: pre-line;
+}
 .pagination {
     display: flex;
     justify-content: center;
